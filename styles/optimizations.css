@@ -1,0 +1,344 @@
+/**
+ * Ottimizzazioni per fluidità scroll e performance
+ * MOVIEBOLI - Associazione Culturale
+ */
+
+/* Scroll fluido globale */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Compensazione navbar fissa */
+}
+
+/* Ottimizzazioni per dispositivi con motion ridotta */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scroll snap per slider orizzontali */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-snap-item {
+  scroll-snap-align: start;
+}
+
+/* Ottimizzazioni per performance */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Smooth transitions per elementi interattivi */
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smooth-transition-fast {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ottimizzazioni per immagini */
+.optimized-image {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Prevenzione layout shift */
+.aspect-ratio-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-ratio-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+.aspect-ratio-1-1 {
+  aspect-ratio: 1 / 1;
+}
+
+/* Ottimizzazioni per scroll su mobile */
+@supports (-webkit-touch-callout: none) {
+  .mobile-scroll-optimized {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
+
+/* Riduzione motion blur su scroll veloce */
+.reduce-motion-blur {
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Ottimizzazioni per animazioni Framer Motion */
+.framer-optimized {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+/* Smooth scrolling per sezioni */
+.section-scroll {
+  scroll-margin-top: 100px;
+}
+
+/* Ottimizzazioni per hover su touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .hover-only {
+    display: none;
+  }
+}
+
+/* Performance per grandi liste */
+.virtualized-list {
+  contain: layout style paint;
+}
+
+/* Ottimizzazioni per backdrop blur */
+.backdrop-blur-optimized {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@supports not (backdrop-filter: blur()) {
+  .backdrop-blur-optimized {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Preload hint per font critici */
+.font-preload {
+  font-display: swap;
+}
+
+/* Ottimizzazioni per transizioni di pagina */
+.page-transition {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Smooth scroll per anchor links */
+.anchor-smooth {
+  scroll-behavior: smooth;
+  scroll-margin-top: 120px;
+}
+
+/* Ottimizzazioni per slider/carousel */
+.carousel-optimized {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carousel-optimized::-webkit-scrollbar {
+  display: none;
+}
+
+/* Lazy loading placeholder */
+.lazy-placeholder {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Ottimizzazioni per video */
+.video-optimized {
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Prevenzione FOUC (Flash of Unstyled Content) */
+.no-fouc {
+  visibility: hidden;
+}
+
+.loaded .no-fouc {
+  visibility: visible;
+}
+
+/* Ottimizzazioni per form */
+.form-optimized input,
+.form-optimized textarea,
+.form-optimized select {
+  will-change: border-color, box-shadow;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Smooth focus per accessibilità */
+.focus-smooth:focus {
+  outline: 2px solid #f5a6a6;
+  outline-offset: 2px;
+  transition: outline-offset 0.2s ease;
+}
+
+/* Ottimizzazioni per modali */
+.modal-optimized {
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+}
+
+/* Performance per grandi dataset */
+.large-dataset {
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Ottimizzazioni per parallax */
+.parallax-optimized {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* Riduzione reflow/repaint */
+.no-reflow {
+  contain: layout style paint;
+}
+
+/* Ottimizzazioni per animazioni CSS */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-30px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+/* Ottimizzazioni per intersection observer */
+.intersection-item {
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.intersection-item:not(.in-view) {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.intersection-item.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Prevenzione layout shift per immagini */
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container::before {
+  content: '';
+  display: block;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ottimizzazioni per dispositivi ad alta densità */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .high-dpi-optimized {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* Smooth scrolling per sezioni specifiche */
+#hero,
+#chi-siamo,
+#attivita,
+#festival,
+#contatti {
+  scroll-margin-top: 100px;
+}
+
+/* Ottimizzazioni finali per performance globale */
+body {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevenzione scroll orizzontale indesiderato */
+body,
+html {
+  overflow-x: hidden;
+}
+
+/* Ottimizzazioni per touch devices */
+@media (pointer: coarse) {
+  .touch-optimized {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Riduzione complessità per animazioni su dispositivi lenti */
+@media (prefers-reduced-motion: reduce) {
+  .complex-animation {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Ottimizzazioni per stampa */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
