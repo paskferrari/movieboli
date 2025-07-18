@@ -3,6 +3,10 @@ import { BrandingProvider } from '../contexts/BrandingContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useState } from 'react';
+import VideoGridHero from '../components/VideoGridHero';
+import PastEditionsSection from '../components/PastEditionsSection';
+import PodcastSection from '../components/PodcastSection';
+import ActivitiesSection from '../components/ActivitiesSection';
 
 const AssociationHero = () => {
   return (
@@ -261,12 +265,12 @@ const FestivalSection = () => {
 export default function Home() {
   return (
     <BrandingProvider>
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-movieboli-background-900">
         <Head>
-          <title>MOVIEBOLI APS - Associazione di Promozione Sociale</title>
+          <title>MOVIEBOLI APS - Cultura, Cinema, Comunità</title>
           <meta name="description" content="MOVIEBOLI APS è un'associazione di promozione sociale che promuove la cultura cinematografica e artistica nel territorio di Eboli attraverso festival, eventi e iniziative culturali." />
           <meta name="keywords" content="MOVIEBOLI, associazione, cinema, festival, Eboli, cultura, arte, podcast, eventi" />
-          <meta property="og:title" content="MOVIEBOLI APS - Associazione di Promozione Sociale" />
+          <meta property="og:title" content="MOVIEBOLI APS - Cultura, Cinema, Comunità" />
           <meta property="og:description" content="Promuoviamo la cultura cinematografica e artistica nel territorio di Eboli attraverso eventi, festival e iniziative culturali innovative." />
           <meta property="og:image" content="/logo-movieboli.png" />
           <meta property="og:url" content="https://movieboli.it" />
@@ -276,10 +280,19 @@ export default function Home() {
         <Navbar />
         
         <main>
-          <AssociationHero />
-          <ChiSiamoSection />
-          <CosaFacciamoSection />
-          <FestivalSection />
+          {/* Hero Section con video e navigazione rapida */}
+          <VideoGridHero />
+          
+          {/* Sezione Attività */}
+          <ActivitiesSection />
+          
+          {/* Sezione Podcast */}
+          <PodcastSection />
+          
+          {/* Sezione Edizioni Passate */}
+          <PastEditionsSection />
+          
+          {/* Call to Action */}
           <FooterCTA />
         </main>
         
