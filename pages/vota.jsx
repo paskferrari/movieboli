@@ -148,20 +148,20 @@ const Vota = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-movieboli-nero text-movieboli-crema">
       <Navbar />
       
       {/* Hero Section */}
       <motion.section 
-        className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-movieboli-bordeaux/20 to-black"
+        className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-movieboli-nero via-movieboli-bordeaux/20 to-movieboli-nero"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-movieboli-nero/60" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <motion.h1 
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-movieboli-pink to-movieboli-cream bg-clip-text text-transparent"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-movieboli-violaPrincipale to-movieboli-crema bg-clip-text text-transparent"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -169,7 +169,7 @@ const Vota = () => {
             Vota il tuo corto preferito
           </motion.h1>
           <motion.p 
-            className="text-lg md:text-xl lg:text-2xl text-movieboli-cream/80 max-w-2xl mx-auto leading-relaxed mb-8"
+            className="text-lg md:text-xl lg:text-2xl text-movieboli-crema/80 max-w-2xl mx-auto leading-relaxed mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -177,19 +177,19 @@ const Vota = () => {
             Le votazioni sono aperte fino al 15 agosto!
           </motion.p>
           <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 text-movieboli-cream/70"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 text-movieboli-crema/70"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-movieboli-pink" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span>{cortometraggi.length} cortometraggi in gara</span>
             </div>
             <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-movieboli-pink" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
               </svg>
               <span>Votazioni aperte fino al 15 agosto</span>
@@ -201,14 +201,14 @@ const Vota = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <div className="w-24 h-1 bg-gradient-to-r from-movieboli-pink to-movieboli-cream mx-auto" />
+            <div className="w-24 h-1 bg-gradient-to-r from-movieboli-violaPrincipale to-movieboli-crema mx-auto" />
           </motion.div>
         </div>
       </motion.section>
 
       {/* Sezione Cortometraggi */}
       <motion.section 
-        className="py-20 px-4 bg-gradient-to-b from-black via-movieboli-bordeaux/5 to-black"
+        className="py-20 px-4 bg-gradient-to-b from-movieboli-nero via-movieboli-bordeaux/5 to-movieboli-nero"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -216,10 +216,10 @@ const Vota = () => {
       >
         <div className="max-w-7xl mx-auto">
           <motion.div className="text-center mb-16" variants={itemVariants}>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-movieboli-pink">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-movieboli-violaPrincipale">
               Cortometraggi in Gara
             </h2>
-            <p className="text-movieboli-cream/80 text-lg max-w-2xl mx-auto">
+            <p className="text-movieboli-crema/80 text-lg max-w-2xl mx-auto">
               Scopri tutti i cortometraggi in competizione e vota il tuo preferito
             </p>
           </motion.div>
@@ -235,13 +235,13 @@ const Vota = () => {
               return (
                 <motion.div
                   key={corto.id}
-                  className="group bg-movieboli-bordeaux/20 rounded-2xl overflow-hidden border border-movieboli-pink/20 hover:border-movieboli-pink/50 transition-all duration-300 relative"
+                  className="group bg-movieboli-bordeaux/20 rounded-2xl overflow-hidden border border-movieboli-violaPrincipale/20 hover:border-movieboli-violaPrincipale/50 transition-all duration-300 relative"
                   variants={cardVariants}
                   whileHover="hover"
                 >
                   {/* Badge In Gara */}
                   <div className="absolute top-4 left-4 z-10">
-                    <span className="bg-movieboli-pink text-black text-xs font-bold px-3 py-1 rounded-full">
+                    <span className="bg-movieboli-violaPrincipale text-movieboli-nero text-xs font-bold px-3 py-1 rounded-full">
                       IN GARA
                     </span>
                   </div>
@@ -249,21 +249,22 @@ const Vota = () => {
                   {/* Messaggio Thank You */}
                   {showingThankYou && (
                     <motion.div 
-                      className="absolute inset-0 bg-movieboli-pink/95 flex items-center justify-center z-20 rounded-2xl"
+                      className="absolute inset-0 bg-movieboli-violaPrincipale/95 flex items-center justify-center z-20 rounded-2xl"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
                     >
-                      <div className="text-center text-black">
+                      <div className="text-center text-movieboli-nero">
                         <motion.div
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
                           transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-                          className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4"
                         >
-                          <svg className="w-8 h-8 text-movieboli-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
+                          <div className="w-16 h-16 bg-movieboli-crema rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg className="w-6 h-6 text-movieboli-violaPrincipale" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
                         </motion.div>
                         <h3 className="text-xl font-bold mb-2">Grazie per il tuo voto!</h3>
                         <p className="text-sm opacity-80">Il tuo voto è stato registrato</p>
@@ -273,9 +274,9 @@ const Vota = () => {
 
                   {/* Immagine Placeholder */}
                   <div className="relative aspect-[3/4] overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-br from-movieboli-pink/20 to-movieboli-bordeaux/30 flex items-center justify-center">
-                      <div className="text-center text-movieboli-cream/60">
-                        <div className="w-16 h-16 mx-auto mb-3 bg-movieboli-pink/20 rounded-full flex items-center justify-center">
+                    <div className="w-full h-full bg-gradient-to-br from-movieboli-violaPrincipale/20 to-movieboli-bordeaux/30 flex items-center justify-center">
+                      <div className="text-center text-movieboli-crema/60">
+                        <div className="w-16 h-16 mx-auto mb-3 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center">
                           <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M2 6a2 2 0 012-2h6l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
                           </svg>
@@ -283,22 +284,22 @@ const Vota = () => {
                         <p className="text-sm">Poster del Film</p>
                       </div>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-movieboli-neroProfondo/80 via-transparent to-transparent" />
                   </div>
 
                   {/* Contenuto Card */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2 text-movieboli-cream group-hover:text-movieboli-pink transition-colors duration-200">
+                    <h3 className="text-xl font-bold mb-2 text-movieboli-crema group-hover:text-movieboli-violaPrincipale transition-colors duration-200">
                       {corto.titolo}
                     </h3>
-                    <p className="text-movieboli-cream/70 mb-3">
+                    <p className="text-movieboli-crema/70 mb-3">
                       Regia di {corto.regista}
                     </p>
-                    <div className="flex justify-between items-center text-sm text-movieboli-cream/60 mb-4">
+                    <div className="flex justify-between items-center text-sm text-movieboli-crema/60 mb-4">
                       <span>{corto.durata}</span>
                       <span>{corto.anno}</span>
                     </div>
-                    <p className="text-movieboli-cream/80 text-sm mb-6 line-clamp-3">
+                    <p className="text-movieboli-crema/80 text-sm mb-6 line-clamp-3">
                       {corto.sinossi}
                     </p>
                     
@@ -308,8 +309,8 @@ const Vota = () => {
                       disabled={hasVoted}
                       className={`w-full py-3 px-6 rounded-xl font-bold transition-all duration-200 ${
                         hasVoted
-                          ? 'bg-green-600 text-white cursor-not-allowed'
-                          : 'bg-movieboli-pink hover:bg-movieboli-pink/80 text-black hover:scale-105'
+                          ? 'bg-green-600 text-movieboli-crema cursor-not-allowed'
+                          : 'bg-movieboli-violaPrincipale hover:bg-movieboli-violaPrincipale/80 text-movieboli-nero hover:scale-105'
                       }`}
                       whileHover={!hasVoted ? { scale: 1.02 } : {}}
                       whileTap={!hasVoted ? { scale: 0.98 } : {}}
@@ -341,33 +342,33 @@ const Vota = () => {
             className="mt-16 text-center"
             variants={itemVariants}
           >
-            <div className="bg-movieboli-bordeaux/20 rounded-2xl p-8 max-w-3xl mx-auto border border-movieboli-pink/20">
-              <h3 className="text-2xl font-bold text-movieboli-pink mb-4">
+            <div className="bg-movieboli-bordeaux/20 rounded-2xl p-8 max-w-3xl mx-auto border border-movieboli-violaPrincipale/20">
+              <h3 className="text-2xl font-bold text-movieboli-violaPrincipale mb-4">
                 Come Funziona la Votazione
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-movieboli-cream/80">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-movieboli-crema/80">
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-movieboli-pink/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-movieboli-pink font-bold text-lg">1</span>
+                  <div className="w-12 h-12 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-movieboli-violaPrincipale font-bold text-lg">1</span>
                   </div>
                   <p className="text-sm">Guarda tutti i cortometraggi in gara</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-movieboli-pink/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-movieboli-pink font-bold text-lg">2</span>
+                  <div className="w-12 h-12 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-movieboli-violaPrincipale font-bold text-lg">2</span>
                   </div>
                   <p className="text-sm">Clicca "Vota" sul tuo preferito</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-movieboli-pink/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-movieboli-pink font-bold text-lg">3</span>
+                  <div className="w-12 h-12 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-movieboli-violaPrincipale font-bold text-lg">3</span>
                   </div>
                   <p className="text-sm">Il vincitore sarà annunciato il 18 agosto</p>
                 </div>
               </div>
-              <div className="mt-6 p-4 bg-movieboli-pink/10 rounded-xl">
-                <p className="text-sm text-movieboli-cream/70">
-                  <strong>Nota:</strong> Puoi votare più cortometraggi. Le votazioni sono aperte al pubblico fino al 15 agosto 2025.
+              <div className="mt-6 p-4 bg-movieboli-violaPrincipale/10 rounded-xl">
+                <p className="text-sm text-movieboli-crema/70">
+                  <strong>Nota:</strong> Puoi votare più cortometraggi. Le votazioni sono aperte al pubblico fino al 15 agosto 2024.
                 </p>
               </div>
             </div>

@@ -121,7 +121,7 @@ const AttivitaPage = () => {
       case 'In corso':
         return 'bg-green-500'
       case 'Prossimamente':
-        return 'bg-movieboli-pink'
+        return 'bg-movieboli-violaPrincipale'
       case 'Conclusa':
         return 'bg-gray-500'
       default:
@@ -143,7 +143,7 @@ const AttivitaPage = () => {
 
       {/* Navbar fissa minimal */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-movieboli-pink/95 backdrop-blur-md shadow-lg' : 'bg-movieboli-pink/80'
+        isScrolled ? 'bg-movieboli-rosaSfondo/95 backdrop-blur-md shadow-lg' : 'bg-movieboli-rosaSfondo/80'
       }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
@@ -157,18 +157,18 @@ const AttivitaPage = () => {
                   priority
                 />
               </div>
-              <span className="font-poppins font-bold text-lg text-movieboli-black">
+              <span className="font-poppins font-bold text-lg text-movieboli-nero">
                 ATTIVITÀ
               </span>
             </Link>
             <div className="hidden md:flex space-x-6">
-              <Link href="/" className="font-poppins font-semibold text-movieboli-black hover:text-white transition-colors">
+              <Link href="/" className="font-poppins font-semibold text-movieboli-nero hover:text-movieboli-crema transition-colors">
                 Home
               </Link>
-              <Link href="/festival" className="font-poppins font-semibold text-movieboli-black hover:text-white transition-colors">
+              <Link href="/festival" className="font-poppins font-semibold text-movieboli-nero hover:text-movieboli-crema transition-colors">
                 Festival
               </Link>
-              <Link href="/contatti" className="font-poppins font-semibold text-movieboli-black hover:text-white transition-colors">
+              <Link href="/contatti" className="font-poppins font-semibold text-movieboli-nero hover:text-movieboli-crema transition-colors">
                 Contatti
               </Link>
             </div>
@@ -178,7 +178,7 @@ const AttivitaPage = () => {
 
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative py-20 bg-gradient-to-br from-movieboli-pink via-movieboli-pink/90 to-movieboli-bordeaux overflow-hidden">
+        <section className="relative py-20 bg-gradient-to-br from-movieboli-rosaSfondo via-movieboli-rosaSfondo/90 to-movieboli-bordeaux overflow-hidden">
           {/* Background pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="w-full h-full bg-[url('/placeholder-pattern.svg')] bg-repeat"></div>
@@ -190,12 +190,12 @@ const AttivitaPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: 'easeOut' }}
             >
-              <h1 className="font-poppins font-bold text-4xl sm:text-6xl lg:text-7xl text-movieboli-black mb-6 leading-tight">
+              <h1 className="font-poppins font-bold text-4xl sm:text-6xl lg:text-7xl text-movieboli-nero mb-6 leading-tight">
                 Le Nostre
                 <span className="block text-white">Attività</span>
               </h1>
               
-              <p className="font-poppins text-xl sm:text-2xl text-movieboli-black/80 mb-8 max-w-3xl mx-auto leading-relaxed">
+              <p className="font-poppins text-xl sm:text-2xl text-movieboli-nero/80 mb-8 max-w-3xl mx-auto leading-relaxed">
                 Laboratori, eventi, incontri e progetti culturali tutto l'anno
               </p>
             </motion.div>
@@ -212,7 +212,7 @@ const AttivitaPage = () => {
               viewport={{ once: true }}
               className="text-center mb-8"
             >
-              <h2 className="font-poppins font-bold text-2xl text-movieboli-black mb-6">
+              <h2 className="font-poppins font-bold text-2xl text-movieboli-nero mb-6">
                 Filtra per Categoria
               </h2>
               <div className="flex flex-wrap justify-center gap-3">
@@ -224,8 +224,8 @@ const AttivitaPage = () => {
                     whileTap={{ scale: 0.95 }}
                     className={`font-poppins font-semibold px-6 py-3 rounded-full transition-all duration-300 ${
                       selectedCategory === category
-                        ? 'bg-movieboli-black text-white shadow-lg'
-                        : 'bg-white text-movieboli-black hover:bg-movieboli-pink hover:text-white border border-movieboli-black/20'
+                        ? 'bg-movieboli-nero text-movieboli-crema shadow-lg'
+                        : 'bg-movieboli-crema text-movieboli-nero hover:bg-movieboli-violaPrincipale hover:text-movieboli-nero border border-movieboli-nero/20'
                     }`}
                   >
                     {category}
@@ -256,13 +256,13 @@ const AttivitaPage = () => {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
                     whileHover={{ y: -10, scale: 1.02 }}
-                    className="bg-white rounded-2xl shadow-lg overflow-hidden border border-movieboli-pink/20 hover:shadow-xl transition-all duration-300"
+                    className="bg-movieboli-crema rounded-2xl shadow-lg overflow-hidden border border-movieboli-violaPrincipale/20 hover:shadow-xl transition-all duration-300"
                   >
                     {/* Immagine */}
-                    <div className="relative h-48 bg-movieboli-black/5">
-                      <div className="absolute inset-0 bg-gradient-to-br from-movieboli-pink/20 to-movieboli-bordeaux/20"></div>
+                    <div className="relative h-48 bg-movieboli-nero/5">
+                      <div className="absolute inset-0 bg-gradient-to-br from-movieboli-violaPrincipale/20 to-movieboli-bordeaux/20"></div>
                       <div className="absolute top-4 left-4">
-                        <span className="bg-movieboli-pink text-movieboli-black font-poppins font-semibold text-sm px-3 py-1 rounded-full">
+                        <span className="bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-semibold text-sm px-3 py-1 rounded-full">
                           {activity.category}
                         </span>
                       </div>
@@ -281,17 +281,17 @@ const AttivitaPage = () => {
                         </span>
                       </div>
                       
-                      <h3 className="font-poppins font-bold text-xl text-movieboli-black mb-3 leading-tight">
+                      <h3 className="font-poppins font-bold text-xl text-movieboli-nero mb-3 leading-tight">
                         {activity.title}
                       </h3>
                       
-                      <p className="font-poppins text-movieboli-black/70 mb-6 leading-relaxed text-sm">
+                      <p className="font-poppins text-movieboli-nero/70 mb-6 leading-relaxed text-sm">
                         {activity.description}
                       </p>
                       
                       <Link
                         href={activity.link}
-                        className="inline-block bg-movieboli-black text-white font-poppins font-semibold px-6 py-3 rounded-full hover:bg-movieboli-bordeaux transition-colors duration-300 text-sm"
+                        className="inline-block bg-movieboli-nero text-movieboli-crema font-poppins font-semibold px-6 py-3 rounded-full hover:bg-movieboli-bordeaux transition-colors duration-300 text-sm"
                       >
                         Scopri di più
                       </Link>
@@ -308,7 +308,7 @@ const AttivitaPage = () => {
                 animate={{ opacity: 1 }}
                 className="text-center py-16"
               >
-                <p className="font-poppins text-xl text-movieboli-black/60">
+                <p className="font-poppins text-xl text-movieboli-nero/60">
                   Nessuna attività trovata per questa categoria.
                 </p>
               </motion.div>
@@ -317,7 +317,7 @@ const AttivitaPage = () => {
         </section>
 
         {/* Call to Action finale */}
-        <section className="py-20 bg-movieboli-black">
+        <section className="py-20 bg-movieboli-nero">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -326,10 +326,10 @@ const AttivitaPage = () => {
               viewport={{ once: true }}
               className="text-center max-w-4xl mx-auto"
             >
-              <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-movieboli-pink mb-6">
+              <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-movieboli-violaPrincipale mb-6">
                 Vuoi Collaborare con Noi?
               </h2>
-              <p className="font-poppins text-xl text-white/90 mb-8 leading-relaxed">
+              <p className="font-poppins text-xl text-movieboli-crema mb-8 leading-relaxed">
                 Hai un'idea per un evento, un laboratorio o una collaborazione? 
                 Siamo sempre aperti a nuove proposte e partnership creative.
               </p>
@@ -339,7 +339,7 @@ const AttivitaPage = () => {
               >
                 <Link
                   href="/contatti"
-                  className="inline-block bg-movieboli-pink text-movieboli-black font-poppins font-bold text-lg px-10 py-4 rounded-full hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="inline-block bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-bold text-lg px-10 py-4 rounded-full hover:bg-movieboli-crema transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   Contattaci
                 </Link>

@@ -1,9 +1,20 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript"
+  ],
   "rules": {
     "@next/next/no-img-element": "off",
     "react/no-unescaped-entities": "off",
-    "@typescript-eslint/no-unused-vars": "warn",
-    "prefer-const": "warn"
-  }
+    "@typescript-eslint/no-unused-vars": "off",
+    "prefer-const": "warn",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    ".next/",
+    "out/",
+    "public/sw.js",
+    "public/workbox-*.js"
+  ]
 }

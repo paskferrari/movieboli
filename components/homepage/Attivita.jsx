@@ -63,7 +63,7 @@ const Attivita = () => {
     <section 
       ref={ref}
       id="attivita" 
-      className="min-h-screen bg-movieboli-cream py-20"
+      className="min-h-screen bg-movieboli-cremaChiaro py-12 sm:py-16 md:py-20"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Intestazione sezione */}
@@ -71,19 +71,19 @@ const Attivita = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="font-poppins font-bold text-4xl md:text-5xl lg:text-6xl text-movieboli-black mb-6">
+          <h2 className="font-poppins font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-movieboli-neroProfondo mb-4 sm:mb-6">
             Le nostre attività
           </h2>
-          <p className="font-poppins text-xl md:text-2xl text-movieboli-bordeaux max-w-3xl mx-auto leading-relaxed">
+          <p className="font-poppins text-base sm:text-lg md:text-xl lg:text-2xl text-movieboli-bordeauxCinema max-w-3xl mx-auto leading-relaxed px-2">
             Durante tutto l'anno organizziamo eventi, workshop e progetti 
             per promuovere la cultura cinematografica e artistica.
           </p>
         </motion.div>
 
         {/* Griglia delle attività */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {attivita.map((item, index) => (
             <motion.div
               key={item.id}
@@ -96,30 +96,30 @@ const Attivita = () => {
               }}
               className="group"
             >
-              <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full border border-movieboli-pink/10 hover:border-movieboli-pink/30">
+              <div className="bg-movieboli-cremaChiaro rounded-lg sm:rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full border border-movieboli-rosaPastello/10 hover:border-movieboli-rosaPastello/30">
                 {/* Header della card */}
-                <div className="bg-gradient-to-r from-movieboli-black to-movieboli-bordeaux p-6 text-center">
-                  <div className="text-4xl mb-3 filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                    🎬
+                <div className="bg-gradient-to-r from-movieboli-neroProfondo to-movieboli-bordeauxCinema p-4 sm:p-6 text-center">
+                  <div className="text-3xl sm:text-4xl mb-2 sm:mb-3 filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                    {item.icona}
                   </div>
-                  <h3 className="font-poppins font-bold text-xl text-white group-hover:text-movieboli-pink transition-colors duration-300">
+                  <h3 className="font-poppins font-bold text-lg sm:text-xl text-movieboli-neroProfondo group-hover:text-movieboli-rosaPastello transition-colors duration-300">
                     {item.titolo}
                   </h3>
                 </div>
 
                 {/* Contenuto della card */}
-                <div className="p-6 flex flex-col h-full">
-                  <p className="font-poppins text-movieboli-black leading-relaxed mb-6 flex-grow">
+                <div className="p-4 sm:p-6 flex flex-col h-full">
+                  <p className="font-poppins text-sm sm:text-base text-movieboli-neroProfondo leading-relaxed mb-4 sm:mb-6 flex-grow">
                     {item.descrizione}
                   </p>
                   
                   {/* Bottone di azione */}
                   <Link
                     href={item.link}
-                    className="inline-flex items-center justify-center bg-movieboli-pink text-movieboli-black font-poppins font-semibold py-3 px-6 rounded-lg hover:bg-movieboli-black hover:text-movieboli-pink transition-all duration-300 group-hover:scale-105"
+                    className="inline-flex items-center justify-center bg-movieboli-rosaPastello text-movieboli-neroProfondo font-poppins font-semibold text-sm sm:text-base py-2 sm:py-3 px-4 sm:px-6 rounded-md sm:rounded-lg hover:bg-movieboli-neroProfondo hover:text-movieboli-rosaPastello transition-all duration-300 group-hover:scale-105"
                   >
                     Scopri di più
-                    <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </Link>
@@ -134,14 +134,14 @@ const Attivita = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-center mt-16"
+          className="text-center mt-10 sm:mt-16"
         >
           <Link
             href="/attivita"
-            className="inline-flex items-center bg-movieboli-black text-movieboli-pink font-poppins font-bold text-lg py-4 px-8 rounded-lg hover:bg-movieboli-bordeaux hover:scale-105 transition-all duration-300 shadow-lg"
+            className="inline-flex items-center bg-movieboli-neroProfondo text-movieboli-rosaPastello font-poppins font-bold text-base sm:text-lg py-3 sm:py-4 px-6 sm:px-8 rounded-md sm:rounded-lg hover:bg-movieboli-bordeauxCinema hover:scale-105 transition-all duration-300 shadow-lg"
           >
             Vedi tutte le attività
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-1 sm:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </Link>

@@ -1,429 +1,279 @@
+'use client'
 import { useState, useEffect } from 'react'
+import Head from 'next/head'
 import { motion } from 'framer-motion'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
-import Image from 'next/image'
 
 const Programma = () => {
-  const [selectedCategory, setSelectedCategory] = useState('tutti')
+  const [isVisible, setIsVisible] = useState(false)
 
-  // Dati di esempio per i film
-  const films = [
-    {
-      id: 1,
-      title: "La Strada del Cinema",
-      director: "Marco Rossi",
-      time: "20:30",
-      date: "15 Luglio",
-      category: "lungometraggi",
-      image: "/api/placeholder/300/400"
-    },
-    {
-      id: 2,
-      title: "Luci della Città",
-      director: "Anna Bianchi",
-      time: "18:00",
-      date: "16 Luglio",
-      category: "lungometraggi",
-      image: "/api/placeholder/300/400"
-    },
-    {
-      id: 3,
-      title: "Il Sogno",
-      director: "Giuseppe Verdi",
-      time: "21:00",
-      date: "17 Luglio",
-      category: "lungometraggi",
-      image: "/api/placeholder/300/400"
-    }
-  ]
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
 
-  // Dati di esempio per i cortometraggi
-  const shorts = [
-    {
-      id: 4,
-      title: "Frammenti",
-      director: "Laura Neri",
-      time: "16:30",
-      date: "15 Luglio",
-      category: "corti",
-      inCompetition: true,
-      image: "/api/placeholder/300/400"
-    },
-    {
-      id: 5,
-      title: "Oltre il Tempo",
-      director: "Fabio Conti",
-      time: "17:00",
-      date: "16 Luglio",
-      category: "corti",
-      inCompetition: true,
-      image: "/api/placeholder/300/400"
-    },
-    {
-      id: 6,
-      title: "Memorie",
-      director: "Sofia Greco",
-      time: "19:30",
-      date: "17 Luglio",
-      category: "corti",
-      inCompetition: true,
-      image: "/api/placeholder/300/400"
-    },
-    {
-      id: 7,
-      title: "Riflessi",
-      director: "Andrea Mancini",
-      time: "20:00",
-      date: "18 Luglio",
-      category: "corti",
-      inCompetition: true,
-      image: "/api/placeholder/300/400"
-    }
-  ]
-
-  // Dati di esempio per eventi e ospiti
-  const events = [
-    {
-      id: 1,
-      title: "Masterclass con Roberto Benigni",
-      date: "15 Luglio",
-      time: "15:00",
-      location: "Teatro Comunale",
-      guest: "Roberto Benigni",
-      type: "masterclass"
-    },
-    {
-      id: 2,
-      title: "Tavola Rotonda: Il Cinema del Sud",
-      date: "16 Luglio",
-      time: "11:00",
-      location: "Sala Conferenze",
-      guest: "Vari ospiti",
-      type: "dibattito"
-    },
-    {
-      id: 3,
-      title: "Premiazione Corti in Gara",
-      date: "18 Luglio",
-      time: "22:00",
-      location: "Piazza Centrale",
-      guest: "Giuria del Festival",
-      type: "cerimonia"
-    },
-    {
-      id: 4,
-      title: "Workshop di Regia",
-      date: "17 Luglio",
-      time: "10:00",
-      location: "Aula Magna",
-      guest: "Matteo Garrone",
-      type: "workshop"
-    }
-  ]
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
+  // Dati del festival 2023
+  const programmaData = {
+    "Venerdì 11 Agosto": [
+      {
+        orario: "19:00",
+        titolo: "Apertura festival e saluti",
+        tipo: "apertura",
+        descrizione: "Cerimonia di apertura ufficiale del MOVIEBOLI Film Festival 2023"
+      },
+      {
+        orario: "20:00",
+        titolo: "Marcel The Shell",
+        tipo: "film",
+        anno: "2021",
+        regista: "Dean Fleischer Camp",
+        descrizione: "Proiezione film di apertura"
+      },
+      {
+        orario: "22:00",
+        titolo: "Cortometraggi in concorso - Selezione 1",
+        tipo: "cortometraggi",
+        descrizione: "Prima selezione di cortometraggi in concorso",
+        cortometraggi: [
+          { titolo: "Laika & Nemo", festival: "Lago Film Fest" },
+          { titolo: "Amore Cane", festival: "Piano di Sorrento Film Festival" },
+          { titolo: "Gianfranco il Re", festival: "Festival del Cinema Ibrido" },
+          { titolo: "Morning Commute", festival: "Corto Dorico" },
+          { titolo: "Il Prescelto", festival: "Corto Lover" },
+          { titolo: "Basmati", festival: "Short Out" },
+          { titolo: "La Grande Onda", festival: "Periferie Creative" }
+        ]
       }
-    }
+    ],
+    "Sabato 12 Agosto": [
+      {
+        orario: "18:00",
+        titolo: "La distribuzione dei corti in Italia",
+        tipo: "talk",
+        descrizione: "Talk con ospiti del settore cinematografico"
+      },
+      {
+        orario: "19:30",
+        titolo: "Aperitivo musicale con DJ set",
+        tipo: "aperitivo",
+        descrizione: "Momento di convivialità con musica dal vivo"
+      },
+      {
+        orario: "21:00",
+        titolo: "Cortometraggi in concorso - Selezione 2",
+        tipo: "cortometraggi",
+        descrizione: "Seconda selezione di cortometraggi in concorso",
+        cortometraggi: [
+          { titolo: "La Grande Onda" },
+          { titolo: "Sottopelle" },
+          { titolo: "La casa di Ester" },
+          { titolo: "Sulle Nuvole" },
+          { titolo: "Big" }
+        ]
+      },
+      {
+        orario: "23:00",
+        titolo: "Aftersun",
+        tipo: "film",
+        anno: "2022",
+        regista: "Charlotte Wells",
+        descrizione: "Proiezione serale"
+      }
+    ],
+    "Domenica 13 Agosto": [
+      {
+        orario: "18:30",
+        titolo: "Cerimonia di premiazione",
+        tipo: "premiazione",
+        descrizione: "Assegnazione dei premi ai migliori cortometraggi"
+      },
+      {
+        orario: "19:30",
+        titolo: "Proiezione vincitore giuria",
+        tipo: "film",
+        descrizione: "Cortometraggio vincitore del premio della giuria"
+      },
+      {
+        orario: "20:00",
+        titolo: "Proiezione vincitore pubblico",
+        tipo: "film",
+        descrizione: "Cortometraggio vincitore del premio del pubblico"
+      },
+      {
+        orario: "21:00",
+        titolo: "Le Pupille",
+        tipo: "film",
+        anno: "2022",
+        regista: "Alice Rohrwacher",
+        descrizione: "Film di chiusura del festival"
+      }
+    ]
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
+  const getEventIcon = (tipo) => {
+    const icons = {
+      apertura: "🎬",
+      film: "🎭",
+      cortometraggi: "🎪",
+      talk: "💬",
+      aperitivo: "🥂",
+      premiazione: "🏆"
     }
-  }
-
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    },
-    hover: {
-      scale: 1.05,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    }
+    return icons[tipo] || "⏰"
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <motion.section 
-        className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-movieboli-bordeaux/20 to-movieboli-pink/10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <motion.h1 
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-movieboli-pink to-movieboli-cream bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Il Programma del Festival
-          </motion.h1>
-          <motion.p 
-            className="text-lg md:text-xl lg:text-2xl text-movieboli-cream/80 max-w-2xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Film, cortometraggi, ospiti e appuntamenti imperdibili
-          </motion.p>
-          <motion.div
-            className="mt-8"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <div className="w-24 h-1 bg-gradient-to-r from-movieboli-pink to-movieboli-cream mx-auto" />
-          </motion.div>
-        </div>
-      </motion.section>
+    <>
+      <Head>
+        <title>Programma Festival 2023 | MOVIEBOLI Film Festival</title>
+        <meta name="description" content="Programma completo del MOVIEBOLI Film Festival 2023: tre giorni di cinema, cortometraggi e eventi speciali dall'11 al 13 agosto." />
+        <meta name="keywords" content="programma festival, movieboli 2023, cortometraggi, cinema eboli, eventi" />
+        <meta property="og:title" content="Programma Festival 2023 - MOVIEBOLI" />
+        <meta property="og:description" content="Scopri il programma completo del festival con proiezioni, talk e premiazioni." />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/favicon.ico" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+      </Head>
 
-      {/* Sezione Film */}
-      <motion.section 
-        className="py-20 px-4 bg-gradient-to-b from-black to-movieboli-bordeaux/10"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <motion.div className="text-center mb-16" variants={itemVariants}>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-movieboli-pink">
-              Lungometraggi
-            </h2>
-            <p className="text-movieboli-cream/80 text-lg max-w-2xl mx-auto">
-              Una selezione di opere cinematografiche che raccontano storie uniche e coinvolgenti
-            </p>
-          </motion.div>
+      <div className="min-h-screen bg-white font-['Poppins']">
+        <Navbar />
+        
+        {/* Hero Section */}
+        <section className="pt-24 pb-16 px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+              <h1 className="text-4xl md:text-6xl font-bold text-[#191f1a] mb-6">
+                Programma Festival 2023
+              </h1>
+              <div className="w-24 h-1 bg-gradient-to-r from-[#f7bbc6] to-[#7968fa] mx-auto mb-8"></div>
+              <p className="text-xl text-[#1d1d1d]/80 max-w-2xl mx-auto leading-relaxed">
+                MOVIEBOLI Film Festival • 11-13 Agosto 2023 • Eboli, Piazza della Repubblica
+              </p>
+            </motion.div>
+          </div>
+        </section>
 
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={containerVariants}
-          >
-            {films.map((film) => (
-              <motion.div
-                key={film.id}
-                className="group bg-movieboli-bordeaux/20 rounded-2xl overflow-hidden border border-movieboli-pink/20 hover:border-movieboli-pink/50 transition-all duration-300"
-                variants={cardVariants}
-                whileHover="hover"
+        {/* Program Content */}
+        <section className="pb-20 px-4">
+          <div className="max-w-6xl mx-auto">
+            {Object.entries(programmaData).map(([day, events], dayIndex) => (
+              <motion.div 
+                key={day}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
+                transition={{ duration: 0.8, delay: dayIndex * 0.2 }}
+                className="mb-16"
               >
-                <div className="relative aspect-[3/4] overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-movieboli-pink/20 to-movieboli-bordeaux/30 flex items-center justify-center">
-                    <div className="text-center text-movieboli-cream/60">
-                      <div className="w-16 h-16 mx-auto mb-2 bg-movieboli-pink/20 rounded-full flex items-center justify-center">
-                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
-                        </svg>
+                {/* Day Header */}
+                <div className="mb-12">
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#191f1a] mb-4">
+                    {day}
+                  </h2>
+                  <div className="w-16 h-0.5 bg-[#f7bbc6]"></div>
+                </div>
+                
+                {/* Events Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {events.map((evento, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : -20 }}
+                      transition={{ duration: 0.6, delay: (dayIndex * 0.2) + (index * 0.1) }}
+                      className="bg-white border border-gray-100 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+                    >
+                      {/* Event Header */}
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="flex items-center justify-center w-12 h-12 bg-[#f7bbc6]/10 rounded-full">
+                          <span className="text-xl">{getEventIcon(evento.tipo)}</span>
+                        </div>
+                        <div>
+                          <div className="text-2xl font-bold text-[#7968fa]">
+                            {evento.orario}
+                          </div>
+                          <div className="text-sm text-[#1d1d1d]/60 capitalize">
+                            {evento.tipo}
+                          </div>
+                        </div>
                       </div>
-                      <p className="text-sm">Poster Film</p>
-                    </div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <button className="w-full bg-movieboli-pink hover:bg-movieboli-pink/80 text-black font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
-                      Dettagli
-                    </button>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-movieboli-cream group-hover:text-movieboli-pink transition-colors duration-200">
-                    {film.title}
-                  </h3>
-                  <p className="text-movieboli-cream/70 mb-3">
-                    Regia di {film.director}
-                  </p>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-movieboli-pink font-semibold">
-                      {film.date}
-                    </span>
-                    <span className="text-movieboli-cream/80">
-                      ore {film.time}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Sezione Corti in Gara */}
-      <motion.section 
-        className="py-20 px-4 bg-gradient-to-b from-movieboli-bordeaux/10 to-movieboli-pink/5"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <motion.div className="text-center mb-16" variants={itemVariants}>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-movieboli-pink">
-              Cortometraggi in Gara
-            </h2>
-            <p className="text-movieboli-cream/80 text-lg max-w-2xl mx-auto">
-              I migliori cortometraggi in competizione per il premio del pubblico e della giuria
-            </p>
-          </motion.div>
-
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={containerVariants}
-          >
-            {shorts.map((short) => (
-              <motion.div
-                key={short.id}
-                className="group bg-movieboli-bordeaux/20 rounded-2xl overflow-hidden border border-movieboli-pink/20 hover:border-movieboli-pink/50 transition-all duration-300 relative"
-                variants={cardVariants}
-                whileHover="hover"
-              >
-                {short.inCompetition && (
-                  <div className="absolute top-3 right-3 z-10">
-                    <span className="bg-movieboli-pink text-black text-xs font-bold px-2 py-1 rounded-full">
-                      IN GARA
-                    </span>
-                  </div>
-                )}
-                <div className="relative aspect-[3/4] overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-movieboli-pink/20 to-movieboli-bordeaux/30 flex items-center justify-center">
-                    <div className="text-center text-movieboli-cream/60">
-                      <div className="w-12 h-12 mx-auto mb-2 bg-movieboli-pink/20 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
-                        </svg>
-                      </div>
-                      <p className="text-xs">Poster</p>
-                    </div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <button className="w-full bg-movieboli-pink hover:bg-movieboli-pink/80 text-black font-semibold py-1.5 px-3 rounded text-sm transition-colors duration-200">
-                      Dettagli
-                    </button>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold mb-1 text-movieboli-cream group-hover:text-movieboli-pink transition-colors duration-200">
-                    {short.title}
-                  </h3>
-                  <p className="text-movieboli-cream/70 text-sm mb-2">
-                    {short.director}
-                  </p>
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="text-movieboli-pink font-semibold">
-                      {short.date}
-                    </span>
-                    <span className="text-movieboli-cream/80">
-                      {short.time}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Sezione Eventi e Ospiti */}
-      <motion.section 
-        className="py-20 px-4 bg-gradient-to-b from-movieboli-pink/5 to-black"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        <div className="max-w-6xl mx-auto">
-          <motion.div className="text-center mb-16" variants={itemVariants}>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-movieboli-pink">
-              Eventi e Ospiti
-            </h2>
-            <p className="text-movieboli-cream/80 text-lg max-w-2xl mx-auto">
-              Masterclass, workshop e incontri con i protagonisti del cinema
-            </p>
-          </motion.div>
-
-          <motion.div className="space-y-6" variants={containerVariants}>
-            {events.map((event, index) => (
-              <motion.div
-                key={event.id}
-                className="group bg-movieboli-bordeaux/20 rounded-2xl p-6 md:p-8 border border-movieboli-pink/20 hover:border-movieboli-pink/50 transition-all duration-300"
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
-                      <h3 className="text-xl md:text-2xl font-bold text-movieboli-cream group-hover:text-movieboli-pink transition-colors duration-200">
-                        {event.title}
+                      
+                      {/* Event Title */}
+                      <h3 className="text-xl font-semibold text-[#191f1a] mb-3">
+                        {evento.titolo}
+                        {evento.anno && (
+                          <span className="text-[#1d1d1d]/60 font-normal"> ({evento.anno})</span>
+                        )}
                       </h3>
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${
-                        event.type === 'masterclass' ? 'bg-movieboli-pink/20 text-movieboli-pink' :
-                        event.type === 'workshop' ? 'bg-movieboli-bordeaux/30 text-movieboli-cream' :
-                        event.type === 'dibattito' ? 'bg-movieboli-cream/20 text-movieboli-cream' :
-                        'bg-movieboli-pink/30 text-movieboli-pink'
-                      }`}>
-                        {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-movieboli-cream/80">
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-movieboli-pink" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-                        </svg>
-                        <span>{event.date} - {event.time}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-movieboli-pink" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                        <span>{event.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-movieboli-pink" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                        </svg>
-                        <span>{event.guest}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex-shrink-0">
-                    <button className="bg-movieboli-pink hover:bg-movieboli-pink/80 text-black font-semibold py-2 px-6 rounded-lg transition-colors duration-200">
-                      Partecipa
-                    </button>
-                  </div>
+                      
+                      {/* Event Details */}
+                      {evento.regista && (
+                        <p className="text-[#1d1d1d]/70 mb-2">
+                          <span className="font-medium">Regia:</span> {evento.regista}
+                        </p>
+                      )}
+                      
+                      {evento.descrizione && (
+                        <p className="text-[#1d1d1d]/70 mb-4 leading-relaxed">
+                          {evento.descrizione}
+                        </p>
+                      )}
+                      
+                      {/* Cortometraggi List */}
+                      {evento.cortometraggi && (
+                        <div className="mt-4">
+                          <h4 className="font-semibold text-[#191f1a] mb-3 text-sm uppercase tracking-wide">
+                            Cortometraggi in programma
+                          </h4>
+                          <div className="space-y-2">
+                            {evento.cortometraggi.map((corto, cortoIndex) => (
+                              <div key={cortoIndex} className="flex items-start gap-3 p-3 bg-gray-50 rounded-md">
+                                <div className="w-2 h-2 bg-[#7968fa] rounded-full mt-2 flex-shrink-0"></div>
+                                <div className="flex-1">
+                                  <div className="font-medium text-[#191f1a] text-sm">
+                                    {corto.titolo}
+                                  </div>
+                                  {corto.festival && (
+                                    <div className="text-xs text-[#1d1d1d]/60 mt-1">
+                                      {corto.festival}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-        </div>
-      </motion.section>
+          </div>
+        </section>
 
-      <Footer />
-    </div>
+        {/* Footer Note */}
+        <section className="pb-16 px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isVisible ? 1 : 0 }}
+              transition={{ duration: 0.8, delay: 1 }}
+            >
+              <div className="w-32 h-0.5 bg-gradient-to-r from-[#f7bbc6] to-[#7968fa] mx-auto mb-6"></div>
+              <p className="text-sm text-[#1d1d1d]/60 italic">
+                * Programma soggetto a variazioni
+              </p>
+            </motion.div>
+          </div>
+        </section>
+        
+        <Footer />
+      </div>
+    </>
   )
 }
 

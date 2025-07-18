@@ -131,7 +131,7 @@ const Vota = () => {
           </h2>
           <p className="text-xl font-unica text-gray-600 max-w-3xl mx-auto">
             Partecipa alla selezione del pubblico! Il tuo voto contribuirà all'assegnazione 
-            del Premio del Pubblico MoviEboli 2025.
+            del Premio del Pubblico MoviEboli.
           </p>
           
           {/* Decorazione */}
@@ -255,7 +255,7 @@ const Vota = () => {
               <div className="text-3xl mb-3">🏆</div>
               <div className="font-stat text-sm uppercase tracking-wider text-bordeaux mb-2">Premia</div>
               <div className="text-sm">
-                Il cortometraggio più votato riceverà il Premio del Pubblico MoviEboli 2025
+                Il cortometraggio più votato riceverà il Premio del Pubblico MoviEboli
               </div>
             </div>
           </div>
@@ -265,7 +265,7 @@ const Vota = () => {
             <div className="font-stat text-sm uppercase tracking-wider text-gray-500 mb-2">
               I tuoi voti: {votedFilms.size} / {cortometraggi.length}
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-movieboli-neutral-200 rounded-full h-2">
               <div 
                 className="bg-gradient-to-r from-rosa to-blu h-2 rounded-full transition-all duration-500"
                 style={{ width: `${(votedFilms.size / cortometraggi.length) * 100}%` }}

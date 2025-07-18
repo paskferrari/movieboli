@@ -4,24 +4,30 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useBranding, useBrandingClasses } from '../../contexts/BrandingContext'
 
 /**
  * Navbar - Navigazione principale del sito MOVIEBOLI
- * Design: trasparente su Hero, nera nelle altre sezioni
+ * Design: adattivo con dual branding (associazione/festival)
  * Layout: logo a sinistra, menu centrato, responsive
  */
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const router = useRouter()
+  const branding = useBranding()
+  const classes = useBrandingClasses()
 
   // Menu di navigazione principale
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Chi siamo', href: '/chi-siamo' },
-    { name: 'Attività', href: '/attivita' },
-    { name: 'Festival', href: '/festival' },
-    { name: 'Contatti', href: '/contatti' },
+    { name: 'Home', href: '/', section: 'association' },
+    { name: 'Chi siamo', href: '/chi-siamo', section: 'association' },
+    { name: 'Attività', href: '/attivita', section: 'association' },
+    { name: 'Podcast', href: '/podcast', section: 'association' },
+    { name: 'Festival', href: '/festival', section: 'festival' },
+    { name: 'Programma', href: '/programma', section: 'festival' },
+    { name: 'Prenota', href: '/prenota', section: 'festival' },
+    { name: 'Turni IMPP', href: '/turni-impp', section: 'festival' },
   ]
 
   // Gestione scroll per cambiare stile navbar
@@ -38,84 +44,97 @@ const Navbar = () => {
   // Determina se siamo nella homepage
   const isHomepage = router.pathname === '/'
 
-  // Stili dinamici basati su scroll e pagina
-  const navbarClasses = `
-    fixed top-0 left-0 right-0 z-50 transition-all duration-300
-    ${
-      isHomepage
-        ? isScrolled
-          ? 'bg-movieboli-black/95 backdrop-blur-md shadow-lg'
+  // Stili dinamici basati su scroll, pagina e branding
+  const getNavbarClasses = () => {
+    const baseClasses = 'fixed top-0 left-0 right-0 z-50 transition-all duration-300'
+    
+    if (isHomepage) {
+      return `${baseClasses} ${
+        isScrolled
+          ? 'navbar-movieboli shadow-lg'
           : 'bg-transparent'
-        : 'bg-movieboli-black shadow-lg'
+      }`
     }
-  `
+    
+    return `${baseClasses} navbar-movieboli shadow-lg`
+  }
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
   return (
-    <nav className={navbarClasses}>
+    <nav className={getNavbarClasses()}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo MOVIEBOLI */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-300">
-              <Image
+              <img
                 src="/logo-movieboli.png"
                 alt="MOVIEBOLI Logo"
-                fill
-                className={`object-contain transition-all duration-300 ${
+                className={`w-full h-full object-contain transition-all duration-300 ${
                   isHomepage && !isScrolled
                     ? 'filter brightness-0 invert'
                     : ''
                 }`}
-                priority
               />
             </div>
             <div className="flex flex-col">
-              <span className={`font-poppins font-bold text-xl tracking-wide transition-colors duration-300 ${
+              <span className={`${classes.fontPrimary} font-bold text-2xl tracking-wide transition-colors duration-300 ${
                 isHomepage && !isScrolled
-                  ? 'text-movieboli-pink'
-                  : 'text-movieboli-pink'
+                  ? 'text-white'
+                  : classes.textPrimary
               }`}>
                 MOVIEBOLI
               </span>
-              <span className={`font-poppins text-xs tracking-wider font-medium transition-colors duration-300 ${
+              <span className={`${classes.fontPrimary} text-sm tracking-wider font-medium transition-colors duration-300 ${
                 isHomepage && !isScrolled
-                  ? 'text-white/70'
-                  : 'text-movieboli-pink/70'
+                  ? 'text-white/80'
+                  : 'text-movieboli-neutral-600'
               }`}>
-                ASSOCIAZIONE CULTURALE
+                {branding.isFestival() ? 'FESTIVAL' : 'ASSOCIAZIONE CULTURALE'}
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navigation.map((item) => {
               const isActive = router.pathname === item.href
+              const isFestivalItem = item.section === 'festival'
+              
               return (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={`
-                    font-poppins font-semibold text-sm uppercase tracking-wider
-                    transition-all duration-300 hover:scale-105 relative group
+                    navbar-link relative group
+                    ${classes.fontPrimary} font-medium text-sm tracking-wide
+                    transition-all duration-300
                     ${
                       isHomepage && !isScrolled
                         ? isActive
-                          ? 'text-movieboli-pink'
-                          : 'text-white hover:text-movieboli-pink'
+                          ? 'text-white'
+                          : 'text-white/80 hover:text-white'
                         : isActive
-                          ? 'text-movieboli-pink'
-                          : 'text-white hover:text-movieboli-pink'
+                          ? classes.textPrimary
+                          : 'text-movieboli-neutral-600 hover:text-movieboli-primary'
                     }
+                    ${isFestivalItem && branding.isAssociation() ? 'festival-text-gradient' : ''}
                   `}
                 >
                   {item.name}
+                  {isFestivalItem && branding.isAssociation() && (
+                    <span className="festival-badge ml-2 text-xs">Nuovo</span>
+                  )}
                   <span className={`
-                    absolute -bottom-1 left-0 h-0.5 bg-movieboli-pink transition-all duration-300
+                    absolute -bottom-1 left-0 h-0.5 transition-all duration-300
+                    ${
+                      isFestivalItem
+                        ? 'bg-festival-gold'
+                        : 'bg-movieboli-secondary'
+                    }
                     ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}
                   `}></span>
                 </Link>
@@ -131,8 +150,8 @@ const Navbar = () => {
                 p-2 rounded-lg transition-all duration-300 hover:scale-110
                 ${
                   isHomepage && !isScrolled
-                    ? 'text-white hover:text-movieboli-pink'
-                    : 'text-movieboli-pink hover:text-white'
+                    ? 'text-white hover:text-white/80'
+                    : 'text-movieboli-neutral-600 hover:text-movieboli-primary'
                 }
               `}
               aria-label="Toggle menu"
@@ -156,27 +175,33 @@ const Navbar = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="md:hidden overflow-hidden bg-movieboli-black/95 backdrop-blur-md rounded-lg mt-2 border border-movieboli-pink/20"
+              className="md:hidden overflow-hidden glass-movieboli rounded-lg mt-2 border border-movieboli-neutral-200"
             >
-              <div className="py-4 space-y-2">
+              <div className="py-4 space-y-1">
                 {navigation.map((item) => {
                   const isActive = router.pathname === item.href
+                  const isFestivalItem = item.section === 'festival'
+                  
                   return (
                     <Link
                       key={item.name}
                       href={item.href}
                       onClick={() => setIsMenuOpen(false)}
                       className={`
-                        block px-6 py-3 font-poppins font-semibold text-base
-                        transition-all duration-300 hover:bg-movieboli-pink/10
+                        block px-6 py-3 ${classes.fontPrimary} font-medium text-base
+                        transition-all duration-300 hover:bg-movieboli-neutral-50
                         ${
                           isActive
-                            ? 'text-movieboli-pink bg-movieboli-pink/5 border-l-4 border-movieboli-pink'
-                            : 'text-white hover:text-movieboli-pink'
+                            ? `${classes.textPrimary} bg-movieboli-neutral-100 border-l-4 border-movieboli-secondary`
+                            : 'text-movieboli-neutral-700 hover:text-movieboli-primary'
                         }
+                        ${isFestivalItem ? 'flex items-center justify-between' : ''}
                       `}
                     >
-                      {item.name}
+                      <span>{item.name}</span>
+                      {isFestivalItem && branding.isAssociation() && (
+                        <span className="festival-badge text-xs">Nuovo</span>
+                      )}
                     </Link>
                   )
                 })}

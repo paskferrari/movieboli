@@ -59,10 +59,10 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-movieboli-black text-white">
+    <footer className="bg-movieboli-bordeauxCinema text-movieboli-cremaChiaro py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Sezione principale footer */}
-        <div className="py-12 border-b border-movieboli-pink/20">
+        <div className="py-12 border-b border-movieboli-rosaPastello/20">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {/* Logo e descrizione */}
             <div className="md:col-span-1">
@@ -77,15 +77,15 @@ const Footer = () => {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-poppins font-bold text-2xl tracking-wide text-movieboli-pink">
+                  <span className="font-poppins font-bold text-2xl tracking-wide text-movieboli-rosaPastello">
                     MOVIEBOLI
                   </span>
-                  <span className="font-poppins text-sm tracking-wider font-medium text-movieboli-pink/70">
+                  <span className="font-poppins text-sm tracking-wider font-medium text-movieboli-rosaPastello/70">
                     ASSOCIAZIONE CULTURALE
                   </span>
                 </div>
               </Link>
-              <p className="font-poppins text-white/80 leading-relaxed max-w-sm">
+              <p className="font-poppins text-movieboli-cremaChiaro/80 leading-relaxed max-w-sm">
                 Cinema, cultura e creatività. L'associazione MOVIEBOLI promuove eventi culturali, 
                 progetti artistici e il MoviEboli Film Festival durante tutto l'anno.
               </p>
@@ -93,7 +93,7 @@ const Footer = () => {
 
             {/* Link di navigazione */}
             <div className="md:col-span-1">
-              <h3 className="font-poppins font-bold text-lg text-movieboli-pink mb-6">
+              <h3 className="font-poppins font-bold text-lg text-movieboli-rosaPastello mb-6">
                 Navigazione
               </h3>
               <ul className="space-y-3">
@@ -101,7 +101,7 @@ const Footer = () => {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="font-poppins text-white/80 hover:text-movieboli-pink transition-colors duration-300 hover:translate-x-1 transform inline-block"
+                      className="footer-link hover:translate-x-1 transform inline-block"
                     >
                       {link.name}
                     </Link>
@@ -112,16 +112,16 @@ const Footer = () => {
 
             {/* Contatti e social */}
             <div className="md:col-span-1">
-              <h3 className="font-poppins font-bold text-lg text-movieboli-pink mb-6">
+              <h3 className="font-poppins font-bold text-lg text-movieboli-rosaPastello mb-6">
                 Seguici
               </h3>
               <div className="space-y-4 mb-6">
-                <p className="font-poppins text-white/80">
-                  <span className="font-semibold text-movieboli-pink">Email:</span><br />
+                <p className="font-poppins text-movieboli-gialloVintage/80">
+                  <span className="font-semibold text-movieboli-rosaPastello">Email:</span><br />
                   info@movieboli.it
                 </p>
-                <p className="font-poppins text-white/80">
-                  <span className="font-semibold text-movieboli-pink">Sede:</span><br />
+                <p className="font-poppins text-movieboli-gialloVintage/80">
+                  <span className="font-semibold text-movieboli-rosaPastello">Sede:</span><br />
                   Eboli (SA), Campania
                 </p>
               </div>
@@ -129,18 +129,16 @@ const Footer = () => {
               {/* Social Media Links */}
               <div className="flex space-x-4">
                 {socialLinks.map((social) => (
-                  <motion.a
+                  <a
                     key={social.name}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white/60 hover:text-movieboli-pink transition-all duration-300 transform hover:scale-110"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="text-movieboli-rosaPastello hover:text-movieboli-cremaChiaro transition-all duration-300 transform hover:scale-110"
                     aria-label={social.name}
                   >
                     {social.icon}
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </div>
@@ -150,19 +148,19 @@ const Footer = () => {
         {/* Copyright */}
         <div className="py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="font-poppins text-white/60 text-sm text-center md:text-left">
+            <p className="font-poppins text-movieboli-cremaChiaro/60 text-sm text-center md:text-left">
               © {new Date().getFullYear()} MOVIEBOLI - Associazione Culturale. Tutti i diritti riservati.
             </p>
             <div className="flex space-x-6">
               <Link
                 href="/privacy"
-                className="font-poppins text-white/60 hover:text-movieboli-pink text-sm transition-colors duration-300"
+                className="footer-link text-sm"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/cookie"
-                className="font-poppins text-white/60 hover:text-movieboli-pink text-sm transition-colors duration-300"
+                className="footer-link text-sm"
               >
                 Cookie Policy
               </Link>
@@ -172,7 +170,7 @@ const Footer = () => {
       </div>
 
       {/* Decorazione finale */}
-      <div className="h-1 bg-gradient-to-r from-movieboli-pink via-movieboli-bordeaux to-movieboli-pink"></div>
+      <div className="h-1 bg-gradient-to-r from-movieboli-rosaPastello via-movieboli-bordeauxCinema to-movieboli-rosaPastello"></div>
     </footer>
   )
 }

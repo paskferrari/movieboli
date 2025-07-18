@@ -264,12 +264,12 @@ const Prenota = () => {
                 <span>🎫</span>
                 <span>Ingresso gratuito</span>
               </div>
-              <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+              <div className="w-1 h-1 bg-movieboli-neutral-500 rounded-full"></div>
               <div className="flex items-center space-x-2">
                 <span>📧</span>
                 <span>Conferma via email</span>
               </div>
-              <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+              <div className="w-1 h-1 bg-movieboli-neutral-500 rounded-full"></div>
               <div className="flex items-center space-x-2">
                 <span>⏰</span>
                 <span>Accesso prioritario</span>

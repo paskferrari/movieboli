@@ -4,10 +4,14 @@ import Head from 'next/head';
 
 const PalettePage: React.FC = () => {
   const colors = [
-    { name: 'Rosa', class: 'bg-rosa', hex: '#f5a6a6' },
-    { name: 'Blu', class: 'bg-blu', hex: '#4829ff' },
-    { name: 'Bordeaux', class: 'bg-bordeaux', hex: '#5d0a0a' },
-    { name: 'Crema', class: 'bg-crema', hex: '#fff5e6' },
+    { name: 'Rosa Sfondo', class: 'bg-rosa', hex: '#f7bbc6' },
+    { name: 'Viola Principale', class: 'bg-viola', hex: '#7968fa' },
+    { name: 'Viola Secondario', class: 'bg-violaScuro', hex: '#5b41e2' },
+    { name: 'Bordeaux Scuro', class: 'bg-bordeaux', hex: '#32080a' },
+    { name: 'Nero Profondo', class: 'bg-nero', hex: '#1d0907' },
+    { name: 'Verde Matcha', class: 'bg-matcha', hex: '#1b390a' },
+    { name: 'Giallo Vintage', class: 'bg-giallo', hex: '#c3983a' },
+    { name: 'Highlight Viola', class: 'bg-movieboli-violaHighlight', hex: '#ddcaf0' },
   ];
 
   return (
@@ -29,7 +33,7 @@ const PalettePage: React.FC = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {colors.map((color) => (
                 <div key={color.name} className="text-center">
                   <div 
@@ -52,32 +56,32 @@ const PalettePage: React.FC = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <button className="w-full bg-rosa hover:bg-opacity-80 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
-                    Bottone Rosa
+                  <button className="w-full bg-viola hover:bg-opacity-80 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                    Bottone Viola Principale
                   </button>
-                  <button className="w-full bg-blu hover:bg-opacity-80 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
-                    Bottone Blu
+                  <button className="w-full bg-violaScuro hover:bg-opacity-80 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                    Bottone Viola Secondario
                   </button>
                   <button className="w-full bg-bordeaux hover:bg-opacity-80 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
-                    Bottone Bordeaux
+                    Bottone Bordeaux Scuro
                   </button>
-                  <button className="w-full bg-crema hover:bg-opacity-80 text-bordeaux font-bold py-3 px-6 rounded-lg transition-all duration-300 border border-bordeaux">
-                    Bottone Crema
+                  <button className="w-full bg-giallo hover:bg-opacity-80 text-nero font-bold py-3 px-6 rounded-lg transition-all duration-300">
+                    Bottone Giallo Vintage
                   </button>
                 </div>
                 
                 <div className="space-y-4">
-                  <div className="p-4 border-l-4 border-rosa bg-rosa bg-opacity-10">
-                    <p className="text-rosa font-semibold">Messaggio con accento rosa</p>
+                  <div className="p-4 border-l-4 border-viola bg-viola bg-opacity-10">
+                    <p className="text-viola font-semibold">Messaggio con accento viola principale</p>
                   </div>
-                  <div className="p-4 border-l-4 border-blu bg-blu bg-opacity-10">
-                    <p className="text-blu font-semibold">Messaggio con accento blu</p>
+                  <div className="p-4 border-l-4 border-violaScuro bg-violaScuro bg-opacity-10">
+                    <p className="text-violaScuro font-semibold">Messaggio con accento viola secondario</p>
                   </div>
                   <div className="p-4 border-l-4 border-bordeaux bg-bordeaux bg-opacity-10">
-                    <p className="text-bordeaux font-semibold">Messaggio con accento bordeaux</p>
+                    <p className="text-bordeaux font-semibold">Messaggio con accento bordeaux scuro</p>
                   </div>
-                  <div className="p-4 border-l-4 border-bordeaux bg-crema">
-                    <p className="text-bordeaux font-semibold">Messaggio su sfondo crema</p>
+                  <div className="p-4 border-l-4 border-giallo bg-rosa bg-opacity-20">
+                    <p className="text-giallo font-semibold">Messaggio su sfondo rosa con giallo</p>
                   </div>
                 </div>
               </div>
@@ -89,19 +93,20 @@ const PalettePage: React.FC = () => {
               </h2>
               <div className="bg-gray-100 rounded-lg p-6 text-left max-w-2xl mx-auto">
                 <pre className="text-sm text-gray-800">
-{`/* Sfondi */
-.bg-rosa, .bg-blu, .bg-bordeaux, .bg-crema
+{`/* Sfondi Palette Personalizzata */
+.bg-rosa, .bg-viola, .bg-violaScuro, .bg-bordeaux, .bg-nero, .bg-matcha, .bg-giallo
 
-/* Testi */
-.text-rosa, .text-blu, .text-bordeaux, .text-crema
+/* Testi Palette Personalizzata */
+.text-rosa, .text-viola, .text-violaScuro, .text-bordeaux, .text-nero, .text-matcha, .text-giallo
 
-/* Bordi */
-.border-rosa, .border-blu, .border-bordeaux, .border-crema
+/* Bordi Palette Personalizzata */
+.border-rosa, .border-viola, .border-violaScuro, .border-bordeaux, .border-nero, .border-matcha, .border-giallo
 
-/* Utilizzo con Tailwind */
-className="bg-rosa text-white"
-className="border-2 border-blu text-blu"
-className="bg-crema text-bordeaux"`}
+/* Esempi Utilizzo Nuova Palette */
+className="bg-viola text-white"
+className="border-2 border-violaScuro text-violaScuro"
+className="bg-rosa text-bordeaux"
+className="bg-giallo text-nero"`}
                 </pre>
               </div>
             </div>

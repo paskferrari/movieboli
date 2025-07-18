@@ -1,0 +1,23 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" rx="24" fill="#1E3A5F"/>
+  <circle cx="96" cy="96" r="60" fill="#C4704A" opacity="0.1"/>
+  <circle cx="96" cy="96" r="40" fill="#C4704A" opacity="0.2"/>
+  <circle cx="96" cy="96" r="20" fill="#C4704A" opacity="0.3"/>
+  
+  <!-- Film reel design -->
+  <circle cx="96" cy="96" r="50" stroke="#ffffff" stroke-width="3" fill="none"/>
+  <circle cx="96" cy="96" r="35" stroke="#ffffff" stroke-width="2" fill="none"/>
+  
+  <!-- Film holes -->
+  <circle cx="96" cy="56" r="4" fill="#ffffff"/>
+  <circle cx="96" cy="136" r="4" fill="#ffffff"/>
+  <circle cx="56" cy="96" r="4" fill="#ffffff"/>
+  <circle cx="136" cy="96" r="4" fill="#ffffff"/>
+  
+  <!-- Center circle -->
+  <circle cx="96" cy="96" r="15" fill="#ffffff"/>
+  <circle cx="96" cy="96" r="8" fill="#1E3A5F"/>
+  
+  <!-- Text -->
+  <text x="96" y="165" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#ffffff" text-anchor="middle">MOVIEBOLI</text>
+</svg>

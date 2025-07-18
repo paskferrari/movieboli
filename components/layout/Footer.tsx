@@ -65,7 +65,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-festival-dark text-white">
+    <footer className="bg-movieboli-bordeaux text-movieboli-crema">
       <div className="container-custom">
         {/* Main Footer Content */}
         <div className="py-16">
@@ -85,7 +85,7 @@ const Footer = () => {
                   MoviEboli
                 </span>
               </Link>
-              <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
+              <p className="text-movieboli-crema/80 mb-6 max-w-md leading-relaxed">
                 Il Festival Artistico MoviEboli celebra l'arte contemporanea attraverso 
                 performance, installazioni e spettacoli che uniscono tradizione e innovazione.
               </p>
@@ -94,7 +94,7 @@ const Footer = () => {
                   <a
                     key={social.name}
                     href={social.href}
-                    className="text-gray-400 hover:text-festival-primary transition-colors duration-300"
+                    className="text-movieboli-crema/70 hover:text-movieboli-violaPrincipale transition-colors duration-300"
                     aria-label={social.name}
                   >
                     {social.icon}
@@ -105,13 +105,13 @@ const Footer = () => {
 
             {/* Festival Links */}
             <div>
-              <h3 className="font-bebas text-xl mb-4 text-festival-accent">Festival</h3>
+              <h3 className="font-bebas text-xl mb-4 text-movieboli-violaPrincipale">Festival</h3>
               <ul className="space-y-2">
                 {footerLinks.festival.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-300"
+                      className="text-movieboli-crema/80 hover:text-movieboli-crema transition-colors duration-300"
                     >
                       {link.name}
                     </Link>
@@ -122,13 +122,13 @@ const Footer = () => {
 
             {/* Info Links */}
             <div>
-              <h3 className="font-bebas text-xl mb-4 text-festival-accent">Informazioni</h3>
+              <h3 className="font-bebas text-xl mb-4 text-movieboli-violaPrincipale">Informazioni</h3>
               <ul className="space-y-2">
                 {footerLinks.info.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-300"
+                      className="text-movieboli-crema/80 hover:text-movieboli-crema transition-colors duration-300"
                     >
                       {link.name}
                     </Link>
@@ -139,13 +139,13 @@ const Footer = () => {
 
             {/* Support Links */}
             <div>
-              <h3 className="font-bebas text-xl mb-4 text-festival-accent">Supporto</h3>
+              <h3 className="font-bebas text-xl mb-4 text-movieboli-violaPrincipale">Supporto</h3>
               <ul className="space-y-2">
                 {footerLinks.supporto.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-300"
+                      className="text-movieboli-crema/80 hover:text-movieboli-crema transition-colors duration-300"
                     >
                       {link.name}
                     </Link>
@@ -157,19 +157,19 @@ const Footer = () => {
         </div>
 
         {/* Bottom Footer */}
-        <div className="border-t border-gray-700 py-8">
+        <div className="border-t border-movieboli-crema/20 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
+            <div className="text-movieboli-crema/70 text-sm mb-4 md:mb-0">
               © {currentYear} Festival MoviEboli. Tutti i diritti riservati.
             </div>
             <div className="flex space-x-6 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors duration-300">
+              <Link href="/privacy" className="text-movieboli-crema/70 hover:text-movieboli-crema transition-colors duration-300">
                 Privacy Policy
               </Link>
-              <Link href="/termini" className="text-gray-400 hover:text-white transition-colors duration-300">
+              <Link href="/termini" className="text-movieboli-crema/70 hover:text-movieboli-crema transition-colors duration-300">
                 Termini di Servizio
               </Link>
-              <Link href="/cookie" className="text-gray-400 hover:text-white transition-colors duration-300">
+              <Link href="/cookie" className="text-movieboli-crema/70 hover:text-movieboli-crema transition-colors duration-300">
                 Cookie Policy
               </Link>
             </div>

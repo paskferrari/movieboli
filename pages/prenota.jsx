@@ -171,7 +171,7 @@ const Prenota = () => {
 
   if (showConfirmation) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-movieboli-pink via-movieboli-cream to-movieboli-pink/80">
+      <div className="min-h-screen bg-gradient-to-br from-movieboli-rosaSfondo via-movieboli-crema to-movieboli-rosaSfondo/80">
         <Navbar />
         <motion.div 
           className="min-h-screen flex items-center justify-center px-4"
@@ -198,7 +198,7 @@ const Prenota = () => {
             </p>
             <button
               onClick={() => setShowConfirmation(false)}
-              className="bg-movieboli-pink hover:bg-movieboli-pink/80 text-white font-semibold py-3 px-8 rounded-xl transition-colors duration-200"
+              className="bg-movieboli-violaPrincipale hover:bg-movieboli-violaPrincipale/80 text-movieboli-nero font-semibold py-3 px-8 rounded-xl transition-colors duration-200"
             >
               Nuova Prenotazione
             </button>
@@ -209,7 +209,7 @@ const Prenota = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-movieboli-pink via-movieboli-cream to-movieboli-pink/80">
+    <div className="min-h-screen bg-gradient-to-br from-movieboli-rosaSfondo via-movieboli-crema to-movieboli-rosaSfondo/80">
       <Navbar />
       
       {/* Hero Section */}
@@ -219,7 +219,7 @@ const Prenota = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-movieboli-pink/20 via-transparent to-movieboli-cream/30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-movieboli-violaPrincipale/20 via-transparent to-movieboli-crema/30" />
         
         <motion.div 
           className="relative z-10 w-full max-w-2xl mx-auto"
@@ -257,7 +257,7 @@ const Prenota = () => {
                   className={`w-full px-4 py-3 rounded-xl border-2 transition-colors duration-200 focus:outline-none focus:ring-0 ${
                     errors.nome 
                       ? 'border-red-300 focus:border-red-500' 
-                      : 'border-gray-200 focus:border-movieboli-pink'
+                      : 'border-gray-200 focus:border-movieboli-violaPrincipale'
                   }`}
                   placeholder="Inserisci il tuo nome completo"
                 />
@@ -286,7 +286,7 @@ const Prenota = () => {
                   className={`w-full px-4 py-3 rounded-xl border-2 transition-colors duration-200 focus:outline-none focus:ring-0 ${
                     errors.email 
                       ? 'border-red-300 focus:border-red-500' 
-                      : 'border-gray-200 focus:border-movieboli-pink'
+                      : 'border-gray-200 focus:border-movieboli-violaPrincipale'
                   }`}
                   placeholder="la-tua-email@esempio.com"
                 />
@@ -314,7 +314,7 @@ const Prenota = () => {
                   className={`w-full px-4 py-3 rounded-xl border-2 transition-colors duration-200 focus:outline-none focus:ring-0 appearance-none bg-white ${
                     errors.evento 
                       ? 'border-red-300 focus:border-red-500' 
-                      : 'border-gray-200 focus:border-movieboli-pink'
+                      : 'border-gray-200 focus:border-movieboli-violaPrincipale'
                   }`}
                 >
                   <option value="">Scegli un evento...</option>
@@ -337,7 +337,7 @@ const Prenota = () => {
                 {/* Dettagli evento selezionato */}
                 {selectedEvent && (
                   <motion.div 
-                    className="mt-3 p-4 bg-movieboli-pink/10 rounded-xl border border-movieboli-pink/20"
+                    className="mt-3 p-4 bg-movieboli-violaPrincipale/10 rounded-xl border border-movieboli-violaPrincipale/20"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     transition={{ duration: 0.3 }}
@@ -365,7 +365,7 @@ const Prenota = () => {
                   <button
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, numeroPosti: Math.max(1, prev.numeroPosti - 1) }))}
-                    className="w-10 h-10 rounded-full bg-movieboli-pink/20 hover:bg-movieboli-pink/30 flex items-center justify-center transition-colors duration-200"
+                    className="w-10 h-10 rounded-full bg-movieboli-violaPrincipale/20 hover:bg-movieboli-violaPrincipale/30 flex items-center justify-center transition-colors duration-200"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
@@ -382,13 +382,13 @@ const Prenota = () => {
                     className={`w-20 px-4 py-3 rounded-xl border-2 text-center transition-colors duration-200 focus:outline-none focus:ring-0 ${
                       errors.numeroPosti 
                         ? 'border-red-300 focus:border-red-500' 
-                        : 'border-gray-200 focus:border-movieboli-pink'
+                        : 'border-gray-200 focus:border-movieboli-violaPrincipale'
                     }`}
                   />
                   <button
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, numeroPosti: Math.min(6, prev.numeroPosti + 1) }))}
-                    className="w-10 h-10 rounded-full bg-movieboli-pink/20 hover:bg-movieboli-pink/30 flex items-center justify-center transition-colors duration-200"
+                    className="w-10 h-10 rounded-full bg-movieboli-violaPrincipale/20 hover:bg-movieboli-violaPrincipale/30 flex items-center justify-center transition-colors duration-200"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
