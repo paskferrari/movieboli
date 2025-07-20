@@ -47,9 +47,9 @@ const CortometraggiPage = ({ cortometraggi, error }: FestivalPageProps) => {
 export const getStaticProps: GetStaticProps<FestivalPageProps> = async () => {
   try {
     // Percorso della directory contenente le cartelle dei cortometraggi
-    const cortoBasePath = path.join(process.cwd(), 'json&folders');
-    
-    // Leggi le directory all'interno della cartella json&folders
+    const cortoBasePath = path.join(process.cwd(), 'public', 'json-folders');
+
+  // Leggi le directory all'interno della cartella json-folders
     const dirents = await fs.readdir(cortoBasePath, { withFileTypes: true });
     const directories = dirents
       .filter(dirent => dirent.isDirectory())

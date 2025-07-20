@@ -221,7 +221,7 @@ export async function getStaticProps() {
     const readFile = promisify(fs.readFile);
     
     // Percorso della directory contenente i dati dei cortometraggi
-    const dirPath = path.join(process.cwd(), 'json&folders');
+    const dirPath = path.join(process.cwd(), 'public', 'json-folders');
     
     // Leggi tutte le sottodirectory
     const directories = await readdir(dirPath, { withFileTypes: true });

@@ -27,23 +27,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.redirect(fullPathStr);
   }
   
-  // Costruisci il percorso completo dell'immagine
-  const fullPath = path.join(process.cwd(), 'json&folders', ...decodedPath);
+  // Costruisci il percorso completo dell'immagine nella directory public
+  const fullPath = path.join(process.cwd(), 'public', 'json-folders', ...decodedPath);
   console.log('Full path:', fullPath);
 
   // Verifica che il file esista
   if (!fs.existsSync(fullPath)) {
     console.log('File not found at:', fullPath);
-    
-    // Try with the public directory as fallback
-    const publicPath = path.join(process.cwd(), 'public', 'json&folders', ...decodedPath);
-    console.log('Trying public path:', publicPath);
-    
-    if (fs.existsSync(publicPath)) {
-      console.log('File found in public directory');
-      return streamFile(publicPath, res);
-    }
-    
     return res.status(404).json({ error: 'Image not found' });
   }
 
