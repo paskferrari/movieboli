@@ -1,206 +1,206 @@
-[01:11:50.833] Running build in Washington, D.C., USA (East) – iad1
-[01:11:50.834] Build machine configuration: 2 cores, 8 GB
-[01:11:50.847] Cloning github.com/paskferrari/movieboli (Branch: main, Commit: 300274d)
-[01:11:51.005] Previous build caches not available
-[01:11:52.372] Cloning completed: 1.525s
-[01:11:52.747] Running "vercel build"
-[01:11:54.046] Vercel CLI 44.4.3
-[01:11:54.808] Installing dependencies...
-[01:11:57.999] npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
-[01:11:58.002] npm warn deprecated rollup-plugin-terser@7.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
-[01:11:58.035] npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
-[01:11:58.878] npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
-[01:11:59.074] npm warn deprecated workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
-[01:11:59.112] npm warn deprecated glob@7.1.7: Glob versions prior to v9 are no longer supported
-[01:11:59.145] npm warn deprecated workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
-[01:12:00.224] npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
-[01:12:00.260] npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
-[01:12:01.046] npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
-[01:12:03.138] npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
-[01:12:08.753] 
-[01:12:08.754] added 703 packages in 14s
-[01:12:08.755] 
-[01:12:08.755] 181 packages are looking for funding
-[01:12:08.755]   run `npm fund` for details
-[01:12:08.807] Detected Next.js version: 14.0.4
-[01:12:08.812] Running "npm run build"
-[01:12:08.920] 
-[01:12:08.920] > festival-artistico@0.1.0 build
-[01:12:08.921] > next build
-[01:12:08.921] 
-[01:12:09.825] Attention: Next.js now collects completely anonymous telemetry regarding usage.
-[01:12:09.825] This information is used to shape Next.js' roadmap and prioritize features.
-[01:12:09.825] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-[01:12:09.825] https://nextjs.org/telemetry
-[01:12:09.825] 
-[01:12:09.887]    Linting and checking validity of types ...
-[01:12:12.042]  ⨯ ESLint: Failed to load config "next/typescript" to extend from. Referenced from: /vercel/path0/.eslintrc.json
-[01:12:15.816]    ▲ Next.js 14.0.4
-[01:12:15.816]    - Experiments (use at your own risk):
-[01:12:15.817]      · optimizeCss
-[01:12:15.817] 
-[01:12:15.817]    Creating an optimized production build ...
-[01:12:16.291] > [PWA] Compile server
-[01:12:16.292] > [PWA] Compile server
-[01:12:16.293] > [PWA] Compile client (static)
-[01:12:16.293] > [PWA] Auto register service worker with: /vercel/path0/node_modules/next-pwa/register.js
-[01:12:16.293] > [PWA] Service worker: /vercel/path0/public/sw.js
-[01:12:16.294] > [PWA]   url: /sw.js
-[01:12:16.294] > [PWA]   scope: /
-[01:12:29.255]  ✓ Compiled successfully
-[01:12:29.256]    Collecting page data ...
-[01:12:30.495]    Generating static pages (0/44) ...
-[01:12:30.973] [32mInlined 16.64 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:30.974] Time 234.90284
-[01:12:31.216] [32mInlined 15.95 kB (20% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:31.216] Time 192.32619
-[01:12:31.342] [32mInlined 7.59 kB (9% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:31.343] Time 94.482596
-[01:12:31.555] [32mInlined 10.01 kB (13% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:31.555] Time 102.184718
-[01:12:31.638] [32mInlined 15.88 kB (20% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:31.639] Time 49.498644
-[01:12:31.892] [32mInlined 18.19 kB (23% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:31.893] Time 96.247938
-[01:12:32.037] [32mInlined 21.77 kB (28% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:32.037] Time 87.128205
-[01:12:32.180] [32mInlined 11.42 kB (15% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:32.180] [32mInlined 1.48 kB (11% of original 12.88 kB) of _next/static/css/f905e3f5554554b8.css.[39m
-[01:12:32.180] Time 93.91276
-[01:12:32.655] [32mInlined 10.80 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:32.655] Time 90.766927
-[01:12:33.024] [32mInlined 20.10 kB (26% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:33.025] Time 81.7368
-[01:12:33.161] [32mInlined 16.04 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:33.161] Time 81.77684
-[01:12:33.178] 
+[01:27:47.846] Running build in Washington, D.C., USA (East) – iad1
+[01:27:47.846] Build machine configuration: 2 cores, 8 GB
+[01:27:47.867] Cloning github.com/paskferrari/movieboli (Branch: main, Commit: c938c3e)
+[01:27:48.059] Previous build caches not available
+[01:27:49.945] Cloning completed: 2.078s
+[01:27:50.860] Running "vercel build"
+[01:27:52.825] Vercel CLI 44.4.3
+[01:27:54.938] Installing dependencies...
+[01:27:59.427] npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+[01:27:59.541] npm warn deprecated rollup-plugin-terser@7.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
+[01:27:59.604] npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+[01:28:00.772] npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+[01:28:01.191] npm warn deprecated glob@7.1.7: Glob versions prior to v9 are no longer supported
+[01:28:01.462] npm warn deprecated workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
+[01:28:01.684] npm warn deprecated workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
+[01:28:02.778] npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+[01:28:02.828] npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+[01:28:03.903] npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+[01:28:07.161] npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+[01:28:15.004] 
+[01:28:15.004] added 703 packages in 20s
+[01:28:15.005] 
+[01:28:15.005] 181 packages are looking for funding
+[01:28:15.005]   run `npm fund` for details
+[01:28:15.091] Detected Next.js version: 14.0.4
+[01:28:15.099] Running "npm run build"
+[01:28:15.267] 
+[01:28:15.269] > festival-artistico@0.1.0 build
+[01:28:15.269] > next build
+[01:28:15.269] 
+[01:28:16.932] Attention: Next.js now collects completely anonymous telemetry regarding usage.
+[01:28:16.935] This information is used to shape Next.js' roadmap and prioritize features.
+[01:28:16.937] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+[01:28:16.939] https://nextjs.org/telemetry
+[01:28:16.940] 
+[01:28:17.068]    Linting and checking validity of types ...
+[01:28:20.487]  ⨯ ESLint: Failed to load config "next/typescript" to extend from. Referenced from: /vercel/path0/.eslintrc.json
+[01:28:25.129]    ▲ Next.js 14.0.4
+[01:28:25.130]    - Experiments (use at your own risk):
+[01:28:25.131]      · optimizeCss
+[01:28:25.132] 
+[01:28:25.132]    Creating an optimized production build ...
+[01:28:25.639] > [PWA] Compile server
+[01:28:25.641] > [PWA] Compile server
+[01:28:25.642] > [PWA] Compile client (static)
+[01:28:25.642] > [PWA] Auto register service worker with: /vercel/path0/node_modules/next-pwa/register.js
+[01:28:25.643] > [PWA] Service worker: /vercel/path0/public/sw.js
+[01:28:25.643] > [PWA]   url: /sw.js
+[01:28:25.643] > [PWA]   scope: /
+[01:28:45.120]  ✓ Compiled successfully
+[01:28:45.121]    Collecting page data ...
+[01:28:47.301]    Generating static pages (0/44) ...
+[01:28:47.872] [32mInlined 16.64 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:47.872] Time 297.695322
+[01:28:48.206] [32mInlined 15.95 kB (20% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:48.208] Time 284.353368
+[01:28:48.474] [32mInlined 7.59 kB (9% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:48.480] Time 193.400133
+[01:28:48.712] [32mInlined 10.01 kB (13% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:48.713] Time 164.563196
+[01:28:48.929] [32mInlined 15.88 kB (20% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:48.929] Time 121.18175
+[01:28:49.083] [32mInlined 18.19 kB (23% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:49.084] Time 110.036258
+[01:28:49.465] [32mInlined 21.77 kB (28% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:49.465] Time 158.434162
+[01:28:49.672] [32mInlined 11.42 kB (15% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:49.743] [32mInlined 1.48 kB (11% of original 12.88 kB) of _next/static/css/f905e3f5554554b8.css.[39m
+[01:28:49.745] Time 184.785311
+[01:28:50.538] [32mInlined 10.80 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:50.540] Time 114.002526
+[01:28:51.250] [32mInlined 20.10 kB (26% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:51.253] Time 156.706868
+[01:28:51.492] [32mInlined 16.04 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:51.492] Time 137.23472
+[01:28:51.542] 
    Generating static pages (11/44) 
-[01:12:33.301] [32mInlined 6.38 kB (8% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:33.302] Time 56.316028
-[01:12:33.394] [32mInlined 11.16 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:33.395] Time 71.64451
-[01:12:33.484] [32mInlined 18.20 kB (23% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:33.485] Time 56.838734
-[01:12:33.561] [32mInlined 13.38 kB (17% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:33.562] Time 46.203306
-[01:12:33.724] [32mInlined 16.41 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:33.724] Time 96.251635
-[01:12:33.934] [32mInlined 11.20 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:33.935] Time 79.907408
-[01:12:34.014] [32mInlined 16.30 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:34.014] Time 45.588488
-[01:12:34.304] [32mInlined 13.46 kB (17% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:34.305] Time 52.978818
-[01:12:34.426] [32mInlined 1.98 kB (2% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:34.427] Time 30.185238
-[01:12:34.908] [32mInlined 1.98 kB (2% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:34.908] Time 41.817747
-[01:12:35.040] [32mInlined 16.64 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:35.041] Time 61.517216
-[01:12:35.041] 
+[01:28:51.725] [32mInlined 6.38 kB (8% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:51.726] Time 64.292107
+[01:28:51.865] [32mInlined 11.16 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:51.866] Time 95.065291
+[01:28:52.052] [32mInlined 18.20 kB (23% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:52.053] Time 98.107986
+[01:28:52.187] [32mInlined 13.38 kB (17% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:52.187] Time 86.131371
+[01:28:52.569] [32mInlined 16.41 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:52.570] Time 202.555026
+[01:28:52.787] [32mInlined 11.20 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:52.788] Time 152.886511
+[01:28:53.087] [32mInlined 16.30 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:53.087] Time 70.593331
+[01:28:53.289] [32mInlined 13.46 kB (17% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:53.289] Time 68.514202
+[01:28:53.484] [32mInlined 1.98 kB (2% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:53.486] Time 54.31976
+[01:28:54.463] [32mInlined 1.98 kB (2% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:54.464] Time 131.521962
+[01:28:54.651] [32mInlined 16.64 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:54.652] Time 115.492723
+[01:28:54.665] 
    Generating static pages (22/44) 
-[01:12:35.212] [32mInlined 15.95 kB (20% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:35.212] Time 64.942923
-[01:12:35.335] [32mInlined 7.59 kB (9% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:35.336] Time 60.989964
-[01:12:35.413] [32mInlined 10.01 kB (13% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:35.413] Time 40.401705
-[01:12:35.534] [32mInlined 15.88 kB (20% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:35.534] Time 46.11635
-[01:12:35.700] [32mInlined 18.19 kB (23% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:35.701] Time 75.3455
-[01:12:36.605] [32mInlined 21.77 kB (28% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:36.605] Time 47.314721
-[01:12:36.930] [32mInlined 11.42 kB (15% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:36.930] [32mInlined 1.48 kB (11% of original 12.88 kB) of _next/static/css/f905e3f5554554b8.css.[39m
-[01:12:36.930] Time 71.265403
-[01:12:37.422] [32mInlined 10.80 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:37.422] Time 38.035295
-[01:12:37.750] [32mInlined 20.10 kB (26% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:37.751] Time 78.383066
-[01:12:37.852] [32mInlined 16.04 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:37.852] Time 63.968248
-[01:12:38.003] [32mInlined 6.38 kB (8% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:38.003] Time 68.108788
-[01:12:38.010] 
+[01:28:54.908] [32mInlined 15.95 kB (20% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:54.908] Time 82.24345
+[01:28:55.078] [32mInlined 7.59 kB (9% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:55.078] Time 76.148161
+[01:28:55.250] [32mInlined 10.01 kB (13% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:55.252] Time 93.683568
+[01:28:55.426] [32mInlined 15.88 kB (20% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:55.427] Time 72.961449
+[01:28:55.661] [32mInlined 18.19 kB (23% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:55.662] Time 82.284219
+[01:28:56.885] [32mInlined 21.77 kB (28% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:56.886] Time 73.670802
+[01:28:57.304] [32mInlined 11.42 kB (15% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:57.306] [32mInlined 1.48 kB (11% of original 12.88 kB) of _next/static/css/f905e3f5554554b8.css.[39m
+[01:28:57.307] Time 85.408293
+[01:28:58.020] [32mInlined 10.80 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:58.020] Time 56.885874
+[01:28:58.542] [32mInlined 20.10 kB (26% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:58.543] Time 103.606264
+[01:28:58.689] [32mInlined 16.04 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:58.690] Time 86.259859
+[01:28:58.807] [32mInlined 6.38 kB (8% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:58.809] Time 58.441704
+[01:28:58.809] 
    Generating static pages (33/44) 
-[01:12:38.075] [32mInlined 11.16 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:38.076] Time 45.008041
-[01:12:38.152] [32mInlined 18.20 kB (23% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:38.152] Time 51.279087
-[01:12:38.247] [32mInlined 13.38 kB (17% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:38.248] Time 47.383954
-[01:12:38.347] [32mInlined 16.41 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:38.348] Time 47.723858
-[01:12:38.455] [32mInlined 11.20 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:38.456] Time 55.512297
-[01:12:38.521] [32mInlined 16.30 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:38.523] Time 38.195834
-[01:12:38.615] [32mInlined 13.46 kB (17% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:38.615] Time 43.423168
-[01:12:38.738] [32mInlined 14.98 kB (19% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:38.738] Time 69.51261
-[01:12:38.999] [32mInlined 14.98 kB (19% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:38.999] Time 59.773502
-[01:12:39.128] [32mInlined 1.98 kB (2% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:39.128] Time 35.328211
-[01:12:39.190] [32mInlined 1.98 kB (2% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
-[01:12:39.191] Time 33.558868
-[01:12:39.191] 
+[01:28:58.948] [32mInlined 11.16 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:58.948] Time 85.306789
+[01:28:59.126] [32mInlined 18.20 kB (23% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:59.127] Time 96.651529
+[01:28:59.247] [32mInlined 13.38 kB (17% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:59.248] Time 68.328373
+[01:28:59.418] [32mInlined 16.41 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:59.419] Time 93.271972
+[01:28:59.569] [32mInlined 11.20 kB (14% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:59.570] Time 92.100268
+[01:28:59.803] [32mInlined 16.30 kB (21% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:28:59.803] Time 166.689384
+[01:29:00.061] [32mInlined 13.46 kB (17% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:29:00.063] Time 85.007247
+[01:29:00.257] [32mInlined 14.98 kB (19% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:29:00.258] Time 90.40762
+[01:29:00.543] [32mInlined 14.98 kB (19% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:29:00.545] Time 136.749586
+[01:29:01.066] [32mInlined 1.98 kB (2% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:29:01.068] Time 47.73897
+[01:29:01.154] [32mInlined 1.98 kB (2% of original 76.03 kB) of _next/static/css/2c80d8ca89e87975.css.[39m
+[01:29:01.154] Time 50.340021
+[01:29:01.155] 
  ✓ Generating static pages (44/44) 
-[01:12:40.458]    Finalizing page optimization ...
-[01:12:40.459]    Collecting build traces ...
-[01:12:42.444] RangeError: Maximum call stack size exceeded
-[01:12:42.445]     at RegExp.exec (<anonymous>)
-[01:12:42.445]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18889)
-[01:12:42.445]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18918)
-[01:12:42.446]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18918)
-[01:12:42.446]     at parse.fastpaths (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18997)
-[01:12:42.446]     at picomatch.makeRe (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:21635)
-[01:12:42.446]     at picomatch (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19637)
-[01:12:42.446]     at /vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19294
-[01:12:42.446]     at Array.map (<anonymous>)
-[01:12:42.446]     at picomatch (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19286)
-[01:12:42.446]     at micromatch.isMatch (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:1090)
-[01:12:42.446]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:245:48
-[01:12:42.446]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:75:9)
-[01:12:42.446]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.446]     at Array.every (<anonymous>)
-[01:12:42.447]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.447]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.447]     at Array.every (<anonymous>)
-[01:12:42.447]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.447]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.447]     at Array.every (<anonymous>)
-[01:12:42.447]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.447]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.447]     at Array.every (<anonymous>)
-[01:12:42.447]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.447]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.447]     at Array.every (<anonymous>)
-[01:12:42.447]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.447]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.447]     at Array.every (<anonymous>)
-[01:12:42.448]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.448]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.448]     at Array.every (<anonymous>)
-[01:12:42.448]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.448]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.448]     at Array.every (<anonymous>)
-[01:12:42.448]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.448]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.448]     at Array.every (<anonymous>)
-[01:12:42.448]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.448]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.448]     at Array.every (<anonymous>)
-[01:12:42.448]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.448]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.448]     at Array.every (<anonymous>)
-[01:12:42.449]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.449]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.449]     at Array.every (<anonymous>)
-[01:12:42.449]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
-[01:12:42.449]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
-[01:12:42.503] Error: Command "npm run build" exited with 1
-[01:12:42.762] 
-[01:12:45.758] Exiting build container
+[01:29:02.792]    Finalizing page optimization ...
+[01:29:02.793]    Collecting build traces ...
+[01:29:05.627] RangeError: Maximum call stack size exceeded
+[01:29:05.630]     at RegExp.exec (<anonymous>)
+[01:29:05.631]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18889)
+[01:29:05.631]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18918)
+[01:29:05.631]     at create (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18918)
+[01:29:05.632]     at parse.fastpaths (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:18997)
+[01:29:05.632]     at picomatch.makeRe (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:21635)
+[01:29:05.632]     at picomatch (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19637)
+[01:29:05.632]     at /vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19294
+[01:29:05.633]     at Array.map (<anonymous>)
+[01:29:05.634]     at picomatch (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:19286)
+[01:29:05.634]     at micromatch.isMatch (/vercel/path0/node_modules/next/dist/compiled/micromatch/index.js:15:1090)
+[01:29:05.634]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:245:48
+[01:29:05.635]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:75:9)
+[01:29:05.635]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.635]     at Array.every (<anonymous>)
+[01:29:05.635]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.636]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.636]     at Array.every (<anonymous>)
+[01:29:05.636]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.637]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.637]     at Array.every (<anonymous>)
+[01:29:05.637]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.637]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.638]     at Array.every (<anonymous>)
+[01:29:05.638]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.638]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.638]     at Array.every (<anonymous>)
+[01:29:05.639]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.639]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.639]     at Array.every (<anonymous>)
+[01:29:05.639]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.640]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.640]     at Array.every (<anonymous>)
+[01:29:05.640]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.640]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.641]     at Array.every (<anonymous>)
+[01:29:05.641]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.641]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.642]     at Array.every (<anonymous>)
+[01:29:05.642]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.642]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.642]     at Array.every (<anonymous>)
+[01:29:05.643]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.643]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.643]     at Array.every (<anonymous>)
+[01:29:05.644]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.644]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.644]     at Array.every (<anonymous>)
+[01:29:05.644]     at shouldIgnore (/vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:7)
+[01:29:05.645]     at /vercel/path0/node_modules/next/dist/build/collect-build-traces.js:86:23
+[01:29:05.719] Error: Command "npm run build" exited with 1
+[01:29:06.168] 
+[01:29:09.015] Exiting build container

@@ -71,18 +71,8 @@ const withPWA = require('next-pwa')({
         networkTimeoutSeconds: 10
       }
     },
-    {
-      urlPattern: /.*/i,
-      handler: 'NetworkFirst',
-      options: {
-        cacheName: 'others',
-        expiration: {
-          maxEntries: 32,
-          maxAgeSeconds: 24 * 60 * 60 // 24 hours
-        },
-        networkTimeoutSeconds: 10
-      }
-    }
+    // Removed catch-all pattern /.*/i that was causing build recursion issues
+    // This pattern was too broad and interfered with Next.js build tracing
   ]
 });
 
