@@ -1,6 +1,41 @@
-# MoviEboli Artistic Festival
+# MOVIEBOLI - Festival del Cinema e Podcast
 
-Un'applicazione Next.js moderna per il Festival Artistico MoviEboli.
+Associazione culturale MOVIEBOLI - Sito web ufficiale del Festival del Cinema e Podcast Ciliegie.
+
+## 🚀 Deploy su Vercel
+
+### Prerequisiti
+- Account Vercel
+- Repository GitHub collegato
+
+### Configurazione Deploy
+
+1. **Collega il repository a Vercel:**
+   - Vai su [vercel.com](https://vercel.com)
+   - Importa il progetto da GitHub
+   - Seleziona questo repository
+
+2. **Configurazioni automatiche:**
+   - Framework: Next.js (rilevato automaticamente)
+   - Build Command: `npm run build`
+   - Output Directory: `.next` (default)
+   - Install Command: `npm install`
+
+3. **Variabili d'ambiente (opzionali):**
+   ```
+   NEXT_PUBLIC_SITE_URL=https://your-domain.vercel.app
+   NEXT_PUBLIC_PWA_ENABLED=true
+   ```
+
+### Ottimizzazioni per Vercel
+
+✅ **Configurazioni implementate:**
+- `vercel.json` configurato per ottimizzazioni
+- Next.js config ottimizzato per Vercel
+- PWA configurata correttamente
+- Caching headers per performance
+- Image optimization abilitata
+- Build verificato e funzionante
 
 ## Caratteristiche
 
