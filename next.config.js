@@ -118,7 +118,7 @@ const nextConfig = {
     optimizeCss: true,
   },
   // Usa il formato di output standalone per evitare problemi di ricorsione
-  output: 'standalone',
+  
   // PWA Configuration
   headers: async () => {
     return [
