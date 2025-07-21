@@ -1,8 +1,10 @@
+// Configurazione PWA con opzioni ottimizzate per evitare problemi di ricorsione
 const withPWA = require('next-pwa')({
   dest: 'public',
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === 'development',
+  buildExcludes: [/chunks\//, /\.next\/static\//, /\.next\/server\//],
   runtimeCaching: [
     {
       urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
@@ -78,6 +80,12 @@ const withPWA = require('next-pwa')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Esclude pattern problematici durante la fase di build
+  exclude: [
+    /node_modules/,
+    /\.git/,
+    /\.next\/cache/
+  ],
   reactStrictMode: true,
   swcMinify: true,
   i18n: {
@@ -109,6 +117,8 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
   },
+  // Usa il formato di output standalone per evitare problemi di ricorsione
+  output: 'standalone',
   // PWA Configuration
   headers: async () => {
     return [

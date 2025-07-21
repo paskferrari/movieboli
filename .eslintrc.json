@@ -16,5 +16,10 @@
     "out/",
     "public/sw.js",
     "public/workbox-*.js"
-  ]
+  ],
+  "overrideConfig": {
+    "linterOptions": {
+      "reportUnusedDisableDirectives": "warn"
+    }
+  }
 }

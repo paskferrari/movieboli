@@ -50,3 +50,11 @@ next-env.d.ts
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Large files that should only be in public/
+/*.mp4
+/*.mov
+/*.avi
+/*.pdf
+/*.zip
+/*.tar.gz
