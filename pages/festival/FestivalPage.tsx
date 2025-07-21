@@ -179,8 +179,8 @@ function FestivalPage(props: FestivalPageProps) {
               transition={{ duration: 0.3 }}
               className="text-center max-w-4xl mx-auto"
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-movieboli-crema">
-                <span className="text-movieboli-violaPrincipale">Cortometraggi</span> in Concorso
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-br from-movieboli-rosaPastello via-movieboli-violaPrincipale to-movieboli-violaSecondario drop-shadow-lg tracking-tight leading-tight">
+                Competizione ufficiale di MOVIEBOLI Film Festival 2025
               </h1>
               <p className="text-lg md:text-xl text-movieboli-crema/80 mb-10 max-w-3xl mx-auto">
                 Scopri le opere cinematografiche selezionate per la competizione ufficiale del MOVIEBOLI Festival del Cinema di Eboli.
@@ -204,7 +204,7 @@ function FestivalPage(props: FestivalPageProps) {
         <section className="py-10 sm:py-16 bg-movieboli-nero">
           <div className="container mx-auto px-4">
             <motion.h2
-              className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center text-movieboli-crema"
+              className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center uppercase text-transparent bg-clip-text bg-gradient-to-r from-movieboli-rosaPastello to-movieboli-violaPrincipale"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
@@ -245,7 +245,7 @@ function FestivalPage(props: FestivalPageProps) {
         </section>
         
         {/* Footer */}
-        <Footer />
+        {/* <Footer /> */}
       </main>
       
       {/* Modal per i dettagli del cortometraggio */}
