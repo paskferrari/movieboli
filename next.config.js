@@ -92,13 +92,12 @@ const nextConfig = {
     locales: ['it-IT'],
     defaultLocale: 'it-IT',
   },
-  // Aggiungi questa configurazione di redirect
-  async redirects() {
+  // Sostituisci la configurazione di redirect con rewrites
+  async rewrites() {
     return [
       {
         source: '/',
         destination: '/maintenance',
-        permanent: false,
       },
     ];
   },
