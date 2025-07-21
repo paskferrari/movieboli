@@ -5,6 +5,7 @@ const MAINTENANCE_MODE = process.env.MAINTENANCE_MODE === 'true';
 
 // Percorsi che saranno sempre accessibili anche in modalità manutenzione
 const ALLOWED_PATHS = [
+  '/',            // Aggiungi la root
   '/maintenance',  // La pagina di manutenzione stessa
   '/_next',        // Risorse Next.js
   '/favicon.ico',  // Favicon
@@ -40,7 +41,7 @@ export function middleware(request) {
   return NextResponse.redirect(url);
 }
 
-// Configura il middleware per essere eseguito su tutte le richieste
+// Configura il middleware per essere eseguito su tutte le richieste eccetto quelle di sistema
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|_next/data|favicon.ico|vercel\.json).*)'],
 };
