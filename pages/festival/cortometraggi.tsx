@@ -1,7 +1,6 @@
 import FestivalPage from './FestivalPage';
 import { GetStaticProps } from 'next';
-import fs from 'fs/promises';
-import { existsSync, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import path from 'path';
 import React from 'react';
 
@@ -17,6 +16,8 @@ export interface Cortometraggio {
   trailer?: string;
   bioRegista?: string;
   biografia_regista?: string;
+  link?: string;
+  bio?: string;
   id?: string;
 }
 
@@ -32,7 +33,8 @@ const CortometraggiPage = ({ cortometraggi, error }: FestivalPageProps) => {
   const formattedCortometraggi = cortometraggi.map(corto => ({
     ...corto,
     id: corto.folderPath || corto.titolo.replace(/\s+/g, '_'),
-    biografia_regista: corto.bioRegista || corto.biografia_regista
+    biografia_regista: corto.bioRegista || corto.biografia_regista || corto.bio,
+    trailer: corto.trailer || corto.link
   }));
   
   return (
@@ -46,41 +48,40 @@ const CortometraggiPage = ({ cortometraggi, error }: FestivalPageProps) => {
 // Funzione per ottenere i dati statici al momento della build
 export const getStaticProps: GetStaticProps<FestivalPageProps> = async () => {
   try {
-    // Percorso della directory contenente le cartelle dei cortometraggi
-    const cortoBasePath = path.join(process.cwd(), 'public', 'json-folders');
-
-  // Leggi le directory all'interno della cartella json-folders
-    const dirents = await fs.readdir(cortoBasePath, { withFileTypes: true });
-    const directories = dirents
-      .filter(dirent => dirent.isDirectory())
-      .map(dirent => dirent.name);
+    // Percorso del file JSON unificato
+    const jsonFilePath = path.join(process.cwd(), 'public', 'json-folders', 'film_unificati.json');
     
     // Array per memorizzare i dati dei cortometraggi
-    const cortometraggi: Cortometraggio[] = [];
+    let cortometraggi: Cortometraggio[] = [];
     
-    // Leggi i dati di ogni cortometraggio
-    for (const dir of directories) {
-      const jsonPath = path.join(cortoBasePath, dir, 'cortometraggio.json');
+    try {
+      // Leggi e analizza il file JSON unificato
+      const jsonData = readFileSync(jsonFilePath, 'utf8');
+      cortometraggi = JSON.parse(jsonData);
       
-      // Verifica se esiste il file JSON
-      if (existsSync(jsonPath)) {
-        // Leggi e analizza il file JSON
-        const jsonData = readFileSync(jsonPath, 'utf8');
-        const cortoData = JSON.parse(jsonData);
+      // Pulisci i dati e aggiungi folderPath basato sul titolo
+      cortometraggi = cortometraggi.map(corto => {
+        // Pulisci i dati
+        if (corto.titolo) corto.titolo = corto.titolo.trim();
+        if (corto.durata) corto.durata = corto.durata.trim();
         
-        // Aggiungi il percorso della cartella ai dati
-        cortometraggi.push({
-          ...cortoData,
-          folderPath: dir
-        });
-      }
+        // Crea un folderPath basato sul titolo se non esiste
+        if (!corto.folderPath) {
+          corto.folderPath = corto.titolo.replace(/\s+/g, '_');
+        }
+        
+        return corto;
+      });
+    } catch (parseError) {
+      console.error(`Errore nel parsing del JSON unificato:`, parseError);
+      throw parseError;
     }
     
     // Restituisci i dati come props
     return {
       props: {
         cortometraggi,
-        error: null
+        error: cortometraggi.length === 0 ? 'Nessun cortometraggio trovato.' : null
       },
       // Rigenera la pagina ogni ora
       revalidate: 3600

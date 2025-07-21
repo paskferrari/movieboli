@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import ShortFilmCard from '../../components/festival/ShortFilmCard';
+import ProgressiveUnlockCard from '../../components/festival/ProgressiveUnlockCard';
 import Footer from '../../components/Footer';
 import { Dirent } from 'fs';
 import CortoDetailsModal from '../../components/festival/CortoDetailsModal';
@@ -18,8 +19,10 @@ export interface Cortometraggio {
   anno?: string;
   sinossi: string;
   biografia_regista?: string;
+  bio?: string; // Aggiungi questo campo
   immagine: string;
   trailer?: string;
+  link?: string; // Aggiungi questo campo
   folderPath?: string;
 }
 
@@ -29,7 +32,17 @@ export interface FestivalPageProps {
   error?: string | null;
 }
 
-// Rimuoviamo le varianti di animazione che causano problemi
+// Date di sblocco dei cortometraggi
+const unlockDates = [
+  { title: "DIECI SECONDI", date: new Date(2024, 6, 21, 0, 0, 0) }, // 21/07/2024 00:00
+  { title: "APPUNTAMENTO A MEZZOGIORNO", date: new Date(2024, 6, 22, 13, 0, 0) }, // 22/07/2024 13:00
+  { title: "Father's Letters", date: new Date(2024, 6, 23, 13, 0, 0) }, // 23/07/2024 13:00
+  { title: "Jus d'orange", date: new Date(2024, 6, 23, 13, 0, 0) }, // 23/07/2024 13:00
+  { title: "Place under the sun", date: new Date(2024, 6, 24, 13, 0, 0) }, // 24/07/2024 13:00
+  { title: "The Rock Tensions", date: new Date(2024, 6, 25, 13, 0, 0) }, // 25/07/2024 13:00
+  { title: "SHARING IS CARING", date: new Date(2024, 6, 27, 13, 0, 0) }, // 27/07/2024 13:00
+  { title: "Ya Hanouni", date: new Date(2024, 6, 28, 13, 0, 0) }, // 28/07/2024 13:00
+];
 
 // Componente principale della pagina
 function FestivalPage(props: FestivalPageProps) {
@@ -41,6 +54,9 @@ function FestivalPage(props: FestivalPageProps) {
   // Stato per il caricamento della pagina
   const [pageLoading, setPageLoading] = React.useState(true);
   
+  // Stato per tenere traccia dei cortometraggi sbloccati
+  const [unlockedShorts, setUnlockedShorts] = React.useState<Record<string, boolean>>({});
+  
   // Simulazione del caricamento iniziale ottimizzata
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,6 +64,32 @@ function FestivalPage(props: FestivalPageProps) {
     }, 300); // Ridotto da 1000ms a 300ms per un caricamento più veloce
     
     return () => clearTimeout(timer);
+  }, []);
+  
+  // Controlla quali cortometraggi sono sbloccati
+  React.useEffect(() => {
+    const checkUnlocked = () => {
+      const unlocked: Record<string, boolean> = {};
+      
+      // Solo "DIECI SECONDI" è sbloccato, tutti gli altri sono bloccati
+      unlocked["DIECI SECONDI"] = true;
+      
+      // Imposta tutti gli altri cortometraggi come bloccati
+      unlockDates.forEach(item => {
+        if (item.title !== "DIECI SECONDI") {
+          unlocked[item.title] = false;
+        }
+      });
+      
+      setUnlockedShorts(unlocked);
+    };
+    
+    checkUnlocked();
+    
+    // Aggiorna lo stato ogni minuto
+    const interval = setInterval(checkUnlocked, 60000);
+    
+    return () => clearInterval(interval);
   }, []);
   
   // Funzione per aprire il modal con i dettagli del cortometraggio
@@ -82,6 +124,12 @@ function FestivalPage(props: FestivalPageProps) {
   }, [isModalOpen]);
   
   const { cortometraggi, error } = props;
+  
+  // Funzione per ottenere la data di sblocco di un cortometraggio
+  const getUnlockDate = (title: string): Date | null => {
+    const unlockInfo = unlockDates.find(item => item.title === title);
+    return unlockInfo ? unlockInfo.date : null;
+  };
   
   return (
     <>
@@ -121,7 +169,7 @@ function FestivalPage(props: FestivalPageProps) {
           {/* Background con particelle animate */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute inset-0 bg-movieboli-neroProfondo opacity-90"></div>
-            <div className="absolute inset-0 bg-[url('/images/noise-pattern.png')] opacity-5"></div>
+            <div className="absolute inset-0 bg-[url('/logo-movieboli.png')] opacity-5"></div>
           </div>
           
           <div className="container mx-auto px-4 py-20 relative z-10">
@@ -156,7 +204,7 @@ function FestivalPage(props: FestivalPageProps) {
         <section className="py-10 sm:py-16 bg-movieboli-nero">
           <div className="container mx-auto px-4">
             <motion.h2
-              className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center"
+              className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center text-movieboli-crema"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
@@ -171,20 +219,27 @@ function FestivalPage(props: FestivalPageProps) {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, staggerChildren: 0.05 }}
             >
-              {cortometraggi.map((corto: Cortometraggio, index: number) => (
-                <motion.div
-                  key={`${corto.id || corto.titolo}-${index}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                >
-                  <ShortFilmCard
-                    corto={corto}
-                    onClick={handleOpenModal}
-                    index={index}
-                  />
-                </motion.div>
-              ))}
+              {cortometraggi.map((corto: Cortometraggio, index: number) => {
+                const isUnlocked = unlockedShorts[corto.titolo] || false;
+                const unlockDate = getUnlockDate(corto.titolo);
+                
+                return (
+                  <motion.div
+                    key={`${corto.id || corto.titolo}-${index}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.05 }}
+                  >
+                    <ProgressiveUnlockCard
+                      corto={corto}
+                      onClick={handleOpenModal}
+                      index={index}
+                      isUnlocked={isUnlocked}
+                      unlockDate={unlockDate}
+                    />
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
         </section>
@@ -196,9 +251,9 @@ function FestivalPage(props: FestivalPageProps) {
       {/* Modal per i dettagli del cortometraggio */}
       <AnimatePresence>
         {isModalOpen && selectedCorto && (
-          <CortoDetailsModal 
-            isOpen={isModalOpen} 
-            onClose={handleCloseModal} 
+          <CortoDetailsModal
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
             corto={selectedCorto}
             isLoading={isModalLoading}
           />
@@ -206,11 +261,12 @@ function FestivalPage(props: FestivalPageProps) {
       </AnimatePresence>
     </>
   );
-};
+}
 
 export default FestivalPage;
 
 // Funzione per ottenere i dati statici
+// Nella funzione getStaticProps, aggiorna il mapping dei dati
 export async function getStaticProps() {
   try {
     const fs = require('fs');
@@ -243,6 +299,22 @@ export async function getStaticProps() {
           
           // Aggiungi l'ID basato sul nome della cartella
           cortoData.id = folder.name;
+          
+          // Mappa i campi bio e link ai campi biografia_regista e trailer se necessario
+          if (cortoData.bio && !cortoData.biografia_regista) {
+            cortoData.biografia_regista = cortoData.bio;
+          }
+          
+          if (cortoData.link && !cortoData.trailer) {
+            cortoData.trailer = cortoData.link;
+          }
+          
+          // Correggi l'URL dell'immagine se necessario
+          if (cortoData.immagine && cortoData.immagine.includes('ibb.co')) {
+            // Rimuovi eventuali caratteri extra nell'URL
+            cortoData.immagine = cortoData.immagine.replace(/\/([a-zA-Z0-9]+)r\//, '/$1/');
+            cortoData.immagine = cortoData.immagine.replace(/\/([a-zA-Z0-9]+)1\//, '/$1/');
+          }
           
           cortometraggi.push(cortoData);
         }
