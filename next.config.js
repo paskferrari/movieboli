@@ -92,6 +92,16 @@ const nextConfig = {
     locales: ['it-IT'],
     defaultLocale: 'it-IT',
   },
+  // Aggiungi questa configurazione di redirect
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/maintenance',
+        permanent: false,
+      },
+    ];
+  },
   images: {
     domains: ['via.placeholder.com', 'i.ibb.co', 'i.postimg.cc'],
     formats: ['image/webp', 'image/avif'],
