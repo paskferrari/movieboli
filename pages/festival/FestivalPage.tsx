@@ -71,12 +71,13 @@ function FestivalPage(props: FestivalPageProps) {
     const checkUnlocked = () => {
       const unlocked: Record<string, boolean> = {};
       
-      // Solo "DIECI SECONDI" è sbloccato, tutti gli altri sono bloccati
+      // Sblocca "DIECI SECONDI" e "APPUNTAMENTO A MEZZOGIORNO"
       unlocked["DIECI SECONDI"] = true;
+      unlocked["APPUNTAMENTO A MEZZOGIORNO"] = true;
       
       // Imposta tutti gli altri cortometraggi come bloccati
       unlockDates.forEach(item => {
-        if (item.title !== "DIECI SECONDI") {
+        if (item.title !== "DIECI SECONDI" && item.title !== "APPUNTAMENTO A MEZZOGIORNO") {
           unlocked[item.title] = false;
         }
       });
