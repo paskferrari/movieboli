@@ -80,12 +80,12 @@ const withPWA = require('next-pwa')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Esclude pattern problematici durante la fase di build
-  exclude: [
-    /node_modules/,
-    /\.git/,
-    /\.next\/cache/
-  ],
+  // Rimuovi questa sezione che causa l'errore:
+  // exclude: [
+  //   /node_modules/,
+  //   /\.git/,
+  //   /\.next\/cache/
+  // ],
   reactStrictMode: true,
   swcMinify: true,
   i18n: {

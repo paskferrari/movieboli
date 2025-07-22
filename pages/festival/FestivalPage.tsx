@@ -221,26 +221,29 @@ function FestivalPage(props: FestivalPageProps) {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, staggerChildren: 0.05 }}
             >
+              // Nella sezione del mapping dei cortometraggi (linea 239-240):
               {cortometraggi.map((corto: Cortometraggio, index: number) => {
-                const isUnlocked = unlockedShorts[corto.titolo] || false;
-                const unlockDate = getUnlockDate(corto.titolo);
-                
-                return (
-                  <motion.div
-                    key={`${corto.id || corto.titolo}-${index}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.05 }}
-                  >
-                    <ProgressiveUnlockCard
-                      corto={corto}
-                      onClick={handleOpenModal}
-                      index={index}
-                      isUnlocked={isUnlocked}
-                      unlockDate={unlockDate}
-                    />
-                  </motion.div>
-                );
+              // Rimuovi queste variabili non più necessarie:
+              // const isUnlocked = unlockedShorts[corto.titolo] || false;
+              // const unlockDate = getUnlockDate(corto.titolo);
+              
+              return (
+                <motion.div
+                  key={`${corto.id || corto.titolo}-${index}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                >
+                  <ProgressiveUnlockCard
+                    corto={corto}
+                    onClick={handleOpenModal}
+                    index={index}
+                    // Rimuovi queste due props:
+                    // isUnlocked={isUnlocked}
+                    // unlockDate={unlockDate}
+                  />
+                </motion.div>
+              );
               })}
             </motion.div>
           </div>
