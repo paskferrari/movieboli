@@ -19,6 +19,7 @@ export interface Cortometraggio {
   link?: string;
   bio?: string;
   id?: string;
+  sbloccato: boolean; // Aggiungi questa proprietà
 }
 
 // Interfaccia per le props della pagina
@@ -30,11 +31,13 @@ export interface FestivalPageProps {
 // Componente principale della pagina
 const CortometraggiPage = ({ cortometraggi, error }: FestivalPageProps) => {
   // Prepara i dati per il componente FestivalPage
+  // Nel componente CortometraggiPage, aggiorna il mapping:
   const formattedCortometraggi = cortometraggi.map(corto => ({
     ...corto,
     id: corto.folderPath || corto.titolo.replace(/\s+/g, '_'),
     biografia_regista: corto.bioRegista || corto.biografia_regista || corto.bio,
-    trailer: corto.trailer || corto.link
+    trailer: corto.trailer || corto.link,
+    sbloccato: corto.sbloccato ?? false // Assicurati che sbloccato sia sempre definito
   }));
   
   return (
