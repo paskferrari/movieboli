@@ -8,21 +8,21 @@ interface ProgressiveUnlockCardProps {
   corto: Cortometraggio;
   onClick: (corto: Cortometraggio) => void;
   index: number;
-  isUnlocked: boolean;
-  unlockDate: Date | null;
 }
 
-const ProgressiveUnlockCard = ({ corto, onClick, index, isUnlocked, unlockDate }: ProgressiveUnlockCardProps) => {
+const ProgressiveUnlockCard = ({ corto, onClick, index }: ProgressiveUnlockCardProps) => {
   // Stato per il caricamento dell'immagine
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const [countdown, setCountdown] = useState<string>('');
   
   // Stato per il modal del trailer
   const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
   
+  // Determina se il cortometraggio è sbloccato dal JSON
+  const isUnlocked = corto.sbloccato === true;
+  
   // Genera un placeholder blur per l'immagine
-  const blurDataURL = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIwIiB5MT0iMCIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOTI0MDYxIiBzdG9wLW9wYWNpdHk9IjAuMiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzZkMDkxOSIgc3RvcC1vcGFjaXR5PSIwLjMiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2EpIi8+PC9zdmc+';  
+  const blurDataURL = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIwIiB5MT0iMCIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOTI0MDYxIiBzdG9wLW9wYWNpdHk9IjAuMiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzZkMDkxOSIgc3RvcC1vcGFjaXR5PSIwLjMiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2EpIi8+PC9zdmc+';
   
   // Reset dello stato quando cambia il cortometraggio
   useEffect(() => {
@@ -31,38 +31,6 @@ const ProgressiveUnlockCard = ({ corto, onClick, index, isUnlocked, unlockDate }
       setImageError(false);
     }
   }, [corto]);
-
-  // Aggiorna il countdown
-  useEffect(() => {
-    if (!isUnlocked && unlockDate) {
-      const updateCountdown = () => {
-        const now = new Date();
-        const diff = unlockDate.getTime() - now.getTime();
-
-        if (diff <= 0) {
-          setCountdown('In arrivo...');
-          return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-        if (days > 0) {
-          setCountdown(`Disponibile tra: ${days} giorni`);
-        } else if (hours > 0) {
-          setCountdown(`Disponibile tra: ${hours} ore e ${minutes} minuti`);
-        } else {
-          setCountdown(`Disponibile tra: ${minutes} minuti`);
-        }
-      };
-
-      updateCountdown();
-      const interval = setInterval(updateCountdown, 60000); // Aggiorna ogni minuto
-
-      return () => clearInterval(interval);
-    }
-  }, [isUnlocked, unlockDate]);
   
   // Funzione per aprire il modal del trailer
   const openTrailerModal = (e: React.MouseEvent) => {
@@ -129,14 +97,15 @@ const ProgressiveUnlockCard = ({ corto, onClick, index, isUnlocked, unlockDate }
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-movieboli-neroProfondo/80 via-transparent to-transparent" />
               
-              {/* Countdown overlay */}
+              {/* Overlay per cortometraggi bloccati */}
               {!isUnlocked && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-movieboli-neroProfondo/70 z-20">
                   <div className="bg-movieboli-violaPrincipale/90 px-4 py-3 rounded-lg text-center max-w-[90%]">
                     <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
-                    <p className="text-movieboli-nero font-bold text-sm sm:text-base">{countdown}</p>
+                    <p className="text-movieboli-nero font-bold text-sm sm:text-base">Cortometraggio Bloccato</p>
+                    <p className="text-movieboli-nero/80 text-xs sm:text-sm mt-1">Disponibile prossimamente</p>
                   </div>
                 </div>
               )}

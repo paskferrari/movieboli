@@ -24,6 +24,7 @@ export interface Cortometraggio {
   trailer?: string;
   link?: string; // Aggiungi questo campo
   folderPath?: string;
+  sbloccato: boolean; // Nuovo attributo per controllare la visibilità
 }
 
 // Interfaccia per le props della pagina

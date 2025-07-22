@@ -8,8 +8,37 @@ interface TrailerPreviewModalProps {
   title: string;
 }
 
+// Utility function to convert YouTube URLs to embed format
+const convertToEmbedUrl = (url: string): string => {
+  if (!url) return '';
+  
+  // Handle youtu.be format
+  const youtuBeMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+  if (youtuBeMatch) {
+    return `https://www.youtube.com/embed/${youtuBeMatch[1]}`;
+  }
+  
+  // Handle youtube.com/watch format
+  const youtubeMatch = url.match(/youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/);
+  if (youtubeMatch) {
+    return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+  }
+  
+  // Handle vimeo URLs
+  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeoMatch) {
+    return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+  }
+  
+  // Return original URL if it's already an embed URL or other format
+  return url;
+};
+
 const TrailerPreviewModal = ({ isOpen, onClose, trailerUrl, title }: TrailerPreviewModalProps) => {
   const [trailerLoading, setTrailerLoading] = useState(true);
+  
+  // Convert the trailer URL to embed format
+  const embedUrl = convertToEmbedUrl(trailerUrl);
   
   // Gestione della chiusura del modal con il tasto ESC
   useEffect(() => {
@@ -83,7 +112,7 @@ const TrailerPreviewModal = ({ isOpen, onClose, trailerUrl, title }: TrailerPrev
             </div>
           )}
           <iframe 
-            src={trailerUrl} 
+            src={embedUrl} 
             className="w-full h-full" 
             frameBorder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 

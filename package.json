@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "critters": "^0.0.23",
+    "debug": "^4.4.1",
     "framer-motion": "^12.19.2",
     "next": "^14.2.30",
     "next-pwa": "^5.6.0",
