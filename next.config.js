@@ -93,14 +93,15 @@ const nextConfig = {
     defaultLocale: 'it-IT',
   },
   // Sostituisci la configurazione di redirect con rewrites
-  async rewrites() {
-    return [
-      {
-        source: '/',
-        destination: '/maintenance',
-      },
-    ];
-  },
+  // Rimuovi completamente questa sezione:
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/maintenance',
+  //     },
+  //   ];
+  // },
   images: {
     domains: ['via.placeholder.com', 'i.ibb.co', 'i.postimg.cc'],
     formats: ['image/webp', 'image/avif'],
