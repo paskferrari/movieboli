@@ -221,7 +221,6 @@ function FestivalPage(props: FestivalPageProps) {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, staggerChildren: 0.05 }}
             >
-              // Nella sezione del mapping dei cortometraggi (linea 239-240):
               {cortometraggi.map((corto: Cortometraggio, index: number) => {
               // Rimuovi queste variabili non più necessarie:
               // const isUnlocked = unlockedShorts[corto.titolo] || false;
