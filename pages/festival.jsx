@@ -44,7 +44,7 @@ const FestivalPage = () => {
       description: 'Registi, attori e produttori internazionali per incontri esclusivi.',
       image: '/placeholder-ospiti.jpg',
       category: 'Incontri',
-      link: '/programma#ospiti'
+      link: '/festival/ospiti'
     },
     {
       id: 4,
@@ -114,6 +114,9 @@ const FestivalPage = () => {
               </Link>
               <Link href="/festival/cortometraggi" className="font-poppins font-semibold text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors">
                 Cortometraggi
+              </Link>
+              <Link href="/festival/ospiti" className="font-poppins font-semibold text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors">
+                Ospiti
               </Link>
             </div>
           </div>

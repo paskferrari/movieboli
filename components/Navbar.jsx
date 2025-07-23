@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,23 +36,21 @@ const Navbar = () => {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'bg-movieboli-sfondo/95 backdrop-blur-md shadow-lg border-b border-movieboli-oro2/30' 
+        ? 'bg-movieboli-black/90 backdrop-blur-md shadow-lg border-b border-movieboli-accent/30' 
         : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-movieboli-primario1 to-movieboli-primario2 rounded-full flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
-              <span className="text-white font-bold text-base sm:text-lg">M</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-inter text-lg sm:text-xl font-bold text-[#1E3A5F] tracking-wide leading-none">
-                MOVIEBOLI
-              </span>
-              <span className="font-inter text-xs text-[#1E3A5F] tracking-wider font-medium">
-                APS
-              </span>
+          {/* Logo - Solo immagine senza sfondo */}
+          <Link href="/" className="group">
+            <div className="relative w-14 h-14 sm:w-16 sm:h-16 transform group-hover:scale-105 transition-transform duration-300">
+              <Image
+                src="/images/logo.png"
+                alt="MOVIEBOLI Logo"
+                width={56}
+                height={56}
+                className="w-full h-full object-contain"
+              />
             </div>
           </Link>
 
@@ -63,12 +62,12 @@ const Navbar = () => {
                 href={item.href}
                 className={`font-inter text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group ${
                   router.pathname === item.href 
-                    ? 'text-[#f5a623]' 
-                    : 'text-[#1E3A5F] hover:text-[#f5a623]'
+                    ? (isScrolled ? 'text-movieboli-accent' : 'text-movieboli-accent')
+                    : (isScrolled ? 'text-white hover:text-movieboli-accent' : 'text-white hover:text-movieboli-accent')
                 }`}
               >
                 {item.name}
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#f5a623] transition-all duration-300 ${
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-movieboli-accent transition-all duration-300 ${
                   router.pathname === item.href ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}></span>
               </Link>
@@ -79,7 +78,11 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="p-2 text-[#1E3A5F] hover:text-[#f5a623] focus:outline-none transition-colors duration-300"
+              className={`p-2 focus:outline-none transition-colors duration-300 ${
+                isScrolled 
+                  ? 'text-white hover:text-movieboli-accent' 
+                  : 'text-white hover:text-movieboli-accent'
+              }`}
               aria-label="Toggle menu"
             >
               <svg
@@ -108,7 +111,7 @@ const Navbar = () => {
             height: isMenuOpen ? 'auto' : 0
           }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className={`md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md shadow-lg border-t border-[#e5d4ed] overflow-hidden z-50`}
+          className={`md:hidden absolute top-full left-0 right-0 bg-movieboli-black/95 backdrop-blur-md shadow-lg border-t border-movieboli-accent/30 overflow-hidden z-50`}
         >
           <div className="px-4 pt-3 pb-4 space-y-2">
             {navigation.map((item, index) => (
@@ -120,7 +123,11 @@ const Navbar = () => {
               >
                 <Link
                   href={item.href}
-                  className={`flex items-center px-3 py-3 rounded-lg font-inter text-base font-semibold ${router.pathname === item.href ? 'bg-movieboli-primario1/10 text-[#f5a623]' : 'text-[#1E3A5F] hover:bg-gray-100 hover:text-[#f5a623]'}`}
+                  className={`flex items-center px-3 py-3 rounded-lg font-inter text-base font-semibold transition-all duration-300 ${
+                    router.pathname === item.href 
+                      ? 'bg-movieboli-accent/20 text-movieboli-accent border-l-4 border-movieboli-accent' 
+                      : 'text-white hover:bg-movieboli-accent/10 hover:text-movieboli-accent'
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}

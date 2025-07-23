@@ -175,30 +175,30 @@ const CosaFacciamoSection = () => {
 
 const FooterCTA = () => {
   return (
-    <section className="py-20 bg-gradient-to-r from-movieboli-primary-900 to-movieboli-secondary-900">
+    <section className="py-20 bg-black">
       <div className="max-w-4xl mx-auto px-4 text-center">
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-          Unisciti alla Nostra Comunità
+          Diventa Volontario
         </h2>
-        <div className="w-24 h-1 bg-movieboli-accent-400 mx-auto mb-8" />
+        <div className="w-24 h-1 bg-movieboli-accent-accent mx-auto mb-8" />
         
-        <p className="text-xl text-movieboli-neutral-100 mb-8 leading-relaxed">
-          Scopri tutti i nostri progetti, partecipa agli eventi e sostieni 
-          la cultura cinematografica nel territorio di Eboli.
+        <p className="text-xl text-white mb-8 leading-relaxed">
+          Unisciti al nostro team di volontari e partecipa attivamente agli eventi dell'associazione.
+          Contribuisci alla diffusione della cultura cinematografica nel territorio di Eboli.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
-            href="/chi-siamo" 
-            className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+            href="/volontari" 
+            className="bg-movieboli-accent hover:bg-movieboli-accent-700 text-black font-bold px-8 py-4 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
-            Scopri di più
+            Candidati ora
           </a>
           <a 
-            href="/donazioni" 
-            className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-movieboli-primary-900 transition-all duration-300"
+            href="/chi-siamo" 
+            className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-black transition-all duration-300"
           >
-            Sostienici
+            Scopri di più
           </a>
         </div>
       </div>

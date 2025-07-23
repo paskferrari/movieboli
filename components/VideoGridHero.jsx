@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const VideoGridHero = () => {
   // Configurazioni delle animazioni
-  const titleAnimation = {
+  const logoAnimation = {
     hidden: { opacity: 0, scale: 0.95 },
     visible: {
       opacity: 1,
@@ -25,31 +26,6 @@ const VideoGridHero = () => {
         duration: 0.6,
         ease: 'easeOut',
         delay: 0.3,
-      },
-    },
-  };
-
-  const navAnimation = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: 'easeInOut',
-        delay: 0.8,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const navItemAnimation = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3,
-        ease: 'easeOut',
       },
     },
   };
@@ -108,23 +84,28 @@ const VideoGridHero = () => {
       </div>
 
       {/* Overlay nero con gradiente per migliorare il contrasto */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80"></div>
 
-      {/* Overlay centrale con titolo, sottotitolo e navigazione */}
+      {/* Overlay centrale con logo, sottotitolo e navigazione */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
         <div className="text-center mb-6">
-          <motion.h1
-            className="text-6xl font-bold text-white uppercase tracking-wider md:text-7xl lg:text-8xl"
-            style={{ textShadow: '0 3px 6px rgba(0,0,0,0.4)' }}
+          <motion.div
+            className="mx-auto mb-8"
             initial="hidden"
             animate="visible"
-            variants={titleAnimation}
+            variants={logoAnimation}
           >
-            MOVIEBOLI
-          </motion.h1>
+            <Image 
+              src="/images/logo.png" 
+              alt="MOVIEBOLI Logo" 
+              width={300} 
+              height={300} 
+              className="mx-auto animate-pulse-slow"
+            />
+          </motion.div>
           
           <motion.p
-            className="text-xl md:text-2xl text-yellow-400 mt-4 max-w-2xl mx-auto font-light tracking-wide"
+            className="text-2xl md:text-3xl text-movieboli-accent mt-6 max-w-2xl mx-auto font-medium tracking-wide"
             initial="hidden"
             animate="visible"
             variants={subtitleAnimation}
@@ -132,14 +113,12 @@ const VideoGridHero = () => {
             Cultura, Cinema, Comunità
           </motion.p>
         </div>
-        
-        {/* Navigazione rapida rimossa */}
       </div>
       
       {/* Indicatore di scorrimento */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-yellow-400 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-yellow-400 rounded-full mt-2 animate-pulse" />
+        <div className="w-6 h-10 border-2 border-movieboli-accent rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-movieboli-accent rounded-full mt-2 animate-pulse" />
         </div>
       </div>
     </div>

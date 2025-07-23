@@ -28,6 +28,8 @@ const Navbar = () => {
     { name: 'Programma', href: '/programma', section: 'festival' },
     { name: 'Prenota', href: '/prenota', section: 'festival' },
     { name: 'Turni IMPP', href: '/turni-impp', section: 'festival' },
+    // Aggiungi questa voce all'array navigation
+    { name: 'Ospiti', href: '/festival/ospiti', section: 'festival' },
   ]
 
   // Gestione scroll per cambiare stile navbar
