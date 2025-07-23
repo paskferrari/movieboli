@@ -24,6 +24,12 @@ const convertToEmbedUrl = (url: string): string => {
     return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
   }
   
+  // Handle YouTube Shorts format
+  const shortsMatch = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/);
+  if (shortsMatch) {
+    return `https://www.youtube.com/embed/${shortsMatch[1]}`;
+  }
+  
   // Handle vimeo URLs
   const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
   if (vimeoMatch) {

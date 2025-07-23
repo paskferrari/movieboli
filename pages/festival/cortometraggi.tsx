@@ -32,13 +32,23 @@ export interface FestivalPageProps {
 const CortometraggiPage = ({ cortometraggi, error }: FestivalPageProps) => {
   // Prepara i dati per il componente FestivalPage
   // Nel componente CortometraggiPage, aggiorna il mapping:
-  const formattedCortometraggi = cortometraggi.map(corto => ({
-    ...corto,
-    id: corto.folderPath || corto.titolo.replace(/\s+/g, '_'),
-    biografia_regista: corto.bioRegista || corto.biografia_regista || corto.bio,
-    trailer: corto.trailer || corto.link,
-    sbloccato: corto.sbloccato ?? false // Assicurati che sbloccato sia sempre definito
-  }));
+  const formattedCortometraggi = cortometraggi
+    .map(corto => ({
+      ...corto,
+      id: corto.folderPath || corto.titolo.replace(/\s+/g, '_'),
+      biografia_regista: corto.bioRegista || corto.biografia_regista || corto.bio,
+      trailer: corto.trailer || corto.link,
+      sbloccato: corto.sbloccato ?? false // Assicurati che sbloccato sia sempre definito
+    }))
+    // Ordina i cortometraggi: prima quelli sbloccati, poi quelli bloccati
+    .sort((a, b) => {
+      // Se a è sbloccato e b no, a viene prima
+      if (a.sbloccato && !b.sbloccato) return -1;
+      // Se b è sbloccato e a no, b viene prima
+      if (!a.sbloccato && b.sbloccato) return 1;
+      // Se entrambi hanno lo stesso stato di sblocco, mantieni l'ordine originale
+      return 0;
+    });
   
   return (
     <FestivalPage 
