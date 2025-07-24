@@ -72,64 +72,29 @@ const withPWA = require('next-pwa')({
         },
         networkTimeoutSeconds: 10
       }
-    },
-    // Removed catch-all pattern /.*/i that was causing build recursion issues
-    // This pattern was too broad and interfered with Next.js build tracing
+    }
   ]
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Rimuovi questa sezione che causa l'errore:
-  // exclude: [
-  //   /node_modules/,
-  //   /\.git/,
-  //   /\.next\/cache/
-  // ],
   reactStrictMode: true,
   swcMinify: true,
   i18n: {
     locales: ['it-IT'],
     defaultLocale: 'it-IT',
   },
-  // Sostituisci la configurazione di redirect con rewrites
-  // Rimuovi completamente questa sezione:
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: '/maintenance',
-  //     },
-  //   ];
-  // },
   images: {
-    domains: ['via.placeholder.com', 'i.ibb.co', 'i.postimg.cc'],
-    formats: ['image/webp', 'image/avif'],
-    unoptimized: false,
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'via.placeholder.com'
+        hostname: '**',
       },
-      {
-        protocol: 'https',
-        hostname: 'i.ibb.co'
-      },
-      {
-        protocol: 'https',
-        hostname: 'i.postimg.cc'
-      }
-    ]
+    ],
   },
   experimental: {
     optimizeCss: true,
   },
-  // Usa il formato di output standalone per evitare problemi di ricorsione
-  
-  // PWA Configuration
   headers: async () => {
     return [
       {

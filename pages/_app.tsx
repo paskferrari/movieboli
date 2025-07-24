@@ -1,8 +1,9 @@
 import '../styles/globals.css'
-// import '../styles/movieboli-design-system.css' // Temporaneamente disabilitato per debug
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
+import '../styles/movieboli-design-system.css'
+import '../styles/optimizations.css'
+import '../styles/mobile-optimizations.css'
 import { BrandingProvider } from '../contexts/BrandingContext'
+import Head from 'next/head'
 import PWAInstallPrompt from '../components/PWAInstallPrompt'
 import { useEffect } from 'react'
 
@@ -37,16 +38,15 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content="#1E3A5F" />
-        <link rel="icon" href="/favicon.ico" />
-        {/* Preload dei font critici */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="theme-color" content="#7968fa" />
       </Head>
       <BrandingProvider>
         <Component {...pageProps} />
-        <PWAInstallPrompt />
       </BrandingProvider>
     </>
   )

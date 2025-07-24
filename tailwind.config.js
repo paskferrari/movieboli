@@ -36,6 +36,7 @@ module.exports = {
         movieboli: {
           primary: {
             DEFAULT: '#2a1e37',
+            dark: '#1a1225', // Aggiunto
             50: '#f8f6fa',
             100: '#f0ecf4',
             200: '#ddd4e6',
@@ -49,6 +50,7 @@ module.exports = {
           },
           secondary: {
             DEFAULT: '#e5d4ed',
+            dark: '#c19cce', // Aggiunto
             50: '#fdfcfe',
             100: '#faf7fc',
             200: '#f3ecf7',
