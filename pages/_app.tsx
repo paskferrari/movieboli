@@ -6,6 +6,7 @@ import { BrandingProvider } from '../contexts/BrandingContext'
 import Head from 'next/head'
 import PWAInstallPrompt from '../components/PWAInstallPrompt'
 import { useEffect } from 'react'
+import type { AppProps } from 'next/app'
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
