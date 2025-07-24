@@ -19,125 +19,112 @@ const Programma = () => {
   const programmaData = {
     "Giovedì 22 Agosto": [
       {
-        orario: "18:00",
-        titolo: "Cerimonia di Apertura",
-        tipo: "apertura",
-        categoria: "evento",
+        orario: "20:00",
+        titolo: "Proiezione Cortometraggi",
+        tipo: "cortometraggi",
+        categoria: "proiezione",
         luogo: "Cinema Vittoria",
-        descrizione: "Cerimonia di apertura ufficiale del MOVIEBOLI Film Festival 2025 con la partecipazione delle autorità locali e ospiti speciali."
-      },
-      {
-        orario: "19:30",
-        titolo: "Cocktail di Benvenuto",
-        tipo: "aperitivo",
-        categoria: "evento",
-        luogo: "Foyer Cinema Vittoria",
-        descrizione: "Aperitivo di networking con i partecipanti al festival, registi e ospiti speciali."
+        descrizione: "Proiezione di cortometraggi con interviste ai registi (5 minuti ciascuna)",
+        cortometraggi: [
+          { titolo: "DIECI SECONDI", regista: "TBD", paese: "Italia", durata: "TBD" },
+          { titolo: "PLACE UNDER THE SUN", regista: "TBD", paese: "Internazionale", durata: "TBD" },
+          { titolo: "YA HANOUNI", regista: "TBD", paese: "Internazionale", durata: "TBD" },
+          { titolo: "APPUNTAMENTO A MEZZOGIORNO", regista: "TBD", paese: "Italia", durata: "TBD" }
+        ]
       },
       {
         orario: "21:00",
-        titolo: "Cortometraggi in concorso - Selezione 1",
-        tipo: "cortometraggi",
+        titolo: "Intervista Ospiti",
+        tipo: "incontro",
+        categoria: "formazione",
+        luogo: "Cinema Vittoria",
+        relatori: ["Emanuele Palumbo", "Giuseppe Arena", "Luigi D'Oriano"],
+        descrizione: "Incontro con gli ospiti del festival"
+      },
+      {
+        orario: "21:30",
+        titolo: "Mixed by Erry",
+        tipo: "film",
         categoria: "proiezione",
-        luogo: "Sala Principale",
-        descrizione: "Prima selezione di cortometraggi in concorso internazionale",
-        cortometraggi: [
-          { titolo: "Ya Hanouni", regista: "Lyna Tadount, Sofian Chouaib", paese: "Francia/Algeria", durata: "15 min" },
-          { titolo: "Place under the sun", regista: "Vlad Bolgarin", paese: "Moldavia", durata: "20 min" },
-          { titolo: "Jus d'orange", regista: "Alexandre Athané", paese: "Francia", durata: "13:45 min" },
-          { titolo: "Appuntamento a Mezzogiorno", regista: "Antonio Passaro", paese: "Italia", durata: "14 min" }
-        ]
+        luogo: "Cinema Vittoria",
+        regista: "Sydney Sibilia",
+        film: "Mixed by Erry",
+        durata: "110 min",
+        descrizione: "Proiezione del film di Sydney Sibilia"
       }
     ],
     "Venerdì 23 Agosto": [
       {
-        orario: "10:00",
-        titolo: "Masterclass: La Direzione della Fotografia",
-        tipo: "masterclass",
-        categoria: "formazione",
-        luogo: "Sala Workshop",
-        relatore: "Daria D'Antonio",
-        descrizione: "Masterclass con la pluripremiata direttrice della fotografia Daria D'Antonio sui segreti dell'illuminazione cinematografica."
-      },
-      {
-        orario: "15:00",
-        titolo: "Workshop: Sceneggiatura Innovativa",
-        tipo: "workshop",
-        categoria: "formazione",
-        luogo: "Sala Workshop",
-        relatore: "Francesca Archibugi",
-        descrizione: "Workshop pratico sulla scrittura di sceneggiature non convenzionali e strutture narrative innovative."
-      },
-      {
-        orario: "18:30",
-        titolo: "Panel: Il Futuro del Cinema Indipendente",
-        tipo: "talk",
-        categoria: "formazione",
+        orario: "20:00",
+        titolo: "Proiezione Cortometraggi",
+        tipo: "cortometraggi",
+        categoria: "proiezione",
         luogo: "Cinema Vittoria",
-        relatori: ["Paolo Sorrentino", "Alice Rohrwacher", "Jonas Carpignano"],
-        descrizione: "Discussione con registi di fama internazionale sulle sfide e le opportunità del cinema indipendente nell'era digitale."
+        descrizione: "Proiezione di cortometraggi con interviste ai registi (5 minuti ciascuna)",
+        cortometraggi: [
+          { titolo: "JUS D'ORANGE", regista: "TBD", paese: "Internazionale", durata: "TBD" },
+          { titolo: "SHARING IS CARING", regista: "TBD", paese: "Internazionale", durata: "TBD" },
+          { titolo: "FATHER'S LETTERS", regista: "TBD", paese: "Internazionale", durata: "TBD" },
+          { titolo: "ROCK TENSIONS", regista: "TBD", paese: "Internazionale", durata: "TBD" }
+        ]
       },
       {
         orario: "21:00",
-        titolo: "Cortometraggi in concorso - Selezione 2",
-        tipo: "cortometraggi",
+        titolo: "Intervista con Mario Martone",
+        tipo: "incontro",
+        categoria: "formazione",
+        luogo: "Cinema Vittoria",
+        ospite: "Mario Martone",
+        descrizione: "Incontro esclusivo con il regista Mario Martone"
+      },
+      {
+        orario: "21:30",
+        titolo: "Fuori",
+        tipo: "film",
         categoria: "proiezione",
-        luogo: "Sala Principale",
-        descrizione: "Seconda selezione di cortometraggi in concorso internazionale",
-        cortometraggi: [
-          { titolo: "Dieci Secondi", regista: "Alexey Evstigneev", paese: "Russia", durata: "12:10 min" },
-          { titolo: "Sharing is Caring", regista: "TBD", paese: "Internazionale", durata: "15 min" },
-          { titolo: "The Rock Tensions", regista: "TBD", paese: "Internazionale", durata: "18 min" },
-          { titolo: "Fathers Letters", regista: "TBD", paese: "Internazionale", durata: "16 min" }
-        ]
+        luogo: "Cinema Vittoria",
+        regista: "Mario Martone",
+        film: "Fuori",
+        durata: "110 min",
+        descrizione: "Proiezione del film di Mario Martone"
       }
     ],
     "Sabato 24 Agosto": [
       {
-        orario: "11:00",
-        titolo: "Focus: Cinema Mediterraneo",
-        tipo: "panel",
-        categoria: "formazione",
-        luogo: "Cinema Vittoria",
-        relatori: ["Nadine Labaki", "Ferzan Özpetek", "Fatih Akin"],
-        descrizione: "Panel dedicato alle nuove voci del cinema mediterraneo e alle tematiche sociali emergenti."
-      },
-      {
-        orario: "15:00",
-        titolo: "Tavola Rotonda: Cinema e Sostenibilità",
-        tipo: "talk",
-        categoria: "formazione",
-        luogo: "Cinema Vittoria",
-        relatori: ["Emma Watson", "Leonardo DiCaprio", "Valeria Golino"],
-        descrizione: "Discussione sul ruolo del cinema nella sensibilizzazione alle tematiche ambientali e le pratiche sostenibili nell'industria cinematografica."
-      },
-      {
-        orario: "18:00",
-        titolo: "Cerimonia di Premiazione",
+        orario: "20:15",
+        titolo: "Premiazione Cortometraggi Vincitori",
         tipo: "premiazione",
         categoria: "evento",
         luogo: "Cinema Vittoria",
-        descrizione: "Cerimonia di chiusura con assegnazione dei premi ai migliori cortometraggi e riconoscimenti speciali."
+        descrizione: "Cerimonia di premiazione dei cortometraggi vincitori del festival"
       },
       {
-        orario: "20:30",
-        titolo: "Film di Chiusura",
+        orario: "21:00",
+        titolo: "Intervista con Alessandro Rak",
+        tipo: "incontro",
+        categoria: "formazione",
+        luogo: "Cinema Vittoria",
+        ospite: "Alessandro Rak",
+        descrizione: "Incontro esclusivo con il regista e animatore Alessandro Rak"
+      },
+      {
+        orario: "21:30",
+        titolo: "Momento di Musica dal Vivo",
+        tipo: "evento",
+        categoria: "evento",
+        luogo: "Cinema Vittoria",
+        descrizione: "Momento musicale per celebrare le colonne sonore cinematografiche"
+      },
+      {
+        orario: "21:45",
+        titolo: "L'Arte della Felicità",
         tipo: "film",
         categoria: "proiezione",
-        anno: "2025",
-        regista: "Nanni Moretti",
-        film: "Il Tempo Ritrovato",
         luogo: "Cinema Vittoria",
-        durata: "127 min",
-        descrizione: "Proiezione del film di chiusura del festival, seguito da un incontro con il regista Nanni Moretti."
-      },
-      {
-        orario: "23:00",
-        titolo: "Festa di Chiusura",
-        tipo: "festa",
-        categoria: "evento",
-        luogo: "Foyer Cinema Vittoria",
-        descrizione: "Festa di chiusura del festival con musica dal vivo e celebrazione del cinema indipendente."
+        regista: "Alessandro Rak",
+        film: "L'Arte della Felicità",
+        durata: "105 min",
+        descrizione: "Proiezione del film di Alessandro Rak"
       }
     ]
   }
