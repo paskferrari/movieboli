@@ -3,6 +3,7 @@ import '../styles/movieboli-design-system.css'
 import '../styles/optimizations.css'
 import '../styles/mobile-optimizations.css'
 import { BrandingProvider } from '../contexts/BrandingContext'
+import { AuthProvider } from '../contexts/AuthContext'
 import Head from 'next/head'
 import PWAInstallPrompt from '../components/PWAInstallPrompt'
 import { useEffect } from 'react'
@@ -47,7 +48,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#7968fa" />
       </Head>
       <BrandingProvider>
-        <Component {...pageProps} />
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
       </BrandingProvider>
     </>
   )
