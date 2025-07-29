@@ -1,0 +1,38 @@
+[
+  {
+    "nome": "Alessandro Rak",
+    "bio": "Alessandro Rak è un regista, sceneggiatore e illustratore italiano, noto per il suo lavoro nell'animazione. Ha co-diretto film d'animazione come 'L'arte della felicità', 'Gatta Cenerentola' e 'Yaya e Lennie - The Walking Liberty', opere che hanno ricevuto numerosi riconoscimenti internazionali. Il suo stile fonde animazione digitale e atmosfere cinematografiche profonde e poetiche.",
+    "foto": "https://i.ibb.co/7J4jNP4h/ALESSANDRO-RAK.jpg",
+    "data_evento": "24 agosto 2025"
+  },
+  {
+    "nome": "Francesco Lettieri",
+    "bio": "Francesco Lettieri è un regista e sceneggiatore italiano, noto soprattutto per aver diretto i videoclip dei principali artisti della scena indie italiana, come Calcutta e Liberato. Ha debuttato nel cinema con il film 'Ultras', prodotto da Netflix, che racconta il mondo delle tifoserie organizzate con uno sguardo crudo e poetico.",
+    "foto": "https://i.ibb.co/VptMKV2X/licensed-image.jpg",
+    "data_evento": null
+  },
+  {
+    "nome": "Luigi D’Oriano",
+    "bio": "Luigi D’Oriano è un montatore cinematografico italiano, con esperienza in film d’autore e documentari. Ha lavorato con registi emergenti e affermati, curando il ritmo narrativo e l’equilibrio visivo delle opere a cui ha partecipato. È docente e consulente in post-produzione.",
+    "foto": "https://i.ibb.co/zyMGPT9/LUIGI-D-ORIANO.jpg",
+    "data_evento": "22 agosto 2025"
+  },
+  {
+    "nome": "Giuseppe Arena",
+    "bio": "Giuseppe Arena è un compositore e musicista italiano, attivo nel campo delle colonne sonore per cinema e teatro. La sua musica è caratterizzata da atmosfere evocative e da una ricerca timbrica raffinata. Collabora spesso con autori teatrali e registi del panorama indipendente.",
+    "foto": "https://i.ibb.co/WWDttfmZ/GIUSEPPE-ARENA.jpg",
+    "data_evento": "22 agosto 2025"
+  },
+  {
+    "nome": "Emanuele Palumbo",
+    "bio": "Emanuele Palumbo è un regista e videomaker italiano. I suoi lavori spaziano tra videoclip musicali, cortometraggi e documentari, con uno stile visivo diretto e coinvolgente. Si distingue per la capacità di raccontare storie intime con uno sguardo autentico e contemporaneo.",
+    "foto": "https://i.ibb.co/9HtZvH3F/EMANUELE-PALUMBO.jpg",
+    "data_evento": "22 agosto 2025"
+  },
+  {
+    "nome": "Mario Martone",
+    "bio": "Mario Martone (Napoli, 1959) è uno dei più importanti registi, sceneggiatori e uomini di teatro italiani contemporanei. Esordisce nel mondo artistico fondando gruppi teatrali come Nobili di Rosa e Falso Movimento, e successivamente Teatri Uniti con Toni Servillo. Dopo una lunga carriera teatrale, si fa notare nel cinema con 'Morte di un matematico napoletano' (1992), premiato a Venezia. Tra i suoi film più noti: 'L'amore molesto', 'Teatro di guerra', 'Noi credevamo', 'Il giovane favoloso' (biografia di Leopardi), 'Capri-Revolution' e 'Nostalgia' (in concorso a Cannes 2022 e selezionato per gli Oscar). Ha curato importanti regie liriche, come per il Teatro alla Scala. Nel 2023 ha realizzato il documentario su Massimo Troisi 'Laggiù qualcuno mi ama', premiato ai David di Donatello.",
+    "foto": "https://i.ibb.co/VptMKV2X/licensed-image.jpg",
+    "data_evento": "23 agosto 2025"
+  }
+]

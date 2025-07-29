@@ -2,68 +2,42 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import GuestCard from '../../components/festival/GuestCard';
+import Image from 'next/image';
+import Footer from '../../components/Footer';
 
-/**
- * Pagina Ospiti - MoviEboli Film Festival 2025
- * Design: cinematografico, elegante, informativo
- * Organizzazione: 3 ospiti per 3 sere del festival
- */
+// Import dei dati ospiti
+import ospitiData from '../../public/images/ospiti/ospiti.json';
+
 const OspitiPage = () => {
-  // Stato per il caricamento della pagina
   const [pageLoading, setPageLoading] = useState(true);
-  
-  // Simulazione del caricamento iniziale ottimizzata
+  const [activeDay, setActiveDay] = useState('22 agosto');
+  const [selectedGuest, setSelectedGuest] = useState(null);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setPageLoading(false);
     }, 300);
-    
     return () => clearTimeout(timer);
   }, []);
 
-  // Dati degli ospiti organizzati per sera
-  const guestsByEvening = {
-    prima: {
-      date: "Venerdì 7 Marzo 2025",
-      title: "Prima Serata - Apertura Festival",
-      guest: {
-        id: 1,
-        name: "Marco Bellocchio",
-        role: "Regista e Maestro del Cinema",
-        bio: "Uno dei più grandi maestri del cinema italiano contemporaneo. Vincitore della Palma d'Oro onoraria a Cannes 2021, ha diretto capolavori come 'I pugni in tasca' e 'Buongiorno, notte'. Aprirà il festival con una masterclass sulla regia.",
-        image: "/images/ospiti/bellocchio.jpg"
-      }
-    },
-    seconda: {
-      date: "Sabato 8 Marzo 2025",
-      title: "Seconda Serata - Focus Giovani Talenti",
-      guest: {
-        id: 2,
-        name: "Alice Rohrwacher",
-        role: "Regista e Sceneggiatrice",
-        bio: "Regista visionaria del nuovo cinema italiano. Vincitrice del Premio della Giuria a Cannes per 'Le meraviglie' e 'Lazzaro felice'. Condurrà un workshop sulla scrittura cinematografica e presenterà il suo ultimo progetto.",
-        image: "/images/ospiti/rohrwacher.jpg"
-      }
-    },
-    terza: {
-      date: "Domenica 9 Marzo 2025",
-      title: "Terza Serata - Chiusura e Premiazioni",
-      guest: {
-        id: 3,
-        name: "Matteo Garrone",
-        role: "Regista e Produttore",
-        bio: "Regista di fama internazionale, vincitore del Gran Premio della Giuria a Cannes per 'Gomorra' e candidato all'Oscar per 'Pinocchio'. Presiederà la giuria del festival e consegnerà i premi della serata finale.",
-        image: "/images/ospiti/garrone.jpg"
-      }
-    }
+  // Organizza gli ospiti per giorno
+  const ospitiByday = {
+    '22 agosto': ospitiData.filter(ospite => ospite.data_evento === '22 agosto 2025'),
+    '23 agosto': ospitiData.filter(ospite => ospite.data_evento === '23 agosto 2025'),
+    '24 agosto': ospitiData.filter(ospite => ospite.data_evento === '24 agosto 2025')
   };
+
+  const days = [
+    { id: '22 agosto', label: 'Giovedì 22 Agosto', title: 'Prima Serata' },
+    { id: '23 agosto', label: 'Venerdì 23 Agosto', title: 'Seconda Serata' },
+    { id: '24 agosto', label: 'Sabato 24 Agosto', title: 'Terza Serata' }
+  ];
 
   return (
     <>
       <Head>
         <title>Ospiti del Festival 2025 | MOVIEBOLI Festival</title>
-        <meta name="description" content="Scopri gli ospiti speciali del MOVIEBOLI Film Festival 2025: Marco Bellocchio, Alice Rohrwacher e Matteo Garrone, tre maestri del cinema italiano." />
+        <meta name="description" content="Scopri gli ospiti speciali del MOVIEBOLI Film Festival 2025: registi, sceneggiatori e professionisti del cinema italiano." />
         <meta property="og:title" content="Ospiti del Festival 2025 | MOVIEBOLI Festival" />
         <meta property="og:description" content="Tre serate con i grandi maestri del cinema italiano contemporaneo." />
         <meta property="og:image" content="/images/og-image.jpg" />
@@ -82,7 +56,6 @@ const OspitiPage = () => {
       <main className="min-h-screen bg-movieboli-neroProfondo text-movieboli-crema">
         {/* Hero Section */}
         <section className="relative overflow-hidden">
-          {/* Background con particelle animate */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute inset-0 bg-movieboli-neroProfondo opacity-90"></div>
             <div className="absolute inset-0 bg-[url('/logo-movieboli.png')] opacity-5"></div>
@@ -102,7 +75,7 @@ const OspitiPage = () => {
                 Tre serate indimenticabili con i grandi maestri del cinema italiano contemporaneo
               </p>
               <p className="text-base md:text-lg text-movieboli-violaPrincipale font-semibold mb-10">
-                7-9 Marzo 2025 • Cinema Comunale di Eboli
+                22-24 Agosto 2025 • Cinema Vittoria di Eboli
               </p>
               <Link href="/festival" legacyBehavior passHref>
                 <motion.a
@@ -119,16 +92,39 @@ const OspitiPage = () => {
           </div>
         </section>
         
-        {/* Contenuto principale - Ospiti per sera */}
+        {/* Tab Navigation */}
+        <section className="py-8 bg-movieboli-nero">
+          <div className="container mx-auto px-4">
+            <div className="flex justify-center mb-8">
+              <div className="flex space-x-1 bg-movieboli-bordeaux/20 rounded-xl p-1">
+                {days.map((day) => (
+                  <button
+                    key={day.id}
+                    onClick={() => setActiveDay(day.id)}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all duration-300 ${
+                      activeDay === day.id
+                        ? 'bg-movieboli-violaPrincipale text-white shadow-lg'
+                        : 'text-movieboli-crema/70 hover:text-movieboli-crema hover:bg-movieboli-violaPrincipale/20'
+                    }`}
+                  >
+                    {day.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Contenuto Ospiti */}
         <section className="py-10 sm:py-16 bg-movieboli-nero">
           <div className="container mx-auto px-4">
-            {Object.entries(guestsByEvening).map(([key, evening], eveningIndex) => (
+            <AnimatePresence mode="wait">
               <motion.div
-                key={key}
-                className="mb-16 last:mb-0"
-                initial={{ opacity: 0, y: 30 }}
+                key={activeDay}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: eveningIndex * 0.2 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
               >
                 {/* Header della serata */}
                 <div className="text-center mb-8 sm:mb-12">
@@ -136,39 +132,74 @@ const OspitiPage = () => {
                     className="inline-block px-4 py-2 rounded-full bg-movieboli-violaPrincipale/20 border border-movieboli-violaPrincipale/40 mb-4"
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: eveningIndex * 0.2 + 0.1 }}
+                    transition={{ delay: 0.1 }}
                   >
                     <span className="text-movieboli-violaPrincipale font-semibold text-sm sm:text-base">
-                      {evening.date}
+                      {days.find(d => d.id === activeDay)?.label}
                     </span>
                   </motion.div>
                   <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-movieboli-rosaPastello to-movieboli-violaPrincipale">
-                    {evening.title}
+                    {days.find(d => d.id === activeDay)?.title}
                   </h2>
                 </div>
                 
-                {/* Card dell'ospite */}
-                <div className="flex justify-center">
-                  <div className="w-full max-w-md">
-                    <GuestCard
-                      name={evening.guest.name}
-                      role={evening.guest.role}
-                      bio={evening.guest.bio}
-                      image={evening.guest.image}
-                      onClick={() => console.log(`Clicked on ${evening.guest.name}`)}
-                      index={eveningIndex}
-                    />
-                  </div>
+                {/* Griglia Ospiti */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {ospitiByday[activeDay]?.map((ospite, index) => (
+                    <motion.div
+                      key={ospite.nome}
+                      className="bg-movieboli-bordeaux/10 rounded-2xl p-6 border border-movieboli-violaPrincipale/20 hover:border-movieboli-violaPrincipale/40 transition-all duration-300 cursor-pointer"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      onClick={() => setSelectedGuest(ospite)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {/* Foto Ospite */}
+                      <div className="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-movieboli-violaPrincipale/30">
+                        <Image
+                          src={ospite.foto}
+                          alt={ospite.nome}
+                          fill
+                          sizes="96px"
+                          className="object-cover"
+                          onError={(e) => {
+                            e.currentTarget.src = '/images/default-avatar.jpg'
+                          }}
+                        />
+                      </div>
+                      
+                      {/* Info Ospite */}
+                      <div className="text-center">
+                        <h3 className="text-xl font-bold text-movieboli-violaPrincipale mb-2">
+                          {ospite.nome}
+                        </h3>
+                        <p className="text-movieboli-crema/80 text-sm mb-4 line-clamp-3">
+                          {ospite.bio}
+                        </p>
+                        <button className="text-movieboli-violaPrincipale font-semibold text-sm hover:text-movieboli-rosaPastello transition-colors">
+                          Leggi di più →
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
                 
-                {/* Separatore tra le serate */}
-                {eveningIndex < Object.keys(guestsByEvening).length - 1 && (
-                  <div className="mt-16 flex justify-center">
-                    <div className="w-24 h-px bg-gradient-to-r from-transparent via-movieboli-violaPrincipale/50 to-transparent"></div>
+                {/* Messaggio se non ci sono ospiti */}
+                {(!ospitiByday[activeDay] || ospitiByday[activeDay].length === 0) && (
+                  <div className="text-center py-16">
+                    <div className="text-6xl mb-4">🎭</div>
+                    <h3 className="text-2xl font-bold text-movieboli-violaPrincipale mb-2">
+                      Ospiti in arrivo
+                    </h3>
+                    <p className="text-movieboli-crema/70">
+                      Gli ospiti per questa serata saranno annunciati presto.
+                    </p>
                   </div>
                 )}
               </motion.div>
-            ))}
+            </AnimatePresence>
             
             {/* Sezione informazioni aggiuntive */}
             <motion.div
@@ -187,11 +218,11 @@ const OspitiPage = () => {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                 <div className="bg-movieboli-violaPrincipale/10 rounded-lg p-4">
                   <div className="font-semibold text-movieboli-violaPrincipale mb-1">Orario</div>
-                  <div className="text-movieboli-crema/80">20:30 - 23:00</div>
+                  <div className="text-movieboli-crema/80">20:00 - 23:00</div>
                 </div>
                 <div className="bg-movieboli-violaPrincipale/10 rounded-lg p-4">
                   <div className="font-semibold text-movieboli-violaPrincipale mb-1">Luogo</div>
-                  <div className="text-movieboli-crema/80">Cinema Comunale</div>
+                  <div className="text-movieboli-crema/80">Cinema Vittoria</div>
                 </div>
                 <div className="bg-movieboli-violaPrincipale/10 rounded-lg p-4">
                   <div className="font-semibold text-movieboli-violaPrincipale mb-1">Ingresso</div>
@@ -201,6 +232,64 @@ const OspitiPage = () => {
             </motion.div>
           </div>
         </section>
+        
+        {/* Modal Dettagli Ospite */}
+        <AnimatePresence>
+          {selectedGuest && (
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedGuest(null)}
+            >
+              <motion.div
+                className="bg-movieboli-nero rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto border border-movieboli-violaPrincipale/30"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex justify-between items-start mb-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-movieboli-violaPrincipale/30">
+                      <Image
+                        src={selectedGuest.foto}
+                        alt={selectedGuest.nome}
+                        fill
+                        sizes="64px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-movieboli-violaPrincipale">
+                        {selectedGuest.nome}
+                      </h3>
+                      <p className="text-movieboli-crema/70">
+                        {selectedGuest.data_evento}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setSelectedGuest(null)}
+                    className="text-movieboli-crema/70 hover:text-movieboli-crema transition-colors"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                
+                <div className="text-movieboli-crema/90 leading-relaxed">
+                  {selectedGuest.bio}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Footer Unificato Festival */}
+        <Footer />
       </main>
     </>
   );
