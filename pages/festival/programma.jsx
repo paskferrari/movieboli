@@ -11,6 +11,15 @@ import filmUnificatiData from '../../public/json-folders/film_unificati.json'
 import ospitiDataRaw from '../../public/images/ospiti/ospiti.json'
 import filmData from './film/film.json'
 
+// Crea la mappa dei film PRIMA del componente
+const filmDataMap = filmData.reduce((map, film) => {
+  map[film.nome] = {
+    foto: film.foto,
+    bio: film.bio
+  }
+  return map
+}, {})
+
 const ProgrammaPage = () => {
   const [activeDay, setActiveDay] = useState('Giovedì 22 Agosto')
   const [activeCategory, setActiveCategory] = useState('tutti')
