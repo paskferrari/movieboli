@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import EditableText from './ui/EditableText';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,11 +11,31 @@ const Navbar = () => {
   const router = useRouter();
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Chi siamo', href: '/chi-siamo' },
-    { name: 'Podcast', href: '/podcast' },
-    { name: 'Festival', href: '/festival' },
-    { name: 'Donazioni', href: '/donazioni' }
+    { 
+      id: 'home',
+      name: <EditableText contentKey="nav.home" defaultValue="Home" tag="span" />, 
+      href: '/' 
+    },
+    { 
+      id: 'about',
+      name: <EditableText contentKey="nav.about" defaultValue="Chi siamo" tag="span" />, 
+      href: '/chi-siamo' 
+    },
+    { 
+      id: 'podcast',
+      name: <EditableText contentKey="nav.podcast" defaultValue="Podcast" tag="span" />, 
+      href: '/podcast' 
+    },
+    { 
+      id: 'festival',
+      name: <EditableText contentKey="nav.festival" defaultValue="Festival" tag="span" />, 
+      href: '/festival' 
+    },
+    { 
+      id: 'donations',
+      name: <EditableText contentKey="nav.donations" defaultValue="Donazioni" tag="span" />, 
+      href: '/donazioni' 
+    }
   ];
 
   useEffect(() => {
@@ -58,7 +79,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
             {navigation.map((item) => (
               <Link
-                key={item.name}
+                key={item.id}  // Usa item.id invece di item.name
                 href={item.href}
                 className={`font-inter text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group ${
                   router.pathname === item.href 
@@ -116,7 +137,7 @@ const Navbar = () => {
           <div className="px-4 pt-3 pb-4 space-y-2">
             {navigation.map((item, index) => (
               <motion.div
-                key={item.name}
+                key={item.id}  // Usa item.id invece di item.name
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : -10 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}

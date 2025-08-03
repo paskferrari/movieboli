@@ -7,6 +7,8 @@ import VideoGridHero from '../components/VideoGridHero';
 import PastEditionsSection from '../components/PastEditionsSection';
 import PodcastSection from '../components/PodcastSection';
 import ActivitiesSection from '../components/ActivitiesSection';
+import EditableText from '../components/ui/EditableText';
+import { useMetaTags } from '../hooks/useMetaTags';
 
 const AssociationHero = () => {
   return (
@@ -19,16 +21,29 @@ const AssociationHero = () => {
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
         <div className="mb-8">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="block text-movieboli-secondary-100">MOVIEBOLI APS</span>
+            <span className="block text-movieboli-secondary-100">
+              <EditableText 
+                contentKey="homepage.hero.title"
+                defaultValue="MOVIEBOLI APS"
+                tag="span"
+              />
+            </span>
           </h1>
           
           <h2 className="text-2xl md:text-4xl font-normal text-movieboli-accent-400 mb-8">
-            Cultura, Cinema, Comunità
+            <EditableText 
+              contentKey="homepage.hero.subtitle"
+              defaultValue="Cultura, Cinema, Comunità"
+              tag="span"
+            />
           </h2>
           
           <p className="text-xl md:text-2xl text-movieboli-neutral-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Promuoviamo la cultura cinematografica e artistica nel territorio di Eboli attraverso 
-            eventi, festival e iniziative culturali innovative.
+            <EditableText 
+              contentKey="homepage.hero.description"
+              defaultValue="Promuoviamo la cultura cinematografica e artistica nel territorio di Eboli attraverso eventi, festival e iniziative culturali innovative."
+              multiline={true}
+            />
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -36,13 +51,21 @@ const AssociationHero = () => {
               href="/chi-siamo" 
               className="bg-movieboli-primary-600 hover:bg-movieboli-primary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              Scopri chi siamo
+              <EditableText 
+                contentKey="homepage.hero.cta1"
+                defaultValue="Scopri chi siamo"
+                tag="span"
+              />
             </a>
             <a 
               href="/festival/2025" 
               className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              Festival 2025
+              <EditableText 
+                contentKey="homepage.hero.cta2"
+                defaultValue="Festival 2025"
+                tag="span"
+              />
             </a>
           </div>
         </div>
@@ -263,41 +286,32 @@ const FestivalSection = () => {
 
 
 export default function Home() {
+  const metaTags = useMetaTags();
+  
   return (
-    <BrandingProvider>
-      <div className="min-h-screen bg-movieboli-background-900">
-        <Head>
-          <title>MOVIEBOLI APS - Cultura, Cinema, Comunità</title>
-          <meta name="description" content="MOVIEBOLI APS è un'associazione di promozione sociale che promuove la cultura cinematografica e artistica nel territorio di Eboli attraverso festival, eventi e iniziative culturali." />
-          <meta name="keywords" content="MOVIEBOLI, associazione, cinema, festival, Eboli, cultura, arte, podcast, eventi" />
-          <meta property="og:title" content="MOVIEBOLI APS - Cultura, Cinema, Comunità" />
-          <meta property="og:description" content="Promuoviamo la cultura cinematografica e artistica nel territorio di Eboli attraverso eventi, festival e iniziative culturali innovative." />
-          <meta property="og:image" content="/logo-movieboli.png" />
-          <meta property="og:url" content="https://movieboli.it" />
-          <meta name="twitter:card" content="summary_large_image" />
-        </Head>
-        
-        <Navbar />
-        
-        <main>
-          {/* Hero Section con video e navigazione rapida */}
-          <VideoGridHero />
-          
-          {/* Sezione Attività */}
-          <ActivitiesSection />
-          
-          {/* Sezione Podcast */}
-          <PodcastSection />
-          
-          {/* Sezione Edizioni Passate */}
-          <PastEditionsSection />
-          
-          {/* Call to Action */}
-          <FooterCTA />
-        </main>
-        
-        <Footer />
-      </div>
-    </BrandingProvider>
+    <div className="min-h-screen bg-movieboli-background-900">
+      <Head>
+        <title>{metaTags.title}</title>
+        <meta name="description" content={metaTags.description} />
+        <meta name="keywords" content={metaTags.keywords} />
+        <meta property="og:title" content={metaTags.title} />
+        <meta property="og:description" content={metaTags.description} />
+        <meta property="og:image" content="/logo-movieboli.png" />
+        <meta property="og:url" content="https://movieboli.it" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+      
+      <Navbar />
+      
+      <main>
+        <VideoGridHero />
+        <ActivitiesSection />
+        <PodcastSection />
+        <PastEditionsSection />
+        <FooterCTA />
+      </main>
+      
+      <Footer />
+    </div>
   );
 }

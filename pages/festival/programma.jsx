@@ -4,12 +4,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-// Rimuovere questa riga:
-// import Footer from '../../components/Footer'
+import Navbar from '../../components/layout/Navbar'
 
 // Import dei dati
 import filmUnificatiData from '../../public/json-folders/film_unificati.json'
 import ospitiDataRaw from '../../public/images/ospiti/ospiti.json'
+import filmData from './film/film.json'
 
 const ProgrammaPage = () => {
   const [activeDay, setActiveDay] = useState('Giovedì 22 Agosto')
@@ -80,7 +80,8 @@ const ProgrammaPage = () => {
         regista: "Sydney Sibilia",
         film: "Mixed by Erry",
         durata: "110 min",
-        descrizione: "Proiezione del film di Sydney Sibilia"
+        poster: filmDataMap["Mixed by Erry"]?.foto,
+        descrizione: filmDataMap["Mixed by Erry"]?.bio || "Proiezione del film di Sydney Sibilia"
       }
     ],
     "Venerdì 23 Agosto": [
@@ -116,7 +117,8 @@ const ProgrammaPage = () => {
         regista: "Mario Martone",
         film: "Fuori",
         durata: "110 min",
-        descrizione: "Proiezione del film di Mario Martone"
+        poster: filmDataMap["Fuori"]?.foto,
+        descrizione: filmDataMap["Fuori"]?.bio || "Proiezione del film di Mario Martone"
       }
     ],
     "Sabato 24 Agosto": [
@@ -280,82 +282,7 @@ const ProgrammaPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Navbar Festival Standardizzata */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-xl' : 'bg-transparent'
-      }`}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <Link href="/festival" className="flex items-center space-x-3 group">
-              <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-300">
-                <Image
-                  src="/logo-movieboli.png"
-                  alt="MOVIEBOLI Logo"
-                  fill
-                  className="object-contain filter brightness-0 invert"
-                  priority
-                />
-              </div>
-              <span className="font-poppins font-semibold text-xl text-movieboli-violaPrincipale">
-                FESTIVAL 2025
-              </span>
-            </Link>
-            
-            {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
-              <Link href="/festival/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Programma
-              </Link>
-              <Link href="/festival/cortometraggi" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Cortometraggi
-              </Link>
-              <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Ospiti
-              </Link>
-              <Link href="/chi-siamo" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Info
-              </Link>
-            </div>
-            
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-          
-          {/* Mobile Menu */}
-          <AnimatePresence>
-            {isMobileMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="md:hidden bg-movieboli-nero/95 backdrop-blur-md rounded-lg mt-2 overflow-hidden"
-              >
-                <div className="py-4 space-y-2">
-                  <Link href="/festival/programma" className="block px-4 py-2 font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                    Programma
-                  </Link>
-                  <Link href="/festival/cortometraggi" className="block px-4 py-2 font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                    Cortometraggi
-                  </Link>
-                  <Link href="/festival/ospiti" className="block px-4 py-2 font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                    Ospiti
-                  </Link>
-                  <Link href="/chi-siamo" className="block px-4 py-2 font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                    Info
-                  </Link>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </nav>
+      <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-movieboli-crema/20 via-white to-movieboli-crema/50">
         {/* Hero Section */}
@@ -483,7 +410,7 @@ const ProgrammaPage = () => {
                                 
                                 {evento.luogo && (
                                   <div className="flex items-center gap-2">
-                                    <span className="bg-movieboli-crema px-2 py-1 rounded text-xs font-semibold text-movieboli-nero">
+                                    <span className="bg-movieboli-crema px-2 py-1 rounded text-xs font-bold text-movieboli-nero">
                                       LUOGO
                                     </span>
                                     <span className="text-movieboli-nero font-medium">{evento.luogo}</span>
@@ -634,7 +561,7 @@ const ProgrammaPage = () => {
                     />
                   </div>
                   <h3 className="font-poppins font-semibold text-2xl text-movieboli-violaPrincipale">
-                    MoviEboli 2025
+                    MoviEboli
                   </h3>
                 </div>
                 <div className="space-y-3">

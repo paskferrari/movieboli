@@ -1,39 +1,102 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { getAllVotesStats, getAllUsers } from '../../lib/supabase';
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { getAllVotesStats, getAllUsers, getAdvancedVotesStats, subscribeToVoteUpdates } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import FilmStatsCard from './FilmStatsCard';
 import UserStatsCard from './UserStatsCard';
 import DemographicsChart from './DemographicsChart';
+import RealTimeStatsCard, { RealTimeStatsCardOld } from './RealTimeStatsCard';
+// Rimosso: import VotingTrendsChart from './VotingTrendsChart';
+import RecentActivityFeed from './RecentActivityFeed';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
   const [votesStats, setVotesStats] = useState({});
+  const [advancedStats, setAdvancedStats] = useState(null);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('realtime');
+  const [realtimeUpdates, setRealtimeUpdates] = useState([]);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
+
+  // Gestisci il caso di utente non autenticato
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-movieboli-nero via-movieboli-neroProfondo to-movieboli-nero flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center text-white"
+        >
+          <h2 className="text-2xl font-bold mb-4">Dashboard Pubblica</h2>
+          <p>Accesso in modalità demo</p>
+        </motion.div>
+      </div>
+    );
+  }
 
   // Carica i dati delle statistiche
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true);
-        const [statsData, usersData] = await Promise.all([
-          getAllVotesStats(),
-          getAllUsers()
-        ]);
-        
-        setVotesStats(statsData || {});
-        setUsers(usersData || []);
-      } catch (error) {
-        console.error('Errore nel caricamento dei dati:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
+  const loadData = useCallback(async () => {
+    try {
+      setLoading(true);
+      
+      // Carica i dati in modo sicuro, gestendo gli errori individualmente
+      const [statsData, usersData, advancedData] = await Promise.allSettled([
+        getAllVotesStats(),
+        getAllUsers(),
+        getAdvancedVotesStats()
+      ]);
+      
+      setVotesStats(statsData.status === 'fulfilled' ? (statsData.value || {}) : {});
+      setUsers(usersData.status === 'fulfilled' ? (usersData.value || []) : []);
+      setAdvancedStats(advancedData.status === 'fulfilled' ? (advancedData.value || {}) : {});
+      setLastUpdate(new Date());
+    } catch (error) {
+      console.error('Errore nel caricamento dei dati:', error);
+      // Imposta valori di fallback
+      setVotesStats({});
+      setUsers([]);
+      setAdvancedStats({});
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  // Subscription per aggiornamenti in tempo reale
+  useEffect(() => {
+    const subscription = subscribeToVoteUpdates((newVote) => {
+      console.log('Nuovo voto ricevuto:', newVote);
+      
+      // Aggiungi alla lista degli aggiornamenti recenti
+      setRealtimeUpdates(prev => [
+        {
+          id: Date.now(),
+          type: 'new_vote',
+          data: newVote,
+          timestamp: new Date()
+        },
+        ...prev.slice(0, 9) // Mantieni solo gli ultimi 10
+      ]);
+      
+      // Ricarica le statistiche
+      loadData();
+    });
+
+    return () => subscription.unsubscribe();
+  }, [loadData]);
+
+  // Auto-refresh ogni 30 secondi
+  useEffect(() => {
+    const interval = setInterval(() => {
+      loadData();
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [loadData]);
 
   // Calcola statistiche generali
   const totalVotes = Object.values(votesStats).reduce((sum, stats) => sum + (stats?.totalVotes || 0), 0);
@@ -41,13 +104,15 @@ const AdminDashboard = () => {
   const averageAge = users.length > 0 ? users.reduce((sum, user) => sum + (user.age || 0), 0) / users.length : 0;
 
   const tabs = [
+    { id: 'realtime', label: 'Tempo Reale', icon: '⚡' },
     { id: 'overview', label: 'Panoramica', icon: '📊' },
     { id: 'films', label: 'Cortometraggi', icon: '🎬' },
     { id: 'users', label: 'Utenti', icon: '👥' },
-    { id: 'demographics', label: 'Demografia', icon: '📈' }
+    { id: 'demographics', label: 'Demografia', icon: '📈' },
+    { id: 'trends', label: 'Tendenze', icon: '📈' }
   ];
 
-  if (loading) {
+  if (loading && !advancedStats) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-movieboli-nero via-movieboli-neroProfondo to-movieboli-nero flex items-center justify-center">
         <motion.div
@@ -62,25 +127,58 @@ const AdminDashboard = () => {
     );
   }
 
+  // Nel render, gestisco l'assenza di utente
   return (
-    <div className="min-h-screen bg-gradient-to-br from-movieboli-nero via-movieboli-neroProfondo to-movieboli-nero">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Dashboard Admin</h1>
+              <p className="text-gray-600">
+                {user ? `Benvenuto, ${user?.user_metadata?.full_name}` : 'Dashboard Pubblica'}
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-gray-500">Ultimo aggiornamento</p>
+              <p className="text-sm font-medium text-gray-900">
+                {lastUpdate.toLocaleTimeString('it-IT')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Header con indicatori tempo reale */}
       <div className="bg-movieboli-nero/50 backdrop-blur-sm border-b border-movieboli-violaPrincipale/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-movieboli-crema">
-                Dashboard Amministrativa
+              <h1 className="text-3xl font-bold text-movieboli-crema flex items-center space-x-3">
+                <span>Dashboard Amministrativa</span>
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm text-green-400">Live</span>
+                </div>
               </h1>
               <p className="text-movieboli-crema/70 mt-1">
                 Benvenuto, {user?.user_metadata?.firstName || user?.email}
               </p>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-6">
+              {/* Indicatori rapidi */}
+              <div className="text-center">
+                <p className="text-2xl font-bold text-movieboli-violaPrincipale">{totalVotes}</p>
+                <p className="text-xs text-movieboli-crema/60">Voti Totali</p>
+              </div>
+              <div className="text-center">
+                <p className="text-2xl font-bold text-movieboli-violaPrincipale">{realtimeUpdates.length}</p>
+                <p className="text-xs text-movieboli-crema/60">Aggiornamenti</p>
+              </div>
               <div className="text-right">
                 <p className="text-sm text-movieboli-crema/60">Ultimo aggiornamento</p>
                 <p className="text-movieboli-crema font-medium">
-                  {new Date().toLocaleString('it-IT')}
+                  {lastUpdate.toLocaleTimeString('it-IT')}
                 </p>
               </div>
             </div>
@@ -90,19 +188,24 @@ const AdminDashboard = () => {
 
       {/* Navigation Tabs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex space-x-1 bg-movieboli-nero/30 p-1 rounded-xl">
+        <div className="flex space-x-1 bg-movieboli-nero/30 p-1 rounded-xl overflow-x-auto">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-lg font-medium transition-all duration-200 ${
+              className={`flex-shrink-0 flex items-center justify-center space-x-2 py-3 px-4 rounded-lg font-medium transition-all duration-200 ${
                 activeTab === tab.id
                   ? 'bg-movieboli-violaPrincipale text-movieboli-crema shadow-lg'
                   : 'text-movieboli-crema/70 hover:text-movieboli-crema hover:bg-movieboli-nero/50'
               }`}
             >
               <span>{tab.icon}</span>
-              <span>{tab.label}</span>
+              <span className="whitespace-nowrap">{tab.label}</span>
+              {tab.id === 'realtime' && realtimeUpdates.length > 0 && (
+                <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {realtimeUpdates.length}
+                </span>
+              )}
             </button>
           ))}
         </div>
@@ -110,6 +213,91 @@ const AdminDashboard = () => {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        {/* Tab Tempo Reale */}
+        {activeTab === 'realtime' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <RealTimeStatsCardOld 
+                stats={advancedStats} 
+                realtimeUpdates={realtimeUpdates}
+              />
+              <RecentActivityFeed 
+                activities={realtimeUpdates}
+                onClearAll={() => setRealtimeUpdates([])}
+              />
+            </div>
+            
+            {advancedStats?.topFilms && (
+              <div className="bg-movieboli-nero/40 backdrop-blur-sm rounded-xl p-6 border border-movieboli-violaPrincipale/20">
+                <h3 className="text-xl font-bold text-movieboli-crema mb-4">🏆 Classifica Live</h3>
+                <div className="space-y-3">
+                  {advancedStats.topFilms.map((film, index) => (
+                    <motion.div
+                      key={film.filmId}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-center justify-between p-4 bg-movieboli-neroProfondo/50 rounded-lg"
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                          index === 0 ? 'bg-yellow-500 text-black' :
+                          index === 1 ? 'bg-gray-400 text-black' :
+                          index === 2 ? 'bg-orange-600 text-white' :
+                          'bg-movieboli-violaPrincipale/20 text-movieboli-crema'
+                        }`}>
+                          {index + 1}
+                        </div>
+                        <div>
+                          <p className="font-medium text-movieboli-crema">{film.title}</p>
+                          <p className="text-sm text-movieboli-crema/70">
+                            {film.totalVotes} voti • ⭐ {film.averageRating.toFixed(1)}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="flex items-center space-x-1">
+                          {[...Array(5)].map((_, i) => (
+                            <svg
+                              key={i}
+                              className={`w-4 h-4 ${
+                                i < Math.round(film.averageRating)
+                                  ? 'text-yellow-400'
+                                  : 'text-gray-600'
+                              }`}
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
+
+        {/* Tab Tendenze */}
+        {activeTab === 'trends' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6"
+          >
+            <h2 className="text-2xl font-bold text-movieboli-crema">📈 Analisi Tendenze</h2>
+            <VotingTrendsChart trends={advancedStats?.votingTrends || []} />
+          </motion.div>
+        )}
+
+        {/* Altri tab esistenti */}
         {activeTab === 'overview' && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminRoute from '../../components/auth/AdminRoute';
 import AdminDashboard from '../../components/admin/AdminDashboard';
+import AdminRoute from '../../components/auth/AdminRoute';
 
 const AdminPage = () => {
   return (

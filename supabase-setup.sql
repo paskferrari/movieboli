@@ -33,11 +33,12 @@ CREATE TABLE IF NOT EXISTS public.votes (
 ALTER TABLE public.user_profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.votes ENABLE ROW LEVEL SECURITY;
 
--- 5. Crea le policy per user_profiles
--- Gli utenti possono vedere e modificare solo il proprio profilo
+-- 5. Crea le policy per user_profiles (con gestione esistenti)
+DROP POLICY IF EXISTS "Users can view own profile" ON public.user_profiles;
 CREATE POLICY "Users can view own profile" ON public.user_profiles
   FOR SELECT USING (auth.uid() = id);
 
+DROP POLICY IF EXISTS "Users can update own profile" ON public.user_profiles;
 CREATE POLICY "Users can update own profile" ON public.user_profiles
   FOR UPDATE USING (auth.uid() = id);
 
@@ -50,11 +51,12 @@ CREATE POLICY "Admins can view all profiles" ON public.user_profiles
 CREATE POLICY "Users can insert own profile" ON public.user_profiles
   FOR INSERT WITH CHECK (auth.uid() = id);
 
--- 6. Crea le policy per votes
--- Policy per i voti - gli utenti possono vedere e modificare solo i propri voti
+-- 6. Crea le policy per votes (con gestione esistenti)
+DROP POLICY IF EXISTS "Users can view own votes" ON public.votes;
 CREATE POLICY "Users can view own votes" ON public.votes
   FOR SELECT USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can insert own votes" ON public.votes;
 CREATE POLICY "Users can insert own votes" ON public.votes
   FOR INSERT WITH CHECK (auth.uid() = user_id);
 

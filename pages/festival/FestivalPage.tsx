@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import ShortFilmCard from '../../components/festival/ShortFilmCard';
 import ProgressiveUnlockCard from '../../components/festival/ProgressiveUnlockCard';
@@ -58,6 +59,18 @@ function FestivalPage(props: FestivalPageProps) {
   // Stato per tenere traccia dei cortometraggi sbloccati
   const [unlockedShorts, setUnlockedShorts] = React.useState<Record<string, boolean>>({});
   
+  // Stato per la navbar
+  const [isScrolled, setIsScrolled] = React.useState(false);
+  
+  // Gestione scroll per navbar
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Simulazione del caricamento iniziale ottimizzata
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -143,6 +156,44 @@ function FestivalPage(props: FestivalPageProps) {
         <meta property="og:image" content="/images/og-image.jpg" />
       </Head>
       
+      {/* Navbar Festival Standardizzata */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-xl' : 'bg-transparent'
+      }`}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-300">
+                <Image
+                  src="/logo-movieboli.png"
+                  alt="MOVIEBOLI Logo"
+                  fill
+                  className="object-contain filter brightness-0 invert"
+                  priority
+                />
+              </div>
+              <span className="font-poppins font-semibold text-xl text-movieboli-violaPrincipale">
+                FESTIVAL 2025
+              </span>
+            </Link>
+            <div className="hidden md:flex space-x-8">
+              <Link href="/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                Programma
+              </Link>
+              <Link href="/festival/cortometraggi" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                Cortometraggi
+              </Link>
+              <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                Ospiti
+              </Link>
+              <Link href="/chi-siamo" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                Info
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {pageLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-movieboli-nero">
           <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-6">

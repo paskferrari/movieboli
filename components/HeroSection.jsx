@@ -59,7 +59,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
         >
           <h2 className="text-rosa font-semibold text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight">
-            Film Festival 2025
+            Film Festival
           </h2>
         </motion.div>
 

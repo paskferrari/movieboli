@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 import Footer from '../../components/Footer'
 import ProtectedRoute from '../../components/auth/ProtectedRoute'
 import { useAuth } from '../../contexts/AuthContext'
@@ -73,6 +74,16 @@ const Vota = ({ cortometraggi = [], error = null }) => {
   const [showThankYou, setShowThankYou] = useState(null)
   const [pageLoading, setPageLoading] = useState(true)
   const [savingVotes, setSavingVotes] = useState(new Set())
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  // Gestione scroll per navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   // Inizializza i dati e termina il caricamento
   useEffect(() => {
@@ -209,11 +220,48 @@ const Vota = ({ cortometraggi = [], error = null }) => {
   return (
     <ProtectedRoute>
       <Head>
-        <title>Vota i Cortometraggi | MOVIEBOLI Festival 2025</title>
-        <meta name="description" content="Vota i tuoi cortometraggi preferiti del MOVIEBOLI Festival 2025 con il sistema di rating a stelle" />
-        <meta property="og:title" content="Vota i Cortometraggi | MOVIEBOLI Festival 2025" />
-        <meta property="og:description" content="Vota i tuoi cortometraggi preferiti del MOVIEBOLI Festival 2025 con il sistema di rating a stelle" />
+        <title>Vota i Cortometraggi | MOVIEBOLI Festival</title>
+        <meta name="description" content="Vota i tuoi cortometraggi preferiti del MOVIEBOLI Film Festival 2025" />
+        <meta property="og:title" content="Vota i Cortometraggi | MOVIEBOLI Festival" />
+        <meta property="og:description" content="Partecipa alla votazione popolare del festival" />
+        <meta property="og:image" content="/images/og-image.jpg" />
       </Head>
+      
+      {/* Navbar Festival Standardizzata */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-xl' : 'bg-transparent'
+      }`}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="relative w-20 h-20 transform group-hover:scale-110 transition-transform duration-300">
+                <Image
+                  src="/logo-movieboli.png"
+                  alt="MOVIEBOLI Logo"
+                  fill
+                  className="object-contain filter brightness-0 invert"
+                  priority
+                />
+              </div>
+              {/* Testo FESTIVAL rimosso */}
+            </Link>
+            <div className="hidden md:flex space-x-8">
+              <Link href="/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                Programma
+              </Link>
+              <Link href="/festival/cortometraggi" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                Cortometraggi
+              </Link>
+              <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                Ospiti
+              </Link>
+              <Link href="/chi-siamo" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                Info
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
 
       {pageLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-movieboli-neroProfondo">
@@ -297,14 +345,7 @@ const Vota = ({ cortometraggi = [], error = null }) => {
           viewport={{ once: true, margin: "-100px" }}
         >
           <div className="max-w-7xl mx-auto">
-            <motion.div className="text-center mb-16" variants={itemVariants}>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-br from-movieboli-rosaPastello via-movieboli-violaPrincipale to-movieboli-violaSecondario">
-                Cortometraggi in Competizione
-              </h2>
-              <p className="text-movieboli-crema/80 text-lg max-w-2xl mx-auto">
-                Vota ogni cortometraggio con un punteggio da 1 a 5 stelle. I tuoi voti vengono salvati automaticamente.
-              </p>
-            </motion.div>
+            {/* motion.div con h2 e p rimosso */}
 
             <motion.div 
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"

@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import EditableText from '../components/ui/EditableText';
 
 /**
  * Pagina Festival - MoviEboli Film Festival
@@ -43,7 +44,7 @@ const FestivalPage = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-300">
+              <div className="relative w-20 h-20 transform group-hover:scale-110 transition-transform duration-300">
                 <Image
                   src="/logo-movieboli.png"
                   alt="MOVIEBOLI Logo"
@@ -52,9 +53,7 @@ const FestivalPage = () => {
                   priority
                 />
               </div>
-              <span className="font-poppins font-semibold text-xl text-movieboli-violaPrincipale">
-                FESTIVAL 2025
-              </span>
+              {/* Testo FESTIVAL rimosso */}
             </Link>
             <div className="hidden md:flex space-x-8">
               <Link href="/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
@@ -65,6 +64,9 @@ const FestivalPage = () => {
               </Link>
               <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
                 Ospiti
+              </Link>
+              <Link href="/festival/vota" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                Vota
               </Link>
               <Link href="/chi-siamo" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
                 Info
@@ -444,10 +446,11 @@ const FestivalPage = () => {
                       alt="MOVIEBOLI Logo"
                       fill
                       className="object-contain filter brightness-0 invert"
+                      priority
                     />
                   </div>
                   <h3 className="font-poppins font-semibold text-2xl text-movieboli-violaPrincipale">
-                    MoviEboli 2025
+                    MoviEboli
                   </h3>
                 </div>
                 <div className="space-y-3">

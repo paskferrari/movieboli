@@ -1,13 +1,25 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import EditableText from './ui/EditableText';
 
 const ActivitiesSection = () => {
   const activities = [
     {
       id: 1,
-      title: 'Festival del Cortometraggio',
-      description: 'Il nostro evento annuale dedicato ai cortometraggi indipendenti, con proiezioni, workshop e incontri con registi.',
+      title: (
+        <EditableText 
+          contentKey="activities.festival.title"
+          defaultValue="Festival del Cortometraggio"
+        />
+      ),
+      description: (
+        <EditableText 
+          contentKey="activities.festival.description"
+          defaultValue="Il nostro evento annuale dedicato ai cortometraggi indipendenti, con proiezioni, workshop e incontri con registi."
+          multiline={true}
+        />
+      ),
       icon: (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path>
@@ -17,8 +29,19 @@ const ActivitiesSection = () => {
     },
     {
       id: 2,
-      title: 'Ciliegie Podcast',
-      description: 'Il nostro podcast dedicato al cinema, con interviste, recensioni e approfondimenti sul mondo della settima arte.',
+      title: (
+        <EditableText 
+          contentKey="activities.podcast.title"
+          defaultValue="Ciliegie Podcast"
+        />
+      ),
+      description: (
+        <EditableText 
+          contentKey="activities.podcast.description"
+          defaultValue="Il nostro podcast dedicato al cinema, con interviste, recensioni e approfondimenti sul mondo della settima arte."
+          multiline={true}
+        />
+      ),
       icon: (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
@@ -28,8 +51,19 @@ const ActivitiesSection = () => {
     },
     {
       id: 3,
-      title: 'Workshop e Laboratori',
-      description: 'Corsi e laboratori di cinema, sceneggiatura, regia e montaggio per tutte le età, tenuti da professionisti del settore.',
+      title: (
+        <EditableText 
+          contentKey="activities.workshop.title"
+          defaultValue="Workshop e Laboratori"
+        />
+      ),
+      description: (
+        <EditableText 
+          contentKey="activities.workshop.description"
+          defaultValue="Corsi e laboratori di cinema, sceneggiatura, regia e montaggio per tutte le età, tenuti da professionisti del settore."
+          multiline={true}
+        />
+      ),
       icon: (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
@@ -39,8 +73,19 @@ const ActivitiesSection = () => {
     },
     {
       id: 4,
-      title: 'Proiezioni Speciali',
-      description: 'Serate dedicate alla proiezione di film d\'autore, classici restaurati e pellicole rare, spesso accompagnate da dibattiti.',
+      title: (
+        <EditableText 
+          contentKey="activities.screenings.title"
+          defaultValue="Proiezioni Speciali"
+        />
+      ),
+      description: (
+        <EditableText 
+          contentKey="activities.screenings.description"
+          defaultValue="Serate dedicate alla proiezione di film d'autore, classici restaurati e pellicole rare, spesso accompagnate da dibattiti."
+          multiline={true}
+        />
+      ),
       icon: (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
@@ -137,9 +182,9 @@ const ActivitiesSection = () => {
                   {activity.title}
                 </h3>
                 
-                <p className="text-gray-300 mb-6">
+                <div className="text-gray-300 mb-6">
                   {activity.description}
-                </p>
+                </div>
                 
                 <Link 
                   href={activity.link}

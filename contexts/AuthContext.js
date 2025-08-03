@@ -24,7 +24,13 @@ export const AuthProvider = ({ children }) => {
         setUser(user)
         setSession(user ? { user } : null)
       } catch (error) {
-        console.error('Error in getInitialSession:', error)
+        // Suppress AuthSessionMissingError in demo mode - this is expected
+        if (error.message !== 'Auth session missing!') {
+          console.error('Error in getInitialSession:', error)
+        }
+        // In caso di errore, imposta valori di default per la modalità demo
+        setUser(null)
+        setSession(null)
       } finally {
         setLoading(false)
       }
@@ -33,17 +39,26 @@ export const AuthProvider = ({ children }) => {
     getInitialSession()
 
     // Ascolta i cambiamenti di autenticazione
-    const { data: { subscription } } = onAuthStateChange(
-      async (event, session) => {
-        console.log('Auth state changed:', event, session)
-        setSession(session)
-        setUser(session?.user ?? null)
-        setLoading(false)
-      }
-    )
+    let subscription = null
+    try {
+      const authListener = onAuthStateChange(
+        async (event, session) => {
+          console.log('Auth state changed:', event, session)
+          setSession(session)
+          setUser(session?.user ?? null)
+          setLoading(false)
+        }
+      )
+      
+      subscription = authListener?.data?.subscription
+    } catch (error) {
+      console.error('Error setting up auth listener:', error)
+    }
 
     return () => {
-      subscription?.unsubscribe()
+      if (subscription?.unsubscribe) {
+        subscription.unsubscribe()
+      }
     }
   }, [])
 

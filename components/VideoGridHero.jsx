@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import EditableText from './ui/EditableText';
 
 const VideoGridHero = () => {
   // Configurazioni delle animazioni
@@ -104,14 +105,18 @@ const VideoGridHero = () => {
             />
           </motion.div>
           
-          <motion.p
+          <motion.div
             className="text-2xl md:text-3xl text-movieboli-accent mt-6 max-w-2xl mx-auto font-medium tracking-wide"
             initial="hidden"
             animate="visible"
             variants={subtitleAnimation}
           >
-            Cultura, Cinema, Comunità
-          </motion.p>
+            <EditableText 
+              contentKey="hero.subtitle"
+              defaultValue="Cultura, Cinema, Comunità"
+              tag="span"
+            />
+          </motion.div>
         </div>
       </div>
       

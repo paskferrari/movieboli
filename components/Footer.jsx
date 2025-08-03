@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import EditableText from './ui/EditableText';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -232,6 +233,21 @@ const Footer = () => {
       </div>
       
       {/* Bottom Bar */}
+      // Aggiungi sezione nel footer
+      <div className="border-t border-movieboli-neutral-200 pt-8 mt-8">
+        <div className="text-center">
+          <h3 className="font-bold text-movieboli-primary mb-2">Partecipa al Festival 2025</h3>
+          <p className="text-movieboli-neutral-600 mb-4">
+            Registrati per votare i cortometraggi e partecipare alla selezione del Premio del Pubblico
+          </p>
+          <button
+            onClick={() => setShowAuthModal(true)}
+            className="bg-movieboli-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-movieboli-secondary transition-colors duration-300"
+          >
+            Registrati Gratuitamente
+          </button>
+        </div>
+      </div>
       <div className="border-t border-white/10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           <motion.div 
@@ -240,10 +256,13 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
           >
-            <p className="text-white/60 text-xs sm:text-sm font-inter text-center md:text-left">
-              © {currentYear} MoviEboli Film Festival. Tutti i diritti riservati.
+            <p className="text-movieboli-crema/70 text-sm">
+              <EditableText 
+                contentKey="footer.copyright"
+                defaultValue="© 2024 MovieBoli. Tutti i diritti riservati."
+                tag="span"
+              />
             </p>
-            
             <div className="flex flex-wrap justify-center md:justify-end space-x-3 sm:space-x-6 text-xs sm:text-sm">
               <Link 
                 href="/privacy" 
