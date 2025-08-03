@@ -3,6 +3,34 @@ import AdminRoute from '../../components/auth/AdminRoute';
 import { useContent } from '../../contexts/ContentContext';
 import { supabase, isDemoMode } from '../../lib/supabase';
 
+// Categorie di contenuto
+const contentCategories = {
+  'navigation': 'Navigazione',
+  'hero': 'Sezione Hero',
+  'about': 'Chi Siamo',
+  'activities': 'Attività',
+  'festival': 'Festival',
+  'footer': 'Footer',
+  'contact': 'Contatti',
+  'buttons': 'Pulsanti',
+  'forms': 'Moduli',
+  'status': 'Messaggi di Stato',
+  'admin': 'Amministrazione',
+  'maintenance': 'Manutenzione'
+};
+
+const contentPages = {
+  'home': 'Homepage',
+  'about': 'Chi Siamo',
+  'activities': 'Attività',
+  'festival': 'Festival',
+  'program': 'Programma',
+  'vote': 'Vota',
+  'book': 'Prenota',
+  'admin': 'Amministrazione',
+  'global': 'Globale'
+};
+
 const ContentManagement = () => {
   const { content, updateContent, loadContent } = useContent();
   const [contentList, setContentList] = useState([]);
@@ -85,14 +113,14 @@ const ContentManagement = () => {
           <div className="flex flex-wrap gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
-              <select 
-                value={filter.category} 
+              <select
+                value={filter.category}
                 onChange={(e) => setFilter(prev => ({ ...prev, category: e.target.value }))}
                 className="border border-gray-300 rounded-md px-3 py-2"
               >
                 <option value="">Tutte le categorie</option>
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
+                {Object.entries(contentCategories).map(([key, label]) => (
+                  <option key={key} value={key}>{label}</option>
                 ))}
               </select>
             </div>

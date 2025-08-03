@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { BrandingProvider } from '../contexts/BrandingContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import EditableText from '../components/ui/EditableText';
 
 const ChiSiamoHero = () => {
   return (
@@ -11,11 +12,37 @@ const ChiSiamoHero = () => {
       </div>
       
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        // Nel ChiSiamoHero component:
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-          Chi Siamo
+          <EditableText 
+            contentKey="about.title"
+            defaultValue="Chi Siamo"
+            tag="span"
+          />
         </h1>
         <p className="text-xl md:text-2xl text-movieboli-neutral-100 leading-relaxed">
-          La storia, la missione e le persone dietro MOVIEBOLI APS
+          <EditableText 
+            contentKey="about.subtitle"
+            defaultValue="La storia, la missione e le persone dietro MOVIEBOLI APS"
+            tag="span"
+          />
+        </p>
+        
+        // Nel StorySection component:
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+          <EditableText 
+            contentKey="about.story.title"
+            defaultValue="La Nostra Storia"
+            tag="span"
+          />
+        </h2>
+        <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+          <EditableText 
+            contentKey="about.story.p1"
+            defaultValue="MOVIEBOLI APS nasce nel 2020 dalla passione di un gruppo di giovani per il cinema e l'arte..."
+            tag="span"
+            multiline={true}
+          />
         </p>
       </div>
     </section>

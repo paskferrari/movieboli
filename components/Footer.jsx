@@ -201,32 +201,56 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="lg:col-span-1"
           >
-            <h3 className="font-inter text-base sm:text-lg mb-3 sm:mb-4 text-[#f5a623] tracking-wide uppercase font-semibold">
-              Newsletter
-            </h3>
-            <p className="text-white/80 mb-3 sm:mb-4 font-inter text-xs sm:text-sm">
-              Iscriviti per ricevere aggiornamenti sul festival e sugli eventi speciali.
+            // Nel componente Footer, sostituisci i testi hardcoded:
+            <p className="text-movieboli-sfondo/80 mb-4 sm:mb-6 max-w-md font-poppins text-sm sm:text-base leading-relaxed">
+              <EditableText 
+                contentKey="footer.description"
+                defaultValue="Il festival cinematografico più innovativo del Sud Italia. Un'esperienza unica che celebra l'arte, la cultura e la creatività cinematografica."
+                tag="span"
+              />
             </p>
-            <form onSubmit={handleSubmit} className="flex flex-col space-y-2 sm:space-y-3">
-              <div className="flex">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="La tua email"
-                  required
-                  className="flex-grow px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm bg-white/10 border border-white/20 rounded-l-md text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#f5a623]/50"
-                />
-                <button
-                  type="submit"
-                  className="bg-[#f5a623] hover:bg-[#f5a623]/80 text-white px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-r-md font-inter font-medium transition-colors duration-300"
-                >
-                  Iscriviti
-                </button>
-              </div>
-            </form>
+            
+            // Titoli delle sezioni
+            <h3 className="font-inter text-base sm:text-lg mb-3 sm:mb-4 text-[#f5a623] tracking-wide uppercase font-semibold">
+              <EditableText 
+                contentKey="footer.links.title"
+                defaultValue="Link Utili"
+                tag="span"
+              />
+            </h3>
+            
+            <h3 className="font-inter text-base sm:text-lg mb-3 sm:mb-4 text-[#f5a623] tracking-wide uppercase font-semibold">
+              <EditableText 
+                contentKey="footer.contact.title"
+                defaultValue="Contatti"
+                tag="span"
+              />
+            </h3>
+            
+            <h3 className="font-inter text-base sm:text-lg mb-3 sm:mb-4 text-[#f5a623] tracking-wide uppercase font-semibold">
+              <EditableText 
+                contentKey="footer.newsletter.title"
+                defaultValue="Newsletter"
+                tag="span"
+              />
+            </h3>
+            
+            // Newsletter description
+            <p className="text-white/80 mb-3 sm:mb-4 font-inter text-xs sm:text-sm">
+              <EditableText 
+                contentKey="footer.newsletter.description"
+                defaultValue="Iscriviti per ricevere aggiornamenti sul festival e sugli eventi speciali."
+                tag="span"
+              />
+            </p>
+            
+            {/* Quote */}
             <p className="mt-4 sm:mt-6 text-white/60 text-xs italic font-inter">
-              "Il cinema è un sogno collettivo che ci unisce attraverso storie universali".
+              <EditableText 
+                contentKey="footer.quote"
+                defaultValue='"Il cinema è un sogno collettivo che ci unisce attraverso storie universali".'
+                tag="span"
+              />
             </p>
           </motion.div>
         </div>
