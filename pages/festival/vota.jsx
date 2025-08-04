@@ -7,7 +7,8 @@ import Footer from '../../components/Footer'
 import ProtectedRoute from '../../components/auth/ProtectedRoute'
 import { useAuth } from '../../contexts/AuthContext'
 import { saveVote, getUserVotes } from '../../lib/supabase'
-
+import { useContent } from '../../contexts/ContentContext'
+import EditableText from '../../components/ui/EditableText'
 
 // Componente per le stelle di rating
 const StarRating = ({ rating, onRatingChange, readonly = false, isSaving = false }) => {
@@ -69,6 +70,7 @@ const StarRating = ({ rating, onRatingChange, readonly = false, isSaving = false
 }
 
 const Vota = ({ cortometraggi = [], error = null }) => {
+  const { getContent } = useContent()
   const { user, isAuthenticated } = useAuth()
   const [ratings, setRatings] = useState({})
   const [showThankYou, setShowThankYou] = useState(null)
@@ -125,11 +127,6 @@ const Vota = ({ cortometraggi = [], error = null }) => {
 
     loadUserVotes()
   }, [isAuthenticated, user])
-
-  // Salva i voti nel localStorage
-  const saveRatings = (newRatings) => {
-    localStorage.setItem('movieboli-ratings', JSON.stringify(newRatings))
-  }
 
   // Gestisce il cambio di rating per un cortometraggio
   const handleRatingChange = async (cortoId, newRating) => {
@@ -220,8 +217,16 @@ const Vota = ({ cortometraggi = [], error = null }) => {
   return (
     <ProtectedRoute>
       <Head>
-        <title>Vota i Cortometraggi | MOVIEBOLI Festival</title>
-        <meta name="description" content="Vota i tuoi cortometraggi preferiti del MOVIEBOLI Film Festival 2025" />
+        <title>
+          <EditableText 
+            contentKey="vote.meta.title"
+            defaultValue="Vota i Cortometraggi | MOVIEBOLI Festival"
+            tag="span"
+          />
+        </title>
+        <meta name="description" content={
+          getContent('vote.meta.description', 'Esprimi il tuo voto per i cortometraggi in concorso al MOVIEBOLI Festival')
+        } />
         <meta property="og:title" content="Vota i Cortometraggi | MOVIEBOLI Festival" />
         <meta property="og:description" content="Partecipa alla votazione popolare del festival" />
         <meta property="og:image" content="/images/og-image.jpg" />
@@ -243,7 +248,6 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                   priority
                 />
               </div>
-              {/* Testo FESTIVAL rimosso */}
             </Link>
             <div className="hidden md:flex space-x-8">
               <Link href="/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
@@ -268,7 +272,13 @@ const Vota = ({ cortometraggi = [], error = null }) => {
           <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-6">
             <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-movieboli-violaPrincipale/50 border-t-movieboli-violaPrincipale rounded-full animate-spin"></div>
             <h2 className="text-xl sm:text-2xl font-bold text-movieboli-crema">MOVIEBOLI Festival 2025</h2>
-            <p className="text-sm sm:text-base text-movieboli-crema/80">Caricamento sistema di votazione...</p>
+            <p className="text-sm sm:text-base text-movieboli-crema/80">
+              <EditableText 
+                contentKey="vote.loading"
+                defaultValue="Caricamento sistema di votazione..."
+                tag="span"
+              />
+            </p>
           </div>
         </div>
       )}
@@ -288,7 +298,6 @@ const Vota = ({ cortometraggi = [], error = null }) => {
         
         {/* Hero Section */}
         <section className="relative overflow-hidden">
-          {/* Background con particelle animate */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute inset-0 bg-movieboli-neroProfondo opacity-90"></div>
             <div className="absolute inset-0 bg-[url('/logo-movieboli.png')] opacity-5"></div>
@@ -302,10 +311,18 @@ const Vota = ({ cortometraggi = [], error = null }) => {
               className="text-center max-w-4xl mx-auto"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-br from-movieboli-rosaPastello via-movieboli-violaPrincipale to-movieboli-violaSecondario drop-shadow-lg tracking-tight leading-tight">
-                Vota i Cortometraggi del Festival 2025
+                <EditableText 
+                  contentKey="vote.title"
+                  defaultValue="Vota i Cortometraggi del Festival 2025"
+                  tag="span"
+                />
               </h1>
               <p className="text-lg md:text-xl text-movieboli-crema/80 mb-10 max-w-3xl mx-auto">
-                Esprimi il tuo giudizio sui cortometraggi in competizione utilizzando il nostro sistema di rating a stelle. Puoi votare e modificare i tuoi voti in qualsiasi momento.
+                <EditableText 
+                  contentKey="vote.subtitle"
+                  defaultValue="Esprimi il tuo giudizio sui cortometraggi in competizione utilizzando il nostro sistema di rating a stelle. Puoi votare e modificare i tuoi voti in qualsiasi momento."
+                  tag="span"
+                />
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-movieboli-crema/70 mb-8">
                 <div className="flex items-center gap-2">
@@ -318,7 +335,13 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                   <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
-                  <span>Sistema di rating a 5 stelle</span>
+                  <span>
+                    <EditableText 
+                      contentKey="vote.rating_system"
+                      defaultValue="Sistema di rating a 5 stelle"
+                      tag="span"
+                    />
+                  </span>
                 </div>
               </div>
               <Link href="/festival" legacyBehavior passHref>
@@ -329,7 +352,11 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                   </svg>
-                  Torna al Festival
+                  <EditableText 
+                    contentKey="vote.back_to_festival"
+                    defaultValue="Torna al Festival"
+                    tag="span"
+                  />
                 </motion.a>
               </Link>
             </motion.div>
@@ -345,8 +372,6 @@ const Vota = ({ cortometraggi = [], error = null }) => {
           viewport={{ once: true, margin: "-100px" }}
         >
           <div className="max-w-7xl mx-auto">
-            {/* motion.div con h2 e p rimosso */}
-
             <motion.div 
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
               variants={containerVariants}
@@ -392,8 +417,20 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                                 </svg>
                               </div>
                             </motion.div>
-                            <h3 className="text-xl font-bold mb-2">Voto registrato!</h3>
-                            <p className="text-sm opacity-80">Grazie per la tua valutazione</p>
+                            <h3 className="text-xl font-bold mb-2">
+                              <EditableText 
+                                contentKey="vote.success_title"
+                                defaultValue="Voto registrato!"
+                                tag="span"
+                              />
+                            </h3>
+                            <p className="text-sm opacity-80">
+                              <EditableText 
+                                contentKey="vote.success_message"
+                                defaultValue="Grazie per la tua valutazione"
+                                tag="span"
+                              />
+                            </p>
                           </div>
                         </motion.div>
                       )}
@@ -445,14 +482,20 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                       <div className="mb-4">
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-sm font-medium text-movieboli-crema/80">
-                            {currentRating > 0 ? `La tua valutazione: ${currentRating}/5` : 'Valuta questo cortometraggio'}
+                            {currentRating > 0 ? `La tua valutazione: ${currentRating}/5` : 
+                              getContent('vote.rating.label', 'Valuta questo cortometraggio')
+                            }
                           </span>
                           {currentRating > 0 && (
                              <button
                                onClick={() => handleRatingChange(cortoId, 0)}
                                className="text-xs text-movieboli-crema/60 hover:text-movieboli-violaPrincipale transition-colors"
                              >
-                               Rimuovi voto
+                               <EditableText 
+                                 contentKey="vote.remove_vote"
+                                 defaultValue="Rimuovi voto"
+                                 tag="span"
+                               />
                              </button>
                            )}
                         </div>
@@ -474,53 +517,22 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                           whileTap={{ scale: 0.98 }}
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h1m4 0h1m-6-8h8a2 2 0 012 2v8a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
-                          <span>Guarda il Trailer</span>
+                          <span>
+                            <EditableText 
+                              contentKey="vote.watch_trailer"
+                              defaultValue="Guarda Trailer"
+                              tag="span"
+                            />
+                          </span>
                         </motion.a>
                       )}
                     </div>
-                </motion.div>
-              )
-            })}
-          </motion.div>
-
-          {/* Informazioni Votazione */}
-          <motion.div 
-            className="mt-16 text-center"
-            variants={itemVariants}
-          >
-            <div className="bg-movieboli-bordeaux/20 rounded-2xl p-8 max-w-3xl mx-auto border border-movieboli-violaPrincipale/20">
-              <h3 className="text-2xl font-bold text-movieboli-violaPrincipale mb-4">
-                Come Funziona la Votazione
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-movieboli-crema/80">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-movieboli-violaPrincipale font-bold text-lg">1</span>
-                  </div>
-                  <p className="text-sm">Esplora tutti i cortometraggi in competizione</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-movieboli-violaPrincipale font-bold text-lg">2</span>
-                  </div>
-                  <p className="text-sm">Valuta con stelle da 1 a 5 ogni cortometraggio</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-movieboli-violaPrincipale font-bold text-lg">3</span>
-                  </div>
-                  <p className="text-sm">Modifica i tuoi voti quando vuoi</p>
-                </div>
-              </div>
-              <div className="mt-6 p-4 bg-movieboli-violaPrincipale/10 rounded-xl">
-                <p className="text-sm text-movieboli-crema/70">
-                  <strong>Nota:</strong> I tuoi voti vengono salvati automaticamente nel browser. Puoi valutare tutti i cortometraggi e modificare le tue valutazioni in qualsiasi momento.
-                </p>
-              </div>
-            </div>
-          </motion.div>
+                  </motion.div>
+                )
+              })}
+            </motion.div>
           </div>
         </motion.section>
 
@@ -550,6 +562,7 @@ export async function getStaticProps() {
     return {
       props: {
         cortometraggi: [],
+        error: 'Errore nel caricamento dei cortometraggi'
       },
     }
   }

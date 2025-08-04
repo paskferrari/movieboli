@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import Footer from '../../components/Footer';
+import { useContent } from '../../contexts/ContentContext';
+import EditableText from '../../components/ui/EditableText';
 
 // Import dei dati ospiti
 import ospitiData from '../../public/images/ospiti/ospiti.json';
@@ -40,17 +42,39 @@ const OspitiPage = () => {
     '24 agosto': ospitiData.filter(ospite => ospite.data_evento === '24 agosto 2025')
   };
 
+  const { getContent } = useContent();
+  
   const days = [
-    { id: '22 agosto', label: 'Giovedì 22 Agosto', title: 'Prima Serata' },
-    { id: '23 agosto', label: 'Venerdì 23 Agosto', title: 'Seconda Serata' },
-    { id: '24 agosto', label: 'Sabato 24 Agosto', title: 'Terza Serata' }
+    { 
+      id: 'giovedi', 
+      label: getContent('guests.day1', 'Giovedì 22'),
+      date: '22 Agosto' 
+    },
+    { 
+      id: 'venerdi', 
+      label: getContent('guests.day2', 'Venerdì 23'),
+      date: '23 Agosto' 
+    },
+    { 
+      id: 'sabato', 
+      label: getContent('guests.day3', 'Sabato 24'),
+      date: '24 Agosto' 
+    }
   ];
 
   return (
     <>
       <Head>
-        <title>Ospiti del Festival 2025 | MOVIEBOLI Festival</title>
-        <meta name="description" content="Scopri gli ospiti speciali del MOVIEBOLI Film Festival 2025: registi, sceneggiatori e professionisti del cinema italiano." />
+        <title>
+          <EditableText 
+            contentKey="guests.meta.title"
+            defaultValue="Ospiti del Festival 2025 | MOVIEBOLI Festival"
+            tag="span"
+          />
+        </title>
+        <meta name="description" content={
+          getContent('guests.meta.description', 'Scopri gli ospiti speciali del MOVIEBOLI Film Festival 2025: registi, sceneggiatori e professionisti del cinema italiano.')
+        } />
         <meta property="og:title" content="Ospiti del Festival 2025 | MOVIEBOLI Festival" />
         <meta property="og:description" content="Tre serate con i grandi maestri del cinema italiano contemporaneo." />
         <meta property="og:image" content="/images/og-image.jpg" />
@@ -73,21 +97,41 @@ const OspitiPage = () => {
                 />
               </div>
               <span className="font-poppins font-semibold text-xl text-movieboli-violaPrincipale">
-                FESTIVAL 2025
+                <EditableText 
+                  contentKey="festival.nav.title"
+                  defaultValue="FESTIVAL 2025"
+                  tag="span"
+                />
               </span>
             </Link>
             <div className="hidden md:flex space-x-8">
               <Link href="/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Programma
+                <EditableText 
+                  contentKey="nav.program"
+                  defaultValue="Programma"
+                  tag="span"
+                />
               </Link>
               <Link href="/festival/cortometraggi" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Cortometraggi
+                <EditableText 
+                  contentKey="festival.nav.shorts"
+                  defaultValue="Cortometraggi"
+                  tag="span"
+                />
               </Link>
               <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Ospiti
+                <EditableText 
+                  contentKey="festival.nav.guests"
+                  defaultValue="Ospiti"
+                  tag="span"
+                />
               </Link>
               <Link href="/chi-siamo" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Info
+                <EditableText 
+                  contentKey="nav.about"
+                  defaultValue="Info"
+                  tag="span"
+                />
               </Link>
             </div>
           </div>
@@ -98,8 +142,20 @@ const OspitiPage = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-movieboli-nero">
           <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-6">
             <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-movieboli-violaPrincipale/50 border-t-movieboli-violaPrincipale rounded-full animate-spin"></div>
-            <h2 className="text-xl sm:text-2xl font-bold text-movieboli-crema">MoviEboli Festival</h2>
-            <p className="text-sm sm:text-base text-movieboli-crema/80">Caricamento ospiti...</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-movieboli-crema">
+              <EditableText 
+                contentKey="festival.loading.title"
+                defaultValue="MoviEboli Festival"
+                tag="span"
+              />
+            </h2>
+            <p className="text-sm sm:text-base text-movieboli-crema/80">
+              <EditableText 
+                contentKey="guests.loading.message"
+                defaultValue="Caricamento ospiti..."
+                tag="span"
+              />
+            </p>
           </div>
         </div>
       )}
@@ -120,13 +176,25 @@ const OspitiPage = () => {
               className="text-center max-w-4xl mx-auto"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-br from-movieboli-rosaPastello via-movieboli-violaPrincipale to-movieboli-violaSecondario drop-shadow-lg tracking-tight leading-tight">
-                Ospiti Speciali del MOVIEBOLI Film Festival 2025
+                <EditableText 
+                  contentKey="guests.title"
+                  defaultValue="Ospiti Speciali del MOVIEBOLI Film Festival 2025"
+                  tag="span"
+                />
               </h1>
               <p className="text-lg md:text-xl text-movieboli-crema/80 mb-6 max-w-3xl mx-auto">
-                Tre serate indimenticabili con i grandi maestri del cinema italiano contemporaneo
+                <EditableText 
+                  contentKey="guests.subtitle"
+                  defaultValue="Tre serate indimenticabili con i grandi maestri del cinema italiano contemporaneo"
+                  tag="span"
+                />
               </p>
               <p className="text-base md:text-lg text-movieboli-violaPrincipale font-semibold mb-10">
-                22-24 Agosto 2025 • Cinema Vittoria di Eboli
+                <EditableText 
+                  contentKey="guests.dates"
+                  defaultValue="22-24 Agosto 2025 • Cinema Vittoria di Eboli"
+                  tag="span"
+                />
               </p>
               <Link href="/festival" legacyBehavior passHref>
                 <motion.a
@@ -136,7 +204,11 @@ const OspitiPage = () => {
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                   </svg>
-                  Torna al Festival
+                  <EditableText 
+                    contentKey="guests.back"
+                    defaultValue="Torna al Festival"
+                    tag="span"
+                  />
                 </motion.a>
               </Link>
             </motion.div>

@@ -1,31 +1,35 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import EditableText from './ui/EditableText';
+import { useContent } from '../contexts/ContentContext';
 
 const PodcastSection = () => {
+  const { getContent } = useContent();
+  
   const episodes = [
     {
       number: 'EP 12',
-      title: 'Il Cinema Italiano Contemporaneo',
-      guest: 'Marco Rossi',
-      duration: '45 min',
-      date: '15 Maggio 2023',
+      title: getContent('podcast.episodes.ep12.title', 'Il Cinema Italiano Contemporaneo'),
+      guest: getContent('podcast.episodes.ep12.guest', 'Marco Rossi'),
+      duration: getContent('podcast.episodes.ep12.duration', '45 min'),
+      date: getContent('podcast.episodes.ep12.date', '15 Maggio 2023'),
       link: '/podcast/ep12'
     },
     {
       number: 'EP 11',
-      title: 'Nuove Tecnologie nel Cinema',
-      guest: 'Laura Bianchi',
-      duration: '38 min',
-      date: '1 Maggio 2023',
+      title: getContent('podcast.episodes.ep11.title', 'Nuove Tecnologie nel Cinema'),
+      guest: getContent('podcast.episodes.ep11.guest', 'Laura Bianchi'),
+      duration: getContent('podcast.episodes.ep11.duration', '38 min'),
+      date: getContent('podcast.episodes.ep11.date', '1 Maggio 2023'),
       link: '/podcast/ep11'
     },
     {
       number: 'EP 10',
-      title: 'Cinema Indipendente e Festival',
-      guest: 'Giovanni Verdi',
-      duration: '52 min',
-      date: '15 Aprile 2023',
+      title: getContent('podcast.episodes.ep10.title', 'Cinema Indipendente e Festival'),
+      guest: getContent('podcast.episodes.ep10.guest', 'Giovanni Verdi'),
+      duration: getContent('podcast.episodes.ep10.duration', '52 min'),
+      date: getContent('podcast.episodes.ep10.date', '15 Aprile 2023'),
       link: '/podcast/ep10'
     }
   ];
@@ -58,11 +62,18 @@ const PodcastSection = () => {
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between mb-16 gap-8">
           <div className="md:max-w-xl">
             <h2 className="text-4xl md:text-5xl font-bold text-yellow-400 mb-4 text-center md:text-left">
-              Ciliegie Podcast
+              <EditableText 
+                contentKey="podcast.title"
+                defaultValue="Ciliegie Podcast"
+                tag="span"
+              />
             </h2>
             <p className="text-xl text-white text-center md:text-left">
-              Conversazioni sul cinema, interviste con registi e approfondimenti culturali. 
-              Il nostro podcast è un viaggio sonoro nel mondo della settima arte.
+              <EditableText 
+                contentKey="podcast.description"
+                defaultValue="Conversazioni sul cinema, interviste con registi e approfondimenti culturali. Il nostro podcast è un viaggio sonoro nel mondo della settima arte."
+                multiline={true}
+              />
             </p>
           </div>
           
@@ -166,7 +177,11 @@ const PodcastSection = () => {
             href="/podcast"
             className="inline-flex items-center px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg transition-all duration-300 hover:scale-105 shadow-lg font-bold"
           >
-            <span>Tutti gli Episodi</span>
+            <EditableText 
+              contentKey="podcast.cta.all"
+              defaultValue="Tutti gli Episodi"
+              tag="span"
+            />
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>

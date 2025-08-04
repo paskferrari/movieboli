@@ -8,6 +8,8 @@ import ProgressiveUnlockCard from '../../components/festival/ProgressiveUnlockCa
 import Footer from '../../components/Footer';
 import { Dirent } from 'fs';
 import CortoDetailsModal from '../../components/festival/CortoDetailsModal';
+import { useContent } from '../../contexts/ContentContext';
+import EditableText from '../../components/ui/EditableText';
 
 const { useState, useEffect } = React;
 
@@ -48,6 +50,9 @@ const unlockDates = [
 
 // Componente principale della pagina
 function FestivalPage(props: FestivalPageProps) {
+  // Aggiungi l'hook useContent
+  const { getContent } = useContent();
+  
   // Stato per il modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [selectedCorto, setSelectedCorto] = React.useState<Cortometraggio | null>(null);
@@ -149,8 +154,16 @@ function FestivalPage(props: FestivalPageProps) {
   return (
     <>
       <Head>
-        <title>Cortometraggi in Concorso | MOVIEBOLI Festival</title>
-        <meta name="description" content="Scopri i cortometraggi in concorso al MOVIEBOLI Festival del Cinema di Eboli" />
+        <title>
+          <EditableText 
+            contentKey="festival.meta.title"
+            defaultValue="Cortometraggi in Concorso | MOVIEBOLI Festival"
+            tag="span"
+          />
+        </title>
+        <meta name="description" content={
+          getContent('festival.meta.description', 'Scopri i cortometraggi in concorso al MOVIEBOLI Festival del Cinema di Eboli')
+        } />
         <meta property="og:title" content="Cortometraggi in Concorso | MOVIEBOLI Festival" />
         <meta property="og:description" content="Scopri i cortometraggi in concorso al MOVIEBOLI Festival del Cinema di Eboli" />
         <meta property="og:image" content="/images/og-image.jpg" />
@@ -173,21 +186,41 @@ function FestivalPage(props: FestivalPageProps) {
                 />
               </div>
               <span className="font-poppins font-semibold text-xl text-movieboli-violaPrincipale">
-                FESTIVAL 2025
+                <EditableText 
+                  contentKey="festival.nav.title"
+                  defaultValue="FESTIVAL 2025"
+                  tag="span"
+                />
               </span>
             </Link>
             <div className="hidden md:flex space-x-8">
               <Link href="/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Programma
+                <EditableText 
+                  contentKey="nav.program"
+                  defaultValue="Programma"
+                  tag="span"
+                />
               </Link>
               <Link href="/festival/cortometraggi" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Cortometraggi
+                <EditableText 
+                  contentKey="festival.nav.shorts"
+                  defaultValue="Cortometraggi"
+                  tag="span"
+                />
               </Link>
               <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Ospiti
+                <EditableText 
+                  contentKey="festival.nav.guests"
+                  defaultValue="Ospiti"
+                  tag="span"
+                />
               </Link>
               <Link href="/chi-siamo" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Info
+                <EditableText 
+                  contentKey="nav.about"
+                  defaultValue="Info"
+                  tag="span"
+                />
               </Link>
             </div>
           </div>
@@ -198,61 +231,25 @@ function FestivalPage(props: FestivalPageProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-movieboli-nero">
           <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-6">
             <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-movieboli-violaPrincipale/50 border-t-movieboli-violaPrincipale rounded-full animate-spin"></div>
-            <h2 className="text-xl sm:text-2xl font-bold text-movieboli-crema">MoviEboli Festival</h2>
-            <p className="text-sm sm:text-base text-movieboli-crema/80">Caricamento cortometraggi...</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-movieboli-crema">
+              <EditableText 
+                contentKey="festival.loading.title"
+                defaultValue="MoviEboli Festival"
+                tag="span"
+              />
+            </h2>
+            <p className="text-sm sm:text-base text-movieboli-crema/80">
+              <EditableText 
+                contentKey="festival.loading.message"
+                defaultValue="Caricamento cortometraggi..."
+                tag="span"
+              />
+            </p>
           </div>
         </div>
       )}
       
       <main className="min-h-screen bg-movieboli-neroProfondo text-movieboli-crema">
-        {/* Messaggio di errore */}
-        {error && (
-          <div className="bg-red-500/20 border border-red-500 text-white px-4 py-3 rounded-md mx-auto my-4 max-w-4xl">
-            <div className="flex items-center">
-              <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <p>{error}</p>
-            </div>
-          </div>
-        )}
-        
-        {/* Hero Section */}
-        <section className="relative overflow-hidden">
-          {/* Background con particelle animate */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-movieboli-neroProfondo opacity-90"></div>
-            <div className="absolute inset-0 bg-[url('/logo-movieboli.png')] opacity-5"></div>
-          </div>
-          
-          <div className="container mx-auto px-4 py-20 relative z-10">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="text-center max-w-4xl mx-auto"
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-br from-movieboli-rosaPastello via-movieboli-violaPrincipale to-movieboli-violaSecondario drop-shadow-lg tracking-tight leading-tight">
-                Competizione ufficiale di MOVIEBOLI Film Festival 2025
-              </h1>
-              <p className="text-lg md:text-xl text-movieboli-crema/80 mb-10 max-w-3xl mx-auto">
-                Scopri le opere cinematografiche selezionate per la competizione ufficiale del MOVIEBOLI Festival del Cinema di Eboli.
-              </p>
-              <Link href="/festival" legacyBehavior passHref>
-                <motion.a
-                  className="inline-flex items-center px-6 py-3 rounded-xl bg-movieboli-violaPrincipale text-movieboli-nero font-bold transition-all duration-300"
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                  Torna al Festival
-                </motion.a>
-              </Link>
-            </motion.div>
-          </div>
-        </section>
-        
         {/* Contenuto principale */}
         <section className="py-10 sm:py-16 bg-movieboli-nero">
           <div className="container mx-auto px-4">
@@ -262,7 +259,11 @@ function FestivalPage(props: FestivalPageProps) {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
-              Cortometraggi in Concorso
+              <EditableText 
+                contentKey="festival.shorts.title"
+                defaultValue="Cortometraggi in Concorso"
+                tag="span"
+              />
             </motion.h2>
             
             {/* Grid dei cortometraggi */}

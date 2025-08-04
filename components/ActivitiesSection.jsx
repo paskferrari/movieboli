@@ -2,8 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import EditableText from './ui/EditableText';
+import { useContent } from '../contexts/ContentContext';
 
 const ActivitiesSection = () => {
+  const { getContent } = useContent();
+  
   const activities = [
     {
       id: 1,
@@ -95,8 +98,19 @@ const ActivitiesSection = () => {
     },
     {
       id: 5,
-      title: 'Incontri con Autori',
-      description: 'Dialoghi con registi, sceneggiatori e attori per scoprire il dietro le quinte del cinema e approfondire tematiche culturali.',
+      title: (
+        <EditableText 
+          contentKey="activities.meetings.title"
+          defaultValue="Incontri con Autori"
+        />
+      ),
+      description: (
+        <EditableText 
+          contentKey="activities.meetings.description"
+          defaultValue="Dialoghi con registi, sceneggiatori e attori per scoprire il dietro le quinte del cinema e approfondire tematiche culturali."
+          multiline={true}
+        />
+      ),
       icon: (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -106,8 +120,19 @@ const ActivitiesSection = () => {
     },
     {
       id: 6,
-      title: 'Progetti Educativi',
-      description: 'Iniziative nelle scuole per avvicinare i giovani al linguaggio cinematografico e stimolare la creatività attraverso l\'audiovisivo.',
+      title: (
+        <EditableText 
+          contentKey="activities.education.title"
+          defaultValue="Progetti Educativi"
+        />
+      ),
+      description: (
+        <EditableText 
+          contentKey="activities.education.description"
+          defaultValue="Iniziative nelle scuole per avvicinare i giovani al linguaggio cinematografico e stimolare la creatività attraverso l'audiovisivo."
+          multiline={true}
+        />
+      ),
       icon: (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
@@ -154,9 +179,18 @@ const ActivitiesSection = () => {
             visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
           }}
         >
-          <h2 className="text-4xl font-bold text-yellow-400 mb-4">Le Nostre Attività</h2>
+          <h2 className="text-4xl font-bold text-yellow-400 mb-4">
+            <EditableText 
+              contentKey="activities.section.title"
+              defaultValue="Le Nostre Attività"
+            />
+          </h2>
           <p className="text-xl text-white max-w-3xl mx-auto">
-            MOVIEBOLI promuove la cultura cinematografica attraverso diverse iniziative pensate per coinvolgere la comunità e diffondere la passione per il cinema.
+            <EditableText 
+              contentKey="activities.section.description"
+              defaultValue="MOVIEBOLI promuove la cultura cinematografica attraverso diverse iniziative pensate per coinvolgere la comunità e diffondere la passione per il cinema."
+              multiline={true}
+            />
           </p>
         </motion.div>
 
@@ -190,7 +224,11 @@ const ActivitiesSection = () => {
                   href={activity.link}
                   className="inline-flex items-center text-yellow-400 hover:text-yellow-300 transition-colors duration-300"
                 >
-                  <span>Scopri di più</span>
+                  <EditableText 
+                    contentKey="activities.cta.discover"
+                    defaultValue="Scopri di più"
+                    tag="span"
+                  />
                   <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
@@ -205,7 +243,11 @@ const ActivitiesSection = () => {
             href="/attivita"
             className="inline-flex items-center px-6 py-3 text-white rounded-lg transition-all duration-300 hover:scale-105 shadow-lg border border-yellow-400 hover:bg-yellow-400/10"
           >
-            <span>Tutte le Attività</span>
+            <EditableText 
+              contentKey="activities.cta.all"
+              defaultValue="Tutte le Attività"
+              tag="span"
+            />
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
             </svg>

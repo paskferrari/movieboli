@@ -1,28 +1,68 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import EditableText from './ui/EditableText';
+import { useContent } from '../contexts/ContentContext';
 
 const PastEditionsSection = () => {
+  const { getContent } = useContent();
+  
   const editions = [
     {
       year: '2023',
-      title: 'Edizione 2023',
-      image: '/festival-2023.jpg', // Placeholder, sostituire con immagine reale
-      description: 'Un viaggio attraverso le emozioni del cinema indipendente',
+      title: (
+        <EditableText 
+          contentKey="past_editions.2023.title"
+          defaultValue="Edizione 2023"
+          tag="span"
+        />
+      ),
+      image: '/festival-2023.jpg',
+      description: (
+        <EditableText 
+          contentKey="past_editions.2023.description"
+          defaultValue="Un viaggio attraverso le emozioni del cinema indipendente"
+          tag="span"
+        />
+      ),
       link: '/festival/2023'
     },
     {
       year: '2022',
-      title: 'Edizione 2022',
-      image: '/festival-2022.jpg', // Placeholder, sostituire con immagine reale
-      description: 'Nuove prospettive e visioni dal mondo del cortometraggio',
+      title: (
+        <EditableText 
+          contentKey="past_editions.2022.title"
+          defaultValue="Edizione 2022"
+          tag="span"
+        />
+      ),
+      image: '/festival-2022.jpg',
+      description: (
+        <EditableText 
+          contentKey="past_editions.2022.description"
+          defaultValue="Nuove prospettive e visioni dal mondo del cortometraggio"
+          tag="span"
+        />
+      ),
       link: '/festival/2022'
     },
     {
       year: '2021',
-      title: 'Edizione 2021',
-      image: '/festival-2021.jpg', // Placeholder, sostituire con immagine reale
-      description: 'Il cinema che unisce comunità e cultura',
+      title: (
+        <EditableText 
+          contentKey="past_editions.2021.title"
+          defaultValue="Edizione 2021"
+          tag="span"
+        />
+      ),
+      image: '/festival-2021.jpg',
+      description: (
+        <EditableText 
+          contentKey="past_editions.2021.description"
+          defaultValue="Il cinema che unisce comunità e cultura"
+          tag="span"
+        />
+      ),
       link: '/festival/2021'
     }
   ];
@@ -54,10 +94,18 @@ const PastEditionsSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-yellow-400 mb-4">
-            Edizioni Passate
+            <EditableText 
+              contentKey="past_editions.title"
+              defaultValue="Edizioni Passate"
+              tag="span"
+            />
           </h2>
           <p className="text-xl text-white max-w-3xl mx-auto">
-            Esplora la storia del nostro festival attraverso le edizioni passate, ognuna con il suo tema unico e i suoi film indimenticabili.
+            <EditableText 
+              contentKey="past_editions.description"
+              defaultValue="Esplora la storia del nostro festival attraverso le edizioni passate, ognuna con il suo tema unico e i suoi film indimenticabili."
+              multiline={true}
+            />
           </p>
         </div>
 
@@ -99,7 +147,13 @@ const PastEditionsSection = () => {
                   href={edition.link}
                   className="inline-flex items-center text-yellow-400 hover:text-yellow-300 transition-colors duration-300"
                 >
-                  <span>Scopri di più</span>
+                  <span>
+                    <EditableText 
+                      contentKey="past_editions.link"
+                      defaultValue="Scopri di più"
+                      tag="span"
+                    />
+                  </span>
                   <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
@@ -114,7 +168,13 @@ const PastEditionsSection = () => {
             href="/archivio-festival"
             className="inline-flex items-center px-6 py-3 text-white rounded-lg transition-all duration-300 hover:scale-105 shadow-lg border border-yellow-400 hover:bg-yellow-400/10"
           >
-            <span>Archivio Completo</span>
+            <span>
+              <EditableText 
+                contentKey="past_editions.archive"
+                defaultValue="Archivio Completo"
+                tag="span"
+              />
+            </span>
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
             </svg>

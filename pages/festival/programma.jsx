@@ -20,6 +20,9 @@ const filmDataMap = filmData.reduce((map, film) => {
   return map
 }, {})
 
+import { useContent } from '../../contexts/ContentContext';
+import EditableText from '../../components/ui/EditableText';
+
 const ProgrammaPage = () => {
   const [activeDay, setActiveDay] = useState('Giovedì 22 Agosto')
   const [activeCategory, setActiveCategory] = useState('tutti')
@@ -232,23 +235,10 @@ const ProgrammaPage = () => {
 
   // Get event label with error handling
   const getEventLabel = (tipo) => {
-    if (!tipo) return "EVENTO"
+    if (!tipo) return getContent('event.type.evento', 'EVENTO');
 
-    const labels = {
-      apertura: "APERTURA",
-      film: "FILM",
-      cortometraggi: "CORTI",
-      talk: "TALK",
-      panel: "PANEL",
-      masterclass: "MASTER",
-      workshop: "WORKSHOP",
-      incontro: "INCONTRO",
-      aperitivo: "APERITIVO",
-      premiazione: "PREMI",
-      festa: "FESTA",
-      evento: "EVENTO"
-    }
-    return labels[tipo] || "EVENTO"
+    const eventTypeKey = `event.type.${tipo}`;
+    return getContent(eventTypeKey, tipo.toUpperCase());
   }
 
   // Component for short film icons with error handling
@@ -285,14 +275,45 @@ const ProgrammaPage = () => {
   return (
     <>
       <Head>
-        <title>Programma Festival | MoviEboli Film Festival 2025</title>
-        <meta name="description" content="Programma completo del MoviEboli Film Festival 2025 - 22-24 Agosto. Cortometraggi, ospiti speciali e eventi." />
+        <title>
+          <EditableText 
+            contentKey="program.meta.title"
+            defaultValue="Programma Festival | MoviEboli Film Festival 2025"
+            tag="span"
+          />
+        </title>
+        <meta name="description" content={
+          getContent('program.meta.description', 'Programma completo del MoviEboli Film Festival 2025 - 22-24 Agosto. Cortometraggi, ospiti speciali e eventi.')
+        } />
         <meta name="keywords" content="programma festival, movieboli, eboli, cortometraggi, agosto 2025" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {/* Navbar con EditableText */}
       <Navbar />
-
+      
+      {/* Loading con EditableText */}
+      {!isVisible && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-movieboli-nero">
+          <div className="flex flex-col items-center justify-center space-y-4">
+            <div className="w-16 h-16 border-4 border-movieboli-violaPrincipale/50 border-t-movieboli-violaPrincipale rounded-full animate-spin"></div>
+            <h2 className="text-2xl font-bold text-movieboli-crema">
+              <EditableText 
+                contentKey="festival.loading.title"
+                defaultValue="MoviEboli Festival"
+                tag="span"
+              />
+            </h2>
+            <p className="text-base text-movieboli-crema/80">
+              <EditableText 
+                contentKey="program.loading.message"
+                defaultValue="Caricamento programma..."
+                tag="span"
+              />
+            </p>
+          </div>
+        </div>
+      )}
       <div className="min-h-screen bg-gradient-to-br from-movieboli-crema/20 via-white to-movieboli-crema/50">
         {/* Hero Section */}
         <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
@@ -304,10 +325,18 @@ const ProgrammaPage = () => {
               transition={{ duration: 0.8 }}
             >
               <h1 className="text-4xl md:text-6xl font-bold text-movieboli-nero mb-6">
-                Programma <span className="text-movieboli-violaPrincipale">Festival</span>
+                <EditableText 
+                  contentKey="program.title"
+                  defaultValue="Programma Festival"
+                  tag="span"
+                />
               </h1>
               <p className="text-xl text-movieboli-nero/70 max-w-3xl mx-auto">
-                Tre giorni di cinema, cortometraggi e ospiti speciali dal 22 al 24 agosto 2025
+                <EditableText 
+                  contentKey="program.subtitle"
+                  defaultValue="Tre giorni di cinema, cortometraggi e ospiti speciali dal 22 al 24 agosto 2025"
+                  tag="span"
+                />
               </p>
             </motion.div>
 
@@ -545,10 +574,11 @@ const ProgrammaPage = () => {
                 Scarica il programma dettagliato del festival in formato PDF
               </p>
               <button className="bg-movieboli-violaPrincipale text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-movieboli-violaPrincipale/90 transition-all duration-300 flex items-center gap-3 mx-auto">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Scarica PDF
+                <EditableText 
+                  contentKey="program.download.button"
+                  defaultValue="Scarica PDF"
+                  tag="span"
+                />
               </button>
             </motion.div>
           </div>
