@@ -30,6 +30,16 @@ const ProgrammaPage = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  // Gestione sicura del useContent per SSR
+  let getContent;
+  try {
+    const contentContext = useContent();
+    getContent = contentContext.getContent;
+  } catch (error) {
+    // Durante SSR o se il context non è disponibile
+    getContent = (key, defaultValue = '') => defaultValue;
+  }
+
   // Create data objects for short films and guests with error handling
   const cortometraggiData = filmUnificatiData?.reduce((acc, film) => {
     if (film?.titolo) {
