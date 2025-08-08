@@ -49,9 +49,18 @@ const unlockDates = [
 ];
 
 // Componente principale della pagina
+// Gestione errori migliorata per useContent
 function FestivalPage(props: FestivalPageProps) {
-  // Aggiungi l'hook useContent
-  const { getContent } = useContent();
+  // Aggiungi controllo di sicurezza per useContent
+  let getContent: (key: string, defaultValue?: string) => string
+  
+  try {
+    const contentContext = useContent()
+    getContent = contentContext.getContent
+  } catch (error) {
+    console.warn('ContentContext not available, using fallback')
+    getContent = (key: string, defaultValue: string = '') => defaultValue
+  }
   
   // Stato per il modal
   const [isModalOpen, setIsModalOpen] = React.useState(false);

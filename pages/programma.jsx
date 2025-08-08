@@ -5,14 +5,23 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import Image from 'next/image'
-// Importa i dati dei film
-import filmData from './festival/film/film.json'
 
-// Crea la mappa dei film PRIMA del componente
+// Importa i dati dei film con gestione errori
+let filmData = []
+try {
+  filmData = require('./festival/film/film.json')
+} catch (error) {
+  console.warn('Film data not found, using empty array')
+  filmData = []
+}
+
+// Crea la mappa dei film PRIMA del componente con controllo di sicurezza
 const filmDataMap = filmData.reduce((map, film) => {
-  map[film.nome] = {
-    foto: film.foto,
-    bio: film.bio
+  if (film && film.nome) {
+    map[film.nome] = {
+      foto: film.foto || '/images/default-film.jpg',
+      bio: film.bio || 'Descrizione non disponibile'
+    }
   }
   return map
 }, {})

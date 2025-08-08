@@ -3,282 +3,479 @@ import AdminRoute from '../../components/auth/AdminRoute';
 import { useContent } from '../../contexts/ContentContext';
 import { supabase, isDemoMode } from '../../lib/supabase';
 
-// Categorie di contenuto
-const contentCategories = {
-  'navigation': 'Navigazione',
-  'hero': 'Sezione Hero',
-  'about': 'Chi Siamo',
-  'activities': 'Attività',
-  'festival': 'Festival',
-  'footer': 'Footer',
-  'contact': 'Contatti',
-  'buttons': 'Pulsanti',
-  'forms': 'Moduli',
-  'status': 'Messaggi di Stato',
-  'admin': 'Amministrazione',
-  'maintenance': 'Manutenzione'
-};
-
-const contentPages = {
-  'home': 'Homepage',
-  'about': 'Chi Siamo',
-  'activities': 'Attività',
-  'festival': 'Festival',
-  'program': 'Programma',
-  'vote': 'Vota',
-  'book': 'Prenota',
-  'admin': 'Amministrazione',
-  'global': 'Globale'
+// Organizzazione dei contenuti per sezioni del sito
+const siteStructure = {
+  'homepage': {
+    title: '🏠 Homepage',
+    description: 'Contenuti della pagina principale',
+    icon: '🏠',
+    color: 'bg-blue-50 border-blue-200',
+    sections: {
+      'hero': {
+        title: 'Hero Section',
+        keys: ['homepage.hero.title', 'homepage.hero.subtitle', 'homepage.hero.description', 'homepage.hero.cta1', 'homepage.hero.cta2']
+      },
+      'about': {
+        title: 'Chi Siamo',
+        keys: ['homepage.about.title', 'homepage.about.mission.title', 'homepage.about.mission.p1', 'homepage.about.mission.p2', 'homepage.about.cta', 'homepage.about.since', 'homepage.about.since.description']
+      },
+      'activities': {
+        title: 'Cosa Facciamo',
+        keys: ['homepage.activities.title', 'homepage.activities.description', 'homepage.activities.festival.title', 'homepage.activities.festival.description', 'homepage.activities.podcast.title', 'homepage.activities.podcast.description', 'homepage.activities.workshops.title', 'homepage.activities.workshops.description', 'homepage.activities.cta']
+      },
+      'volunteer': {
+        title: 'Volontariato',
+        keys: ['homepage.volunteer.title', 'homepage.volunteer.description', 'homepage.volunteer.cta1', 'homepage.volunteer.cta2']
+      },
+      'festival': {
+        title: 'Festival Teaser',
+        keys: ['homepage.festival.title', 'homepage.festival.description', 'homepage.festival.days', 'homepage.festival.days.description', 'homepage.festival.films', 'homepage.festival.films.description', 'homepage.festival.events', 'homepage.festival.events.description', 'homepage.festival.cta']
+      }
+    }
+  },
+  'navigation': {
+    title: '🧭 Navigazione',
+    description: 'Menu e link di navigazione',
+    icon: '🧭',
+    color: 'bg-green-50 border-green-200',
+    sections: {
+      'main': {
+        title: 'Menu Principale',
+        keys: ['nav.home', 'nav.about', 'nav.podcast', 'nav.festival', 'nav.donations', 'nav.activities', 'nav.program', 'nav.vote', 'nav.book']
+      },
+      'festival': {
+        title: 'Navigazione Festival',
+        keys: ['festival.nav.title', 'festival.nav.shorts', 'festival.nav.guests', 'festival.nav.program', 'festival.nav.vote']
+      }
+    }
+  },
+  'festival': {
+    title: '🎬 Festival',
+    description: 'Pagine e contenuti del festival',
+    icon: '🎬',
+    color: 'bg-purple-50 border-purple-200',
+    sections: {
+      'general': {
+        title: 'Informazioni Generali',
+        keys: ['festival.title', 'festival.subtitle', 'festival.description', 'festival.dates', 'festival.location', 'festival.competition.title', 'festival.competition.description', 'festival.competition.back', 'festival.shorts.title']
+      },
+      'program': {
+        title: 'Programma',
+        keys: ['program.title', 'program.subtitle', 'program.download.title', 'program.download.description', 'program.download.button', 'program.loading.message']
+      },
+      'guests': {
+        title: 'Ospiti',
+        keys: ['guests.title', 'guests.subtitle', 'guests.back', 'guests.day1', 'guests.day2', 'guests.day3', 'guests.dates', 'guests.loading.message']
+      },
+      'vote': {
+        title: 'Sistema di Voto',
+        keys: ['vote.title', 'vote.subtitle', 'vote.login_required', 'vote.rating.label', 'vote.submit', 'vote.success', 'vote.error', 'vote.rating_system', 'vote.back_to_festival', 'vote.success_title', 'vote.success_message', 'vote.remove_vote', 'vote.watch_trailer', 'vote.loading.message']
+      },
+      'events': {
+        title: 'Tipi di Eventi',
+        keys: ['event.type.apertura', 'event.type.film', 'event.type.cortometraggi', 'event.type.talk', 'event.type.panel', 'event.type.masterclass', 'event.type.workshop', 'event.type.incontro', 'event.type.aperitivo', 'event.type.premiazione', 'event.type.festa', 'event.type.evento']
+      },
+      'meta': {
+        title: 'Meta Tags',
+        keys: ['festival.meta.title', 'festival.meta.description', 'guests.meta.title', 'guests.meta.description', 'program.meta.title', 'program.meta.description', 'vote.meta.title', 'vote.meta.description']
+      },
+      'loading': {
+        title: 'Messaggi di Caricamento',
+        keys: ['festival.loading.title', 'festival.loading.message']
+      }
+    }
+  },
+  'activities': {
+    title: '🎭 Attività',
+    description: 'Sezioni delle attività dell\'associazione',
+    icon: '🎭',
+    color: 'bg-orange-50 border-orange-200',
+    sections: {
+      'main': {
+        title: 'Sezione Principale',
+        keys: ['activities.section.title', 'activities.section.description', 'activities.cta.all', 'activities.cta.discover']
+      },
+      'festival_activity': {
+        title: 'Festival del Cortometraggio',
+        keys: ['activities.festival.title', 'activities.festival.description']
+      },
+      'podcast': {
+        title: 'Podcast',
+        keys: ['activities.podcast.title', 'activities.podcast.description']
+      },
+      'workshops': {
+        title: 'Workshop e Laboratori',
+        keys: ['activities.workshop.title', 'activities.workshop.description']
+      },
+      'screenings': {
+        title: 'Proiezioni Speciali',
+        keys: ['activities.screenings.title', 'activities.screenings.description']
+      },
+      'meetings': {
+        title: 'Incontri con Autori',
+        keys: ['activities.meetings.title', 'activities.meetings.description']
+      },
+      'education': {
+        title: 'Progetti Educativi',
+        keys: ['activities.education.title', 'activities.education.description']
+      }
+    }
+  },
+  'podcast': {
+    title: '🎙️ Podcast',
+    description: 'Contenuti del podcast Ciliegie',
+    icon: '🎙️',
+    color: 'bg-red-50 border-red-200',
+    sections: {
+      'main': {
+        title: 'Sezione Principale',
+        keys: ['podcast.section.title', 'podcast.section.description', 'podcast.cta.all']
+      },
+      'episodes': {
+        title: 'Episodi',
+        keys: ['podcast.episode.12.title', 'podcast.episode.12.guest', 'podcast.episode.12.duration', 'podcast.episode.12.date', 'podcast.episode.11.title', 'podcast.episode.11.guest', 'podcast.episode.11.duration', 'podcast.episode.11.date', 'podcast.episode.10.title', 'podcast.episode.10.guest', 'podcast.episode.10.duration', 'podcast.episode.10.date']
+      }
+    }
+  },
+  'about': {
+    title: '👥 Chi Siamo',
+    description: 'Pagina e contenuti about',
+    icon: '👥',
+    color: 'bg-teal-50 border-teal-200',
+    sections: {
+      'main': {
+        title: 'Sezione Principale',
+        keys: ['about.title', 'about.subtitle']
+      },
+      'story': {
+        title: 'La Nostra Storia',
+        keys: ['about.story.title', 'about.story.p1', 'about.story.p2', 'about.story.p3']
+      },
+      'mission': {
+        title: 'Missione',
+        keys: ['mission.title', 'mission.description']
+      }
+    }
+  },
+  'footer': {
+    title: '🦶 Footer',
+    description: 'Contenuti del footer del sito',
+    icon: '🦶',
+    color: 'bg-gray-50 border-gray-200',
+    sections: {
+      'main': {
+        title: 'Informazioni Principali',
+        keys: ['footer.copyright', 'footer.description', 'footer.quote']
+      },
+      'sections': {
+        title: 'Sezioni Footer',
+        keys: ['footer.links.title', 'footer.contact.title', 'footer.newsletter.title']
+      },
+      'newsletter': {
+        title: 'Newsletter',
+        keys: ['footer.newsletter.description', 'footer.newsletter.button', 'footer.newsletter.placeholder']
+      }
+    }
+  },
+  'contact': {
+    title: '📞 Contatti',
+    description: 'Informazioni di contatto',
+    icon: '📞',
+    color: 'bg-indigo-50 border-indigo-200',
+    sections: {
+      'main': {
+        title: 'Informazioni di Contatto',
+        keys: ['contact.address', 'contact.city', 'contact.phone', 'contact.email', 'contact.website']
+      }
+    }
+  },
+  'ui': {
+    title: '🎨 Interfaccia',
+    description: 'Elementi dell\'interfaccia utente',
+    icon: '🎨',
+    color: 'bg-pink-50 border-pink-200',
+    sections: {
+      'buttons': {
+        title: 'Pulsanti',
+        keys: ['button.discover', 'button.participate', 'button.vote', 'button.book', 'button.register', 'button.login', 'button.save', 'button.cancel', 'button.edit', 'button.delete', 'button.add']
+      },
+      'status': {
+        title: 'Messaggi di Stato',
+        keys: ['status.loading', 'status.error', 'status.success', 'status.coming_soon', 'status.in_progress', 'status.completed']
+      },
+      'forms': {
+        title: 'Moduli',
+        keys: ['form.name', 'form.email', 'form.message', 'form.submit', 'form.required']
+      }
+    }
+  },
+  'admin': {
+    title: '⚙️ Amministrazione',
+    description: 'Contenuti dell\'area admin',
+    icon: '⚙️',
+    color: 'bg-yellow-50 border-yellow-200',
+    sections: {
+      'main': {
+        title: 'Pannello Admin',
+        keys: ['admin.title', 'admin.content.title', 'admin.content.description', 'admin.add_content', 'admin.edit', 'admin.save', 'admin.cancel']
+      },
+      'maintenance': {
+        title: 'Manutenzione',
+        keys: ['maintenance.title', 'maintenance.message', 'maintenance.thanks']
+      }
+    }
+  },
+  'archive': {
+    title: '📚 Archivio',
+    description: 'Edizioni passate e archivio',
+    icon: '📚',
+    color: 'bg-emerald-50 border-emerald-200',
+    sections: {
+      'main': {
+        title: 'Edizioni Passate',
+        keys: ['past_editions.title', 'past_editions.description', 'past_editions.cta.discover', 'past_editions.cta.archive']
+      },
+      'editions': {
+        title: 'Singole Edizioni',
+        keys: ['past_editions.2023.title', 'past_editions.2023.description', 'past_editions.2022.title', 'past_editions.2022.description', 'past_editions.2021.title', 'past_editions.2021.description']
+      }
+    }
+  }
 };
 
 const ContentManagement = () => {
-  const { content, updateContent, loadContent } = useContent();
-  const [contentList, setContentList] = useState([]);
-  const [editingItem, setEditingItem] = useState(null);
-  const [newContent, setNewContent] = useState({ key: '', value: '', description: '', category: '', page: '' });
+  const { content, updateContent, getContent } = useContent();
+  const [activeSection, setActiveSection] = useState('homepage');
+  const [activeSubsection, setActiveSubsection] = useState(null);
+  const [editingKey, setEditingKey] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
-  const [filter, setFilter] = useState({ category: '', page: '' });
-
-  // Carica lista completa contenuti
-  const loadFullContentList = async () => {
-    if (isDemoMode) {
-      const demoList = Object.entries(content).map(([key, value]) => ({
-        key,
-        value,
-        description: `Contenuto demo: ${key}`,
-        category: key.split('.')[0],
-        page: 'demo'
-      }));
-      setContentList(demoList);
-      return;
-    }
-
-    try {
-      const { data, error } = await supabase
-        .from('site_content')
-        .select('*')
-        .order('category', { ascending: true })
-        .order('key', { ascending: true });
-      
-      if (error) throw error;
-      setContentList(data || []);
-    } catch (error) {
-      console.error('Errore nel caricamento contenuti:', error);
-    }
-  };
-
-  useEffect(() => {
-    loadFullContentList();
-  }, [content]);
-
-  // Filtra contenuti
-  const filteredContent = contentList.filter(item => {
-    return (!filter.category || item.category === filter.category) &&
-           (!filter.page || item.page === filter.page);
-  });
-
-  // Ottieni categorie e pagine uniche
-  const categories = [...new Set(contentList.map(item => item.category).filter(Boolean))];
-  const pages = [...new Set(contentList.map(item => item.page).filter(Boolean))];
+  const [newContent, setNewContent] = useState({ key: '', value: '' });
 
   const handleSave = async (key, value) => {
-    const success = await updateContent(key, value);
-    if (success) {
-      setEditingItem(null);
-      loadFullContentList();
+    const result = await updateContent(key, value);
+    if (result.success) {
+      setEditingKey(null);
     }
   };
 
   const handleAddNew = async () => {
     if (!newContent.key || !newContent.value) return;
     
-    const success = await updateContent(newContent.key, newContent.value);
-    if (success) {
-      setNewContent({ key: '', value: '', description: '', category: '', page: '' });
+    const result = await updateContent(newContent.key, newContent.value);
+    if (result.success) {
+      setNewContent({ key: '', value: '' });
       setShowAddForm(false);
-      loadFullContentList();
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Gestione Contenuti Sito</h1>
-          <p className="text-gray-600">Modifica tutti i contenuti testuali del sito MovieBoli</p>
-        </div>
+  const filteredSections = Object.entries(siteStructure).filter(([key, section]) => {
+    if (!searchTerm) return true;
+    return section.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           section.description.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
-        {/* Filtri */}
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
-          <div className="flex flex-wrap gap-4">
+  const currentSection = siteStructure[activeSection];
+  const currentSubsection = activeSubsection ? currentSection?.sections[activeSubsection] : null;
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
-              <select
-                value={filter.category}
-                onChange={(e) => setFilter(prev => ({ ...prev, category: e.target.value }))}
-                className="border border-gray-300 rounded-md px-3 py-2"
-              >
-                <option value="">Tutte le categorie</option>
-                {Object.entries(contentCategories).map(([key, label]) => (
-                  <option key={key} value={key}>{label}</option>
-                ))}
-              </select>
+              <h1 className="text-2xl font-bold text-gray-900">🎬 Gestione Contenuti Sito</h1>
+              <p className="text-gray-600 mt-1">Modifica tutti i contenuti testuali organizzati per sezioni</p>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Pagina</label>
-              <select 
-                value={filter.page} 
-                onChange={(e) => setFilter(prev => ({ ...prev, page: e.target.value }))}
-                className="border border-gray-300 rounded-md px-3 py-2"
-              >
-                <option value="">Tutte le pagine</option>
-                {pages.map(page => (
-                  <option key={page} value={page}>{page}</option>
-                ))}
-              </select>
-            </div>
-            <div className="flex items-end">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Cerca sezioni..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span className="text-gray-400">🔍</span>
+                </div>
+              </div>
               <button
                 onClick={() => setShowAddForm(true)}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
               >
+                <span>➕</span>
                 Aggiungi Contenuto
               </button>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Form aggiunta nuovo contenuto */}
-        {showAddForm && (
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div className="max-w-7xl mx-auto px-6 py-6">
+        <div className="flex gap-6">
+          {/* Sidebar - Sezioni */}
+          <div className="w-80 flex-shrink-0">
+            <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+              <div className="p-4 bg-gray-50 border-b">
+                <h2 className="font-semibold text-gray-900">Sezioni del Sito</h2>
+              </div>
+              <div className="max-h-[calc(100vh-200px)] overflow-y-auto">
+                {filteredSections.map(([key, section]) => (
+                  <div key={key}>
+                    <button
+                      onClick={() => {
+                        setActiveSection(key);
+                        setActiveSubsection(null);
+                      }}
+                      className={`w-full text-left p-4 border-b hover:bg-gray-50 transition-colors ${
+                        activeSection === key ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">{section.icon}</span>
+                        <div className="flex-1">
+                          <div className="font-medium text-gray-900">{section.title}</div>
+                          <div className="text-sm text-gray-500">{section.description}</div>
+                          <div className="text-xs text-gray-400 mt-1">
+                            {Object.keys(section.sections).length} sottosezioni
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div className="flex-1">
+            {currentSection && (
+              <div className="space-y-6">
+                {/* Sezione Header */}
+                <div className={`rounded-lg border-2 p-6 ${currentSection.color}`}>
+                  <div className="flex items-center gap-4">
+                    <span className="text-4xl">{currentSection.icon}</span>
+                    <div>
+                      <h2 className="text-2xl font-bold text-gray-900">{currentSection.title}</h2>
+                      <p className="text-gray-600">{currentSection.description}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sottosezioni */}
+                <div className="grid gap-4">
+                  {Object.entries(currentSection.sections).map(([subKey, subsection]) => (
+                    <div key={subKey} className="bg-white rounded-lg shadow-sm border">
+                      <button
+                        onClick={() => setActiveSubsection(activeSubsection === subKey ? null : subKey)}
+                        className="w-full p-4 text-left hover:bg-gray-50 transition-colors border-b"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h3 className="font-semibold text-gray-900">{subsection.title}</h3>
+                            <p className="text-sm text-gray-500">{subsection.keys.length} contenuti</p>
+                          </div>
+                          <span className={`transform transition-transform ${
+                            activeSubsection === subKey ? 'rotate-180' : ''
+                          }`}>
+                            ⬇️
+                          </span>
+                        </div>
+                      </button>
+                      
+                      {activeSubsection === subKey && (
+                        <div className="p-4 space-y-4">
+                          {subsection.keys.map((key) => (
+                            <div key={key} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                              <div className="flex items-start justify-between gap-4">
+                                <div className="flex-1">
+                                  <div className="font-mono text-sm text-blue-600 mb-2">{key}</div>
+                                  {editingKey === key ? (
+                                    <textarea
+                                      defaultValue={getContent(key)}
+                                      onBlur={(e) => handleSave(key, e.target.value)}
+                                      onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && e.ctrlKey) {
+                                          handleSave(key, e.target.value);
+                                        }
+                                        if (e.key === 'Escape') {
+                                          setEditingKey(null);
+                                        }
+                                      }}
+                                      className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                      rows={3}
+                                      autoFocus
+                                    />
+                                  ) : (
+                                    <div 
+                                      className="text-gray-900 cursor-pointer hover:bg-gray-100 p-2 rounded"
+                                      onClick={() => setEditingKey(key)}
+                                    >
+                                      {getContent(key) || <span className="text-gray-400 italic">Valore non impostato</span>}
+                                    </div>
+                                  )}
+                                </div>
+                                <button
+                                  onClick={() => setEditingKey(key)}
+                                  className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                                >
+                                  ✏️ Modifica
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Modal Aggiungi Contenuto */}
+      {showAddForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold mb-4">Aggiungi Nuovo Contenuto</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-4">
               <input
                 type="text"
-                placeholder="Chiave (es: hero.title)"
+                placeholder="Chiave (es: homepage.hero.new_title)"
                 value={newContent.key}
                 onChange={(e) => setNewContent(prev => ({ ...prev, key: e.target.value }))}
-                className="border border-gray-300 rounded-md px-3 py-2"
-              />
-              <input
-                type="text"
-                placeholder="Categoria"
-                value={newContent.category}
-                onChange={(e) => setNewContent(prev => ({ ...prev, category: e.target.value }))}
-                className="border border-gray-300 rounded-md px-3 py-2"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <textarea
                 placeholder="Valore del contenuto"
                 value={newContent.value}
                 onChange={(e) => setNewContent(prev => ({ ...prev, value: e.target.value }))}
-                className="border border-gray-300 rounded-md px-3 py-2 col-span-full"
-                rows={3}
-              />
-              <input
-                type="text"
-                placeholder="Pagina"
-                value={newContent.page}
-                onChange={(e) => setNewContent(prev => ({ ...prev, page: e.target.value }))}
-                className="border border-gray-300 rounded-md px-3 py-2"
-              />
-              <input
-                type="text"
-                placeholder="Descrizione"
-                value={newContent.description}
-                onChange={(e) => setNewContent(prev => ({ ...prev, description: e.target.value }))}
-                className="border border-gray-300 rounded-md px-3 py-2"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                rows={4}
               />
             </div>
-            <div className="flex gap-2 mt-4">
+            <div className="flex gap-2 mt-6">
               <button
                 onClick={handleAddNew}
-                className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+                className="flex-1 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors"
               >
-                Salva
+                ✅ Salva
               </button>
               <button
                 onClick={() => setShowAddForm(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors"
+                className="flex-1 bg-gray-500 text-white py-2 rounded-md hover:bg-gray-600 transition-colors"
               >
-                Annulla
+                ❌ Annulla
               </button>
             </div>
           </div>
-        )}
-
-        {/* Lista contenuti */}
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chiave</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valore</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoria</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pagina</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Azioni</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {filteredContent.map((item) => (
-                  <tr key={item.key} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {item.key}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-900">
-                      {editingItem === item.key ? (
-                        <textarea
-                          defaultValue={item.value}
-                          onBlur={(e) => handleSave(item.key, e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' && e.ctrlKey) {
-                              handleSave(item.key, e.target.value);
-                            }
-                            if (e.key === 'Escape') {
-                              setEditingItem(null);
-                            }
-                          }}
-                          className="w-full border border-gray-300 rounded px-2 py-1"
-                          rows={2}
-                          autoFocus
-                        />
-                      ) : (
-                        <div className="max-w-xs truncate" title={item.value}>
-                          {item.value}
-                        </div>
-                      )}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {item.category}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        {item.page}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button
-                        onClick={() => setEditingItem(item.key)}
-                        className="text-blue-600 hover:text-blue-900 mr-3"
-                      >
-                        Modifica
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </div>
-
-        {filteredContent.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500">Nessun contenuto trovato con i filtri selezionati.</p>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 };

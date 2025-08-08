@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useContent } from '../../contexts/ContentContext';
 import { useAdmin } from '../../hooks/useAdmin';
 
@@ -10,13 +10,32 @@ const EditableText = ({
   placeholder = 'Clicca per modificare...',
   multiline = false
 }) => {
-  const { getContent, updateContent } = useContent();
-  const { isAdmin } = useAdmin();
+  const [isClient, setIsClient] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+  
+  // Assicurati che il componente sia montato lato client
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
+  // Usa il context solo lato client
+  let getContent, updateContent, isAdmin;
+  try {
+    const contentContext = useContent();
+    const adminContext = useAdmin();
+    getContent = contentContext.getContent;
+    updateContent = contentContext.updateContent;
+    isAdmin = adminContext.isAdmin;
+  } catch (error) {
+    // Durante SSR o se il context non è disponibile
+    getContent = () => defaultValue;
+    updateContent = async () => ({ success: false });
+    isAdmin = false;
+  }
 
-  const content = getContent(contentKey, defaultValue);
+  const content = isClient ? getContent(contentKey, defaultValue) : defaultValue;
 
   const handleEdit = () => {
     if (!isAdmin) return;
@@ -48,45 +67,32 @@ const EditableText = ({
     }
   };
 
-  if (isEditing) {
+  if (isEditing && isAdmin) {
     const InputComponent = multiline ? 'textarea' : 'input';
     return (
-      <div className="relative inline-block w-full">
-        <InputComponent
-          value={editValue}
-          onChange={(e) => setEditValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          onBlur={handleSave}
-          className={`${className} border-2 border-blue-500 bg-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-300`}
-          placeholder={placeholder}
-          autoFocus
-          disabled={isSaving}
-          rows={multiline ? 3 : undefined}
-          style={{ minWidth: '200px' }} // Assicura una larghezza minima
-        />
-        {isSaving && (
-          <div className="absolute top-0 right-0 p-1">
-            <div className="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
-          </div>
-        )}
-      </div>
+      <InputComponent
+        type={multiline ? undefined : 'text'}
+        value={editValue}
+        onChange={(e) => setEditValue(e.target.value)}
+        onBlur={handleSave}
+        onKeyDown={handleKeyDown}
+        className={`${className} border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+        placeholder={placeholder}
+        autoFocus
+        disabled={isSaving}
+        style={multiline ? { minHeight: '60px', resize: 'vertical' } : {}}
+      />
     );
   }
 
   return (
     <Tag 
-      className={`${className} ${isAdmin ? 'relative cursor-pointer transition-all duration-200 hover:bg-opacity-10 hover:bg-yellow-400 hover:shadow-sm rounded px-1' : ''}`}
+      className={`${className} ${isAdmin ? 'cursor-pointer hover:bg-gray-100 rounded px-1' : ''}`}
       onClick={handleEdit}
       title={isAdmin ? 'Clicca per modificare' : undefined}
     >
       {content || placeholder}
-      {isAdmin && (
-        <span className="absolute -top-1 -right-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-          </svg>
-        </span>
-      )}
+      {isSaving && <span className="ml-2 text-sm text-gray-500">Salvando...</span>}
     </Tag>
   );
 };

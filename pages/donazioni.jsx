@@ -1,49 +1,391 @@
 import Head from 'next/head';
 import { BrandingProvider } from '../contexts/BrandingContext';
+import { useContent } from '../contexts/ContentContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import EditableText from '../components/ui/EditableText';
+
+const TypewriterEffect = () => {
+  const [currentText, setCurrentText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [textIndex, setTextIndex] = useState(0);
+  
+  const motivations = [
+    "Sostieni giovani talenti",
+    "Promuovi la cultura",
+    "Valorizza il territorio",
+    "Crei comunità",
+    "Investi nel futuro"
+  ];
+  
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const current = motivations[textIndex];
+      
+      if (!isDeleting) {
+        setCurrentText(current.substring(0, currentIndex + 1));
+        setCurrentIndex(prev => prev + 1);
+        
+        if (currentIndex === current.length) {
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        setCurrentText(current.substring(0, currentIndex - 1));
+        setCurrentIndex(prev => prev - 1);
+        
+        if (currentIndex === 0) {
+          setIsDeleting(false);
+          setTextIndex(prev => (prev + 1) % motivations.length);
+        }
+      }
+    }, isDeleting ? 50 : 100);
+    
+    return () => clearTimeout(timeout);
+  }, [currentIndex, isDeleting, textIndex, motivations]);
+  
+  return (
+    <div className="h-8 flex items-center justify-center">
+      <span className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-movieboli-primary-600 via-movieboli-accent-500 to-movieboli-secondary-600 bg-clip-text text-transparent">
+        {currentText}
+        <span className="animate-pulse bg-gradient-to-r from-movieboli-primary-600 via-movieboli-accent-500 to-movieboli-secondary-600 bg-clip-text text-transparent">|</span>
+      </span>
+    </div>
+  );
+};
 
 const DonazioniHero = () => {
+  const { getContent } = useContent();
+  
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-secondary-900 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden">
+      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
       </div>
       
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
         <div className="mb-8">
-          <div className="w-32 h-32 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-8">
-            <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-            </svg>
-          </div>
-          
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="block text-primary-100">Sostieni</span>
-            <span className="block text-3xl md:text-5xl font-normal text-secondary-100 mt-2">
-              MOVIEBOLI
+            <span className="block text-white">
+              <EditableText 
+                contentKey="donazioni.hero.titolo"
+                defaultValue="Sostieni MOVIEBOLI"
+                tag="span"
+              />
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-movieboli-neutral-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Il tuo contributo ci aiuta a promuovere la cultura cinematografica 
-            e a sostenere i giovani talenti del territorio.
-          </p>
+          {/* Animazione Typewriter sotto il titolo */}
+          <div className="mb-8">
+            <TypewriterEffect />
+          </div>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a 
-              href="#dona-ora" 
-              className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              Dona Ora
-            </a>
-            <a 
-              href="#come-usiamo" 
-              className="bg-secondary-600 hover:bg-secondary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              Come Usiamo i Fondi
-            </a>
+          
+          <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <EditableText 
+              contentKey="donazioni.hero.descrizione"
+              defaultValue="La tua donazione ci aiuta a promuovere la cultura cinematografica nel territorio di Eboli, organizzare eventi di qualità e sostenere giovani talenti."
+              multiline={true}
+            />
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const IbanSection = () => {
+  const { getContent } = useContent();
+  const [copiato, setCopiato] = useState(false);
+  
+  const copiaIban = () => {
+    const iban = getContent('donazioni.iban.dati_bancari.iban') || 'IT00 X000 0000 0000 0000 0000 000';
+    navigator.clipboard.writeText(iban);
+    setCopiato(true);
+    setTimeout(() => setCopiato(false), 2000);
+  };
+  
+  return (
+    <section id="dona-ora" className="py-20 bg-white">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-movieboli-primary-900 mb-6">
+            <EditableText 
+              contentKey="donazioni.iban.titolo"
+              defaultValue="Donazione tramite Bonifico"
+            />
+          </h2>
+          <div className="w-24 h-1 bg-movieboli-primary-600 mx-auto mb-8" />
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <EditableText 
+              contentKey="donazioni.iban.descrizione"
+              defaultValue="Il modo più semplice e sicuro per sostenere la nostra associazione."
+              multiline={true}
+            />
+          </p>
+        </div>
+        
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-br from-movieboli-secondary-50 to-movieboli-primary-50 rounded-3xl p-8 md:p-12 shadow-2xl border border-movieboli-primary-100">
+            <div className="grid md:grid-cols-2 gap-12">
+              {/* Dati Bancari */}
+              <div>
+                <div className="flex items-center mb-8">
+                  <div className="w-12 h-12 bg-movieboli-primary-600 rounded-full flex items-center justify-center mr-4">
+                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                      <path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-movieboli-primary-900">
+                    <EditableText 
+                      contentKey="donazioni.iban.dati_bancari.titolo"
+                      defaultValue="Dati Bancari"
+                    />
+                  </h3>
+                </div>
+                
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-movieboli-primary-700 mb-2 uppercase tracking-wide">
+                      <EditableText 
+                        contentKey="donazioni.iban.dati_bancari.intestatario_label"
+                        defaultValue="Intestatario"
+                      />
+                    </label>
+                    <div className="p-4 bg-white rounded-xl font-semibold text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100">
+                      <EditableText 
+                        contentKey="donazioni.iban.dati_bancari.intestatario"
+                        defaultValue="MOVIEBOLI APS"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-semibold text-movieboli-primary-700 mb-2 uppercase tracking-wide">
+                      <EditableText 
+                        contentKey="donazioni.iban.dati_bancari.iban_label"
+                        defaultValue="IBAN"
+                      />
+                    </label>
+                    <div className="flex">
+                      <div className="flex-1 p-4 bg-white rounded-l-xl font-mono text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100 text-lg">
+                        <EditableText 
+                          contentKey="donazioni.iban.dati_bancari.iban"
+                          defaultValue="IT00 X000 0000 0000 0000 0000 000"
+                        />
+                      </div>
+                      <button
+                        onClick={copiaIban}
+                        className="px-6 bg-movieboli-primary-600 hover:bg-movieboli-primary-700 text-white rounded-r-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+                        title="Copia IBAN"
+                      >
+                        {copiato ? (
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        ) : (
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+                            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                    {copiato && (
+                      <p className="text-sm text-movieboli-accent-600 mt-2 font-semibold animate-fade-in">
+                        <EditableText 
+                          contentKey="donazioni.iban.dati_bancari.copiato_messaggio"
+                          defaultValue="✓ IBAN copiato negli appunti!"
+                        />
+                      </p>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-semibold text-movieboli-primary-700 mb-2 uppercase tracking-wide">
+                      <EditableText 
+                        contentKey="donazioni.iban.dati_bancari.banca_label"
+                        defaultValue="Banca"
+                      />
+                    </label>
+                    <div className="p-4 bg-white rounded-xl text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100">
+                      <EditableText 
+                        contentKey="donazioni.iban.dati_bancari.banca"
+                        defaultValue="Banca di Credito Cooperativo"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Istruzioni */}
+              <div>
+                <div className="flex items-center mb-8">
+                  <div className="w-12 h-12 bg-movieboli-accent-600 rounded-full flex items-center justify-center mr-4">
+                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-movieboli-primary-900">
+                    <EditableText 
+                      contentKey="donazioni.iban.istruzioni.titolo"
+                      defaultValue="Istruzioni"
+                    />
+                  </h3>
+                </div>
+                
+                <div className="space-y-6">
+                  <div className="p-6 bg-gradient-to-r from-movieboli-accent-50 to-movieboli-secondary-50 border-l-4 border-movieboli-accent-500 rounded-r-xl">
+                    <h4 className="font-bold text-movieboli-accent-800 mb-3 flex items-center">
+                      <span className="w-2 h-2 bg-movieboli-accent-500 rounded-full mr-2"></span>
+                      <EditableText 
+                        contentKey="donazioni.iban.istruzioni.causale.titolo"
+                        defaultValue="Causale"
+                      />
+                    </h4>
+                    <p className="text-movieboli-accent-700 text-sm mb-3">
+                      <EditableText 
+                        contentKey="donazioni.iban.istruzioni.causale.testo"
+                        defaultValue="Inserisci una causale per identificare la donazione."
+                        multiline={true}
+                      />
+                    </p>
+                    <div className="p-3 bg-white rounded-lg font-mono text-sm text-movieboli-accent-800 border border-movieboli-accent-200">
+                      <EditableText 
+                        contentKey="donazioni.iban.istruzioni.causale.esempio"
+                        defaultValue="Donazione MOVIEBOLI APS"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="p-6 bg-gradient-to-r from-movieboli-primary-50 to-movieboli-secondary-50 border-l-4 border-movieboli-primary-500 rounded-r-xl">
+                    <h4 className="font-bold text-movieboli-primary-800 mb-3 flex items-center">
+                      <span className="w-2 h-2 bg-movieboli-primary-500 rounded-full mr-2"></span>
+                      <EditableText 
+                        contentKey="donazioni.iban.istruzioni.ricevuta.titolo"
+                        defaultValue="Ricevuta Fiscale"
+                      />
+                    </h4>
+                    <p className="text-movieboli-primary-700 text-sm">
+                      <EditableText 
+                        contentKey="donazioni.iban.istruzioni.ricevuta.testo"
+                        defaultValue="Riceverai una ricevuta fiscale per la tua donazione che potrai utilizzare per le detrazioni."
+                        multiline={true}
+                      />
+                    </p>
+                  </div>
+                  
+                  <div className="p-6 bg-gradient-to-r from-green-50 to-movieboli-secondary-50 border-l-4 border-green-500 rounded-r-xl">
+                    <h4 className="font-bold text-green-800 mb-3 flex items-center">
+                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                      <EditableText 
+                        contentKey="donazioni.iban.istruzioni.detraibilita.titolo"
+                        defaultValue="Detraibilità"
+                      />
+                    </h4>
+                    <p className="text-green-700 text-sm">
+                      <EditableText 
+                        contentKey="donazioni.iban.istruzioni.detraibilita.testo"
+                        defaultValue="La donazione è detraibile fiscalmente secondo le normative vigenti per le APS."
+                        multiline={true}
+                      />
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ComeUsiamoSection = () => {
+  const { getContent } = useContent();
+  
+  const utilizzi = [
+    {
+      icon: "🎬",
+      titolo: "Festival di Cortometraggi",
+      descrizione: "Organizzazione del festival annuale, premi per i vincitori e supporto tecnico per le proiezioni.",
+      percentuale: "40%"
+    },
+    {
+      icon: "🎭",
+      titolo: "Eventi Culturali",
+      descrizione: "Spettacoli teatrali, concerti, mostre d'arte e altre iniziative culturali durante l'anno.",
+      percentuale: "30%"
+    },
+    {
+      icon: "🎓",
+      titolo: "Formazione",
+      descrizione: "Workshop, masterclass e corsi di formazione per giovani talenti del territorio.",
+      percentuale: "20%"
+    },
+    {
+      icon: "⚙️",
+      titolo: "Gestione",
+      descrizione: "Spese operative, attrezzature tecniche e mantenimento delle attività associative.",
+      percentuale: "10%"
+    }
+  ];
+  
+  return (
+    <section id="come-usiamo" className="py-20 bg-gradient-to-br from-movieboli-primary-50 to-movieboli-secondary-50">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-movieboli-primary-900 mb-6">
+            <EditableText 
+              contentKey="donazioni.come_usiamo.titolo"
+              defaultValue="Come Usiamo i Fondi"
+            />
+          </h2>
+          <div className="w-24 h-1 bg-movieboli-primary-600 mx-auto mb-8" />
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <EditableText 
+              contentKey="donazioni.come_usiamo.descrizione"
+              defaultValue="Trasparenza totale: ecco come investiamo ogni euro delle vostre donazioni per far crescere la cultura nel nostro territorio."
+              multiline={true}
+            />
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {utilizzi.map((utilizzo, index) => (
+            <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-movieboli-primary-100">
+              <div className="text-center">
+                <div className="text-5xl mb-6">{utilizzo.icon}</div>
+                <div className="text-3xl font-bold text-movieboli-primary-600 mb-4">{utilizzo.percentuale}</div>
+                <h3 className="text-xl font-bold text-movieboli-primary-900 mb-4">
+                  {utilizzo.titolo}
+                </h3>
+                <p className="text-gray-600 leading-relaxed text-sm">
+                  {utilizzo.descrizione}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="mt-16 text-center">
+          <div className="bg-white rounded-2xl p-8 shadow-lg max-w-2xl mx-auto border border-movieboli-primary-100">
+            <h3 className="text-2xl font-bold text-movieboli-primary-900 mb-4">
+              <EditableText 
+                contentKey="donazioni.come_usiamo.trasparenza.titolo"
+                defaultValue="Trasparenza Totale"
+              />
+            </h3>
+            <p className="text-gray-700">
+              <EditableText 
+                contentKey="donazioni.come_usiamo.trasparenza.descrizione"
+                defaultValue="Pubblichiamo annualmente un report dettagliato sull'utilizzo dei fondi. Ogni donazione viene tracciata e rendicontata con massima trasparenza."
+                multiline={true}
+              />
+            </p>
           </div>
         </div>
       </div>
@@ -52,26 +394,28 @@ const DonazioniHero = () => {
 };
 
 const PercheDonareSection = () => {
+  const { getContent } = useContent();
+  
   const motivi = [
     {
-      icon: "🎬",
-      titolo: "Promuoviamo il Cinema",
-      descrizione: "Organizziamo eventi, festival e proiezioni per diffondere la cultura cinematografica nel territorio."
-    },
-    {
       icon: "🌟",
-      titolo: "Sosteniamo i Talenti",
-      descrizione: "Offriamo opportunità e visibilità ai giovani registi, attori e professionisti del cinema emergenti."
+      titolo: "Sostieni i Talenti",
+      descrizione: "Aiuti giovani artisti e registi a realizzare i loro sogni e a far crescere il cinema indipendente."
     },
     {
-      icon: "🎓",
-      titolo: "Educhiamo",
-      descrizione: "Creiamo workshop, masterclass e programmi educativi per avvicinare le nuove generazioni al cinema."
+      icon: "🏛️",
+      titolo: "Valorizza il Territorio",
+      descrizione: "Contribuisci a rendere Eboli un punto di riferimento culturale per tutta la Campania."
+    },
+    {
+      icon: "🎭",
+      titolo: "Promuovi la Cultura",
+      descrizione: "Sostieni eventi, spettacoli e iniziative che arricchiscono la vita culturale della comunità."
     },
     {
       icon: "🤝",
-      titolo: "Costruiamo Comunità",
-      descrizione: "Uniamo appassionati, professionisti e curiosi in una rete di condivisione e crescita culturale."
+      titolo: "Crei Comunità",
+      descrizione: "Favorisci l'aggregazione sociale e la condivisione di esperienze artistiche uniche."
     }
   ];
   
@@ -79,26 +423,29 @@ const PercheDonareSection = () => {
     <section className="py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Perché Donare a MOVIEBOLI?
+          <h2 className="text-4xl md:text-5xl font-bold text-movieboli-primary-900 mb-6">
+            <EditableText 
+              contentKey="donazioni.perche_donare.titolo"
+              defaultValue="Perché Donare"
+            />
           </h2>
-          <div className="w-24 h-1 bg-primary-600 mx-auto mb-8" />
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            La tua donazione ha un impatto diretto sulla nostra comunità e 
-            contribuisce a creare opportunità concrete per la cultura cinematografica.
-          </p>
+          <div className="w-24 h-1 bg-movieboli-primary-600 mx-auto mb-8" />
+          <div className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <p className="mb-4">Ogni donazione è un investimento nel futuro culturale del nostro territorio.</p>
+            <TypewriterEffect />
+          </div>
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {motivi.map((motivo, index) => (
-            <div key={index} className="text-center group">
-              <div className="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                {motivo.icon}
+            <div key={index} className="text-center group hover:transform hover:scale-105 transition-all duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-movieboli-primary-500 to-movieboli-accent-500 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:shadow-lg transition-all duration-300">
+                <span className="text-3xl">{motivo.icon}</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <h3 className="text-xl font-bold text-movieboli-primary-900 mb-4">
                 {motivo.titolo}
               </h3>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed">
                 {motivo.descrizione}
               </p>
             </div>
@@ -109,410 +456,69 @@ const PercheDonareSection = () => {
   );
 };
 
-const ComeUsiamoSection = () => {
-  const utilizzi = [
-    {
-      percentuale: "40%",
-      categoria: "Eventi e Festival",
-      descrizione: "Organizzazione del Festival del Cinema, proiezioni speciali e eventi culturali",
-      colore: "bg-primary-600"
-    },
-    {
-      percentuale: "25%",
-      categoria: "Supporto ai Talenti",
-      descrizione: "Borse di studio, premi e sostegno economico per giovani filmmaker",
-      colore: "bg-secondary-600"
-    },
-    {
-      percentuale: "20%",
-      categoria: "Educazione",
-      descrizione: "Workshop, masterclass e programmi educativi nelle scuole",
-      colore: "bg-green-600"
-    },
-    {
-      percentuale: "15%",
-      categoria: "Spese Operative",
-      descrizione: "Gestione dell'associazione, comunicazione e amministrazione",
-      colore: "bg-orange-600"
-    }
-  ];
-  
+const FooterCTA = () => {
   return (
-    <section id="come-usiamo" className="py-20 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Come Utilizziamo le Donazioni
-          </h2>
-          <div className="w-24 h-1 bg-secondary-600 mx-auto mb-8" />
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Trasparenza e responsabilità: ecco come investiamo ogni euro 
-            che riceviamo per massimizzare l'impatto culturale.
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-8">
-          {utilizzi.map((utilizzo, index) => (
-            <div key={index} className="bg-white rounded-xl p-6 shadow-lg">
-              <div className="flex items-center mb-4">
-                <div className={`${utilizzo.colore} text-white text-2xl font-bold px-4 py-2 rounded-lg mr-4`}>
-                  {utilizzo.percentuale}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900">
-                  {utilizzo.categoria}
-                </h3>
-              </div>
-              <p className="text-gray-700 leading-relaxed">
-                {utilizzo.descrizione}
-              </p>
-            </div>
-          ))}
-        </div>
-        
-        <div className="mt-12 bg-white rounded-xl p-8 shadow-lg">
-          <div className="text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Rendicontazione Annuale
-            </h3>
-            <p className="text-gray-700 mb-6">
-              Ogni anno pubblichiamo un report dettagliato sull'utilizzo dei fondi 
-              e sui risultati raggiunti grazie al vostro sostegno.
-            </p>
-            <a 
-              href="#" 
-              className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-            >
-              Scarica l'Ultimo Report
-            </a>
-          </div>
+    <section className="py-20 bg-gradient-to-br from-movieboli-primary-900 to-movieboli-secondary-900">
+      <div className="max-w-4xl mx-auto text-center px-4">
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <EditableText 
+            contentKey="donazioni.footer_cta.titolo"
+            defaultValue="Unisciti a Noi"
+          />
+        </h2>
+        <p className="text-xl text-movieboli-neutral-200 mb-8 max-w-2xl mx-auto">
+          <EditableText 
+            contentKey="donazioni.footer_cta.descrizione"
+            defaultValue="Ogni contributo, grande o piccolo, ci aiuta a realizzare progetti straordinari e a far crescere la nostra comunità."
+            multiline={true}
+          />
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+            Dona Ora
+          </button>
+          <button className="border-2 border-white text-white hover:bg-white hover:text-movieboli-primary-900 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300">
+            Scopri di Più
+          </button>
         </div>
       </div>
     </section>
   );
 };
 
-const DonaOraSection = () => {
-  const [importoPersonalizzato, setImportoPersonalizzato] = useState('');
-  const [importoSelezionato, setImportoSelezionato] = useState(null);
-  const [modalitaDonazione, setModalitaDonazione] = useState('unica');
-  
-  const importiSuggeriti = [10, 25, 50, 100, 250, 500];
-  
-  const handleImportoClick = (importo) => {
-    setImportoSelezionato(importo);
-    setImportoPersonalizzato('');
-  };
-  
-  const handleImportoPersonalizzato = (e) => {
-    setImportoPersonalizzato(e.target.value);
-    setImportoSelezionato(null);
-  };
-  
-  const handleDonazione = () => {
-    const importo = importoSelezionato || parseFloat(importoPersonalizzato);
-    if (importo && importo > 0) {
-      alert(`Grazie per la tua donazione di €${importo}! Ti reindirizzeremo al sistema di pagamento.`);
-    } else {
-      alert('Seleziona o inserisci un importo valido.');
-    }
-  };
-  
+// Sezione separata sotto la hero
+const TypewriterSection = () => {
   return (
-    <section id="dona-ora" className="py-20 bg-white">
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Fai una Donazione
-          </h2>
-          <div className="w-24 h-1 bg-primary-600 mx-auto mb-8" />
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Scegli l'importo che preferisci e contribuisci a sostenere 
-            la nostra missione culturale.
-          </p>
-        </div>
-        
-        <div className="bg-gray-50 rounded-2xl p-8">
-          {/* Modalità di donazione */}
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Modalità di donazione</h3>
-            <div className="flex gap-4">
-              <button
-                onClick={() => setModalitaDonazione('unica')}
-                className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                  modalitaDonazione === 'unica'
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                }`}
-              >
-                Donazione Unica
-              </button>
-              <button
-                onClick={() => setModalitaDonazione('mensile')}
-                className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                  modalitaDonazione === 'mensile'
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                }`}
-              >
-                Donazione Mensile
-              </button>
-            </div>
-          </div>
-          
-          {/* Importi suggeriti */}
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Scegli un importo</h3>
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4">
-              {importiSuggeriti.map((importo) => (
-                <button
-                  key={importo}
-                  onClick={() => handleImportoClick(importo)}
-                  className={`p-4 rounded-lg font-semibold transition-colors ${
-                    importoSelezionato === importo
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                  }`}
-                >
-                  €{importo}
-                </button>
-              ))}
-            </div>
-            
-            {/* Importo personalizzato */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Oppure inserisci un importo personalizzato
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">€</span>
-                <input
-                  type="number"
-                  value={importoPersonalizzato}
-                  onChange={handleImportoPersonalizzato}
-                  placeholder="0.00"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  min="1"
-                  step="0.01"
-                />
-              </div>
-            </div>
-          </div>
-          
-          {/* Riepilogo */}
-          <div className="bg-white rounded-lg p-6 mb-6">
-            <h4 className="text-lg font-semibold text-gray-900 mb-3">Riepilogo Donazione</h4>
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-gray-700">Importo:</span>
-              <span className="font-semibold text-xl text-primary-600">
-                €{importoSelezionato || importoPersonalizzato || '0.00'}
-              </span>
-            </div>
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-gray-700">Modalità:</span>
-              <span className="font-semibold">
-                {modalitaDonazione === 'unica' ? 'Donazione Unica' : 'Donazione Mensile'}
-              </span>
-            </div>
-            
-            {modalitaDonazione === 'mensile' && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                <p className="text-blue-800 text-sm">
-                  💡 Con una donazione mensile ci aiuti a pianificare meglio le nostre attività 
-                  e a garantire continuità ai nostri progetti.
-                </p>
-              </div>
-            )}
-          </div>
-          
-          {/* Metodi di pagamento */}
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Metodi di pagamento</h3>
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-white border border-gray-300 rounded-lg p-4 text-center hover:border-primary-500 cursor-pointer transition-colors">
-                <div className="text-2xl mb-2">💳</div>
-                <span className="font-semibold">Carta di Credito</span>
-              </div>
-              <div className="bg-white border border-gray-300 rounded-lg p-4 text-center hover:border-primary-500 cursor-pointer transition-colors">
-                <div className="text-2xl mb-2">🏦</div>
-                <span className="font-semibold">Bonifico Bancario</span>
-              </div>
-              <div className="bg-white border border-gray-300 rounded-lg p-4 text-center hover:border-primary-500 cursor-pointer transition-colors">
-                <div className="text-2xl mb-2">📱</div>
-                <span className="font-semibold">PayPal</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Pulsante donazione */}
-          <div className="text-center">
-            <button
-              onClick={handleDonazione}
-              className="bg-primary-600 hover:bg-primary-700 text-white px-12 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              {modalitaDonazione === 'unica' ? 'Dona Ora' : 'Attiva Donazione Mensile'}
-            </button>
-            
-            <p className="text-gray-600 text-sm mt-4">
-              🔒 Pagamento sicuro e protetto. I tuoi dati sono al sicuro.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const AltriModiSection = () => {
-  const altriModi = [
-    {
-      icon: "🛒",
-      titolo: "5x1000",
-      descrizione: "Destina il tuo 5x1000 a MOVIEBOLI. È gratuito e non ti costa nulla.",
-      codice: "CF: 12345678901",
-      azione: "Scopri come"
-    },
-    {
-      icon: "🎁",
-      titolo: "Donazioni in Memoria",
-      descrizione: "Fai una donazione in memoria di una persona cara.",
-      codice: null,
-      azione: "Contattaci"
-    },
-    {
-      icon: "🏢",
-      titolo: "Sponsorizzazioni Aziendali",
-      descrizione: "La tua azienda può sostenere i nostri progetti e ottenere visibilità.",
-      codice: null,
-      azione: "Proposta"
-    },
-    {
-      icon: "⏰",
-      titolo: "Volontariato",
-      descrizione: "Dona il tuo tempo e le tue competenze per supportare le nostre attività.",
-      codice: null,
-      azione: "Unisciti"
-    }
-  ];
-  
-  return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Altri Modi per Sostenere MOVIEBOLI
-          </h2>
-          <div className="w-24 h-1 bg-secondary-600 mx-auto mb-8" />
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Oltre alle donazioni dirette, ci sono molti altri modi 
-            per supportare la nostra missione culturale.
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {altriModi.map((modo, index) => (
-            <div key={index} className="bg-white rounded-xl p-6 shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
-              <div className="text-4xl mb-4">{modo.icon}</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{modo.titolo}</h3>
-              <p className="text-gray-700 mb-4 leading-relaxed">{modo.descrizione}</p>
-              
-              {modo.codice && (
-                <div className="bg-gray-100 rounded-lg p-3 mb-4">
-                  <code className="text-sm font-mono text-gray-800">{modo.codice}</code>
-                </div>
-              )}
-              
-              <a 
-                href="#" 
-                className="text-primary-600 hover:text-primary-700 font-semibold transition-colors"
-              >
-                {modo.azione} →
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const TestimonialsSection = () => {
-  const testimonials = [
-    {
-      nome: "Maria Rossi",
-      ruolo: "Sostenitrice dal 2022",
-      testo: "Sostengo MOVIEBOLI perché credo nel potere del cinema di unire le persone e creare cultura. Vedere i giovani talenti crescere grazie ai vostri progetti è emozionante.",
-      avatar: "👩‍🎨"
-    },
-    {
-      nome: "Giuseppe Bianchi",
-      ruolo: "Imprenditore locale",
-      testo: "Come azienda, siamo orgogliosi di supportare MOVIEBOLI. Il festival ha portato visibilità al nostro territorio e ha creato opportunità per tutta la comunità.",
-      avatar: "👨‍💼"
-    },
-    {
-      nome: "Anna Verdi",
-      ruolo: "Ex partecipante workshop",
-      testo: "Grazie ai workshop di MOVIEBOLI ho scoperto la mia passione per la regia. Ora lavoro nel cinema e tutto è iniziato qui. Il vostro lavoro cambia davvero le vite.",
-      avatar: "🎬"
-    }
-  ];
-  
-  return (
-    <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Cosa Dicono i Nostri Sostenitori
-          </h2>
-          <div className="w-24 h-1 bg-primary-600 mx-auto mb-8" />
-        </div>
-        
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-gray-50 rounded-xl p-6">
-              <div className="text-4xl mb-4 text-center">{testimonial.avatar}</div>
-              <p className="text-gray-700 mb-6 italic leading-relaxed">
-                "{testimonial.testo}"
-              </p>
-              <div className="text-center">
-                <h4 className="font-bold text-gray-900">{testimonial.nome}</h4>
-                <p className="text-gray-600 text-sm">{testimonial.ruolo}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+    <section className="py-8 bg-gradient-to-br from-movieboli-primary-900 via-movieboli-primary-800 to-movieboli-secondary-900">
+      <div className="max-w-4xl mx-auto text-center px-4">
+        <TypewriterEffect />
       </div>
     </section>
   );
 };
 
 export default function Donazioni() {
+  const { getContent } = useContent();
+  
   return (
     <BrandingProvider>
-      <div className="min-h-screen bg-white">
-        <Head>
-          <title>Donazioni - Sostieni MOVIEBOLI APS</title>
-          <meta name="description" content="Sostieni MOVIEBOLI APS con una donazione. Il tuo contributo aiuta a promuovere la cultura cinematografica e sostenere i giovani talenti del territorio." />
-          <meta name="keywords" content="donazioni, sostieni, MOVIEBOLI, cinema, cultura, Eboli, associazione" />
-          <meta property="og:title" content="Donazioni - Sostieni MOVIEBOLI APS" />
-          <meta property="og:description" content="Il tuo contributo ci aiuta a promuovere la cultura cinematografica e a sostenere i giovani talenti del territorio." />
-          <meta property="og:image" content="/logo-movieboli.png" />
-          <meta property="og:type" content="website" />
-        </Head>
-        
-        <Navbar />
-        
-        <main>
-          <DonazioniHero />
-          <PercheDonareSection />
-          <ComeUsiamoSection />
-          <DonaOraSection />
-          <AltriModiSection />
-          <TestimonialsSection />
-        </main>
-        
-        <Footer />
-      </div>
+      <Head>
+        <title>{getContent('donazioni.meta.title') || 'Donazioni - MOVIEBOLI APS'}</title>
+        <meta name="description" content={getContent('donazioni.meta.description') || 'Sostieni MOVIEBOLI APS e contribuisci alla promozione della cultura cinematografica nel territorio di Eboli.'} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      
+      <Navbar />
+      
+      <main>
+        <DonazioniHero />
+        <IbanSection />
+        <ComeUsiamoSection />
+        <FooterCTA />
+      </main>
+      
+      <Footer />
     </BrandingProvider>
   );
 }
