@@ -108,17 +108,17 @@ const IbanSection = () => {
   };
   
   return (
-    <section id="dona-ora" className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-movieboli-primary-900 mb-6">
+    <section id="dona-ora" className="py-12 sm:py-16 lg:py-20 bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-movieboli-primary-900 mb-4 sm:mb-6">
             <EditableText 
               contentKey="donazioni.iban.titolo"
               defaultValue="Donazione tramite Bonifico"
             />
           </h2>
-          <div className="w-24 h-1 bg-movieboli-primary-600 mx-auto mb-8" />
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+          <div className="w-16 sm:w-20 lg:w-24 h-1 bg-movieboli-primary-600 mx-auto mb-6 sm:mb-8" />
+          <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto px-4">
             <EditableText 
               contentKey="donazioni.iban.descrizione"
               defaultValue="Il modo più semplice e sicuro per sostenere la nostra associazione."
@@ -128,18 +128,18 @@ const IbanSection = () => {
         </div>
         
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-movieboli-secondary-50 to-movieboli-primary-50 rounded-3xl p-8 md:p-12 shadow-2xl border border-movieboli-primary-100">
-            <div className="grid md:grid-cols-2 gap-12">
+          <div className="bg-gradient-to-br from-movieboli-secondary-50 to-movieboli-primary-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-movieboli-primary-100">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
               {/* Dati Bancari */}
-              <div>
-                <div className="flex items-center mb-8">
-                  <div className="w-12 h-12 bg-movieboli-primary-600 rounded-full flex items-center justify-center mr-4">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div className="order-1">
+                <div className="flex items-center mb-6 sm:mb-8">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-movieboli-primary-600 rounded-full flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
                       <path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-movieboli-primary-900">
+                  <h3 className="text-xl sm:text-2xl font-bold text-movieboli-primary-900">
                     <EditableText 
                       contentKey="donazioni.iban.dati_bancari.titolo"
                       defaultValue="Dati Bancari"
@@ -147,15 +147,15 @@ const IbanSection = () => {
                   </h3>
                 </div>
                 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   <div>
-                    <label className="block text-sm font-semibold text-movieboli-primary-700 mb-2 uppercase tracking-wide">
+                    <label className="block text-xs sm:text-sm font-semibold text-movieboli-primary-700 mb-2 uppercase tracking-wide">
                       <EditableText 
                         contentKey="donazioni.iban.dati_bancari.intestatario_label"
                         defaultValue="Intestatario"
                       />
                     </label>
-                    <div className="p-4 bg-white rounded-xl font-semibold text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100">
+                    <div className="p-3 sm:p-4 bg-white rounded-xl font-semibold text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100 text-sm sm:text-base">
                       <EditableText 
                         contentKey="donazioni.iban.dati_bancari.intestatario"
                         defaultValue="MOVIEBOLI APS"
@@ -164,14 +164,14 @@ const IbanSection = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-semibold text-movieboli-primary-700 mb-2 uppercase tracking-wide">
+                    <label className="block text-xs sm:text-sm font-semibold text-movieboli-primary-700 mb-2 uppercase tracking-wide">
                       <EditableText 
                         contentKey="donazioni.iban.dati_bancari.iban_label"
                         defaultValue="IBAN"
                       />
                     </label>
-                    <div className="flex">
-                      <div className="flex-1 p-4 bg-white rounded-l-xl font-mono text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100 text-lg">
+                    <div className="flex flex-col sm:flex-row">
+                      <div className="flex-1 p-3 sm:p-4 bg-white rounded-xl sm:rounded-l-xl sm:rounded-r-none font-mono text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100 text-sm sm:text-base lg:text-lg break-all">
                         <EditableText 
                           contentKey="donazioni.iban.dati_bancari.iban"
                           defaultValue="IT00 X000 0000 0000 0000 0000 000"
@@ -179,23 +179,31 @@ const IbanSection = () => {
                       </div>
                       <button
                         onClick={copiaIban}
-                        className="px-6 bg-movieboli-primary-600 hover:bg-movieboli-primary-700 text-white rounded-r-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+                        className="mt-2 sm:mt-0 px-4 sm:px-6 py-3 sm:py-0 bg-movieboli-primary-600 hover:bg-movieboli-primary-700 text-white rounded-xl sm:rounded-l-none sm:rounded-r-xl transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base"
                         title="Copia IBAN"
                       >
-                        {copiato ? (
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        ) : (
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-                          </svg>
-                        )}
+                        <span className="flex items-center justify-center">
+                          {copiato ? (
+                            <>
+                              <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                              <span className="sm:hidden">Copiato!</span>
+                            </>
+                          ) : (
+                            <>
+                              <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+                                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+                              </svg>
+                              <span className="sm:hidden">Copia IBAN</span>
+                            </>
+                          )}
+                        </span>
                       </button>
                     </div>
                     {copiato && (
-                      <p className="text-sm text-movieboli-accent-600 mt-2 font-semibold animate-fade-in">
+                      <p className="text-xs sm:text-sm text-movieboli-accent-600 mt-2 font-semibold animate-fade-in">
                         <EditableText 
                           contentKey="donazioni.iban.dati_bancari.copiato_messaggio"
                           defaultValue="✓ IBAN copiato negli appunti!"
@@ -205,13 +213,13 @@ const IbanSection = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-semibold text-movieboli-primary-700 mb-2 uppercase tracking-wide">
+                    <label className="block text-xs sm:text-sm font-semibold text-movieboli-primary-700 mb-2 uppercase tracking-wide">
                       <EditableText 
                         contentKey="donazioni.iban.dati_bancari.banca_label"
                         defaultValue="Banca"
                       />
                     </label>
-                    <div className="p-4 bg-white rounded-xl text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100">
+                    <div className="p-3 sm:p-4 bg-white rounded-xl text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100 text-sm sm:text-base">
                       <EditableText 
                         contentKey="donazioni.iban.dati_bancari.banca"
                         defaultValue="Banca di Credito Cooperativo"
@@ -222,14 +230,14 @@ const IbanSection = () => {
               </div>
               
               {/* Istruzioni */}
-              <div>
-                <div className="flex items-center mb-8">
-                  <div className="w-12 h-12 bg-movieboli-accent-600 rounded-full flex items-center justify-center mr-4">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div className="order-2">
+                <div className="flex items-center mb-6 sm:mb-8">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-movieboli-accent-600 rounded-full flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-movieboli-primary-900">
+                  <h3 className="text-xl sm:text-2xl font-bold text-movieboli-primary-900">
                     <EditableText 
                       contentKey="donazioni.iban.istruzioni.titolo"
                       defaultValue="Istruzioni"
@@ -237,23 +245,23 @@ const IbanSection = () => {
                   </h3>
                 </div>
                 
-                <div className="space-y-6">
-                  <div className="p-6 bg-gradient-to-r from-movieboli-accent-50 to-movieboli-secondary-50 border-l-4 border-movieboli-accent-500 rounded-r-xl">
-                    <h4 className="font-bold text-movieboli-accent-800 mb-3 flex items-center">
-                      <span className="w-2 h-2 bg-movieboli-accent-500 rounded-full mr-2"></span>
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="p-4 sm:p-6 bg-gradient-to-r from-movieboli-accent-50 to-movieboli-secondary-50 border-l-4 border-movieboli-accent-500 rounded-r-xl">
+                    <h4 className="font-bold text-movieboli-accent-800 mb-3 flex items-center text-sm sm:text-base">
+                      <span className="w-2 h-2 bg-movieboli-accent-500 rounded-full mr-2 flex-shrink-0"></span>
                       <EditableText 
                         contentKey="donazioni.iban.istruzioni.causale.titolo"
                         defaultValue="Causale"
                       />
                     </h4>
-                    <p className="text-movieboli-accent-700 text-sm mb-3">
+                    <p className="text-movieboli-accent-700 text-xs sm:text-sm mb-3">
                       <EditableText 
                         contentKey="donazioni.iban.istruzioni.causale.testo"
                         defaultValue="Inserisci una causale per identificare la donazione."
                         multiline={true}
                       />
                     </p>
-                    <div className="p-3 bg-white rounded-lg font-mono text-sm text-movieboli-accent-800 border border-movieboli-accent-200">
+                    <div className="p-2 sm:p-3 bg-white rounded-lg font-mono text-xs sm:text-sm text-movieboli-accent-800 border border-movieboli-accent-200 break-all">
                       <EditableText 
                         contentKey="donazioni.iban.istruzioni.causale.esempio"
                         defaultValue="Donazione MOVIEBOLI APS"
@@ -261,15 +269,15 @@ const IbanSection = () => {
                     </div>
                   </div>
                   
-                  <div className="p-6 bg-gradient-to-r from-movieboli-primary-50 to-movieboli-secondary-50 border-l-4 border-movieboli-primary-500 rounded-r-xl">
-                    <h4 className="font-bold text-movieboli-primary-800 mb-3 flex items-center">
-                      <span className="w-2 h-2 bg-movieboli-primary-500 rounded-full mr-2"></span>
+                  <div className="p-4 sm:p-6 bg-gradient-to-r from-movieboli-primary-50 to-movieboli-secondary-50 border-l-4 border-movieboli-primary-500 rounded-r-xl">
+                    <h4 className="font-bold text-movieboli-primary-800 mb-3 flex items-center text-sm sm:text-base">
+                      <span className="w-2 h-2 bg-movieboli-primary-500 rounded-full mr-2 flex-shrink-0"></span>
                       <EditableText 
                         contentKey="donazioni.iban.istruzioni.ricevuta.titolo"
                         defaultValue="Ricevuta Fiscale"
                       />
                     </h4>
-                    <p className="text-movieboli-primary-700 text-sm">
+                    <p className="text-movieboli-primary-700 text-xs sm:text-sm">
                       <EditableText 
                         contentKey="donazioni.iban.istruzioni.ricevuta.testo"
                         defaultValue="Riceverai una ricevuta fiscale per la tua donazione che potrai utilizzare per le detrazioni."
@@ -278,15 +286,15 @@ const IbanSection = () => {
                     </p>
                   </div>
                   
-                  <div className="p-6 bg-gradient-to-r from-green-50 to-movieboli-secondary-50 border-l-4 border-green-500 rounded-r-xl">
-                    <h4 className="font-bold text-green-800 mb-3 flex items-center">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                  <div className="p-4 sm:p-6 bg-gradient-to-r from-green-50 to-movieboli-secondary-50 border-l-4 border-green-500 rounded-r-xl">
+                    <h4 className="font-bold text-green-800 mb-3 flex items-center text-sm sm:text-base">
+                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2 flex-shrink-0"></span>
                       <EditableText 
                         contentKey="donazioni.iban.istruzioni.detraibilita.titolo"
                         defaultValue="Detraibilità"
                       />
                     </h4>
-                    <p className="text-green-700 text-sm">
+                    <p className="text-green-700 text-xs sm:text-sm">
                       <EditableText 
                         contentKey="donazioni.iban.istruzioni.detraibilita.testo"
                         defaultValue="La donazione è detraibile fiscalmente secondo le normative vigenti per le APS."
@@ -335,17 +343,17 @@ const ComeUsiamoSection = () => {
   ];
   
   return (
-    <section id="come-usiamo" className="py-20 bg-gradient-to-br from-movieboli-primary-50 to-movieboli-secondary-50">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-movieboli-primary-900 mb-6">
+    <section id="come-usiamo" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-movieboli-primary-50 to-movieboli-secondary-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-movieboli-primary-900 mb-4 sm:mb-6">
             <EditableText 
               contentKey="donazioni.come_usiamo.titolo"
               defaultValue="Come Usiamo i Fondi"
             />
           </h2>
-          <div className="w-24 h-1 bg-movieboli-primary-600 mx-auto mb-8" />
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+          <div className="w-16 sm:w-20 lg:w-24 h-1 bg-movieboli-primary-600 mx-auto mb-6 sm:mb-8" />
+          <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto px-4">
             <EditableText 
               contentKey="donazioni.come_usiamo.descrizione"
               defaultValue="Trasparenza totale: ecco come investiamo ogni euro delle vostre donazioni per far crescere la cultura nel nostro territorio."
@@ -354,13 +362,13 @@ const ComeUsiamoSection = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {utilizzi.map((utilizzo, index) => (
-            <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-movieboli-primary-100">
+            <div key={index} className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-movieboli-primary-100">
               <div className="text-center">
-                <div className="text-5xl mb-6">{utilizzo.icon}</div>
-                <div className="text-3xl font-bold text-movieboli-primary-600 mb-4">{utilizzo.percentuale}</div>
-                <h3 className="text-xl font-bold text-movieboli-primary-900 mb-4">
+                <div className="text-4xl sm:text-5xl mb-4 sm:mb-6">{utilizzo.icon}</div>
+                <div className="text-2xl sm:text-3xl font-bold text-movieboli-primary-600 mb-3 sm:mb-4">{utilizzo.percentuale}</div>
+                <h3 className="text-lg sm:text-xl font-bold text-movieboli-primary-900 mb-3 sm:mb-4">
                   {utilizzo.titolo}
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-sm">
@@ -371,15 +379,15 @@ const ComeUsiamoSection = () => {
           ))}
         </div>
         
-        <div className="mt-16 text-center">
-          <div className="bg-white rounded-2xl p-8 shadow-lg max-w-2xl mx-auto border border-movieboli-primary-100">
-            <h3 className="text-2xl font-bold text-movieboli-primary-900 mb-4">
+        <div className="mt-12 sm:mt-16 text-center">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg max-w-2xl mx-auto border border-movieboli-primary-100">
+            <h3 className="text-xl sm:text-2xl font-bold text-movieboli-primary-900 mb-4">
               <EditableText 
                 contentKey="donazioni.come_usiamo.trasparenza.titolo"
                 defaultValue="Trasparenza Totale"
               />
             </h3>
-            <p className="text-gray-700">
+            <p className="text-gray-700 text-sm sm:text-base">
               <EditableText 
                 contentKey="donazioni.come_usiamo.trasparenza.descrizione"
                 defaultValue="Pubblichiamo annualmente un report dettagliato sull'utilizzo dei fondi. Ogni donazione viene tracciata e rendicontata con massima trasparenza."
@@ -420,7 +428,7 @@ const PercheDonareSection = () => {
   ];
   
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-movieboli-primary-900 mb-6">

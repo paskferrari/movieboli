@@ -76,12 +76,12 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
+          <div className="hidden md:flex items-center space-x-2 lg:space-x-6 xl:space-x-8">
             {navigation.map((item) => (
               <Link
-                key={item.id}  // Usa item.id invece di item.name
+                key={item.id}
                 href={item.href}
-                className={`font-inter text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group ${
+                className={`font-inter text-xs lg:text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group px-2 py-1 ${
                   router.pathname === item.href 
                     ? (isScrolled ? 'text-movieboli-accent' : 'text-movieboli-accent')
                     : (isScrolled ? 'text-white hover:text-movieboli-accent' : 'text-white hover:text-movieboli-accent')
