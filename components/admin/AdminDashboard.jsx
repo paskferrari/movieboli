@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAllVotesStats, getAllUsers, getAdvancedVotesStats, subscribeToVoteUpdates } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
@@ -18,6 +18,13 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('realtime');
   const [realtimeUpdates, setRealtimeUpdates] = useState([]);
   const [lastUpdate, setLastUpdate] = useState(new Date());
+  const [error, setError] = useState(null);
+  
+  // Ref per gestire cleanup e debounce
+  const subscriptionRef = useRef(null);
+  const intervalRef = useRef(null);
+  const mountedRef = useRef(true);
+  const debounceRef = useRef(null);
 
   // Gestisci il caso di utente non autenticato
   if (!user) {
@@ -35,30 +42,62 @@ const AdminDashboard = () => {
     );
   }
 
-  // Carica i dati delle statistiche
+  // Carica i dati delle statistiche (ottimizzato con error handling)
   const loadData = useCallback(async () => {
+    if (!mountedRef.current) return;
+    
     try {
       setLoading(true);
+      setError(null);
       
-      // Carica i dati in modo sicuro, gestendo gli errori individualmente
-      const [statsData, usersData, advancedData] = await Promise.allSettled([
-        getAllVotesStats(),
-        getAllUsers(),
-        getAdvancedVotesStats()
+      // Carica i dati con timeout ridotto per evitare hang
+      const timeout = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Timeout di caricamento')), 8000)
+      );
+      
+      const [statsResult, usersResult, advancedResult] = await Promise.allSettled([
+        Promise.race([getAllVotesStats(), timeout]),
+        Promise.race([getAllUsers(), timeout]),
+        Promise.race([getAdvancedVotesStats(), timeout])
       ]);
       
-      setVotesStats(statsData.status === 'fulfilled' ? (statsData.value || {}) : {});
-      setUsers(usersData.status === 'fulfilled' ? (usersData.value || []) : []);
-      setAdvancedStats(advancedData.status === 'fulfilled' ? (advancedData.value || {}) : {});
+      if (!mountedRef.current) return;
+      
+      // Gestisci i risultati con fallback
+      if (statsResult.status === 'fulfilled') {
+        setVotesStats(statsResult.value || {});
+      } else {
+        console.warn('Errore caricamento statistiche voti:', statsResult.reason);
+        setVotesStats({});
+      }
+      
+      if (usersResult.status === 'fulfilled') {
+        setUsers(usersResult.value || []);
+      } else {
+        console.warn('Errore caricamento utenti:', usersResult.reason);
+        setUsers([]);
+      }
+      
+      if (advancedResult.status === 'fulfilled') {
+        setAdvancedStats(advancedResult.value || {});
+      } else {
+        console.warn('Errore caricamento statistiche avanzate:', advancedResult.reason);
+        setAdvancedStats({});
+      }
+      
       setLastUpdate(new Date());
     } catch (error) {
       console.error('Errore nel caricamento dei dati:', error);
-      // Imposta valori di fallback
-      setVotesStats({});
-      setUsers([]);
-      setAdvancedStats({});
+      if (mountedRef.current) {
+        setError('Errore nel caricamento dei dati');
+        setVotesStats({});
+        setUsers([]);
+        setAdvancedStats({});
+      }
     } finally {
-      setLoading(false);
+      if (mountedRef.current) {
+        setLoading(false);
+      }
     }
   }, []);
 
@@ -66,37 +105,84 @@ const AdminDashboard = () => {
     loadData();
   }, [loadData]);
 
-  // Subscription per aggiornamenti in tempo reale
+  // Subscription ottimizzata con debounce migliorato
   useEffect(() => {
-    const subscription = subscribeToVoteUpdates((newVote) => {
-      console.log('Nuovo voto ricevuto:', newVote);
-      
-      // Aggiungi alla lista degli aggiornamenti recenti
-      setRealtimeUpdates(prev => [
-        {
-          id: Date.now(),
-          type: 'new_vote',
-          data: newVote,
-          timestamp: new Date()
-        },
-        ...prev.slice(0, 9) // Mantieni solo gli ultimi 10
-      ]);
-      
-      // Ricarica le statistiche
-      loadData();
-    });
+    let subscription = null;
+    
+    const setupSubscription = () => {
+      try {
+        subscription = subscribeToVoteUpdates((newVote) => {
+          if (!mountedRef.current) return;
+          
+          console.log('Nuovo voto ricevuto:', newVote);
+          
+          // Debounce degli aggiornamenti UI
+          setRealtimeUpdates(prev => {
+            const newUpdate = {
+              id: `${Date.now()}-${Math.random()}`,
+              type: 'new_vote',
+              data: newVote,
+              timestamp: new Date()
+            };
+            return [newUpdate, ...prev.slice(0, 9)];
+          });
+          
+          // Debounce del reload dei dati
+          if (debounceRef.current) {
+            clearTimeout(debounceRef.current);
+          }
+          debounceRef.current = setTimeout(() => {
+            if (mountedRef.current) {
+              loadData();
+            }
+          }, 3000); // Aumentato a 3 secondi
+        });
+        
+        subscriptionRef.current = subscription;
+      } catch (error) {
+        console.error('Errore nella subscription:', error);
+      }
+    };
 
-    return () => subscription.unsubscribe();
+    setupSubscription();
+
+    return () => {
+      if (subscriptionRef.current) {
+        try {
+          subscriptionRef.current.unsubscribe();
+        } catch (error) {
+          console.error('Errore nella pulizia subscription:', error);
+        }
+      }
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
   }, [loadData]);
 
-  // Auto-refresh ogni 30 secondi
+  // Auto-refresh ridotto (ogni 3 minuti)
   useEffect(() => {
     const interval = setInterval(() => {
-      loadData();
-    }, 30000);
+      if (mountedRef.current && !loading) {
+        loadData();
+      }
+    }, 180000); // 3 minuti
 
     return () => clearInterval(interval);
-  }, [loadData]);
+  }, [loadData, loading]);
+
+  // Cleanup al dismount
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+      if (intervalRef.current) {
+        clearTimeout(intervalRef.current);
+      }
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, []);
 
   // Calcola statistiche generali
   const totalVotes = Object.values(votesStats).reduce((sum, stats) => sum + (stats?.totalVotes || 0), 0);

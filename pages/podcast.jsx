@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { BrandingProvider } from '../contexts/BrandingContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import EditableText from '../components/ui/EditableText';
 
 const PodcastHero = () => {
   return (
@@ -21,15 +22,28 @@ const PodcastHero = () => {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="block text-movieboli-accent-400">Ciliegie</span>
+            <span className="block text-movieboli-accent-400">
+              <EditableText 
+                contentKey="podcast_hero_title" 
+                defaultText="Ciliegie" 
+                tag="span"
+              />
+            </span>
             <span className="block text-3xl md:text-5xl font-normal text-movieboli-secondary-100 mt-2">
-              Podcast
+              <EditableText 
+                contentKey="podcast_hero_subtitle" 
+                defaultText="Podcast" 
+                tag="span"
+              />
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-movieboli-neutral-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Il podcast di MOVIEBOLI APS dedicato al cinema, alle interviste esclusive 
-            e alle discussioni culturali che fanno la differenza.
+            <EditableText 
+              contentKey="podcast_hero_description" 
+              defaultText="Il podcast di MOVIEBOLI APS dedicato al cinema, alle interviste esclusive e alle discussioni culturali che fanno la differenza." 
+              tag="span"
+            />
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -37,13 +51,21 @@ const PodcastHero = () => {
               href="#episodi" 
               className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              🎧 Ascolta gli Episodi
+              <EditableText 
+                contentKey="podcast_hero_cta_episodes" 
+                defaultText="🎧 Ascolta gli Episodi" 
+                tag="span"
+              />
             </a>
             <a 
               href="#prenotazione" 
               className="bg-movieboli-secondary-600 hover:bg-movieboli-secondary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              📹 Prenota Riprese Live
+              <EditableText 
+                contentKey="podcast_hero_cta_booking" 
+                defaultText="📹 Prenota Riprese Live" 
+                tag="span"
+              />
             </a>
           </div>
         </div>
@@ -59,22 +81,32 @@ const AboutPodcastSection = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-movieboli-primary-900 mb-6">
-              Cos'è Ciliegie Podcast?
+              <EditableText 
+                contentKey="podcast_about_title" 
+                defaultText="Cos'è Ciliegie Podcast?" 
+                tag="span"
+              />
             </h2>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Ciliegie Podcast è il nostro appuntamento settimanale con il mondo del cinema. 
-              Ogni episodio è un viaggio attraverso storie, interviste e analisi 
-              approfondite del panorama cinematografico contemporaneo.
+              <EditableText 
+                contentKey="podcast_about_description_1" 
+                defaultText="Ciliegie Podcast è il nostro appuntamento settimanale con il mondo del cinema. Ogni episodio è un viaggio attraverso storie, interviste e analisi approfondite del panorama cinematografico contemporaneo." 
+                tag="span"
+              />
             </p>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Il nome "Ciliegie" rappresenta la dolcezza e l'autenticità delle 
-              conversazioni che nascono spontaneamente quando si parla di cinema 
-              con passione e competenza.
+              <EditableText 
+                contentKey="podcast_about_description_2" 
+                defaultText="Il nome Ciliegie rappresenta la dolcezza e l'autenticità delle conversazioni che nascono spontaneamente quando si parla di cinema con passione e competenza." 
+                tag="span"
+              />
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Dalle produzioni indipendenti ai grandi blockbuster, dalle interviste 
-              esclusive con registi emergenti alle analisi dei classici del cinema, 
-              ogni episodio offre una prospettiva unica e appassionata.
+              <EditableText 
+                contentKey="podcast_about_description_3" 
+                defaultText="Dalle produzioni indipendenti ai grandi blockbuster, dalle interviste esclusive con registi emergenti alle analisi dei classici del cinema, ogni episodio offre una prospettiva unica e appassionata." 
+                tag="span"
+              />
             </p>
           </div>
           
@@ -82,8 +114,20 @@ const AboutPodcastSection = () => {
             <div className="bg-gradient-to-br from-movieboli-accent-100 to-movieboli-secondary-100 rounded-2xl p-8 h-96 flex items-center justify-center">
               <div className="text-center">
                 <div className="text-6xl mb-4">🎙️</div>
-                <h3 className="text-2xl font-bold text-movieboli-primary-900 mb-2">Ogni Settimana</h3>
-                <p className="text-gray-700 text-lg">Nuovi episodi e contenuti esclusivi</p>
+                <h3 className="text-2xl font-bold text-movieboli-primary-900 mb-2">
+                  <EditableText 
+                    contentKey="podcast_about_frequency_title" 
+                    defaultText="Ogni Settimana" 
+                    tag="span"
+                  />
+                </h3>
+                <p className="text-gray-700 text-lg">
+                  <EditableText 
+                    contentKey="podcast_about_frequency_description" 
+                    defaultText="Nuovi episodi e contenuti esclusivi" 
+                    tag="span"
+                  />
+                </p>
               </div>
             </div>
           </div>
@@ -134,12 +178,19 @@ const EpisodiSection = () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-movieboli-primary-900 mb-6">
-            Archivio Episodi
+            <EditableText 
+              contentKey="podcast_episodes_title" 
+              defaultText="Archivio Episodi" 
+              tag="span"
+            />
           </h2>
           <div className="w-24 h-1 bg-movieboli-accent-600 mx-auto mb-8" />
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Scopri i nostri episodi più recenti e immergiti nel mondo del cinema 
-            attraverso le nostre conversazioni.
+            <EditableText 
+              contentKey="podcast_episodes_description" 
+              defaultText="Scopri i nostri episodi più recenti e immergiti nel mondo del cinema attraverso le nostre conversazioni." 
+              tag="span"
+            />
           </p>
         </div>
         
@@ -190,7 +241,11 @@ const EpisodiSection = () => {
             href="#" 
             className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
-            Vedi Tutti gli Episodi
+            <EditableText 
+              contentKey="podcast_episodes_view_all" 
+              defaultText="Vedi Tutti gli Episodi" 
+              tag="span"
+            />
           </a>
         </div>
       </div>
@@ -278,15 +333,26 @@ const PrenotazioneSection = () => {
           <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
             <div className="text-6xl mb-6">✅</div>
             <h2 className="text-3xl font-bold text-movieboli-primary-900 mb-4">
-              Prenotazione Confermata!
+              <EditableText 
+                contentKey="podcast_booking_success_title" 
+                defaultText="Prenotazione Confermata!" 
+                tag="span"
+              />
             </h2>
             <p className="text-lg text-gray-700 mb-6">
-              Grazie per la tua prenotazione. Ti contatteremo presto con tutti i dettagli 
-              per partecipare alle riprese live del nostro podcast.
+              <EditableText 
+                contentKey="podcast_booking_success_description" 
+                defaultText="Grazie per la tua prenotazione. Ti contatteremo presto con tutti i dettagli per partecipare alle riprese live del nostro podcast." 
+                tag="span"
+              />
             </p>
             <div className="bg-movieboli-accent-50 border border-movieboli-accent-200 rounded-lg p-4">
               <p className="text-movieboli-accent-800 font-medium">
-                📧 Riceverai una email di conferma a breve
+                <EditableText 
+                  contentKey="podcast_booking_success_email_note" 
+                  defaultText="📧 Riceverai una email di conferma a breve" 
+                  tag="span"
+                />
               </p>
             </div>
           </div>
@@ -300,12 +366,19 @@ const PrenotazioneSection = () => {
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-movieboli-primary-900 mb-6">
-            Prenota le Riprese Live
+            <EditableText 
+              contentKey="podcast_booking_title" 
+              defaultText="Prenota le Riprese Live" 
+              tag="span"
+            />
           </h2>
           <div className="w-24 h-1 bg-movieboli-accent-600 mx-auto mb-8" />
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Vuoi assistere alle riprese live del nostro podcast? Prenota il tuo posto 
-            e vivi l'esperienza dal vivo!
+            <EditableText 
+              contentKey="podcast_booking_description" 
+              defaultText="Vuoi assistere alle riprese live del nostro podcast? Prenota il tuo posto e vivi l'esperienza dal vivo!" 
+              tag="span"
+            />
           </p>
         </div>
 
@@ -388,8 +461,8 @@ const PrenotazioneSection = () => {
 
             <div className="bg-movieboli-secondary-50 border border-movieboli-secondary-200 rounded-lg p-4">
               <p className="text-sm text-movieboli-primary-800">
-                <strong>📍 Informazioni:</strong> Le riprese si svolgono presso il nostro studio a Eboli. 
-                Ti invieremo tutti i dettagli via email dopo la conferma.
+                <strong>📍 Informazioni:</strong> 
+                Le riprese si svolgono presso il nostro studio a Eboli. Ti invieremo tutti i dettagli via email dopo la conferma.
               </p>
             </div>
 
@@ -398,7 +471,11 @@ const PrenotazioneSection = () => {
                 type="submit"
                 className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
-                🎬 Prenota il Tuo Posto
+                <EditableText 
+                  contentKey="podcast_booking_submit_button" 
+                  defaultText="🎬 Prenota il Tuo Posto" 
+                  tag="span"
+                />
               </button>
             </div>
           </form>

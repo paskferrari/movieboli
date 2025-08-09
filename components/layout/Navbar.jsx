@@ -33,6 +33,7 @@ const Navbar = () => {
   ]
 
   // Menu di navigazione principale
+  // Nel menu di navigazione principale, aggiungi:
   const navigation = [
     { name: 'Home', href: '/', section: 'association' },
     { name: 'Chi siamo', href: '/chi-siamo', section: 'association' },
@@ -40,6 +41,7 @@ const Navbar = () => {
     { name: 'Podcast', href: '/podcast', section: 'association' },
     { name: 'Festival', href: '/festival', section: 'festival' },
     { name: 'Programma', href: '/programma', section: 'festival' },
+    { name: 'Archivio', href: '/archivio-festival/2023', section: 'festival' }, // Nuovo link
     { name: 'Prenota', href: '/prenota', section: 'festival' },
     { name: 'Turni IMPP', href: '/turni-impp', section: 'festival' },
     { name: 'Ospiti', href: '/festival/ospiti', section: 'festival' },

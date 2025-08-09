@@ -129,7 +129,20 @@ const cspString = Object.entries(cspDirectives)
   .map(([key, value]) => `${key} ${value.join(' ')}`)
   .join('; ');
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['i.ibb.co'], // Aggiungi questo
+    // oppure usa il nuovo formato:
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
   reactStrictMode: true,
   swcMinify: true,
   

@@ -238,10 +238,88 @@ const siteStructure = {
       'editions': {
         title: 'Singole Edizioni',
         keys: ['past_editions.2023.title', 'past_editions.2023.description', 'past_editions.2022.title', 'past_editions.2022.description', 'past_editions.2021.title', 'past_editions.2021.description']
+      },
+      'edition_2023': {
+        title: 'Edizione 2023',
+        keys: ['archive.2023.title', 'archive.2023.subtitle', 'archive.2023.description', 'archive.2023.highlights.title', 'archive.2023.highlights.films', 'archive.2023.highlights.guests', 'archive.2023.highlights.events', 'archive.2023.gallery.title', 'archive.2023.testimonials.title', 'archive.2023.stats.title', 'archive.2023.stats.participants', 'archive.2023.stats.films', 'archive.2023.stats.events']
+      },
+      'edition_2024': {
+        title: 'Edizione 2024',
+        keys: ['archive.2024.title', 'archive.2024.subtitle', 'archive.2024.description', 'archive.2024.highlights.title', 'archive.2024.highlights.films', 'archive.2024.highlights.guests', 'archive.2024.highlights.events', 'archive.2024.gallery.title', 'archive.2024.testimonials.title', 'archive.2024.stats.title', 'archive.2024.stats.participants', 'archive.2024.stats.films', 'archive.2024.stats.events']
+      }
+    }
+  },
+  'donations': {
+    title: '💝 Donazioni',
+    description: 'Pagina e sistema donazioni',
+    icon: '💝',
+    color: 'bg-rose-50 border-rose-200',
+    sections: {
+      'main': {
+        title: 'Sezione Principale',
+        keys: ['donations.title', 'donations.subtitle', 'donations.description', 'donations.why.title', 'donations.why.description']
+      },
+      'amounts': {
+        title: 'Importi Donazione',
+        keys: ['donations.amounts.small', 'donations.amounts.medium', 'donations.amounts.large', 'donations.amounts.custom']
+      },
+      'form': {
+        title: 'Modulo Donazione',
+        keys: ['donations.form.amount', 'donations.form.name', 'donations.form.email', 'donations.form.message', 'donations.form.submit', 'donations.form.processing']
+      },
+      'success': {
+        title: 'Pagina Successo',
+        keys: ['donations.success.title', 'donations.success.message', 'donations.success.thanks', 'donations.success.back']
+      }
+    }
+  },
+  'artists': {
+    title: '🎨 Artisti',
+    description: 'Pagina artisti e collaboratori',
+    icon: '🎨',
+    color: 'bg-violet-50 border-violet-200',
+    sections: {
+      'main': {
+        title: 'Sezione Principale',
+        keys: ['artists.title', 'artists.subtitle', 'artists.description']
+      },
+      'categories': {
+        title: 'Categorie Artisti',
+        keys: ['artists.directors.title', 'artists.directors.description', 'artists.actors.title', 'artists.actors.description', 'artists.musicians.title', 'artists.musicians.description', 'artists.writers.title', 'artists.writers.description']
+      },
+      'collaboration': {
+        title: 'Collaborazioni',
+        keys: ['artists.collaboration.title', 'artists.collaboration.description', 'artists.collaboration.cta']
+      }
+    }
+  },
+  'memoria_carta': {
+    title: '📜 Memoria Carta',
+    description: 'Progetto Memoria Carta',
+    icon: '📜',
+    color: 'bg-amber-50 border-amber-200',
+    sections: {
+      'main': {
+        title: 'Sezione Principale',
+        keys: ['memoria_carta.title', 'memoria_carta.subtitle', 'memoria_carta.description']
+      },
+      'project': {
+        title: 'Il Progetto',
+        keys: ['memoria_carta.project.title', 'memoria_carta.project.description', 'memoria_carta.project.goals', 'memoria_carta.project.methodology']
+      },
+      'participation': {
+        title: 'Come Partecipare',
+        keys: ['memoria_carta.participation.title', 'memoria_carta.participation.description', 'memoria_carta.participation.steps', 'memoria_carta.participation.cta']
+      },
+      'stories': {
+        title: 'Storie Raccolte',
+        keys: ['memoria_carta.stories.title', 'memoria_carta.stories.description', 'memoria_carta.stories.featured']
       }
     }
   }
 };
+
+
 
 const ContentManagement = () => {
   const { content, updateContent, getContent } = useContent();

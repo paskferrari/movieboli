@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
+import EditableText from '../components/EditableText'
 
 /**
  * Pagina Attività - MOVIEBOLI Associazione Culturale
@@ -132,53 +133,31 @@ const AttivitaPage = () => {
   return (
     <>
       <Head>
-        <title>Le Nostre Attività | MOVIEBOLI Associazione Culturale</title>
-        <meta name="description" content="Scopri tutte le attività di MOVIEBOLI: laboratori, rassegne cinematografiche, mostre, incontri e workshop durante tutto l'anno." />
-        <meta name="keywords" content="laboratori cinema, rassegne cinematografiche, mostre, workshop, movieboli, eboli, attività culturali" />
-        <meta property="og:title" content="Le Nostre Attività - MOVIEBOLI" />
-        <meta property="og:description" content="Laboratori, eventi, incontri e progetti culturali tutto l'anno." />
+        <title>
+          <EditableText 
+            contentKey="attivita_page_title" 
+            defaultText="Attività - MOVIEBOLI" 
+            tag="title"
+          />
+        </title>
+        <meta 
+          name="description" 
+          content={<EditableText 
+            contentKey="attivita_page_description" 
+            defaultText="Scopri tutte le attività di MOVIEBOLI: laboratori, rassegne, mostre e workshop dedicati al cinema e alla cultura audiovisiva." 
+            tag="meta"
+          />}
+        />
+        <meta name="keywords" content="attività, laboratori, cinema, rassegne, mostre, workshop, MOVIEBOLI, Eboli" />
+        <meta property="og:title" content="Attività - MOVIEBOLI" />
+        <meta property="og:description" content="Scopri tutte le attività di MOVIEBOLI: laboratori, rassegne, mostre e workshop dedicati al cinema e alla cultura audiovisiva." />
         <meta property="og:type" content="website" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://movieboli.it/attivita" />
       </Head>
 
-      {/* Navbar fissa minimal */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-movieboli-rosaSfondo/95 backdrop-blur-md shadow-lg' : 'bg-movieboli-rosaSfondo/80'
-      }`}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative w-10 h-10 transform group-hover:scale-110 transition-transform duration-300">
-                <Image
-                  src="/logo-movieboli.png"
-                  alt="MOVIEBOLI Logo"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-              <span className="font-poppins font-bold text-lg text-movieboli-nero">
-                ATTIVITÀ
-              </span>
-            </Link>
-            <div className="hidden md:flex space-x-6">
-              <Link href="/" className="font-poppins font-semibold text-movieboli-nero hover:text-movieboli-crema transition-colors">
-                Home
-              </Link>
-              <Link href="/festival" className="font-poppins font-semibold text-movieboli-nero hover:text-movieboli-crema transition-colors">
-                Festival
-              </Link>
-              <Link href="/contatti" className="font-poppins font-semibold text-movieboli-nero hover:text-movieboli-crema transition-colors">
-                Contatti
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <main className="pt-20">
+      <main className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative py-20 bg-gradient-to-br from-movieboli-rosaSfondo via-movieboli-rosaSfondo/90 to-movieboli-bordeaux overflow-hidden">
+        <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-movieboli-nero via-movieboli-bordeaux to-movieboli-violaPrincipale overflow-hidden">
           {/* Background pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="w-full h-full bg-[url('/placeholder-pattern.svg')] bg-repeat"></div>
@@ -191,12 +170,54 @@ const AttivitaPage = () => {
               transition={{ duration: 1, ease: 'easeOut' }}
             >
               <h1 className="font-poppins font-bold text-4xl sm:text-6xl lg:text-7xl text-movieboli-nero mb-6 leading-tight">
-                Le Nostre
-                <span className="block text-white">Attività</span>
+                <EditableText 
+                  contentKey="attivita_hero_title_part1" 
+                  defaultText="Le Nostre" 
+                  tag="span"
+                />
+                <span className="block text-white">
+                  <EditableText 
+                    contentKey="attivita_hero_title_part2" 
+                    defaultText="Attività" 
+                    tag="span"
+                  />
+                </span>
               </h1>
               
               <p className="font-poppins text-xl sm:text-2xl text-movieboli-nero/80 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Laboratori, eventi, incontri e progetti culturali tutto l'anno
+                <EditableText 
+                  contentKey="attivita_hero_subtitle" 
+                  defaultText="Laboratori, eventi, incontri e progetti culturali tutto l'anno" 
+                  tag="span"
+                />
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Sezione Introduttiva */}
+        <section className="py-20 bg-movieboli-crema">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center max-w-4xl mx-auto"
+            >
+              <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-movieboli-nero mb-8">
+                <EditableText 
+                  contentKey="attivita_intro_title" 
+                  defaultText="La Nostra Missione" 
+                  tag="span"
+                />
+              </h2>
+              <p className="font-poppins text-xl text-movieboli-nero/80 leading-relaxed">
+                <EditableText 
+                  contentKey="attivita_intro_description" 
+                  defaultText="MOVIEBOLI organizza attività culturali per promuovere la conoscenza e l'apprezzamento del cinema in tutte le sue forme. Dai laboratori pratici alle rassegne tematiche, ogni evento è pensato per coinvolgere e ispirare la comunità locale." 
+                  tag="span"
+                />
               </p>
             </motion.div>
           </div>
@@ -213,7 +234,11 @@ const AttivitaPage = () => {
               className="text-center mb-8"
             >
               <h2 className="font-poppins font-bold text-2xl text-movieboli-nero mb-6">
-                Filtra per Categoria
+                <EditableText 
+                  contentKey="attivita_filter_title" 
+                  defaultText="Filtra per Categoria" 
+                  tag="span"
+                />
               </h2>
               <div className="flex flex-wrap justify-center gap-3">
                 {categories.map((category) => (
@@ -309,7 +334,11 @@ const AttivitaPage = () => {
                 className="text-center py-16"
               >
                 <p className="font-poppins text-xl text-movieboli-nero/60">
-                  Nessuna attività trovata per questa categoria.
+                  <EditableText 
+                    contentKey="attivita_no_results" 
+                    defaultText="Nessuna attività trovata per questa categoria." 
+                    tag="span"
+                  />
                 </p>
               </motion.div>
             )}
@@ -327,11 +356,18 @@ const AttivitaPage = () => {
               className="text-center max-w-4xl mx-auto"
             >
               <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-movieboli-violaPrincipale mb-6">
-                Vuoi Collaborare con Noi?
+                <EditableText 
+                  contentKey="attivita_cta_title" 
+                  defaultText="Vuoi Collaborare con Noi?" 
+                  tag="span"
+                />
               </h2>
               <p className="font-poppins text-xl text-movieboli-crema mb-8 leading-relaxed">
-                Hai un'idea per un evento, un laboratorio o una collaborazione? 
-                Siamo sempre aperti a nuove proposte e partnership creative.
+                <EditableText 
+                  contentKey="attivita_cta_description" 
+                  defaultText="Hai un'idea per un evento, un laboratorio o una collaborazione? Siamo sempre aperti a nuove proposte e partnership creative." 
+                  tag="span"
+                />
               </p>
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -341,7 +377,11 @@ const AttivitaPage = () => {
                   href="/contatti"
                   className="inline-block bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-bold text-lg px-10 py-4 rounded-full hover:bg-movieboli-crema transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
-                  Contattaci
+                  <EditableText 
+                    contentKey="attivita_cta_button" 
+                    defaultText="Contattaci" 
+                    tag="span"
+                  />
                 </Link>
               </motion.div>
             </motion.div>

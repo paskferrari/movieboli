@@ -25,7 +25,7 @@ const PastEditionsSection = () => {
           tag="span"
         />
       ),
-      link: '/festival/2023'
+      link: '/archivio-festival/2023'
     },
     {
       year: '2022',
@@ -44,7 +44,7 @@ const PastEditionsSection = () => {
           tag="span"
         />
       ),
-      link: '/festival/2022'
+      link: '/archivio-festival/2024'
     },
     {
       year: '2021',

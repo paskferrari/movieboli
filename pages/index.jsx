@@ -11,79 +11,6 @@ import EditableText from '../components/ui/EditableText';
 import { useMetaTags } from '../hooks/useMetaTags';
 import { useContent } from '../contexts/ContentContext';
 
-const AssociationHero = () => {
-  const { getContent } = useContent();
-  
-  return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-movieboli-primary-900 via-movieboli-primary-800 to-movieboli-secondary-900 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
-      </div>
-      
-      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="block text-movieboli-secondary-100">
-              <EditableText 
-                contentKey="homepage.hero.title"
-                defaultValue="MOVIEBOLI APS"
-                tag="span"
-              />
-            </span>
-          </h1>
-          
-          <h2 className="text-2xl md:text-4xl font-normal text-movieboli-accent-400 mb-8">
-            <EditableText 
-              contentKey="homepage.hero.subtitle"
-              defaultValue="Cultura, Cinema, Comunità"
-              tag="span"
-            />
-          </h2>
-          
-          <p className="text-xl md:text-2xl text-movieboli-neutral-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            <EditableText 
-              contentKey="homepage.hero.description"
-              defaultValue="Promuoviamo la cultura cinematografica e artistica nel territorio di Eboli attraverso eventi, festival e iniziative culturali innovative."
-              multiline={true}
-            />
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a 
-              href="/chi-siamo" 
-              className="bg-movieboli-primary-600 hover:bg-movieboli-primary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <EditableText 
-                contentKey="homepage.hero.cta1"
-                defaultValue="Scopri chi siamo"
-                tag="span"
-              />
-            </a>
-            <a 
-              href="/festival/2025" 
-              className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <EditableText 
-                contentKey="homepage.hero.cta2"
-                defaultValue="Festival 2025"
-                tag="span"
-              />
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse" />
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const ChiSiamoSection = () => {
   const { getContent } = useContent();
   
@@ -438,7 +365,7 @@ export default function Home() {
       
       <main>
         <VideoGridHero />
-        <AssociationHero />
+        {/* AssociationHero rimosso */}
         <ChiSiamoSection />
         <CosaFacciamoSection />
         <ActivitiesSection />

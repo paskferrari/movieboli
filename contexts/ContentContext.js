@@ -1075,46 +1075,45 @@ export const ContentProvider = ({ children }) => {
 
   // Funzione per caricare i contenuti da Supabase
   const loadContent = async () => {
-  // Forza modalità demo temporaneamente
-  const isDemoMode = true; // Cambia a false quando Supabase funziona
-
-  if (isDemoMode) {
-    console.log('🔍 DEBUG - Modalità demo attiva, usando contenuti demo');
-    setContent(demoContent);
-    setLoading(false);
-    return;
-  }
-
-  try {
-    setLoading(true);
-    setError(null);
-    
-    const { data, error } = await supabase
-      .from('site_content')
-      .select('*');
-
-    if (error) {
-      console.error('Errore nel caricamento contenuti:', error);
-      setError(error.message);
+    // Usa la variabile isDemoMode importata da supabase.js
+    if (isDemoMode) {
+      console.log('🔍 DEBUG - Modalità demo attiva, usando contenuti demo');
+      setContent(demoContent);
+      setLoading(false);
       return;
     }
 
-    // Converte l'array in oggetto chiave-valore
-    const contentObj = {};
-    data.forEach(item => {
-      contentObj[item.key] = item.value;
-    });
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const { data, error } = await supabase
+        .from('site_content')
+        .select('*');
 
-    // Merge con i contenuti demo per le chiavi mancanti
-    setContent({ ...demoContent, ...contentObj });
-    
-  } catch (err) {
-    console.error('Errore nel caricamento contenuti:', err);
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
+      if (error) {
+        console.error('Errore nel caricamento contenuti:', error);
+        setError(error.message);
+        return;
+      }
+
+      // Converte l'array in oggetto chiave-valore
+      const contentObj = {};
+      data.forEach(item => {
+        contentObj[item.key] = item.value;
+      });
+
+      // Merge con i contenuti demo per le chiavi mancanti
+      setContent({ ...demoContent, ...contentObj });
+      
+    } catch (err) {
+      console.error('Errore nel caricamento contenuti:', err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   // Funzione per aggiornare un contenuto
   const updateContent = async (key, value) => {

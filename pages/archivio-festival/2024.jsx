@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { BrandingProvider } from '../../contexts/BrandingContext';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import EditableText from '../../components/ui/EditableText';
 
 const Festival2024Hero = () => {
   return (
@@ -19,15 +20,16 @@ const Festival2024Hero = () => {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="block text-primary-100">Festival</span>
+            <span className="block text-primary-100">
+              <EditableText contentKey="festival_2024_hero_title" defaultText="Festival" />
+            </span>
             <span className="block text-3xl md:text-5xl font-normal text-secondary-100 mt-2">
-              2024
+              <EditableText contentKey="festival_2024_hero_year" defaultText="2024" />
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-movieboli-neutral-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Rivivi i momenti più emozionanti della seconda edizione del 
-            MOVIEBOLI Film Festival.
+            <EditableText contentKey="festival_2024_hero_subtitle" defaultText="Rivivi i momenti più emozionanti della seconda edizione del MOVIEBOLI Film Festival." />
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -35,13 +37,13 @@ const Festival2024Hero = () => {
               href="#highlights" 
               className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              Highlights 2024
+              <EditableText contentKey="festival_2024_cta_highlights" defaultText="Highlights 2024" />
             </a>
             <a 
               href="#vincitori" 
               className="bg-secondary-600 hover:bg-secondary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              Vincitori
+              <EditableText contentKey="festival_2024_cta_vincitori" defaultText="Vincitori" />
             </a>
           </div>
         </div>
@@ -52,10 +54,10 @@ const Festival2024Hero = () => {
 
 const StatisticheFestival = () => {
   const stats = [
-    { numero: "156", descrizione: "Film in Concorso" },
-    { numero: "23", descrizione: "Paesi Rappresentati" },
-    { numero: "8.500", descrizione: "Spettatori" },
-    { numero: "45", descrizione: "Eventi Collaterali" }
+    { numero: "156", descrizione: <EditableText contentKey="festival_2024_stat_films" defaultText="Film in Concorso" /> },
+    { numero: "23", descrizione: <EditableText contentKey="festival_2024_stat_countries" defaultText="Paesi Rappresentati" /> },
+    { numero: "8.500", descrizione: <EditableText contentKey="festival_2024_stat_viewers" defaultText="Spettatori" /> },
+    { numero: "45", descrizione: <EditableText contentKey="festival_2024_stat_events" defaultText="Eventi Collaterali" /> }
   ];
   
   return (
@@ -63,7 +65,7 @@ const StatisticheFestival = () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Festival 2024 in Numeri
+            <EditableText contentKey="festival_2024_stats_title" defaultText="Festival 2024 in Numeri" />
           </h2>
           <div className="w-24 h-1 bg-primary-600 mx-auto mb-8" />
         </div>
@@ -269,9 +271,9 @@ export default function Festival2024() {
     <BrandingProvider>
       <div className="min-h-screen bg-white">
         <Head>
-          <title>Festival 2024 - MOVIEBOLI APS</title>
-          <meta name="description" content="Rivivi i momenti più emozionanti della seconda edizione del MOVIEBOLI Film Festival 2024. Scopri i vincitori, gli highlights e la galleria fotografica." />
-          <meta name="keywords" content="festival 2024, MOVIEBOLI, cinema, vincitori, highlights, Eboli" />
+          <title><EditableText contentKey="festival_2024_page_title" defaultText="Festival 2024 - MOVIEBOLI APS" /></title>
+          <meta name="description" content={<EditableText contentKey="festival_2024_page_description" defaultText="Rivivi i momenti più emozionanti della seconda edizione del MOVIEBOLI Film Festival 2024. Scopri i vincitori, gli highlights e la galleria fotografica." />} />
+          <meta name="keywords" content={<EditableText contentKey="festival_2024_page_keywords" defaultText="festival 2024, MOVIEBOLI, cinema, vincitori, highlights, Eboli" />} />
           <meta property="og:title" content="Festival 2024 - MOVIEBOLI APS" />
           <meta property="og:description" content="Rivivi i momenti più emozionanti della seconda edizione del MOVIEBOLI Film Festival 2024." />
           <meta property="og:image" content="/logo-movieboli.png" />

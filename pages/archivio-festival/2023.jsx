@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { BrandingProvider } from '../../contexts/BrandingContext';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import EditableText from '../../components/ui/EditableText';
 
 const Festival2023Hero = () => {
   return (
@@ -19,15 +20,16 @@ const Festival2023Hero = () => {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="block text-primary-100">Festival</span>
+            <span className="block text-primary-100">
+              <EditableText contentKey="festival_2023_hero_title" defaultText="Festival" />
+            </span>
             <span className="block text-3xl md:text-5xl font-normal text-secondary-100 mt-2">
-              2023
+              <EditableText contentKey="festival_2023_hero_year" defaultText="2023" />
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-movieboli-neutral-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            La prima storica edizione del MOVIEBOLI Film Festival che ha 
-            dato vita al nostro sogno cinematografico.
+            <EditableText contentKey="festival_2023_hero_subtitle" defaultText="La prima storica edizione del MOVIEBOLI Film Festival che ha dato vita al nostro sogno cinematografico." />
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -35,13 +37,13 @@ const Festival2023Hero = () => {
               href="#storia" 
               className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              La Nostra Storia
+              <EditableText contentKey="festival_2023_cta_storia" defaultText="La Nostra Storia" />
             </a>
             <a 
               href="#prima-edizione" 
               className="bg-secondary-600 hover:bg-secondary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              Prima Edizione
+              <EditableText contentKey="festival_2023_cta_edizione" defaultText="Prima Edizione" />
             </a>
           </div>
         </div>
@@ -57,22 +59,16 @@ const StoriaSection = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              L'Inizio di Tutto
+              <EditableText contentKey="festival_2023_storia_title" defaultText="L'Inizio di Tutto" />
             </h2>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Il 2023 ha segnato un momento storico per la cultura cinematografica 
-              di Eboli e del territorio circostante. Con coraggio e determinazione, 
-              abbiamo organizzato la prima edizione del MOVIEBOLI Film Festival.
+              <EditableText contentKey="festival_2023_storia_p1" defaultText="Il 2023 ha segnato un momento storico per la cultura cinematografica di Eboli e del territorio circostante. Con coraggio e determinazione, abbiamo organizzato la prima edizione del MOVIEBOLI Film Festival." />
             </p>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Partendo da zero, con poche risorse ma tanta passione, siamo riusciti 
-              a creare un evento che ha superato ogni aspettativa, attirando 
-              filmmaker da tutta Italia e gettando le basi per quello che sarebbe 
-              diventato un appuntamento fisso nel panorama culturale regionale.
+              <EditableText contentKey="festival_2023_storia_p2" defaultText="Partendo da zero, con poche risorse ma tanta passione, siamo riusciti a creare un evento che ha superato ogni aspettativa, attirando filmmaker da tutta Italia e gettando le basi per quello che sarebbe diventato un appuntamento fisso nel panorama culturale regionale." />
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Quella prima edizione ci ha insegnato che i sogni, quando condivisi 
-              con una comunità appassionata, possono davvero diventare realtà.
+              <EditableText contentKey="festival_2023_storia_p3" defaultText="Quella prima edizione ci ha insegnato che i sogni, quando condivisi con una comunità appassionata, possono davvero diventare realtà." />
             </p>
           </div>
           
@@ -80,9 +76,15 @@ const StoriaSection = () => {
             <div className="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8 h-96 flex items-center justify-center">
               <div className="text-center">
                 <div className="text-6xl mb-4">🎬</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Prima Edizione</h3>
-                <p className="text-gray-700 text-lg">Giugno 2023</p>
-                <p className="text-gray-700">Il sogno diventa realtà</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  <EditableText contentKey="festival_2023_card_title" defaultText="Prima Edizione" />
+                </h3>
+                <p className="text-gray-700 text-lg">
+                  <EditableText contentKey="festival_2023_card_date" defaultText="Giugno 2023" />
+                </p>
+                <p className="text-gray-700">
+                  <EditableText contentKey="festival_2023_card_subtitle" defaultText="Il sogno diventa realtà" />
+                </p>
               </div>
             </div>
           </div>
@@ -94,10 +96,10 @@ const StoriaSection = () => {
 
 const StatistichePrimaEdizione = () => {
   const stats = [
-    { numero: "89", descrizione: "Film Partecipanti" },
-    { numero: "15", descrizione: "Regioni Italiane" },
-    { numero: "3.200", descrizione: "Spettatori" },
-    { numero: "12", descrizione: "Eventi Speciali" }
+    { numero: "89", descrizione: <EditableText contentKey="festival_2023_stat_films" defaultText="Film Partecipanti" /> },
+    { numero: "15", descrizione: <EditableText contentKey="festival_2023_stat_regions" defaultText="Regioni Italiane" /> },
+    { numero: "3.200", descrizione: <EditableText contentKey="festival_2023_stat_viewers" defaultText="Spettatori" /> },
+    { numero: "12", descrizione: <EditableText contentKey="festival_2023_stat_events" defaultText="Eventi Speciali" /> }
   ];
   
   return (
@@ -105,11 +107,11 @@ const StatistichePrimaEdizione = () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Prima Edizione in Numeri
+            <EditableText contentKey="festival_2023_stats_title" defaultText="Prima Edizione in Numeri" />
           </h2>
           <div className="w-24 h-1 bg-primary-600 mx-auto mb-8" />
           <p className="text-xl text-gray-700">
-            I risultati straordinari della nostra prima avventura cinematografica.
+            <EditableText contentKey="festival_2023_stats_subtitle" defaultText="I risultati straordinari della nostra prima avventura cinematografica." />
           </p>
         </div>
         
@@ -388,9 +390,9 @@ export default function Festival2023() {
     <BrandingProvider>
       <div className="min-h-screen bg-white">
         <Head>
-          <title>Festival 2023 - La Prima Edizione | MOVIEBOLI APS</title>
-          <meta name="description" content="Rivivi la prima storica edizione del MOVIEBOLI Film Festival 2023. Scopri come è nato il nostro sogno cinematografico e i primi vincitori." />
-          <meta name="keywords" content="festival 2023, prima edizione, MOVIEBOLI, cinema, storia, Eboli" />
+          <title><EditableText contentKey="festival_2023_page_title" defaultText="Festival 2023 - La Prima Edizione | MOVIEBOLI APS" /></title>
+          <meta name="description" content={<EditableText contentKey="festival_2023_page_description" defaultText="Rivivi la prima storica edizione del MOVIEBOLI Film Festival 2023. Scopri come è nato il nostro sogno cinematografico e i primi vincitori." />} />
+          <meta name="keywords" content={<EditableText contentKey="festival_2023_page_keywords" defaultText="festival 2023, prima edizione, MOVIEBOLI, cinema, storia, Eboli" />} />
           <meta property="og:title" content="Festival 2023 - La Prima Edizione | MOVIEBOLI APS" />
           <meta property="og:description" content="La prima storica edizione del MOVIEBOLI Film Festival che ha dato vita al nostro sogno cinematografico." />
           <meta property="og:image" content="/logo-movieboli.png" />

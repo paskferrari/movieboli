@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
+import EditableText from '../components/EditableText'
 
 const MemoriaCarta = () => {
   const [selectedCategory, setSelectedCategory] = useState('Tutti')
@@ -154,9 +155,9 @@ const MemoriaCarta = () => {
   return (
     <div className="min-h-screen bg-movieboli-nero text-movieboli-crema">
       <Head>
-        <title>Memoria Carta - MOVIEBOLI Festival</title>
-        <meta name="description" content="Archivio digitale dei materiali grafici e promozionali del MOVIEBOLI Festival" />
-        <meta name="keywords" content="memoria carta, archivio, manifesti, programmi, MOVIEBOLI, festival" />
+        <title><EditableText contentKey="memoria_carta_page_title" defaultText="Memoria Carta - MOVIEBOLI Festival" /></title>
+        <meta name="description" content={<EditableText contentKey="memoria_carta_page_description" defaultText="Archivio digitale dei materiali grafici e promozionali del MOVIEBOLI Festival" />} />
+        <meta name="keywords" content={<EditableText contentKey="memoria_carta_page_keywords" defaultText="memoria carta, archivio, manifesti, programmi, MOVIEBOLI, festival" />} />
       </Head>
 
       <Navbar />
@@ -182,10 +183,10 @@ const MemoriaCarta = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-movieboli-violaPrincipale via-movieboli-crema to-movieboli-violaPrincipale bg-clip-text text-transparent">
-              Memoria Carta
+              <EditableText contentKey="memoria_carta_hero_title" defaultText="Memoria Carta" />
             </h1>
             <p className="text-xl md:text-2xl text-movieboli-crema/80 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Archivio digitale dei materiali grafici e promozionali del MOVIEBOLI Festival
+              <EditableText contentKey="memoria_carta_hero_subtitle" defaultText="Archivio digitale dei materiali grafici e promozionali del MOVIEBOLI Festival" />
             </p>
           </motion.div>
 
@@ -199,13 +200,13 @@ const MemoriaCarta = () => {
               <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clipRule="evenodd" />
               </svg>
-              <span>{memoriaItems.length} documenti archiviati</span>
+              <span>{memoriaItems.length} <EditableText contentKey="memoria_carta_documents_label" defaultText="documenti archiviati" /></span>
             </div>
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
               </svg>
-              <span>Materiali dal 2023</span>
+              <span><EditableText contentKey="memoria_carta_materials_period" defaultText="Materiali dal 2023" /></span>
             </div>
           </motion.div>
 
@@ -233,7 +234,7 @@ const MemoriaCarta = () => {
             <div className="relative max-w-md mx-auto">
               <input
                 type="text"
-                placeholder="Cerca nei documenti..."
+                placeholder={<EditableText contentKey="memoria_carta_search_placeholder" defaultText="Cerca nei documenti..." />}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-4 py-3 pl-12 bg-movieboli-bordeaux/20 border border-movieboli-violaPrincipale/30 rounded-xl text-movieboli-crema placeholder-movieboli-crema/50 focus:outline-none focus:border-movieboli-violaPrincipale focus:ring-2 focus:ring-movieboli-violaPrincipale/20 transition-all duration-200"
@@ -276,10 +277,10 @@ const MemoriaCarta = () => {
         <div className="max-w-7xl mx-auto">
           <motion.div className="text-center mb-16" variants={itemVariants}>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-movieboli-violaPrincipale">
-              Archivio Documenti
+              <EditableText contentKey="memoria_carta_archive_title" defaultText="Archivio Documenti" />
             </h2>
             <p className="text-movieboli-crema/80 text-lg max-w-2xl mx-auto">
-              Esplora la collezione completa dei materiali grafici del festival
+              <EditableText contentKey="memoria_carta_archive_description" defaultText="Esplora la collezione completa dei materiali grafici del festival" />
             </p>
           </motion.div>
 
@@ -413,8 +414,12 @@ const MemoriaCarta = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-movieboli-crema mb-2">Nessun documento trovato</h3>
-              <p className="text-movieboli-crema/60">Prova a modificare i filtri o il termine di ricerca</p>
+              <h3 className="text-xl font-bold text-movieboli-crema mb-2">
+                <EditableText contentKey="memoria_carta_no_results_title" defaultText="Nessun documento trovato" />
+              </h3>
+              <p className="text-movieboli-crema/60">
+                <EditableText contentKey="memoria_carta_no_results_description" defaultText="Prova a modificare i filtri o il termine di ricerca" />
+              </p>
             </motion.div>
           )}
 
@@ -425,7 +430,7 @@ const MemoriaCarta = () => {
           >
             <div className="bg-movieboli-bordeaux/20 rounded-2xl p-8 max-w-3xl mx-auto border border-movieboli-violaPrincipale/20">
               <h3 className="text-2xl font-bold text-movieboli-violaPrincipale mb-4">
-                Informazioni sull'Archivio
+                <EditableText contentKey="memoria_carta_info_title" defaultText="Informazioni sull'Archivio" />
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-movieboli-crema/80">
                 <div className="text-center">
@@ -434,7 +439,9 @@ const MemoriaCarta = () => {
                       <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <p className="text-sm">Tutti i documenti sono in formato digitale ad alta risoluzione</p>
+                  <p className="text-sm">
+                    <EditableText contentKey="memoria_carta_info_digital" defaultText="Tutti i documenti sono in formato digitale ad alta risoluzione" />
+                  </p>
                 </div>
                 <div className="text-center">
                   <div className="w-12 h-12 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -442,7 +449,9 @@ const MemoriaCarta = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
-                  <p className="text-sm">Archivio protetto e costantemente aggiornato</p>
+                  <p className="text-sm">
+                    <EditableText contentKey="memoria_carta_info_protected" defaultText="Archivio protetto e costantemente aggiornato" />
+                  </p>
                 </div>
                 <div className="text-center">
                   <div className="w-12 h-12 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -450,12 +459,14 @@ const MemoriaCarta = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
                     </svg>
                   </div>
-                  <p className="text-sm">Condividi e scarica i materiali per uso promozionale</p>
+                  <p className="text-sm">
+                    <EditableText contentKey="memoria_carta_info_share" defaultText="Condividi e scarica i materiali per uso promozionale" />
+                  </p>
                 </div>
               </div>
               <div className="mt-6 p-4 bg-movieboli-violaPrincipale/10 rounded-xl">
                 <p className="text-sm text-movieboli-crema/70">
-                  <strong>Nota:</strong> Tutti i materiali sono proprietà intellettuale di MOVIEBOLI. L'uso è consentito per scopi promozionali e informativi del festival.
+                  <strong><EditableText contentKey="memoria_carta_note_label" defaultText="Nota:" /></strong> <EditableText contentKey="memoria_carta_note_text" defaultText="Tutti i materiali sono proprietà intellettuale di MOVIEBOLI. L'uso è consentito per scopi promozionali e informativi del festival." />
                 </p>
               </div>
             </div>
