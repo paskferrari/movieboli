@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import EditableText from '../components/EditableText'
+import EditableText from '../components/ui/EditableText'
 
 /**
  * Pagina Attività - MOVIEBOLI Associazione Culturale

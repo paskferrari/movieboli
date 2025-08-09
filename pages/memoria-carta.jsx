@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
-import EditableText from '../components/EditableText'
+import EditableText from '../components/ui/EditableText'
 
 const MemoriaCarta = () => {
   const [selectedCategory, setSelectedCategory] = useState('Tutti')
