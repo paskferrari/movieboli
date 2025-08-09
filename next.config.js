@@ -76,12 +76,50 @@ const withPWA = require('next-pwa')({
   ]
 });
 
-/** @type {import('next').NextConfig} */
+// Configurazione CSP dinamica
+const isDev = process.env.NODE_ENV === 'development';
+
+const cspDirectives = {
+  'default-src': "'self'",
+  'script-src': [
+    "'self'",
+    "'unsafe-inline'",
+    isDev ? "'unsafe-eval'" : '',
+    'https://js.stripe.com'
+  ].filter(Boolean).join(' '),
+  'style-src': [
+    "'self'",
+    "'unsafe-inline'",
+    'https://fonts.googleapis.com'
+  ].join(' '),
+  'font-src': [
+    "'self'",
+    'https://fonts.gstatic.com'
+  ].join(' '),
+  'img-src': [
+    "'self'",
+    'data:',
+    'https:'
+  ].join(' '),
+  'connect-src': [
+    "'self'",
+    'https://api.stripe.com'
+  ].join(' '),
+  'frame-src': [
+    "'self'",
+    'https://js.stripe.com',
+    'https://hooks.stripe.com'
+  ].join(' ')
+};
+
+const cspString = Object.entries(cspDirectives)
+  .map(([key, value]) => `${key} ${value}`)
+  .join('; ');
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   
-  // Security headers
   async headers() {
     return [
       {
@@ -105,22 +143,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              "// Nella sezione CSP, modifica script-src per includere unsafe-eval in sviluppo
-              const isDev = process.env.NODE_ENV === 'development';
-              
-              const csp = {
-                'script-src': [
-                  "'self'",
-                  "'unsafe-inline'",
-                  isDev ? "'unsafe-eval'" : '', // Solo in sviluppo
-                  'https://js.stripe.com'
-                  // Rimuovi https://www.paypal.com e https://www.paypalobjects.com
-                ].filter(Boolean).join(' '),
-                // ... resto della configurazione
-              };
-            ].join('; ')
+            value: cspString
           }
         ]
       },
@@ -151,7 +174,6 @@ const nextConfig = {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
   },
   
-  // Webpack configuration for security
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -164,7 +186,6 @@ const nextConfig = {
     return config;
   },
   
-  // Experimental features
   experimental: {
     serverComponentsExternalPackages: ['@stripe/stripe-js']
   }

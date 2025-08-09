@@ -1,7 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUpIcon, TrendingDownIcon, MinusIcon } from '@heroicons/react/24/outline';
+import { 
+  MinusIcon,
+  ArrowTrendingUpIcon as TrendingUpIcon,
+  ArrowTrendingDownIcon as TrendingDownIcon
+} from '@heroicons/react/24/outline';
 
 const RealTimeStatsCardOld = ({ stats, realtimeUpdates }) => {
   const recentVotes = realtimeUpdates.filter(update => update.type === 'new_vote').length;

@@ -539,6 +539,9 @@ const OnlinePaymentSection = () => {
 export default function Donazioni() {
   const { getContent } = useContent();
   
+  // Definisci isDev per l'ambiente di sviluppo
+  const isDev = process.env.NODE_ENV === 'development';
+
   return (
     <BrandingProvider>
       <Head>
