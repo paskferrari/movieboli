@@ -261,7 +261,6 @@ const DonationForm = () => {
               step="0.01"
               max="10000"
             />
-            <span className="absolute right-3 top-3 text-gray-500">€</span>
           </div>
         </div>
 
@@ -375,30 +374,18 @@ const DonationForm = () => {
               defaultValue="Metodo di pagamento"
             />
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button
-              onClick={() => setPaymentMethod('stripe')}
-              className={`p-4 rounded-xl border-2 transition-all ${
-                paymentMethod === 'stripe'
-                  ? 'border-movieboli-primary-600 bg-movieboli-primary-50'
-                  : 'border-gray-200 hover:border-movieboli-primary-300'
-              }`}
-            >
-              <div className="font-semibold text-gray-900">Carta di Credito</div>
-              <div className="text-sm text-gray-600">Visa, Mastercard, Amex</div>
-            </button>
-            
-            {paymentRequest && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {amount >= 0.50 && (
               <button
-                onClick={() => setPaymentMethod('applepay')}
+                onClick={() => setPaymentMethod('stripe')}
                 className={`p-4 rounded-xl border-2 transition-all ${
-                  paymentMethod === 'applepay'
+                  paymentMethod === 'stripe'
                     ? 'border-movieboli-primary-600 bg-movieboli-primary-50'
                     : 'border-gray-200 hover:border-movieboli-primary-300'
                 }`}
               >
-                <div className="font-semibold text-gray-900">Apple Pay</div>
-                <div className="text-sm text-gray-600">Pagamento rapido</div>
+                <div className="font-semibold text-gray-900">Carta di Credito</div>
+                <div className="text-sm text-gray-600">Visa, Mastercard, Amex</div>
               </button>
             )}
             
@@ -424,11 +411,11 @@ const DonationForm = () => {
         )}
 
         {/* Payment Forms */}
-        {paymentMethod === 'stripe' && (
+        {paymentMethod === 'stripe' && amount >= 0.50 && (
           <div>
             <button
               onClick={handleStripeCheckout}
-              disabled={isProcessing || amount < 5}
+              disabled={isProcessing || amount < 0.50 || !donorInfo.email || (!donorInfo.anonymous && (!donorInfo.firstName || !donorInfo.lastName))}
               className="w-full bg-movieboli-primary-600 hover:bg-movieboli-primary-700 disabled:bg-gray-400 text-white font-semibold py-4 px-6 rounded-xl transition-colors"
             >
               {isProcessing ? (

@@ -21,8 +21,9 @@ export default async function handler(req, res) {
     const { amount, frequency, email, name, anonymous, payment_method_types = ['card'] } = req.body;
 
     // Validazione input
-    if (!amount || amount < 500 || amount > 1000000) { // 5€ - 10.000€
-      return res.status(400).json({ error: 'Importo non valido' });
+    // Riga 24 - Modifica la validazione (importi in centesimi per Stripe)
+    if (!amount || amount < 10 || amount > 1000000) { // 0.10€ - 10.000€
+      return res.status(400).json({ error: 'Importo non valido (min 0.10€, max 10.000€)' });
     }
 
     if (!['once', 'monthly'].includes(frequency)) {
