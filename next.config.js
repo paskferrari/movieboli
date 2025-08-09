@@ -103,7 +103,9 @@ const cspDirectives = {
   ].join(' '),
   'connect-src': [
     "'self'",
-    'https://api.stripe.com'
+    'https://api.stripe.com',
+    'https://igxnfduvvarrnywanxsr.supabase.co',
+    'https://*.supabase.co'
   ].join(' '),
   'frame-src': [
     "'self'",
