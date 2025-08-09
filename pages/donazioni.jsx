@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useState, useEffect } from 'react';
 import EditableText from '../components/ui/EditableText';
+import DonationForm from '../components/payments/DonationForm';
 
 const TypewriterEffect = () => {
   const [currentText, setCurrentText] = useState('');
@@ -505,24 +506,72 @@ const TypewriterSection = () => {
   );
 };
 
+// Aggiungi la nuova sezione dopo IbanSection
+const OnlinePaymentSection = () => {
+  const { getContent } = useContent();
+  
+  return (
+    <section id="pagamento-online" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-movieboli-secondary-50 to-movieboli-primary-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-movieboli-primary-900 mb-4 sm:mb-6">
+            <EditableText 
+              contentKey="donazioni.online.titolo"
+              defaultValue="Donazione Online"
+            />
+          </h2>
+          <div className="w-16 sm:w-20 lg:w-24 h-1 bg-movieboli-primary-600 mx-auto mb-6 sm:mb-8" />
+          <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto px-4">
+            <EditableText 
+              contentKey="donazioni.online.descrizione"
+              defaultValue="Dona in modo rapido e sicuro con carta di credito o Apple Pay. Tutti i pagamenti sono protetti e conformi alle normative europee."
+              multiline={true}
+            />
+          </p>
+        </div>
+        
+        <DonationForm />
+      </div>
+    </section>
+  );
+};
+
 export default function Donazioni() {
   const { getContent } = useContent();
   
   return (
     <BrandingProvider>
       <Head>
-        <title>{getContent('donazioni.meta.title') || 'Donazioni - MOVIEBOLI APS'}</title>
-        <meta name="description" content={getContent('donazioni.meta.description') || 'Sostieni MOVIEBOLI APS e contribuisci alla promozione della cultura cinematografica nel territorio di Eboli.'} />
+        <title>{getContent('donazioni.meta.title') || 'Donazioni - MOVIEBOLI'}</title>
+        <meta name="description" content={getContent('donazioni.meta.description') || 'Sostieni MOVIEBOLI APS con una donazione. Il tuo contributo aiuta a promuovere la cultura cinematografica e sostenere i giovani talenti del territorio.'} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        
+        {/* Security Headers */}
+        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.stripe.com; frame-src https://js.stripe.com;" />
+        <meta httpEquiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains" />
+        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+        <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content={getContent('donazioni.meta.title') || 'Donazioni - MOVIEBOLI'} />
+        <meta property="og:description" content={getContent('donazioni.meta.description')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://movieboli.vercel.app/donazioni" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={getContent('donazioni.meta.title') || 'Donazioni - MOVIEBOLI'} />
+        <meta name="twitter:description" content={getContent('donazioni.meta.description')} />
       </Head>
       
       <Navbar />
       
       <main>
         <DonazioniHero />
+        <OnlinePaymentSection />
         <IbanSection />
         <ComeUsiamoSection />
+        <PercheDonareSection />
         <FooterCTA />
       </main>
       
