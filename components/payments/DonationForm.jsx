@@ -254,10 +254,11 @@ const DonationForm = () => {
               value={customAmount}
               onChange={(e) => {
                 setCustomAmount(e.target.value);
-                setAmount(parseInt(e.target.value) || 0);
+                setAmount(parseFloat(e.target.value) || 0);
               }}
               className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-movieboli-primary-500 focus:border-transparent"
-              min="5"
+              min="0.10"
+              step="0.01"
               max="10000"
             />
             <span className="absolute right-3 top-3 text-gray-500">€</span>
