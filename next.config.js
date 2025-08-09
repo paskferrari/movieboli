@@ -80,38 +80,49 @@ const withPWA = require('next-pwa')({
 const isDev = process.env.NODE_ENV === 'development';
 
 const cspDirectives = {
-  'default-src': "'self'",
+  'default-src': ["'self'"],
   'script-src': [
     "'self'",
     "'unsafe-inline'",
-    isDev ? "'unsafe-eval'" : '',
-    'https://js.stripe.com'
-  ].filter(Boolean).join(' '),
+    "'unsafe-eval'",
+    'https://js.stripe.com',
+    'https://checkout.stripe.com',
+    'https://maps.googleapis.com'
+  ],
   'style-src': [
     "'self'",
     "'unsafe-inline'",
     'https://fonts.googleapis.com'
-  ].join(' '),
+  ],
   'font-src': [
     "'self'",
-    'https://fonts.gstatic.com'
-  ].join(' '),
+    'https://fonts.gstatic.com',
+    'data:'
+  ],
   'img-src': [
     "'self'",
     'data:',
-    'https:'
-  ].join(' '),
+    'blob:',
+    'https:',
+    'http:'
+  ],
   'connect-src': [
     "'self'",
     'https://api.stripe.com',
     'https://igxnfduvvarrnywanxsr.supabase.co',
-    'https://*.supabase.co'
-  ].join(' '),
+    'https://*.supabase.co',
+    'https://fonts.googleapis.com',  // Aggiungi questo
+    'https://fonts.gstatic.com'      // Aggiungi questo
+  ],
   'frame-src': [
-    "'self'",
     'https://js.stripe.com',
-    'https://hooks.stripe.com'
-  ].join(' ')
+    'https://hooks.stripe.com',
+    'https://checkout.stripe.com'
+  ],
+  'object-src': ["'none'"],
+  'base-uri': ["'self'"],
+  'form-action': ["'self'"],
+  'frame-ancestors': ["'none'"]
 };
 
 const cspString = Object.entries(cspDirectives)
