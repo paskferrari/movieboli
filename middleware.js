@@ -17,7 +17,8 @@ const ALLOWED_PATHS = [
   '/donazioni',    // Pagina delle donazioni
   '/sw.js',        // Service Worker
   '/workbox-',     // Workbox (per PWA)
-  '/api/'          // API routes
+  '/api/',          // API routes
+  '/admin'
 ];
 
 // Funzione per verificare se un utente è admin nel middleware
