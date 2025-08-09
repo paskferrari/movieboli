@@ -13,6 +13,7 @@ const ALLOWED_PATHS = [
   '/manifest.json', // Manifest PWA
   '/json-folders', // Dati JSON per i cortometraggi
   '/festival/cortometraggi', // Pagina dei cortometraggi
+  '/donazioni',    // Pagina delle donazioni
   '/sw.js',        // Service Worker
   '/workbox-'      // Workbox (per PWA)
 ];

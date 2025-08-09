@@ -102,7 +102,7 @@ const IbanSection = () => {
   const [copiato, setCopiato] = useState(false);
   
   const copiaIban = () => {
-    const iban = getContent('donazioni.iban.dati_bancari.iban') || 'IT00 X000 0000 0000 0000 0000 000';
+    const iban = getContent('donazioni.iban.dati_bancari.iban') || 'IT73I0538776090000003879784';
     navigator.clipboard.writeText(iban);
     setCopiato(true);
     setTimeout(() => setCopiato(false), 2000);
@@ -175,7 +175,7 @@ const IbanSection = () => {
                       <div className="flex-1 p-3 sm:p-4 bg-white rounded-xl sm:rounded-l-xl sm:rounded-r-none font-mono text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100 text-sm sm:text-base lg:text-lg break-all">
                         <EditableText 
                           contentKey="donazioni.iban.dati_bancari.iban"
-                          defaultValue="IT00 X000 0000 0000 0000 0000 000"
+                          defaultValue="IT73I0538776090000003879784"
                         />
                       </div>
                       <button
@@ -223,7 +223,7 @@ const IbanSection = () => {
                     <div className="p-3 sm:p-4 bg-white rounded-xl text-movieboli-primary-900 shadow-inner border border-movieboli-primary-100 text-sm sm:text-base">
                       <EditableText 
                         contentKey="donazioni.iban.dati_bancari.banca"
-                        defaultValue="Banca di Credito Cooperativo"
+                        defaultValue="BANCA POPOLARE DELL'EMILIA ROMAGNA"
                       />
                     </div>
                   </div>
@@ -287,22 +287,7 @@ const IbanSection = () => {
                     </p>
                   </div>
                   
-                  <div className="p-4 sm:p-6 bg-gradient-to-r from-green-50 to-movieboli-secondary-50 border-l-4 border-green-500 rounded-r-xl">
-                    <h4 className="font-bold text-green-800 mb-3 flex items-center text-sm sm:text-base">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2 flex-shrink-0"></span>
-                      <EditableText 
-                        contentKey="donazioni.iban.istruzioni.detraibilita.titolo"
-                        defaultValue="Detraibilità"
-                      />
-                    </h4>
-                    <p className="text-green-700 text-xs sm:text-sm">
-                      <EditableText 
-                        contentKey="donazioni.iban.istruzioni.detraibilita.testo"
-                        defaultValue="La donazione è detraibile fiscalmente secondo le normative vigenti per le APS."
-                        multiline={true}
-                      />
-                    </p>
-                  </div>
+                  
                 </div>
               </div>
             </div>
