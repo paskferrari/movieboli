@@ -107,12 +107,19 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: https:",
-              "connect-src 'self' https://api.stripe.com",
-              "frame-src https://js.stripe.com https://hooks.stripe.com"
+              "// Nella sezione CSP, modifica script-src per includere unsafe-eval in sviluppo
+              const isDev = process.env.NODE_ENV === 'development';
+              
+              const csp = {
+                'script-src': [
+                  "'self'",
+                  "'unsafe-inline'",
+                  isDev ? "'unsafe-eval'" : '', // Solo in sviluppo
+                  'https://js.stripe.com'
+                  // Rimuovi https://www.paypal.com e https://www.paypalobjects.com
+                ].filter(Boolean).join(' '),
+                // ... resto della configurazione
+              };
             ].join('; ')
           }
         ]
