@@ -126,7 +126,7 @@ const cspDirectives = {
 };
 
 const cspString = Object.entries(cspDirectives)
-  .map(([key, value]) => `${key} ${value}`)
+  .map(([key, value]) => `${key} ${value.join(' ')}`)
   .join('; ');
 
 const nextConfig = {
