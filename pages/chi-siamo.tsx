@@ -71,23 +71,17 @@ const StorySection = () => {
           </div>
           
           <div className="relative">
-            <div className="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8 h-96 flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-6xl mb-4">🎬</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  <EditableText 
-                    contentKey="about.story.since_title"
-                    defaultValue="Dal 2020"
-                    tag="span"
-                  />
-                </h3>
-                <p className="text-gray-700 text-lg">
-                  <EditableText 
-                    contentKey="about.story.since_description"
-                    defaultValue="Promuoviamo cultura e arte"
-                    tag="span"
-                  />
-                </p>
+            <div className="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8 h-96 flex items-center justify-center relative overflow-hidden">
+              {/* Immagine di sfondo */}
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src="https://i.ibb.co/XxprxgV2/61.jpg"
+                  alt="Immagine di sfondo"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -144,15 +138,15 @@ const MissionSection = () => {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-4">
               <EditableText 
-                contentKey="about.mission.talents.title"
-                defaultValue="Sostenere i Talenti"
+                contentKey="about.mission.innovation.title"
+                defaultValue="Innovare"
                 tag="span"
               />
             </h3>
             <p className="text-gray-700 leading-relaxed">
               <EditableText 
-                contentKey="about.mission.talents.description"
-                defaultValue="Offrire opportunità e visibilità a giovani artisti, registi e creativi emergenti del territorio."
+                contentKey="about.mission.innovation.description"
+                defaultValue="Sperimentare nuove forme di espressione artistica e tecnologie innovative per il cinema."
                 tag="span"
                 multiline={true}
               />
@@ -162,7 +156,7 @@ const MissionSection = () => {
           <div className="text-center">
             <div className="w-20 h-20 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
               </svg>
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-4">
@@ -181,92 +175,6 @@ const MissionSection = () => {
               />
             </p>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const TeamSection = () => {
-  const teamMembers = [
-    {
-      name: "Marco Rossi",
-      role: "Presidente",
-      description: "Regista e produttore, fondatore dell'associazione",
-      image: "🎭"
-    },
-    {
-      name: "Laura Bianchi",
-      role: "Direttrice Artistica",
-      description: "Critica cinematografica e curatrice eventi",
-      image: "🎨"
-    },
-    {
-      name: "Giuseppe Verde",
-      role: "Coordinatore Tecnico",
-      description: "Esperto di produzione e organizzazione eventi",
-      image: "⚙️"
-    },
-    {
-      name: "Sofia Neri",
-      role: "Responsabile Comunicazione",
-      description: "Social media manager e content creator",
-      image: "📱"
-    }
-  ];
-  
-  return (
-    <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            <EditableText 
-              contentKey="about.team.title"
-              defaultValue="Il Nostro Team"
-              tag="span"
-            />
-          </h2>
-          <div className="w-24 h-1 bg-secondary-600 mx-auto mb-8" />
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            <EditableText 
-              contentKey="about.team.description"
-              defaultValue="Un gruppo di professionisti appassionati che lavorano insieme per realizzare la nostra visione."
-              tag="span"
-              multiline={true}
-            />
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {teamMembers.map((member, index) => (
-            <div key={index} className="text-center">
-              <div className="w-32 h-32 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl">{member.image}</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                <EditableText 
-                  contentKey={`about.team.member${index + 1}.name`}
-                  defaultValue={member.name}
-                  tag="span"
-                />
-              </h3>
-              <p className="text-primary-600 font-semibold mb-3">
-                <EditableText 
-                  contentKey={`about.team.member${index + 1}.role`}
-                  defaultValue={member.role}
-                  tag="span"
-                />
-              </p>
-              <p className="text-gray-700 text-sm leading-relaxed">
-                <EditableText 
-                  contentKey={`about.team.member${index + 1}.description`}
-                  defaultValue={member.description}
-                  tag="span"
-                  multiline={true}
-                />
-              </p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
@@ -518,7 +426,6 @@ export default function ChiSiamo() {
           <ChiSiamoHero />
           <StorySection />
           <MissionSection />
-          <TeamSection />
           <ValuesSection />
           <JoinSection />
         </main>

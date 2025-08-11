@@ -62,25 +62,17 @@ const ChiSiamoSection = () => {
           </div>
           
           <div className="relative">
-            <div className="bg-gradient-to-br from-movieboli-secondary-100 to-movieboli-primary-100 rounded-2xl p-8 h-80 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-movieboli-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h4 className="text-xl font-bold text-movieboli-primary-900 mb-2">
-                  <EditableText 
-                    contentKey="homepage.about.since"
-                    defaultValue="Dal 2020"
-                  />
-                </h4>
-                <p className="text-gray-700">
-                  <EditableText 
-                    contentKey="homepage.about.since.description"
-                    defaultValue="Promuoviamo cultura e arte nel territorio"
-                  />
-                </p>
+            <div className="bg-gradient-to-br from-movieboli-secondary-100 to-movieboli-primary-100 rounded-2xl p-8 h-80 flex items-center justify-center relative overflow-hidden">
+              {/* Immagine di sfondo */}
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src="https://i.ibb.co/XxprxgV2/61.jpg"
+                  alt="Immagine di sfondo"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
               </div>
             </div>
           </div>

@@ -5,6 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import EditableText from '../components/ui/EditableText';
+import filmData from '../public/json-folders/film_unificati.json';
+import lungometraggiData from './festival/film/film.json';
 
 /**
  * Pagina Festival - MoviEboli Film Festival
@@ -117,6 +119,8 @@ const FestivalPage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-movieboli-nero/85 via-movieboli-nero/70 to-movieboli-bordeaux/40"></div>
           
           {/* Pistola decorativa laterale */}
+          {/* Rimuovo completamente il div con pistola.png */}
+          {/* 
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -133,6 +137,7 @@ const FestivalPage = () => {
               />
             </div>
           </motion.div>
+          */}
 
           {/* Content principale */}
           <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
@@ -165,7 +170,7 @@ const FestivalPage = () => {
                   />
                 </motion.span>
                 <motion.span 
-                  className="block text-4xl sm:text-5xl lg:text-6xl font-medium text-movieboli-bordeaux"
+                  className="block text-4xl sm:text-5xl lg:text-6xl font-medium text-white"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 1, delay: 0.9 }}
@@ -241,7 +246,8 @@ const FestivalPage = () => {
 
         {/* Sezione Navigazione Principale - Riprogettata */}
         <section className="relative py-24 bg-gradient-to-br from-movieboli-crema via-white to-movieboli-crema/80 overflow-hidden">
-          {/* Background decorativo con bacio.png migliorato */}
+          {/* Background decorativo rimosso */}
+          {/* 
           <div className="absolute top-20 right-10 opacity-8 hidden lg:block">
             <div className="relative w-80 h-80">
               <Image
@@ -253,6 +259,7 @@ const FestivalPage = () => {
               />
             </div>
           </div>
+          */}
           
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             {/* Header professionale */}
@@ -274,30 +281,92 @@ const FestivalPage = () => {
               <p className="font-poppins text-2xl text-movieboli-nero/80 max-w-4xl mx-auto leading-relaxed">
                 <EditableText 
                   contentKey="festival.explore.subtitle"
-                  defaultValue="Tre giorni di cinema indipendente, ospiti internazionali e cortometraggi in concorso • 22-23-24 Agosto 2025"
+                  defaultValue="22-23-24 Agosto 2025"
                   tag="span"
                   multiline={true}
                 />
               </p>
             </motion.div>
 
-            {/* Griglia principale con contenuti reali */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-              {/* Cortometraggi - Card principale con dati reali */}
+            {/* Griglia 2x2 delle 4 Card */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+              
+              {/* 1. CORTOMETRAGGI */}
               <motion.div
-                className="lg:col-span-2 group bg-white rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 hover:-translate-y-3"
+                className="group bg-white rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 hover:-translate-y-3"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="relative h-80 bg-gradient-to-br from-movieboli-violaPrincipale/40 to-movieboli-bordeaux/50 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                {/* Header con sfondo scorrevole delle locandine */}
+                <div className="relative h-64 overflow-hidden bg-gradient-to-br from-movieboli-violaPrincipale/40 to-movieboli-bordeaux/50">
+                  {/* Sfondo scorrevole con locandine cortometraggi */}
+                  <div className="absolute inset-0 flex animate-scroll">
+                    <div className="flex min-w-full">
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/vC6YGQv1/Ya-Hanouni.jpg"
+                          alt="Ya Hanouni"
+                          fill
+                          className="object-cover opacity-60"
+                        />
+                      </div>
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/F4vnXKtX/Poster-Place-under-the-sun-EN.png"
+                          alt="Place under the sun"
+                          fill
+                          className="object-cover opacity-60"
+                        />
+                      </div>
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/9HPc0DNr/POSTER-DIECI-SECONDI.jpg"
+                          alt="Dieci Secondi"
+                          fill
+                          className="object-cover opacity-60"
+                        />
+                      </div>
+                    </div>
+                    {/* Duplica per loop continuo */}
+                    <div className="flex min-w-full">
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/kg64v029/LOCANDINA-SHARINGISCARIGN.jpg"
+                          alt="Sharing is Caring"
+                          fill
+                          className="object-cover opacity-60"
+                        />
+                      </div>
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/35fWHz1b/FL-Poster-CHOIX-DISTRIB-EN-min.jpg"
+                          alt="Father's Letters"
+                          fill
+                          className="object-cover opacity-60"
+                        />
+                      </div>
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/JwTHkgND/AAM-DEF-hires.jpg"
+                          alt="Appuntamento a Mezzogiorno"
+                          fill
+                          className="object-cover opacity-60"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  
+                  {/* Badge e titolo */}
                   <div className="absolute top-6 left-6">
                     <span className="bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-medium text-base px-4 py-2 rounded-full">
                       <EditableText 
                         contentKey="festival.shorts.badge"
-                        defaultValue="Concorso Internazionale"
+                        defaultValue="Concorso Internazionale di Cortometraggi"
                         tag="span"
                       />
                     </span>
@@ -306,20 +375,22 @@ const FestivalPage = () => {
                     <h3 className="font-poppins font-semibold text-3xl text-white mb-3">
                       <EditableText 
                         contentKey="festival.shorts.title"
-                        defaultValue="Cortometraggi in Gara"
+                        defaultValue="Cortometraggi in Concorso"
                         tag="span"
                       />
                     </h3>
                     <p className="font-poppins text-white/95 text-lg leading-relaxed">
                       <EditableText 
                         contentKey="festival.shorts.description"
-                        defaultValue="8 cortometraggi selezionati: Ya Hanouni,Place under the sun, Jus d'orange,Appuntamento a Mezzogiorno e altri. Storie da Francia, Italia, Moldavia e Russia."
+                        defaultValue="8 cortometraggi selezionati da tutto il Mondo"
                         tag="span"
                         multiline={true}
                       />
                     </p>
                   </div>
                 </div>
+                
+                {/* Contenuto */}
                 <div className="p-8">
                   <div className="mb-6">
                     <h4 className="font-poppins font-semibold text-lg text-movieboli-nero mb-3">
@@ -329,70 +400,18 @@ const FestivalPage = () => {
                         tag="span"
                       />
                     </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                    <div className="grid grid-cols-1 gap-3 text-sm">
                       <div className="bg-movieboli-crema/30 p-3 rounded-lg">
-                        <p className="font-medium text-movieboli-nero">
-                          <EditableText 
-                            contentKey="festival.shorts.film1.title"
-                            defaultValue="Ya Hanouni - Lyna Tadount"
-                            tag="span"
-                          />
-                        </p>
-                        <p className="text-movieboli-nero/70">
-                          <EditableText 
-                            contentKey="festival.shorts.film1.country"
-                            defaultValue="Francia/Algeria"
-                            tag="span"
-                          />
-                        </p>
+                        <p className="font-medium text-movieboli-nero">Ya Hanouni - Lyna Tadount</p>
+                        <p className="text-movieboli-nero/70">Francia/Algeria • 3 min</p>
                       </div>
                       <div className="bg-movieboli-crema/30 p-3 rounded-lg">
-                        <p className="font-medium text-movieboli-nero">
-                          <EditableText 
-                            contentKey="festival.shorts.film2.title"
-                            defaultValue="Place under the sun - Vlad Bolgarin"
-                            tag="span"
-                          />
-                        </p>
-                        <p className="text-movieboli-nero/70">
-                          <EditableText 
-                            contentKey="festival.shorts.film2.details"
-                            defaultValue="Moldavia • 20 min"
-                            tag="span"
-                          />
-                        </p>
+                        <p className="font-medium text-movieboli-nero">Place under the sun - Vlad Bolgarin</p>
+                        <p className="text-movieboli-nero/70">Moldavia • 20 min</p>
                       </div>
                       <div className="bg-movieboli-crema/30 p-3 rounded-lg">
-                        <p className="font-medium text-movieboli-nero">
-                          <EditableText 
-                            contentKey="festival.shorts.film3.title"
-                            defaultValue="Jus d'orange - Alexandre Athané"
-                            tag="span"
-                          />
-                        </p>
-                        <p className="text-movieboli-nero/70">
-                          <EditableText 
-                            contentKey="festival.shorts.film3.details"
-                            defaultValue="Francia • 13:45 min"
-                            tag="span"
-                          />
-                        </p>
-                      </div>
-                      <div className="bg-movieboli-crema/30 p-3 rounded-lg">
-                        <p className="font-medium text-movieboli-nero">
-                          <EditableText 
-                            contentKey="festival.shorts.film4.title"
-                            defaultValue="Appuntamento a Mezzogiorno - Antonio Passaro"
-                            tag="span"
-                          />
-                        </p>
-                        <p className="text-movieboli-nero/70">
-                          <EditableText 
-                            contentKey="festival.shorts.film4.details"
-                            defaultValue="Italia • 14 min"
-                            tag="span"
-                          />
-                        </p>
+                        <p className="font-medium text-movieboli-nero">Dieci Secondi - Roberta Palmieri</p>
+                        <p className="text-movieboli-nero/70">Italia • 11:40 min</p>
                       </div>
                     </div>
                   </div>
@@ -406,7 +425,7 @@ const FestivalPage = () => {
                         />
                       </span>
                     </Link>
-                    <Link href="#vota">
+                    <Link href="/festival/vota">
                       <span className="inline-block border-2 border-movieboli-nero text-movieboli-nero font-poppins font-medium px-6 py-3 rounded-xl hover:bg-movieboli-nero hover:text-white transition-all duration-300">
                         <EditableText 
                           contentKey="festival.shorts.cta_vote"
@@ -419,206 +438,382 @@ const FestivalPage = () => {
                 </div>
               </motion.div>
 
-              {/* Ospiti e Programma - Cards laterali con contenuti reali */}
-              <div className="space-y-8">
-                {/* Ospiti Speciali con dati reali */}
-                <motion.div
-                  className="group bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="relative h-48 bg-gradient-to-br from-movieboli-bordeaux/40 to-movieboli-violaPrincipale/50">
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-movieboli-bordeaux text-movieboli-crema font-poppins font-medium text-sm px-3 py-1 rounded-full">
-                        <EditableText 
-                          contentKey="festival.guests.badge"
-                          defaultValue="Masterclass & Talk"
-                          tag="span"
+              {/* 2. OSPITI */}
+              <motion.div
+                className="group bg-white rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 hover:-translate-y-3"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                {/* Header con sfondo scorrevole delle foto ospiti */}
+                <div className="relative h-64 overflow-hidden bg-gradient-to-br from-movieboli-bordeaux/40 to-movieboli-nero/50">
+                  {/* Sfondo scorrevole con foto ospiti */}
+                  <div className="absolute inset-0 flex animate-scroll-slow">
+                    <div className="flex min-w-full">
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/7J4jNP4h/ALESSANDRO-RAK.jpg"
+                          alt="Alessandro Rak"
+                          fill
+                          className="object-cover opacity-60"
                         />
-                      </span>
-                    </div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="font-poppins font-semibold text-2xl text-white mb-2">
-                        <EditableText 
-                          contentKey="festival.guests.title"
-                          defaultValue="Ospiti Internazionali"
-                          tag="span"
+                      </div>
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/zyMGPT9/LUIGI-D-ORIANO.jpg"
+                          alt="Luigi D'Oriano"
+                          fill
+                          className="object-cover opacity-60"
                         />
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="mb-4">
-                      <h4 className="font-poppins font-semibold text-sm text-movieboli-nero mb-2">
-                        <EditableText 
-                          contentKey="festival.guests.confirmed_title"
-                          defaultValue="Ospiti Confermati:"
-                          tag="span"
+                      </div>
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/WWDttfmZ/GIUSEPPE-ARENA.jpg"
+                          alt="Giuseppe Arena"
+                          fill
+                          className="object-cover opacity-60"
                         />
-                      </h4>
-                      <div className="space-y-2 text-sm">
-                        <p className="text-movieboli-nero/80">
-                          • <span className="font-medium">
-                            <EditableText 
-                              contentKey="festival.guests.guest1.name"
-                              defaultValue="Daria D'Antonio"
-                              tag="span"
-                            />
-                          </span> - <EditableText 
-                            contentKey="festival.guests.guest1.role"
-                            defaultValue="Direttrice della Fotografia"
-                            tag="span"
-                          />
-                        </p>
-                        <p className="text-movieboli-nero/80">
-                          • <span className="font-medium">
-                            <EditableText 
-                              contentKey="festival.guests.guest2.name"
-                              defaultValue="Registi Internazionali"
-                              tag="span"
-                            />
-                          </span> - <EditableText 
-                            contentKey="festival.guests.guest2.role"
-                            defaultValue="Panel Cinema Mediterraneo"
-                            tag="span"
-                          />
-                        </p>
-                        <p className="text-movieboli-nero/80">
-                          • <span className="font-medium">
-                            <EditableText 
-                              contentKey="festival.guests.guest3.name"
-                              defaultValue="Workshop"
-                              tag="span"
-                            />
-                          </span> - <EditableText 
-                            contentKey="festival.guests.guest3.role"
-                            defaultValue="Sceneggiatura Innovativa"
-                            tag="span"
-                          />
-                        </p>
                       </div>
                     </div>
-                    <p className="font-poppins text-movieboli-nero/80 mb-6 leading-relaxed">
+                    {/* Duplica per loop continuo */}
+                    <div className="flex min-w-full">
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/9HtZvH3F/EMANUELE-PALUMBO.jpg"
+                          alt="Emanuele Palumbo"
+                          fill
+                          className="object-cover opacity-60"
+                        />
+                      </div>
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/VptMKV2X/licensed-image.jpg"
+                          alt="Francesco Lettieri"
+                          fill
+                          className="object-cover opacity-60"
+                        />
+                      </div>
+                      <div className="w-1/3 h-full relative">
+                        <Image
+                          src="https://i.ibb.co/7J4jNP4h/ALESSANDRO-RAK.jpg"
+                          alt="Alessandro Rak"
+                          fill
+                          className="object-cover opacity-60"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  
+                  {/* Badge e titolo */}
+                  <div className="absolute top-6 left-6">
+                    <span className="bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-medium text-base px-4 py-2 rounded-full">
+                      <EditableText 
+                        contentKey="festival.guests.badge"
+                        defaultValue="Ospiti Internazionali"
+                        tag="span"
+                      />
+                    </span>
+                  </div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <h3 className="font-poppins font-semibold text-3xl text-white mb-3">
+                      <EditableText 
+                        contentKey="festival.guests.title"
+                        defaultValue="Ospiti del Festival"
+                        tag="span"
+                      />
+                    </h3>
+                    <p className="font-poppins text-white/95 text-lg leading-relaxed">
                       <EditableText 
                         contentKey="festival.guests.description"
-                        defaultValue="Masterclass, workshop e dibattiti con professionisti del cinema internazionale."
+                        defaultValue="Registi, attori e professionisti del cinema"
                         tag="span"
                         multiline={true}
                       />
                     </p>
-                    <Link href="/festival/ospiti">
-                      <span className="inline-block bg-movieboli-bordeaux text-movieboli-crema font-poppins font-medium px-5 py-2 rounded-lg hover:bg-movieboli-nero transition-colors duration-300">
-                        <EditableText 
-                          contentKey="festival.guests.cta"
-                          defaultValue="Scopri gli Ospiti"
-                          tag="span"
-                        />
-                      </span>
-                    </Link>
                   </div>
-                </motion.div>
-
-                {/* Programma Completo con date aggiornate */}
-                <motion.div
-                  className="group bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="relative h-48 bg-gradient-to-br from-movieboli-nero/40 to-movieboli-violaPrincipale/40">
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-movieboli-nero text-movieboli-crema font-poppins font-medium text-sm px-3 py-1 rounded-full">
-                        <EditableText 
-                          contentKey="festival.program.dates"
-                          defaultValue="22-23-24 Agosto"
-                          tag="span"
-                        />
-                      </span>
-                    </div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="font-poppins font-semibold text-2xl text-white mb-2">
-                        <EditableText 
-                          contentKey="festival.program.title"
-                          defaultValue="Programma Completo"
-                          tag="span"
-                        />
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="mb-4">
-                      <h4 className="font-poppins font-semibold text-sm text-movieboli-nero mb-2">
-                        <EditableText 
-                          contentKey="festival.program.daily_title"
-                          defaultValue="Programma Giornaliero:"
-                          tag="span"
-                        />
-                      </h4>
-                      <div className="space-y-2 text-sm">
-                        <p className="text-movieboli-nero/80">
-                          • <span className="font-medium">
-                            <EditableText 
-                              contentKey="festival.program.day1.date"
-                              defaultValue="Giovedì 22"
-                              tag="span"
-                            />
-                          </span> - <EditableText 
-                            contentKey="festival.program.day1.events"
-                            defaultValue="Apertura e Proiezioni"
-                            tag="span"
-                          />
-                        </p>
-                        <p className="text-movieboli-nero/80">
-                          • <span className="font-medium">
-                            <EditableText 
-                              contentKey="festival.program.day2.date"
-                              defaultValue="Venerdì 23"
-                              tag="span"
-                            />
-                          </span> - <EditableText 
-                            contentKey="festival.program.day2.events"
-                            defaultValue="Masterclass e Workshop"
-                            tag="span"
-                          />
-                        </p>
-                        <p className="text-movieboli-nero/80">
-                          • <span className="font-medium">
-                            <EditableText 
-                              contentKey="festival.program.day3.date"
-                              defaultValue="Sabato 24"
-                              tag="span"
-                            />
-                          </span> - <EditableText 
-                            contentKey="festival.program.day3.events"
-                            defaultValue="Premiazione e Chiusura"
-                            tag="span"
-                          />
-                        </p>
+                </div>
+                
+                {/* Contenuto */}
+                <div className="p-8">
+                  <div className="mb-6">
+                    <h4 className="font-poppins font-semibold text-lg text-movieboli-nero mb-3">
+                      <EditableText 
+                        contentKey="festival.guests.list_title"
+                        defaultValue="Ospiti Confermati:"
+                        tag="span"
+                      />
+                    </h4>
+                    <div className="space-y-3 text-sm">
+                      <div className="bg-movieboli-crema/30 p-3 rounded-lg">
+                        <p className="font-medium text-movieboli-nero">Alessandro Rak</p>
+                        <p className="text-movieboli-nero/70">Regista • 24 agosto 2025</p>
+                      </div>
+                      <div className="bg-movieboli-crema/30 p-3 rounded-lg">
+                        <p className="font-medium text-movieboli-nero">Luigi D'Oriano</p>
+                        <p className="text-movieboli-nero/70">Montatore • 22 agosto 2025</p>
+                      </div>
+                      <div className="bg-movieboli-crema/30 p-3 rounded-lg">
+                        <p className="font-medium text-movieboli-nero">Mario Martone</p>
+                        <p className="text-movieboli-nero/70">Regista • 23 agosto 2025</p>
                       </div>
                     </div>
-                    <p className="font-poppins text-movieboli-nero/80 mb-6 leading-relaxed">
+                  </div>
+                  <Link href="/festival/ospiti">
+                    <span className="inline-block bg-movieboli-bordeaux text-white font-poppins font-medium px-6 py-3 rounded-xl hover:bg-movieboli-nero transition-all duration-300 group-hover:scale-105">
                       <EditableText 
-                        contentKey="festival.program.description"
-                        defaultValue="Proiezioni, talk, workshop e eventi speciali. Tre giorni di cinema non-stop al Cinema Vittoria, Eboli."
+                        contentKey="festival.guests.cta"
+                        defaultValue="Scopri gli Ospiti"
+                        tag="span"
+                      />
+                    </span>
+                  </Link>
+                </div>
+              </motion.div>
+
+              {/* 3. FILM */}
+              <motion.div
+                className="group bg-white rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 hover:-translate-y-3"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                {/* Header con sfondo scorrevole delle locandine film reali */}
+                <div className="relative h-64 overflow-hidden bg-gradient-to-br from-movieboli-nero/40 to-movieboli-violaPrincipale/50">
+                  {/* Sfondo scorrevole con locandine film reali */}
+                  <div className="absolute inset-0 flex animate-scroll-interval">
+                    <div className="flex min-w-full">
+                      {lungometraggiData.map((film, index) => (
+                        <div key={index} className="w-1/3 h-full relative">
+                          <Image
+                            src={film.foto}
+                            alt={film.nome}
+                            fill
+                            className="object-cover opacity-70"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                          <div className="absolute bottom-4 left-4 text-white">
+                            <h4 className="font-bold text-sm">{film.nome}</h4>
+                            <p className="text-xs opacity-80">{film.data_evento}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    {/* Duplica per loop continuo */}
+                    <div className="flex min-w-full">
+                      {lungometraggiData.map((film, index) => (
+                        <div key={index + 3} className="w-1/3 h-full relative">
+                          <Image
+                            src={film.foto}
+                            alt={film.nome}
+                            fill
+                            className="object-cover opacity-70"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                          <div className="absolute bottom-4 left-4 text-white">
+                            <h4 className="font-bold text-sm">{film.nome}</h4>
+                            <p className="text-xs opacity-80">{film.data_evento}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  
+                  {/* Badge e titolo */}
+                  <div className="absolute top-6 left-6">
+                    <span className="bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-medium text-base px-4 py-2 rounded-full">
+                      <EditableText 
+                        contentKey="festival.films.badge"
+                        defaultValue="Lungometraggi"
+                        tag="span"
+                      />
+                    </span>
+                  </div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <h3 className="font-poppins font-semibold text-3xl text-white mb-3">
+                      <EditableText 
+                        contentKey="festival.films.title"
+                        defaultValue="Film in Programmazione"
+                        tag="span"
+                      />
+                    </h3>
+                    <p className="font-poppins text-white/95 text-lg leading-relaxed">
+                      <EditableText 
+                        contentKey="festival.films.description"
+                        defaultValue="Capolavori del cinema italiano e internazionale"
                         tag="span"
                         multiline={true}
                       />
                     </p>
-                    <Link href="/programma">
-                      <span className="inline-block bg-movieboli-nero text-movieboli-crema font-poppins font-medium px-5 py-2 rounded-lg hover:bg-movieboli-violaPrincipale transition-colors duration-300">
-                        <EditableText 
-                          contentKey="festival.program.cta"
-                          defaultValue="Vedi Programma"
-                          tag="span"
-                        />
-                      </span>
-                    </Link>
                   </div>
-                </motion.div>
-              </div>
+                </div>
+                
+                {/* Contenuto */}
+                <div className="p-8">
+                  <div className="mb-6">
+                    <h4 className="font-poppins font-semibold text-lg text-movieboli-nero mb-3">
+                      <EditableText 
+                        contentKey="festival.films.list_title"
+                        defaultValue="Film Selezionati:"
+                        tag="span"
+                      />
+                    </h4>
+                    <div className="space-y-3 text-sm">
+                      {lungometraggiData.map((film, index) => (
+                        <div key={index} className="bg-movieboli-crema/30 p-3 rounded-lg">
+                          <p className="font-medium text-movieboli-nero">{film.nome}</p>
+                          <p className="text-movieboli-nero/70">{film.data_evento}</p>
+                          <p className="text-movieboli-nero/60 text-xs mt-1 line-clamp-2">{film.bio}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="font-poppins text-movieboli-nero/80 mb-6 leading-relaxed">
+                    <EditableText 
+                      contentKey="festival.films.description_long"
+                      defaultValue="Proiezioni speciali di capolavori del cinema italiano e internazionale selezionati per il festival."
+                      tag="span"
+                      multiline={true}
+                    />
+                  </p>
+                  <Link href="/programma">
+                    <span className="inline-block bg-movieboli-nero text-white font-poppins font-medium px-6 py-3 rounded-xl hover:bg-movieboli-violaPrincipale transition-all duration-300 group-hover:scale-105">
+                      <EditableText 
+                        contentKey="festival.films.cta"
+                        defaultValue="Vedi Programma Film"
+                        tag="span"
+                      />
+                    </span>
+                  </Link>
+                </div>
+              </motion.div>
+
+              {/* 4. PROGRAMMA */}
+              <motion.div
+                className="group bg-white rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 hover:-translate-y-3"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                viewport={{ once: true }}
+              >
+                {/* Header con sfondo scorrevole del programma */}
+                <div className="relative h-64 overflow-hidden bg-gradient-to-br from-movieboli-violaPrincipale/40 to-movieboli-crema/50">
+                  {/* Sfondo scorrevole con elementi del programma */}
+                  <div className="absolute inset-0 flex animate-scroll-fast">
+                    <div className="flex min-w-full">
+                      <div className="w-1/3 h-full relative bg-gradient-to-br from-movieboli-nero/60 to-movieboli-bordeaux/60 flex items-center justify-center">
+                        <div className="text-center text-white">
+                          <h4 className="font-bold text-lg">22 AGO</h4>
+                          <p className="text-sm opacity-80">Apertura</p>
+                        </div>
+                      </div>
+                      <div className="w-1/3 h-full relative bg-gradient-to-br from-movieboli-bordeaux/60 to-movieboli-violaPrincipale/60 flex items-center justify-center">
+                        <div className="text-center text-white">
+                          <h4 className="font-bold text-lg">23 AGO</h4>
+                          <p className="text-sm opacity-80">Masterclass</p>
+                        </div>
+                      </div>
+                      <div className="w-1/3 h-full relative bg-gradient-to-br from-movieboli-violaPrincipale/60 to-movieboli-nero/60 flex items-center justify-center">
+                        <div className="text-center text-white">
+                          <h4 className="font-bold text-lg">24 AGO</h4>
+                          <p className="text-sm opacity-80">Premiazione</p>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Duplica per loop continuo */}
+                    <div className="flex min-w-full">
+                      <div className="w-1/3 h-full relative bg-gradient-to-br from-movieboli-crema/60 to-movieboli-nero/60 flex items-center justify-center">
+                        <div className="text-center text-white">
+                          <h4 className="font-bold text-lg">19:30</h4>
+                          <p className="text-sm opacity-80">Proiezioni</p>
+                        </div>
+                      </div>
+                      <div className="w-1/3 h-full relative bg-gradient-to-br from-movieboli-nero/60 to-movieboli-crema/60 flex items-center justify-center">
+                        <div className="text-center text-white">
+                          <h4 className="font-bold text-lg">21:00</h4>
+                          <p className="text-sm opacity-80">Q&A</p>
+                        </div>
+                      </div>
+                      <div className="w-1/3 h-full relative bg-gradient-to-br from-movieboli-bordeaux/60 to-movieboli-violaPrincipale/60 flex items-center justify-center">
+                        <div className="text-center text-white">
+                          <h4 className="font-bold text-lg">22:00</h4>
+                          <p className="text-sm opacity-80">Eventi</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  
+                  {/* Badge e titolo */}
+                  <div className="absolute top-6 left-6">
+                    <span className="bg-movieboli-nero text-movieboli-crema font-poppins font-medium text-base px-4 py-2 rounded-full">
+                      <EditableText 
+                        contentKey="festival.program.dates"
+                        defaultValue="22-23-24 Agosto"
+                        tag="span"
+                      />
+                    </span>
+                  </div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <h3 className="font-poppins font-semibold text-3xl text-white mb-3">
+                      <EditableText 
+                        contentKey="festival.program.title"
+                        defaultValue="Programma Completo"
+                        tag="span"
+                      />
+                    </h3>
+                    <p className="font-poppins text-white/95 text-lg leading-relaxed">
+                      <EditableText 
+                        contentKey="festival.program.description_short"
+                        defaultValue="Tre giorni di cinema non-stop"
+                        tag="span"
+                        multiline={true}
+                      />
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Contenuto */}
+                <div className="p-8">
+                  <div className="space-y-3 mb-6">
+                    <p className="text-movieboli-nero/80">
+                      • <span className="font-medium">19:30</span> - Apertura e Contest Cortometraggi
+                    </p>
+                    <p className="text-movieboli-nero/80">
+                      • <span className="font-medium">21:00</span> - Interviste e Q&A con gli ospiti
+                    </p>
+                    <p className="text-movieboli-nero/80">
+                      • <span className="font-medium">21:30</span> - Proiezioni Film
+                    </p>
+                  </div>
+                  <p className="font-poppins text-movieboli-nero/80 mb-6 leading-relaxed">
+                    <EditableText 
+                      contentKey="festival.program.description"
+                      defaultValue="Tre giorni di cinema non-stop all'Arena di Sant'Antonio ad Eboli."
+                      tag="span"
+                      multiline={true}
+                    />
+                  </p>
+                  <Link href="/programma">
+                    <span className="inline-block bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-medium px-6 py-3 rounded-xl hover:bg-movieboli-nero hover:text-white transition-all duration-300 group-hover:scale-105">
+                      <EditableText 
+                        contentKey="festival.program.cta"
+                        defaultValue="Vedi Programma"
+                        tag="span"
+                      />
+                    </span>
+                  </Link>
+                </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -626,6 +821,8 @@ const FestivalPage = () => {
         {/* Sezione Vota - Riprogettata con bacio.png */}
         <section id="vota" className="relative py-24 bg-movieboli-nero overflow-hidden">
           {/* Background con bacio.png migliorato */}
+          {/* Rimuovo anche il background nella sezione vota */}
+          {/* 
           <div className="absolute inset-0 opacity-20">
             <Image
               src="/images/bacio.png"
@@ -635,6 +832,7 @@ const FestivalPage = () => {
               className="object-cover object-center filter brightness-75"
             />
           </div>
+          */}
           
           {/* Overlay gradient migliorato */}
           <div className="absolute inset-0 bg-gradient-to-br from-movieboli-nero/90 via-movieboli-nero/85 to-movieboli-bordeaux/70"></div>

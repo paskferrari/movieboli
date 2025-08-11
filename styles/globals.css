@@ -68,3 +68,80 @@ a {
 .animation-delay-1000 {
   animation-delay: 1000ms;
 }
+
+/* Animazioni per sfondi scorrevoli delle card */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-slow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-reverse {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-fast {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Nuova animazione a intervalli per i film */
+@keyframes scroll-interval {
+  0%, 20% {
+    transform: translateX(0);
+  }
+  25%, 45% {
+    transform: translateX(-33.33%);
+  }
+  50%, 70% {
+    transform: translateX(-66.66%);
+  }
+  75%, 95% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+
+.animate-scroll-slow {
+  animation: scroll-slow 25s linear infinite;
+}
+
+.animate-scroll-reverse {
+  animation: scroll-reverse 18s linear infinite;
+}
+
+.animate-scroll-fast {
+  animation: scroll-fast 15s linear infinite;
+}
+
+/* Nuova classe per animazione a intervalli */
+.animate-scroll-interval {
+  animation: scroll-interval 12s ease-in-out infinite;
+}

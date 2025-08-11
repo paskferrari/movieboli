@@ -15,7 +15,7 @@ import Navbar from '../../components/layout/Navbar'
 
 const OspitiPage = () => {
   const [pageLoading, setPageLoading] = useState(true);
-  const [activeDay, setActiveDay] = useState('22 agosto');
+  const [activeDay, setActiveDay] = useState('22 agosto'); // Cambiato da 'giovedi'
   const [selectedGuest, setSelectedGuest] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -44,21 +44,22 @@ const OspitiPage = () => {
 
   const { getContent } = useContent();
   
+  // Corretto il mapping dei giorni
   const days = [
     { 
-      id: 'giovedi', 
-      label: getContent('guests.day1', 'Giovedì 22'),
-      date: '22 Agosto' 
+      id: '22 agosto', // Cambiato da 'giovedi'
+      label: 'Giovedì 22 Agosto',
+      title: 'Serata di Apertura'
     },
     { 
-      id: 'venerdi', 
-      label: getContent('guests.day2', 'Venerdì 23'),
-      date: '23 Agosto' 
+      id: '23 agosto', // Cambiato da 'venerdi'
+      label: 'Venerdì 23 Agosto',
+      title: 'Intervista a Mario Martone'
     },
     { 
-      id: 'sabato', 
-      label: getContent('guests.day3', 'Sabato 24'),
-      date: '24 Agosto' 
+      id: '24 agosto', // Cambiato da 'sabato'
+      label: 'Sabato 24 Agosto',
+      title: 'Intervista ad Alessandro Rak'
     }
   ];
 
@@ -266,49 +267,54 @@ const OspitiPage = () => {
                   </h2>
                 </div>
                 
-                {/* Griglia Ospiti */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Griglia Ospiti - Card più grandi */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                   {ospitiByday[activeDay]?.map((ospite, index) => (
                     <motion.div
                       key={ospite.nome}
-                      className="bg-movieboli-bordeaux/10 rounded-2xl p-6 border border-movieboli-violaPrincipale/20 hover:border-movieboli-violaPrincipale/40 transition-all duration-300 cursor-pointer"
+                      className="bg-movieboli-bordeaux/10 rounded-3xl p-8 border border-movieboli-violaPrincipale/20 hover:border-movieboli-violaPrincipale/40 transition-all duration-300 cursor-pointer shadow-2xl hover:shadow-movieboli-violaPrincipale/20"
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       onClick={() => setSelectedGuest(ospite)}
-                      whileHover={{ scale: 1.02 }}
+                      whileHover={{ scale: 1.03, y: -5 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      {/* Foto Ospite */}
-                      <div className="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-movieboli-violaPrincipale/30">
+                      {/* Foto Ospite - Molto più grande */}
+                      <div className="relative w-56 h-56 mx-auto mb-8 rounded-full overflow-hidden border-6 border-movieboli-violaPrincipale/40 shadow-2xl">
                         <Image
                           src={ospite.foto}
                           alt={ospite.nome}
                           fill
-                          sizes="96px"
-                          className="object-cover"
+                          sizes="224px"
+                          className="object-cover hover:scale-110 transition-transform duration-500"
                           onError={(e) => {
                             e.currentTarget.src = '/images/default-avatar.jpg'
                           }}
                         />
+                        {/* Overlay gradiente */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-movieboli-nero/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                       </div>
                       
-                      {/* Info Ospite */}
+                      {/* Info Ospite - Testo più grande */}
                       <div className="text-center">
-                        <h3 className="text-xl font-bold text-movieboli-violaPrincipale mb-2">
+                        <h3 className="text-3xl font-bold text-movieboli-violaPrincipale mb-4 leading-tight">
                           {ospite.nome}
                         </h3>
-                        <p className="text-movieboli-crema/80 text-sm mb-4 line-clamp-3">
+                        <p className="text-movieboli-crema/80 text-base mb-6 leading-relaxed line-clamp-4">
                           {ospite.bio}
                         </p>
-                        <button className="text-movieboli-violaPrincipale font-semibold text-sm hover:text-movieboli-rosaPastello transition-colors">
-                          Leggi di più →
+                        <button className="text-movieboli-violaPrincipale font-semibold text-lg hover:text-movieboli-rosaPastello transition-colors duration-300 flex items-center justify-center mx-auto group">
+                          <span>Leggi di più</span>
+                          <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
                         </button>
                       </div>
                     </motion.div>
                   ))}
                 </div>
-                
+
                 {/* Messaggio se non ci sono ospiti */}
                 {(!ospitiByday[activeDay] || ospitiByday[activeDay].length === 0) && (
                   <div className="text-center py-16">

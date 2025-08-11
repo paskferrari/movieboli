@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import Image from 'next/image'
+import EditableText from '../components/ui/EditableText'
+import { useContent } from '../contexts/ContentContext'
 
 // Importa i dati dei film con gestione errori
 let filmData = []

@@ -32,28 +32,88 @@ const StarRating = ({ rating, onRatingChange, readonly = false, isSaving = false
     }
   }
 
+  const handleHalfStarClick = (starIndex, isLeftHalf) => {
+    if (!readonly && onRatingChange && !isSaving) {
+      const newRating = isLeftHalf ? starIndex - 0.5 : starIndex
+      onRatingChange(newRating)
+    }
+  }
+
+  const handleHalfStarHover = (starIndex, isLeftHalf) => {
+    if (!readonly && !isSaving) {
+      const newRating = isLeftHalf ? starIndex - 0.5 : starIndex
+      setHoverRating(newRating)
+    }
+  }
+
+  const getStarDisplay = (starIndex, currentRating) => {
+    if (currentRating >= starIndex) {
+      return 'full' // Stella piena
+    } else if (currentRating >= starIndex - 0.5) {
+      return 'half' // Mezza stella
+    } else {
+      return 'empty' // Stella vuota
+    }
+  }
+
   return (
     <div className="flex items-center gap-2">
       <div className="flex items-center space-x-1" onMouseLeave={handleMouseLeave}>
         {[1, 2, 3, 4, 5].map((star) => {
-          const isFilled = star <= (hoverRating || rating)
+          const currentRating = hoverRating || rating
+          const starDisplay = getStarDisplay(star, currentRating)
+          
           return (
-            <motion.button
+            <motion.div
               key={star}
-              type="button"
-              onClick={() => handleStarClick(star)}
-              onMouseEnter={() => handleStarHover(star)}
-              disabled={readonly || isSaving}
-              className={`text-2xl transition-all duration-200 ${
-                readonly || isSaving ? 'cursor-default' : 'cursor-pointer hover:scale-110'
-              } ${isFilled ? 'text-movieboli-violaPrincipale' : 'text-movieboli-crema/30'} ${
-                isSaving ? 'opacity-50' : ''
-              }`}
+              className="relative cursor-pointer"
               whileHover={!readonly && !isSaving ? { scale: 1.1 } : {}}
               whileTap={!readonly && !isSaving ? { scale: 0.95 } : {}}
             >
-              ★
-            </motion.button>
+              {/* Stella di base (vuota) */}
+              <div className={`text-2xl transition-all duration-200 ${
+                readonly || isSaving ? 'cursor-default' : 'cursor-pointer'
+              } text-movieboli-crema/30 ${
+                isSaving ? 'opacity-50' : ''
+              }`}>
+                ★
+              </div>
+              
+              {/* Overlay per mezza stella (sinistra) */}
+              {starDisplay === 'half' && (
+                <div 
+                  className="absolute inset-0 overflow-hidden text-2xl text-movieboli-violaPrincipale transition-all duration-200"
+                  style={{ width: '50%' }}
+                >
+                  ★
+                </div>
+              )}
+              
+              {/* Overlay per stella piena */}
+              {starDisplay === 'full' && (
+                <div className="absolute inset-0 text-2xl text-movieboli-violaPrincipale transition-all duration-200">
+                  ★
+                </div>
+              )}
+              
+              {/* Area cliccabile per mezza stella sinistra */}
+              <button
+                type="button"
+                className="absolute left-0 top-0 w-1/2 h-full z-10"
+                onClick={() => handleHalfStarClick(star, true)}
+                onMouseEnter={() => handleHalfStarHover(star, true)}
+                disabled={readonly || isSaving}
+              />
+              
+              {/* Area cliccabile per stella intera */}
+              <button
+                type="button"
+                className="absolute right-0 top-0 w-1/2 h-full z-10"
+                onClick={() => handleHalfStarClick(star, false)}
+                onMouseEnter={() => handleHalfStarHover(star, false)}
+                disabled={readonly || isSaving}
+              />
+            </motion.div>
           )
         })}
       </div>
@@ -329,16 +389,22 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                   <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span>{cortometraggi.length} cortometraggi in gara</span>
+                  <span>
+                    <EditableText 
+                      contentKey="vote.rating_system"
+                      defaultValue="Sistema di rating a 5 stelle con mezze stelle"
+                      tag="span"
+                    />
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   <span>
                     <EditableText 
                       contentKey="vote.rating_system"
-                      defaultValue="Sistema di rating a 5 stelle"
+                      defaultValue="Sistema di rating a 5 stelle con mezze stelle"
                       tag="span"
                     />
                   </span>
@@ -482,7 +548,7 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                       <div className="mb-4">
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-sm font-medium text-movieboli-crema/80">
-                            {currentRating > 0 ? `La tua valutazione: ${currentRating}/5` : 
+                            {currentRating > 0 ? `La tua valutazione: ${currentRating}/10` : 
                               getContent('vote.rating.label', 'Valuta questo cortometraggio')
                             }
                           </span>

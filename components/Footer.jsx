@@ -172,21 +172,21 @@ const Footer = () => {
               <li className="flex items-start space-x-2">
                 <span className="text-movieboli-accent mt-0.5">📍</span>
                 <div>
-                  <p>Via del Cinema, 1</p>
-                  <p>84025 Eboli (SA)</p>
+                  <p>Via Apollo XI, n.51</p>
+                  <p>Eboli (SA)</p>
                 </div>
               </li>
               <li className="flex items-center space-x-2">
                 <span className="text-movieboli-accent">📞</span>
-                <span>+39 0828 123456</span>
+                <span>3333803485</span>
               </li>
               <li className="flex items-center space-x-2">
                 <span className="text-movieboli-accent">✉️</span>
                 <a 
-                  href="mailto:info@movieboli.it" 
+                  href="mailto:movieboliaps@gmail.com" 
                   className="hover:text-white transition-colors duration-300"
                 >
-                  info@movieboli.it
+                  movieboliaps@gmail.com
                 </a>
               </li>
             </ul>
