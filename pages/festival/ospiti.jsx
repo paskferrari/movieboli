@@ -342,16 +342,16 @@ const OspitiPage = () => {
               </h3>
               <p className="text-movieboli-crema/80 mb-6 max-w-2xl mx-auto">
                 Ogni serata prevede la proiezione di cortometraggi selezionati seguita da un incontro con l'ospite speciale. 
-                Gli incontri includono masterclass, Q&A con il pubblico e momenti di networking.
+                Gli incontri includono Q&A con il pubblico e momenti di networking.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                 <div className="bg-movieboli-violaPrincipale/10 rounded-lg p-4">
                   <div className="font-semibold text-movieboli-violaPrincipale mb-1">Orario</div>
-                  <div className="text-movieboli-crema/80">20:00 - 23:00</div>
+                  <div className="text-movieboli-crema/80">21:00</div>
                 </div>
                 <div className="bg-movieboli-violaPrincipale/10 rounded-lg p-4">
                   <div className="font-semibold text-movieboli-violaPrincipale mb-1">Luogo</div>
-                  <div className="text-movieboli-crema/80">Cinema Vittoria</div>
+                  <div className="text-movieboli-crema/80">Arena di sant'antonio</div>
                 </div>
                 <div className="bg-movieboli-violaPrincipale/10 rounded-lg p-4">
                   <div className="font-semibold text-movieboli-violaPrincipale mb-1">Ingresso</div>
