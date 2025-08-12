@@ -1,12 +1,14 @@
 'use client'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { motion, AnimatePresence } from 'framer-motion'
-import Navbar from '../components/layout/Navbar'
-import Footer from '../components/layout/Footer'
+import Navbar from '../../components/Navbar'
+import Footer from '../../components/Footer'
 import Image from 'next/image'
-import EditableText from '../components/ui/EditableText'
-import { useContent } from '../contexts/ContentContext'
+// Rimuovo EditableText se non necessario o uso un componente semplice
+// import EditableText from '../../components/ui/EditableText'
+// Rimuovo useContent se non necessario
+// import { useContent } from '../../contexts/ContentContext'
 
 // Importa i dati dei film con gestione errori
 let filmData = []
@@ -67,7 +69,8 @@ const Modal = ({ isOpen, onClose, children }) => {
 }
 
 const Programma = () => {
-  const { content } = useContent()
+  // Rimuovo useContent dato che l'importazione è commentata
+  // const { content } = useContent()
   const [isVisible, setIsVisible] = useState(false)
   const [activeDay, setActiveDay] = useState('Giovedì 22 Agosto')
   const [activeCategory, setActiveCategory] = useState('tutti')
@@ -220,11 +223,11 @@ const Programma = () => {
       {
         orario: "20:00",
         titolo: "Seconda Serata",
-        sottotitolo: "Cortometraggi d'Autore",
+        sottotitolo: "Primo giorno del contest internazionale di cortometraggi",
         tipo: "cortometraggi",
         categoria: "proiezione",
         luogo: "Arena di Sant'Antonio",
-        descrizione: "Cortometraggi che esplorano temi profondi attraverso linguaggi cinematografici innovativi",
+        descrizione: "",
         cortometraggi: [
           { titolo: "JUS D'ORANGE", regista: "Alexandre Athané", paese: "Francia", durata: "13:45 min" },
           { titolo: "SHARING IS CARING", regista: "Vincenzo Mauro", paese: "Italia", durata: "15:00 min" },
@@ -233,10 +236,10 @@ const Programma = () => {
       },
       {
         orario: "21:00",
-        titolo: "Masterclass",
+        titolo: "Intervista",
         sottotitolo: "con Mario Martone",
-        tipo: "incontro",
-        categoria: "formazione",
+        tipo: "Intervista",
+        categoria: "ospiti",
         luogo: "Arena di Sant'Antonio",
         ospite: "Mario Martone",
         descrizione: "Un'occasione unica per ascoltare uno dei più grandi registi del cinema italiano contemporaneo"
@@ -257,17 +260,24 @@ const Programma = () => {
     ],
     "Sabato 24 Agosto": [
       {
-        orario: "20:15",
+        orario: "20:00",
         titolo: "Cerimonia di Premiazione",
         sottotitolo: "Cortometraggi Vincitori",
         tipo: "premiazione",
         categoria: "evento",
         luogo: "Arena di Sant'Antonio",
-        descrizione: "La serata finale con la premiazione dei cortometraggi vincitori del concorso internazionale"
+        descrizione: "La serata finale con la premiazione dei cortometraggi vincitori del concorso internazionale",
+        premi: [
+          "Miglior cortometraggio",
+          "Premio del pubblico",
+          "Miglior regia",
+          "Miglior performance",
+          "Premio contest artistico"
+        ]
       },
       {
         orario: "21:00",
-        titolo: "Incontro Speciale",
+        titolo: "Intervista e Q&A",
         sottotitolo: "con Alessandro Rak",
         tipo: "incontro",
         categoria: "formazione",
@@ -275,17 +285,9 @@ const Programma = () => {
         ospite: "Alessandro Rak",
         descrizione: "Il maestro dell'animazione italiana racconta il suo universo creativo"
       },
+      
       {
         orario: "21:30",
-        titolo: "Momento Musicale",
-        sottotitolo: "Tributo alle Colonne Sonore",
-        tipo: "evento",
-        categoria: "evento",
-        luogo: "Arena di Sant'Antonio",
-        descrizione: "Un tributo alle colonne sonore che hanno fatto la storia del cinema"
-      },
-      {
-        orario: "21:45",
         titolo: "L'Arte della Felicità",
         sottotitolo: "Film di Alessandro Rak",
         tipo: "film",
@@ -516,7 +518,7 @@ const Programma = () => {
         <meta name="description" content="Scopri il programma completo del MOVIEBOLI Film Festival 2025: cortometraggi, ospiti speciali e proiezioni dal 22 al 24 agosto." />
       </Head>
 
-      <Navbar />
+      <Navbar variant="light" />
 
       <main className="min-h-screen bg-slate-50">
         {/* Hero Section */}
@@ -530,48 +532,28 @@ const Programma = () => {
               className="text-center max-w-4xl mx-auto"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900">
-                <EditableText 
-                  contentKey="program.title"
-                  defaultValue="Programma Festival 2025"
-                  tag="span"
-                />
+                Programma Festival 2025
               </h1>
               <p className="text-xl md:text-2xl text-slate-700 mb-8 leading-relaxed">
-                <EditableText 
-                  contentKey="program.subtitle"
-                  defaultValue="Tre giorni di cinema d'autore con cortometraggi internazionali e grandi maestri del cinema italiano"
-                  tag="span"
-                />
+                Tre giorni di cinema d'autore con cortometraggi internazionali e grandi maestri del cinema italiano
               </p>
               <div className="flex flex-wrap justify-center gap-6 text-slate-600">
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm rounded-lg px-4 py-2 border border-slate-200">
                   <span className="text-xl">📅</span>
                   <span className="font-medium">
-                    <EditableText 
-                      contentKey="program.dates"
-                      defaultValue="22-24 Agosto 2025"
-                      tag="span"
-                    />
+                    22-23-24 Agosto 2025
                   </span>
                 </div>
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm rounded-lg px-4 py-2 border border-slate-200">
                   <span className="text-xl">📍</span>
                   <span className="font-medium">
-                    <EditableText 
-                      contentKey="program.location"
-                      defaultValue="Arena di Sant'Antonio, Eboli"
-                      tag="span"
-                    />
+                    Arena di Sant'Antonio, Eboli
                   </span>
                 </div>
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm rounded-lg px-4 py-2 border border-slate-200">
                   <span className="text-xl">🎬</span>
                   <span className="font-medium">
-                    <EditableText 
-                      contentKey="program.films_count"
-                      defaultValue="8 Cortometraggi in Concorso"
-                      tag="span"
-                    />
+                    8 Cortometraggi in Concorso
                   </span>
                 </div>
               </div>
@@ -748,6 +730,24 @@ const Programma = () => {
                                     <p className="text-slate-600 leading-relaxed">{evento.descrizione}</p>
                                   </div>
                                 </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Premiazione */}
+                          {evento.tipo === 'premiazione' && evento.premi && (
+                            <div className="mt-6">
+                              <h4 className="text-xl font-semibold text-slate-900 mb-6 flex items-center">
+                                <span className="text-2xl mr-3">🏆</span>
+                                Si annunciano i vincitori
+                              </h4>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {evento.premi.map((premio, idx) => (
+                                  <div key={idx} className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white rounded-lg p-4 shadow-lg flex items-center">
+                                    <span className="text-2xl mr-3">🥇</span>
+                                    <span className="font-semibold">{premio}</span>
+                                  </div>
+                                ))}
                               </div>
                             </div>
                           )}

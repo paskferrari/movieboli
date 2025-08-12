@@ -49,17 +49,17 @@ const OspitiPage = () => {
     { 
       id: '22 agosto', // Cambiato da 'giovedi'
       label: 'Giovedì 22 Agosto',
-      title: 'Serata di Apertura'
+      title: 'Intervista'
     },
     { 
       id: '23 agosto', // Cambiato da 'venerdi'
       label: 'Venerdì 23 Agosto',
-      title: 'Intervista a Mario Martone'
+      title: 'Intervista'
     },
     { 
       id: '24 agosto', // Cambiato da 'sabato'
       label: 'Sabato 24 Agosto',
-      title: 'Intervista ad Alessandro Rak'
+      title: 'Intervista'
     }
   ];
 

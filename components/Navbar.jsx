@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import EditableText from './ui/EditableText';
 
-const Navbar = () => {
+const Navbar = ({ variant = 'light' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
@@ -50,16 +50,13 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Aggiungi questa logica per il contrasto all'interno del componente
+  const navbarClasses = variant === 'dark' 
+    ? 'bg-slate-900 text-white' 
+    : 'bg-white text-slate-900';
+
   return (
-    <motion.nav 
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      isScrolled 
-        ? 'bg-movieboli-black/90 backdrop-blur-md shadow-lg border-b border-movieboli-accent/30' 
-        : 'bg-transparent'
-    }`}>
+    <motion.nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navbarClasses}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo - Solo immagine senza sfondo */}
