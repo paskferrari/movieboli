@@ -16,6 +16,18 @@ const demoContent = {
   'nav.vote': 'Vota',
   'nav.book': 'Prenota',
 
+  // Festival Navigation (aggiunte)
+  'festival.nav.films': 'Film',
+
+  // Film Page Meta & Labels (aggiunte)
+  'films.meta.title': 'Film del Festival 2025 | MOVIEBOLI Festival',
+  'films.meta.description': 'Scopri i film in programmazione al MOVIEBOLI Film Festival 2025: lungometraggi selezionati e proiezioni speciali.',
+  'films.title': 'Film in Programmazione al MOVIEBOLI Film Festival 2025',
+  'films.subtitle': 'Tre serate indimenticabili con i migliori film del cinema italiano contemporaneo',
+  'films.dates': '22-24 Agosto 2025 • Cinema Vittoria di Eboli',
+  'films.back': 'Torna al Festival',
+  'films.loading.message': 'Caricamento film...',
+
   // Hero Section
   'hero.title': 'MOVIEBOLI',
   'hero.subtitle': 'Cinema. Cultura. Creatività.',
@@ -118,7 +130,7 @@ const demoContent = {
   
   // Program Page
   'program.title': 'Programma Festival',
-  'program.subtitle': 'Tre giorni di cinema, cortometraggi e ospiti speciali dal 22 al 24 agosto 2025',
+  'program.subtitle': 'Tre giorni ricchi di cinema, cortometraggi, film e grandi ospiti.',
   'program.meta.title': 'Programma Festival | MoviEboli Film Festival 2025',
   'program.meta.description': 'Programma completo del MoviEboli Film Festival 2025 - 22-24 Agosto. Cortometraggi, ospiti speciali e eventi.',
   'program.download.title': 'Programma Completo',
@@ -363,7 +375,7 @@ const demoContent = {
   
   // Program Page
   'program.title': 'Programma Festival',
-  'program.subtitle': 'Tre giorni di cinema, cortometraggi e ospiti speciali dal 22 al 24 agosto 2025',
+  'program.subtitle': 'Tre giorni ricchi di cinema, cortometraggi, film e grandi ospiti.',
   'program.meta.title': 'Programma Festival | MoviEboli Film Festival 2025',
   'program.meta.description': 'Programma completo del MoviEboli Film Festival 2025 - 22-24 Agosto. Cortometraggi, ospiti speciali e eventi.',
   'program.download.title': 'Programma Completo',
@@ -371,10 +383,20 @@ const demoContent = {
   'program.download.button': 'Scarica PDF',
   'program.loading.message': 'Caricamento programma...',
   'program.filter.all': 'Tutti gli eventi',
-  'program.filter.films': 'Proiezioni',
-  'program.filter.talks': 'Incontri',
-  'program.filter.workshops': 'Workshop',
-  'program.filter.special': 'Eventi speciali',
+'program.filter.screenings': 'Cortometraggi',
+'program.filter.masterclass': 'Ospiti',
+'program.filter.events': 'Film',
+  
+  // Program Labels
+  'program.label.director': 'REGIA',
+  'program.label.duration': 'DURATA',
+  'program.label.location': 'LUOGO',
+  'program.label.guests': 'Ospiti:',
+  'program.label.shortfilms': 'Cortometraggi in programma:',
+  
+  // Program No Events
+  'program.noevents.title': 'Nessun evento trovato',
+  'program.noevents.description': 'Non ci sono eventi per questa categoria nel giorno selezionato.',
   
   // Guests Page
   'guests.title': 'Ospiti del Festival',
@@ -434,29 +456,21 @@ const demoContent = {
   'event.type.dibattito': 'DIBATTITO',
   'event.type.presentazione': 'PRESENTAZIONE',
   
-  // Footer
-  'footer.copyright': '© 2025 MovieBoli APS. Tutti i diritti riservati.',
-  'footer.description': 'Associazione di promozione sociale dedicata alla cultura cinematografica e artistica nel territorio di Eboli.',
-  'footer.links.title': 'Link Utili',
-  'footer.links.about': 'Chi Siamo',
-  'footer.links.activities': 'Attività',
-  'footer.links.festival': 'Festival',
-  'footer.links.podcast': 'Podcast',
-  'footer.links.contact': 'Contatti',
-  'footer.links.privacy': 'Privacy Policy',
-  'footer.links.terms': 'Termini di Servizio',
-  'footer.contact.title': 'Contatti',
-  'footer.contact.address': 'Via del Cinema, 1 - 84025 Eboli (SA)',
-  'footer.contact.phone': '+39 0828 123456',
-  'footer.contact.email': 'info@movieboli.it',
+  // Footer Festival Specific
+  'footer.festival.name': 'MoviEboli',
+  'footer.festival.dates': 'Date: 22-24 Agosto 2025',
+  'footer.festival.location': 'Luogo: Cinema Vittoria, Eboli (SA)',
+  'footer.festival.organizer': 'Organizzato da: MOVIEBOLI Associazione Culturale',
+  'footer.contacts.title': 'Contatti',
+  'footer.contacts.email': 'Email: info@movieboli.it',
+  'footer.contacts.press': 'Stampa: stampa@movieboli.it',
+  'footer.contacts.tickets': 'Biglietti: Cinema Vittoria Eboli',
   'footer.social.title': 'Seguici',
-  'footer.newsletter.title': 'Newsletter',
-  'footer.newsletter.description': 'Iscriviti per ricevere aggiornamenti sul festival e sugli eventi speciali.',
-  'footer.newsletter.button': 'Iscriviti',
-  'footer.newsletter.placeholder': 'La tua email',
-  'footer.newsletter.success': 'Iscrizione completata!',
-  'footer.newsletter.error': 'Errore nell\'iscrizione',
-  'footer.quote': '"Il cinema è un sogno collettivo che ci unisce attraverso storie universali"',
+  'footer.social.instagram': 'Instagram',
+  'footer.social.facebook': 'Facebook',
+  'footer.links.festival': 'Festival Home',
+  'footer.links.about': 'Chi Siamo',
+  'footer.copyright': '© 2025 MoviEboli Film Festival - MOVIEBOLI Associazione Culturale',
   
   // Contact
   'contact.title': 'Contattaci',

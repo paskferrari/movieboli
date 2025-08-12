@@ -1,251 +1,50 @@
-import { useState } from 'react';
-import Head from 'next/head';
-import { BrandingProvider } from '../contexts/BrandingContext';
+
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import EditableText from '../components/ui/EditableText';
+import Head from 'next/head';
 
+// Componente Hero della pagina Podcast
 const PodcastHero = () => {
-  return (
-    <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-movieboli-primary-900 via-movieboli-primary-800 to-movieboli-secondary-900 overflow-hidden">
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
-      </div>
-      
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-        <div className="mb-8">
-          <div className="w-32 h-32 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-8">
-            <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.816L4.846 14H2a1 1 0 01-1-1V7a1 1 0 011-1h2.846l3.537-2.816z" clipRule="evenodd" />
-              <path d="M15.025 7.05a3.5 3.5 0 010 5.9m2.121-7.778a6.5 6.5 0 010 9.556" />
-            </svg>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="block text-movieboli-accent-400">
-              <EditableText 
-                contentKey="podcast_hero_title" 
-                defaultText="Ciliegie" 
-                tag="span"
-              />
-            </span>
-            <span className="block text-3xl md:text-5xl font-normal text-movieboli-secondary-100 mt-2">
-              <EditableText 
-                contentKey="podcast_hero_subtitle" 
-                defaultText="Podcast" 
-                tag="span"
-              />
-            </span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-movieboli-neutral-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            <EditableText 
-              contentKey="podcast_hero_description" 
-              defaultText="Il podcast di MOVIEBOLI APS dedicato al cinema, alle interviste esclusive e alle discussioni culturali che fanno la differenza." 
-              tag="span"
-            />
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a 
-              href="#episodi" 
-              className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <EditableText 
-                contentKey="podcast_hero_cta_episodes" 
-                defaultText="🎧 Ascolta gli Episodi" 
-                tag="span"
-              />
-            </a>
-            <a 
-              href="#prenotazione" 
-              className="bg-movieboli-secondary-600 hover:bg-movieboli-secondary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <EditableText 
-                contentKey="podcast_hero_cta_booking" 
-                defaultText="📹 Prenota Riprese Live" 
-                tag="span"
-              />
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+  const [isVisible, setIsVisible] = useState(false);
 
-const AboutPodcastSection = () => {
-  return (
-    <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-movieboli-primary-900 mb-6">
-              <EditableText 
-                contentKey="podcast_about_title" 
-                defaultText="Cos'è Ciliegie Podcast?" 
-                tag="span"
-              />
-            </h2>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              <EditableText 
-                contentKey="podcast_about_description_1" 
-                defaultText="Ciliegie Podcast è il nostro appuntamento settimanale con il mondo del cinema. Ogni episodio è un viaggio attraverso storie, interviste e analisi approfondite del panorama cinematografico contemporaneo." 
-                tag="span"
-              />
-            </p>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              <EditableText 
-                contentKey="podcast_about_description_2" 
-                defaultText="Il nome Ciliegie rappresenta la dolcezza e l'autenticità delle conversazioni che nascono spontaneamente quando si parla di cinema con passione e competenza." 
-                tag="span"
-              />
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              <EditableText 
-                contentKey="podcast_about_description_3" 
-                defaultText="Dalle produzioni indipendenti ai grandi blockbuster, dalle interviste esclusive con registi emergenti alle analisi dei classici del cinema, ogni episodio offre una prospettiva unica e appassionata." 
-                tag="span"
-              />
-            </p>
-          </div>
-          
-          <div className="relative">
-            <div className="bg-gradient-to-br from-movieboli-accent-100 to-movieboli-secondary-100 rounded-2xl p-8 h-96 flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-6xl mb-4">🎙️</div>
-                <h3 className="text-2xl font-bold text-movieboli-primary-900 mb-2">
-                  <EditableText 
-                    contentKey="podcast_about_frequency_title" 
-                    defaultText="Ogni Settimana" 
-                    tag="span"
-                  />
-                </h3>
-                <p className="text-gray-700 text-lg">
-                  <EditableText 
-                    contentKey="podcast_about_frequency_description" 
-                    defaultText="Nuovi episodi e contenuti esclusivi" 
-                    tag="span"
-                  />
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
-const EpisodiSection = () => {
-  const episodi = [
-    {
-      numero: "#15",
-      titolo: "Il Cinema Indipendente Italiano nel 2024",
-      descrizione: "Un'analisi approfondita delle produzioni indipendenti italiane più interessanti dell'anno.",
-      durata: "45 min",
-      data: "15 Dic 2024",
-      ospite: "Marco Bellocchio Jr."
-    },
-    {
-      numero: "#14",
-      titolo: "Intervista a Sofia Scandurra",
-      descrizione: "La giovane regista campana ci racconta il suo ultimo cortometraggio premiato a Venezia.",
-      durata: "38 min",
-      data: "8 Dic 2024",
-      ospite: "Sofia Scandurra"
-    },
-    {
-      numero: "#13",
-      titolo: "I Festival Cinematografici del Sud Italia",
-      descrizione: "Un viaggio attraverso i festival più importanti del Meridione e il loro impatto culturale.",
-      durata: "52 min",
-      data: "1 Dic 2024",
-      ospite: "Giuseppe Tornatore"
-    },
-    {
-      numero: "#12",
-      titolo: "Cinema e Territorio: Eboli nel Cinema",
-      descrizione: "Come il nostro territorio è stato rappresentato nel cinema italiano e internazionale.",
-      durata: "41 min",
-      data: "24 Nov 2024",
-      ospite: "Laura Delli Colli"
-    }
-  ];
-  
   return (
-    <section id="episodi" className="py-20 bg-movieboli-background">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-movieboli-primary-900 mb-6">
-            <EditableText 
-              contentKey="podcast_episodes_title" 
-              defaultText="Archivio Episodi" 
-              tag="span"
-            />
-          </h2>
-          <div className="w-24 h-1 bg-movieboli-accent-600 mx-auto mb-8" />
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            <EditableText 
-              contentKey="podcast_episodes_description" 
-              defaultText="Scopri i nostri episodi più recenti e immergiti nel mondo del cinema attraverso le nostre conversazioni." 
-              tag="span"
-            />
-          </p>
-        </div>
-        
-        <div className="grid gap-6">
-          {episodi.map((episodio, index) => (
-            <div key={index} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="flex flex-col md:flex-row md:items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center mb-3">
-                    <span className="bg-movieboli-accent-600 text-white px-3 py-1 rounded-full text-sm font-semibold mr-3">
-                      {episodio.numero}
-                    </span>
-                    <span className="text-gray-500 text-sm">{episodio.data}</span>
-                    <span className="text-gray-500 text-sm ml-3">• {episodio.durata}</span>
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-movieboli-primary-900 mb-2">
-                    {episodio.titolo}
-                  </h3>
-                  
-                  <p className="text-gray-700 mb-3 leading-relaxed">
-                    {episodio.descrizione}
-                  </p>
-                  
-                  <div className="flex items-center text-sm text-movieboli-secondary-600">
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                    </svg>
-                    Ospite: {episodio.ospite}
-                  </div>
-                </div>
-                
-                <div className="mt-4 md:mt-0 md:ml-6 flex flex-col sm:flex-row gap-3">
-                  <button className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
-                    ▶ Ascolta
-                  </button>
-                  <button className="border border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-2 rounded-lg font-semibold transition-colors">
-                    📥 Download
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        
-        <div className="text-center mt-12">
+    <section className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-yellow-900 overflow-hidden">
+      {/* Elementi decorativi animati */}
+      <div className="absolute inset-0">
+        <div className={`absolute top-20 left-10 w-32 h-32 bg-yellow-400 rounded-full opacity-20 transform transition-all duration-1000 ${isVisible ? 'scale-100 rotate-45' : 'scale-0'}`}></div>
+        <div className={`absolute bottom-32 right-16 w-24 h-24 bg-white rounded-full opacity-10 transform transition-all duration-1500 ${isVisible ? 'scale-100 -rotate-45' : 'scale-0'}`}></div>
+        <div className={`absolute top-1/2 left-1/4 w-16 h-16 bg-yellow-300 rounded-full opacity-15 transform transition-all duration-2000 ${isVisible ? 'scale-100' : 'scale-0'}`}></div>
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 py-20 flex flex-col items-center justify-center min-h-screen text-center">
+        {/* Titolo principale */}
+        <h1 className={`text-5xl md:text-7xl font-bold text-white mb-6 transform transition-all duration-1200 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <span className="text-yellow-400">Macine</span> Podcast
+        </h1>
+
+        {/* Sottotitolo */}
+        <p className={`text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl transform transition-all duration-1400 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          Il podcast che racconta il cinema attraverso le voci dei suoi protagonisti
+        </p>
+
+        {/* Call to action */}
+        <div className={`flex flex-col sm:flex-row gap-4 transform transition-all duration-1800 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <a 
-            href="#" 
-            className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+            href="#prossimi-episodi" 
+            className="bg-yellow-400 text-black px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
-            <EditableText 
-              contentKey="podcast_episodes_view_all" 
-              defaultText="Vedi Tutti gli Episodi" 
-              tag="span"
-            />
+            Prenota il tuo posto
+          </a>
+          <a 
+            href="#episodi-passati" 
+            className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105"
+          >
+            Ascolta gli episodi
           </a>
         </div>
       </div>
@@ -253,266 +52,406 @@ const EpisodiSection = () => {
   );
 };
 
-const PrenotazioneSection = () => {
-  const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    data: '',
-    note: ''
-  });
-  const [errors, setErrors] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const dateOptions = [
-    { value: '', label: 'Seleziona una data' },
-    { value: '2025-02-15', label: '15 Febbraio 2025' },
-    { value: '2025-02-22', label: '22 Febbraio 2025' },
-    { value: '2025-03-01', label: '1 Marzo 2025' },
-    { value: '2025-03-08', label: '8 Marzo 2025' },
-    { value: '2025-03-15', label: '15 Marzo 2025' },
-    { value: '2025-03-22', label: '22 Marzo 2025' }
-  ];
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.nome.trim()) {
-      newErrors.nome = 'Il nome è obbligatorio';
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'L\'email è obbligatoria';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Inserisci un\'email valida';
-    }
-    
-    if (!formData.data) {
-      newErrors.data = 'Seleziona una data';
-    }
-    
-    return newErrors;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = validateForm();
-    
-    if (Object.keys(newErrors).length === 0) {
-      // Save to console (temporary)
-      console.log('Prenotazione riprese live:', formData);
-      setIsSubmitted(true);
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({ nome: '', email: '', data: '', note: '' });
-      }, 3000);
-    } else {
-      setErrors(newErrors);
-    }
-  };
-
-  if (isSubmitted) {
-    return (
-      <section id="prenotazione" className="py-20 bg-movieboli-background">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
-            <div className="text-6xl mb-6">✅</div>
-            <h2 className="text-3xl font-bold text-movieboli-primary-900 mb-4">
-              <EditableText 
-                contentKey="podcast_booking_success_title" 
-                defaultText="Prenotazione Confermata!" 
-                tag="span"
-              />
+// Sezione Descrizione Podcast
+const DescrizionePodcastSection = () => {
+  return (
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col lg:flex-row items-center gap-12">
+          {/* Logo */}
+          <div className="lg:w-1/3 flex justify-center">
+            <img 
+              src="/images/logomacine.png" 
+              alt="Macine Podcast" 
+              className="w-48 h-48 object-contain"
+            />
+          </div>
+          
+          {/* Descrizione */}
+          <div className="lg:w-2/3">
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
+              MACINE Podcast è arrivato!
             </h2>
-            <p className="text-lg text-gray-700 mb-6">
-              <EditableText 
-                contentKey="podcast_booking_success_description" 
-                defaultText="Grazie per la tua prenotazione. Ti contatteremo presto con tutti i dettagli per partecipare alle riprese live del nostro podcast." 
-                tag="span"
-              />
-            </p>
-            <div className="bg-movieboli-accent-50 border border-movieboli-accent-200 rounded-lg p-4">
-              <p className="text-movieboli-accent-800 font-medium">
-                <EditableText 
-                  contentKey="podcast_booking_success_email_note" 
-                  defaultText="📧 Riceverai una email di conferma a breve" 
-                  tag="span"
-                />
+            <div className="text-lg text-gray-700 leading-relaxed">
+              <p className="mb-4">
+                🎬 Hai presente quelle interviste sul cinema tutte impostate, piene di paroloni e silenzi imbarazzanti? Eccoci. Prodotto da MOVIEBOLI, in ogni puntata chiacchieriamo con professionisti del cinema: registi, attori, montatori, sceneggiatori, tecnici, comparse, ex comparse. Tutto senza prenderci troppo sul serio. (Ma nemmeno troppo poco.)
               </p>
             </div>
           </div>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <section id="prenotazione" className="py-20 bg-movieboli-background">
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-movieboli-primary-900 mb-6">
-            <EditableText 
-              contentKey="podcast_booking_title" 
-              defaultText="Prenota le Riprese Live" 
-              tag="span"
-            />
-          </h2>
-          <div className="w-24 h-1 bg-movieboli-accent-600 mx-auto mb-8" />
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            <EditableText 
-              contentKey="podcast_booking_description" 
-              defaultText="Vuoi assistere alle riprese live del nostro podcast? Prenota il tuo posto e vivi l'esperienza dal vivo!" 
-              tag="span"
-            />
-          </p>
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-xl p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="nome" className="block text-sm font-semibold text-movieboli-primary-900 mb-2">
-                  Nome Completo *
-                </label>
-                <input
-                  type="text"
-                  id="nome"
-                  name="nome"
-                  value={formData.nome}
-                  onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-movieboli-accent-500 focus:border-movieboli-accent-500 transition-colors ${
-                    errors.nome ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="Il tuo nome completo"
-                />
-                {errors.nome && <p className="text-red-500 text-sm mt-1">{errors.nome}</p>}
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-movieboli-primary-900 mb-2">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-movieboli-accent-500 focus:border-movieboli-accent-500 transition-colors ${
-                    errors.email ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="la-tua-email@esempio.com"
-                />
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="data" className="block text-sm font-semibold text-movieboli-primary-900 mb-2">
-                Data Preferita *
-              </label>
-              <select
-                id="data"
-                name="data"
-                value={formData.data}
-                onChange={handleInputChange}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-movieboli-accent-500 focus:border-movieboli-accent-500 transition-colors ${
-                  errors.data ? 'border-red-500' : 'border-gray-300'
-                }`}
-              >
-                {dateOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              {errors.data && <p className="text-red-500 text-sm mt-1">{errors.data}</p>}
-            </div>
-
-            <div>
-              <label htmlFor="note" className="block text-sm font-semibold text-movieboli-primary-900 mb-2">
-                Note Aggiuntive
-              </label>
-              <textarea
-                id="note"
-                name="note"
-                value={formData.note}
-                onChange={handleInputChange}
-                rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-movieboli-accent-500 focus:border-movieboli-accent-500 transition-colors resize-none"
-                placeholder="Hai qualche richiesta particolare o domanda? Scrivila qui..."
-              />
-            </div>
-
-            <div className="bg-movieboli-secondary-50 border border-movieboli-secondary-200 rounded-lg p-4">
-              <p className="text-sm text-movieboli-primary-800">
-                <strong>📍 Informazioni:</strong> 
-                Le riprese si svolgono presso il nostro studio a Eboli. Ti invieremo tutti i dettagli via email dopo la conferma.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <button
-                type="submit"
-                className="bg-movieboli-accent-600 hover:bg-movieboli-accent-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                <EditableText 
-                  contentKey="podcast_booking_submit_button" 
-                  defaultText="🎬 Prenota il Tuo Posto" 
-                  tag="span"
-                />
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </section>
   );
 };
 
+// Componente per i Prossimi Episodi (Eventi Live)
+const ProssimiEpisodiSection = () => {
+  const [eventoSelezionato, setEventoSelezionato] = useState(null);
+  const [datiPrenotazione, setDatiPrenotazione] = useState({
+    nome: '',
+    email: '',
+    telefono: '',
+    note: ''
+  });
+  const [postiDisponibili] = useState({
+    '22-agosto': 45,
+    '23-agosto': 38,
+    '24-agosto': 42
+  });
+  const [errori, setErrori] = useState({});
+  const [prenotazioneInviata, setPrenotazioneInviata] = useState(false);
+  const [caricamento, setCaricamento] = useState(false);
 
+  // Dati degli eventi aggiornati
+  const prossimiEpisodi = [
+    {
+      id: '22-agosto',
+      data: '22 Agosto 2025',
+      orario: '21:00',
+      luogo: 'Eboli, Piazza della Mercanzia',
+      titolo: 'Episodio Live: Mixed by Erry',
+      ospiti: ['Cast di Mixed by Erry'],
+      descrizione: 'Una serata speciale con tutto il cast del film Mixed by Erry.',
+      immagine: 'https://i.ibb.co/FGby12B/image.png' // Locandina ufficiale del film
+    },
+    {
+      id: '23-agosto',
+      data: '23 Agosto 2025',
+      orario: '21:00',
+      luogo: 'Eboli, Piazza della Mercanzia',
+      titolo: 'Episodio Live: Il Cinema Contemporaneo',
+      ospiti: ['Pierluigi Gigante'],
+      descrizione: 'Un incontro esclusivo con Pierluigi Gigante per parlare di cinema contemporaneo.',
+      immagine: '/images/ospiti/pierluigi_gigante.png'
+    },
+    {
+      id: '24-agosto',
+      data: '24 Agosto 2025',
+      orario: '21:00',
+      luogo: 'Eboli, Piazza della Mercanzia',
+      titolo: 'Episodio Live: L\'Animazione Italiana',
+      ospiti: ['Alessandro Rak'],
+      descrizione: 'Scopri i segreti dell\'animazione italiana con il regista di Gatta Cenerentola.',
+      immagine: 'https://i.ibb.co/7J4jNP4h/ALESSANDRO-RAK.jpg'
+    }
+  ];
 
-export default function Podcast() {
+  const validaForm = () => {
+    const nuoviErrori = {};
+    
+    if (!datiPrenotazione.nome.trim()) {
+      nuoviErrori.nome = 'Il nome è obbligatorio';
+    }
+    
+    if (!datiPrenotazione.email.trim()) {
+      nuoviErrori.email = 'L\'email è obbligatoria';
+    } else if (!/\S+@\S+\.\S+/.test(datiPrenotazione.email)) {
+      nuoviErrori.email = 'Inserisci un\'email valida';
+    }
+    
+    if (!datiPrenotazione.telefono.trim()) {
+      nuoviErrori.telefono = 'Il telefono è obbligatorio';
+    }
+    
+    setErrori(nuoviErrori);
+    return Object.keys(nuoviErrori).length === 0;
+  };
+
+  const gestisciPrenotazione = async (e) => {
+    e.preventDefault();
+    
+    if (!validaForm()) return;
+    
+    setCaricamento(true);
+    
+    // Simulazione invio prenotazione
+    setTimeout(() => {
+      setCaricamento(false);
+      setPrenotazioneInviata(true);
+      setEventoSelezionato(null);
+      setDatiPrenotazione({ nome: '', email: '', telefono: '', note: '' });
+      
+      setTimeout(() => {
+        setPrenotazioneInviata(false);
+      }, 5000);
+    }, 2000);
+  };
+
   return (
-    <BrandingProvider>
-      <div className="min-h-screen bg-white">
-        <Head>
-          <title>Podcast Ciliegie - MOVIEBOLI APS</title>
-          <meta name="description" content="Podcast Ciliegie è il podcast di MOVIEBOLI dedicato al cinema, alle interviste esclusive e alle discussioni culturali. Ascolta i nostri episodi settimanali." />
-          <meta name="keywords" content="podcast, cinema, ciliegie, MOVIEBOLI, interviste, film, cultura, Eboli" />
-          <meta property="og:title" content="Podcast Ciliegie - MOVIEBOLI APS" />
-          <meta property="og:description" content="Il podcast di MOVIEBOLI dedicato al cinema, alle interviste esclusive e alle discussioni culturali." />
-          <meta property="og:image" content="/logo-movieboli.png" />
-          <meta property="og:type" content="website" />
-        </Head>
-        
-        <Navbar />
-        
-        <main>
-          <PodcastHero />
-          <AboutPodcastSection />
-          <EpisodiSection />
-          <PrenotazioneSection />
+    <section id="prossimi-episodi" className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">
+            Prossimi <span className="text-yellow-500">Episodi</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Non perdere l'opportunità di assistere dal vivo alle registrazioni del nostro podcast. 
+            Prenota il tuo posto per gli eventi in programma.
+          </p>
+        </div>
 
-        </main>
-        
-        <Footer />
+        {/* Griglia degli eventi */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {prossimiEpisodi.map((episodio) => (
+            <div key={episodio.id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative">
+                <img 
+                  src={episodio.immagine} 
+                  alt={episodio.titolo}
+                  className="w-full h-64 object-cover object-top"
+                  style={{
+                    objectPosition: episodio.id === '22-agosto' ? 'center top' : 'center center'
+                  }}
+                />
+                <div className="absolute top-4 right-4 bg-yellow-400 text-black px-3 py-1 rounded-full text-sm font-semibold">
+                  {postiDisponibili[episodio.id]} posti
+                </div>
+              </div>
+              
+              <div className="p-6">
+                <div className="flex items-center gap-2 text-yellow-600 mb-2">
+                  <span className="text-sm font-semibold">{episodio.data}</span>
+                  <span className="text-sm">• {episodio.orario}</span>
+                </div>
+                
+                <h3 className="text-xl font-bold text-black mb-2">{episodio.titolo}</h3>
+                
+                <p className="text-gray-600 mb-4 text-sm">{episodio.descrizione}</p>
+                
+                <div className="mb-4">
+                  <p className="text-sm text-gray-500 mb-1">📍 {episodio.luogo}</p>
+                  <p className="text-sm text-gray-500">🎤 {episodio.ospiti.join(', ')}</p>
+                </div>
+                
+                <button
+                  onClick={() => setEventoSelezionato(episodio)}
+                  className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-300"
+                >
+                  Prenota ora
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Messaggio di conferma */}
+        {prenotazioneInviata && (
+          <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50">
+            ✅ Prenotazione inviata con successo!
+          </div>
+        )}
       </div>
-    </BrandingProvider>
+
+      {/* Modal di prenotazione */}
+      {eventoSelezionato && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="text-2xl font-bold text-black">
+                  Prenota per {eventoSelezionato.titolo}
+                </h3>
+                <button
+                  onClick={() => setEventoSelezionato(null)}
+                  className="text-gray-500 hover:text-black text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+
+              <div className="mb-6 p-4 bg-yellow-50 rounded-lg">
+                <p className="text-sm text-gray-700">
+                  <strong>📅 Data:</strong> {eventoSelezionato.data} alle {eventoSelezionato.orario}<br/>
+                  <strong>📍 Luogo:</strong> {eventoSelezionato.luogo}<br/>
+                  <strong>🎤 Ospiti:</strong> {eventoSelezionato.ospiti.join(', ')}<br/>
+                  <strong>🎫 Posti disponibili:</strong> {postiDisponibili[eventoSelezionato.id]}
+                </p>
+              </div>
+
+              <form onSubmit={gestisciPrenotazione} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Nome completo *
+                  </label>
+                  <input
+                    type="text"
+                    value={datiPrenotazione.nome}
+                    onChange={(e) => setDatiPrenotazione({...datiPrenotazione, nome: e.target.value})}
+                    className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.nome ? 'border-red-500' : 'border-gray-300'}`}
+                    placeholder="Il tuo nome completo"
+                  />
+                  {errori.nome && <p className="text-red-500 text-sm mt-1">{errori.nome}</p>}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    value={datiPrenotazione.email}
+                    onChange={(e) => setDatiPrenotazione({...datiPrenotazione, email: e.target.value})}
+                    className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.email ? 'border-red-500' : 'border-gray-300'}`}
+                    placeholder="la-tua-email@esempio.com"
+                  />
+                  {errori.email && <p className="text-red-500 text-sm mt-1">{errori.email}</p>}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Telefono *
+                  </label>
+                  <input
+                    type="tel"
+                    value={datiPrenotazione.telefono}
+                    onChange={(e) => setDatiPrenotazione({...datiPrenotazione, telefono: e.target.value})}
+                    className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.telefono ? 'border-red-500' : 'border-gray-300'}`}
+                    placeholder="+39 123 456 7890"
+                  />
+                  {errori.telefono && <p className="text-red-500 text-sm mt-1">{errori.telefono}</p>}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Note aggiuntive
+                  </label>
+                  <textarea
+                    value={datiPrenotazione.note}
+                    onChange={(e) => setDatiPrenotazione({...datiPrenotazione, note: e.target.value})}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                    rows="3"
+                    placeholder="Eventuali richieste speciali o note..."
+                  />
+                </div>
+
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-gray-800 mb-2">ℹ️ Informazioni importanti:</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• L'evento si svolge all'aperto</li>
+                    <li>• In caso di maltempo, l'evento sarà rimandato</li>
+                    <li>• Riceverai conferma via email entro 24 ore</li>
+                    <li>• L'ingresso è gratuito ma la prenotazione è obbligatoria</li>
+                  </ul>
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setEventoSelezionato(null)}
+                    className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors duration-300"
+                  >
+                    Annulla
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={caricamento}
+                    className="flex-1 py-3 bg-yellow-400 text-black rounded-lg font-semibold hover:bg-yellow-300 transition-colors duration-300 disabled:opacity-50"
+                  >
+                    {caricamento ? 'Invio...' : 'Conferma prenotazione'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   );
-}
+};
+
+// Componente per gli Episodi Passati
+const EpisodiPassatiSection = () => {
+  const episodiPassati = [
+    {
+      id: 1,
+      titolo: "Cinema e Videomaking",
+      ospite: "Emanuele Palumbo",
+      descrizione: "Un approfondimento sul mondo del videomaking e del cinema contemporaneo con Emanuele Palumbo.",
+      durata: "42:15",
+      data: "15 Luglio 2025",
+      immagine: "https://i.ibb.co/9HtZvH3F/EMANUELE-PALUMBO.jpg",
+      youtube_url: "https://youtu.be/q9Tl8DxDVLE?si=i5f8IH_Mq7xlJdES"
+    }
+  ];
+
+  return (
+    <section id="episodi-passati" className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">
+            Episodi <span className="text-yellow-500">Passati</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Rivedi le nostre interviste esclusive con i protagonisti del cinema.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {episodiPassati.map((episodio) => (
+            <div key={episodio.id} className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative">
+                <img 
+                  src={episodio.immagine} 
+                  alt={episodio.titolo}
+                  className="w-full h-64 object-cover object-center"
+                />
+                <div className="absolute top-4 right-4 bg-black text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  {episodio.durata}
+                </div>
+              </div>
+              
+              <div className="p-6">
+                <div className="flex items-center gap-2 text-yellow-600 mb-2">
+                  <span className="text-sm font-semibold">{episodio.data}</span>
+                </div>
+                
+                <h3 className="text-xl font-bold text-black mb-2">{episodio.titolo}</h3>
+                
+                <p className="text-gray-600 mb-4 text-sm">{episodio.descrizione}</p>
+                
+                <div className="mb-4">
+                  <p className="text-sm text-gray-500">🎤 Con {episodio.ospite}</p>
+                </div>
+                
+                <a
+                  href={episodio.youtube_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors duration-300 flex items-center justify-center gap-2"
+                >
+                  ▶️ Guarda su YouTube
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Componente principale della pagina Podcast
+const Podcast = () => {
+  return (
+    <>
+      <Head>
+        <title>Macine Podcast - Il Cinema Raccontato dai Protagonisti | MoviEboli</title>
+        <meta name="description" content="Scopri Macine Podcast: interviste esclusive con registi, attori e professionisti del cinema. Prenota il tuo posto per gli eventi live a Eboli." />
+        <meta name="keywords" content="podcast, cinema, interviste, registi, attori, Eboli, eventi live, Alessandro Rak, Pierluigi Gigante" />
+        <meta property="og:title" content="Macine Podcast - Il Cinema Raccontato dai Protagonisti" />
+        <meta property="og:description" content="Interviste esclusive con i protagonisti del cinema italiano e internazionale. Eventi live a Eboli." />
+        <meta property="og:image" content="/images/logomacine.png" />
+        <meta property="og:type" content="website" />
+      </Head>
+      
+      <Navbar />
+      <PodcastHero />
+      <DescrizionePodcastSection />
+      <ProssimiEpisodiSection />
+      <EpisodiPassatiSection />
+      <Footer />
+    </>
+  );
+};
+
+export default Podcast;

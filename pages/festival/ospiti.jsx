@@ -120,6 +120,13 @@ const OspitiPage = () => {
                   tag="span"
                 />
               </Link>
+              <Link href="/festival/film" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                <EditableText 
+                  contentKey="festival.nav.films"
+                  defaultValue="Film"
+                  tag="span"
+                />
+              </Link>
               <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
                 <EditableText 
                   contentKey="festival.nav.guests"
@@ -268,7 +275,11 @@ const OspitiPage = () => {
                 </div>
                 
                 {/* Griglia Ospiti - Card più grandi */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className={`grid gap-12 ${
+                  ospitiByday[activeDay]?.length === 1 
+                    ? 'grid-cols-1 justify-items-center max-w-md mx-auto' 
+                    : 'grid-cols-1 md:grid-cols-2'
+                }`}>
                   {ospitiByday[activeDay]?.map((ospite, index) => (
                     <motion.div
                       key={ospite.nome}

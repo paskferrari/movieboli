@@ -40,10 +40,10 @@ export interface FestivalPageProps {
 const unlockDates = [
   { title: "DIECI SECONDI", date: new Date(2024, 6, 21, 0, 0, 0) }, // 21/07/2024 00:00
   { title: "APPUNTAMENTO A MEZZOGIORNO", date: new Date(2024, 6, 22, 13, 0, 0) }, // 22/07/2024 13:00
+  { title: "The Rock Tensions", date: new Date(2024, 6, 22, 13, 0, 0) }, // 22/07/2024 13:00 - SPOSTATO AL PRIMO GIORNO
   { title: "Father's Letters", date: new Date(2024, 6, 23, 13, 0, 0) }, // 23/07/2024 13:00
   { title: "Jus d'orange", date: new Date(2024, 6, 23, 13, 0, 0) }, // 23/07/2024 13:00
   { title: "Place under the sun", date: new Date(2024, 6, 24, 13, 0, 0) }, // 24/07/2024 13:00
-  { title: "The Rock Tensions", date: new Date(2024, 6, 25, 13, 0, 0) }, // 25/07/2024 13:00
   { title: "SHARING IS CARING", date: new Date(2024, 6, 27, 13, 0, 0) }, // 27/07/2024 13:00
   { title: "Ya Hanouni", date: new Date(2024, 6, 28, 13, 0, 0) }, // 28/07/2024 13:00
 ];
@@ -214,6 +214,13 @@ function FestivalPage(props: FestivalPageProps) {
                 <EditableText 
                   contentKey="festival.nav.shorts"
                   defaultValue="Cortometraggi"
+                  tag="span"
+                />
+              </Link>
+              <Link href="/festival/film" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                <EditableText 
+                  contentKey="festival.nav.films"
+                  defaultValue="Film"
                   tag="span"
                 />
               </Link>

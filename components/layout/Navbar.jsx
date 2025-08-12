@@ -96,11 +96,11 @@ const Navbar = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-4">
               <Link href="/" className="flex items-center space-x-3 group">
-                <div className="relative w-20 h-20 transform group-hover:scale-110 transition-transform duration-300">
+                <div className="relative w-28 h-28 transform group-hover:scale-110 transition-transform duration-300">
                   <img
-                    src="/logo-movieboli.png"
+                    src={isScrolled ? "/logo-movieboli.png" : "/images/logonero.png"}
                     alt="MOVIEBOLI Logo"
-                    className="w-full h-full object-contain filter brightness-0 invert"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               </Link>
@@ -176,7 +176,7 @@ const Navbar = () => {
               <Link href="/" className="flex items-center space-x-2 md:space-x-3 group">
                 <div className="relative w-10 h-10 md:w-12 md:h-12 transform group-hover:scale-110 transition-transform duration-300">
                   <img
-                    src="/logo-movieboli.png"
+                    src={router.pathname === '/' && !isScrolled ? "/logo-movieboli.png" : "/images/logonero.png"}
                     alt="MOVIEBOLI Logo"
                     className={`w-full h-full object-contain transition-all duration-300 ${
                       router.pathname === '/' && !isScrolled ? 'filter brightness-0 invert' : ''

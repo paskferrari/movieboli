@@ -71,6 +71,13 @@ const FestivalPage = () => {
                   tag="span"
                 />
               </Link>
+              <Link href="/festival/film" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                <EditableText 
+                  contentKey="festival.nav.films"
+                  defaultValue="Film"
+                  tag="span"
+                />
+              </Link>
               <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
                 <EditableText 
                   contentKey="festival.nav.ospiti"
