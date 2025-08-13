@@ -107,8 +107,8 @@ const ProssimiEpisodiSection = () => {
     {
       id: '22-agosto',
       data: '22 Agosto 2025',
-      orario: '21:00',
-      luogo: 'Eboli, Piazza della Mercanzia',
+      orario: '17.30',
+      luogo: 'Giardino Vacca de Dominicis,Eboli',
       titolo: 'Episodio Live: Mixed by Erry',
       ospiti: ['Cast di Mixed by Erry'],
       descrizione: 'Una serata speciale con tutto il cast del film Mixed by Erry.',
@@ -117,8 +117,8 @@ const ProssimiEpisodiSection = () => {
     {
       id: '23-agosto',
       data: '23 Agosto 2025',
-      orario: '21:00',
-      luogo: 'Eboli, Piazza della Mercanzia',
+      orario: '17.30',
+      luogo: 'Giardino Vacca de Dominicis,Eboli',
       titolo: 'Episodio Live: Il Cinema Contemporaneo',
       ospiti: ['Pierluigi Gigante'],
       descrizione: 'Un incontro esclusivo con Pierluigi Gigante per parlare di cinema contemporaneo.',
@@ -127,8 +127,8 @@ const ProssimiEpisodiSection = () => {
     {
       id: '24-agosto',
       data: '24 Agosto 2025',
-      orario: '21:00',
-      luogo: 'Eboli, Piazza della Mercanzia',
+      orario: '17.30',
+      luogo: 'Giardino Vacca de Dominicis,Eboli',
       titolo: 'Episodio Live: L\'Animazione Italiana',
       ospiti: ['Alessandro Rak'],
       descrizione: 'Scopri i segreti dell\'animazione italiana con il regista di Gatta Cenerentola.',

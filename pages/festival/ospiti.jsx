@@ -81,7 +81,7 @@ const OspitiPage = () => {
         <meta property="og:image" content="/images/og-image.jpg" />
       </Head>
       
-      {/* Navbar Festival Standardizzata */}
+      {/* Navbar Festival Standardizzata - già presente, mantieni così com'è */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-xl' : 'bg-transparent'
       }`}>
@@ -131,6 +131,13 @@ const OspitiPage = () => {
                 <EditableText 
                   contentKey="festival.nav.guests"
                   defaultValue="Ospiti"
+                  tag="span"
+                />
+              </Link>
+              <Link href="/festival/vota" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                <EditableText 
+                  contentKey="festival.nav.vote"
+                  defaultValue="Vota"
                   tag="span"
                 />
               </Link>

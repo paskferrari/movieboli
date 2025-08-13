@@ -153,42 +153,24 @@ const FestivalPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: 'easeOut' }}
             >
-              <motion.h1 
-                className="font-poppins font-bold text-5xl sm:text-7xl lg:text-8xl text-white mb-8 leading-tight"
+              {/* Logo al posto del titolo */}
+              <motion.div
+                className="flex justify-center mb-8"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.3 }}
               >
-                <EditableText 
-                  contentKey="festival.hero.title_part1"
-                  defaultValue="MoviEboli"
-                  tag="span"
-                />
-                <motion.span 
-                  className="block text-movieboli-violaPrincipale"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 1, delay: 0.6 }}
-                >
-                  <EditableText 
-                    contentKey="festival.hero.title_part2"
-                    defaultValue="Film Festival"
-                    tag="span"
+                <div className="relative w-64 h-32 sm:w-80 sm:h-40 lg:w-96 lg:h-48">
+                  <Image
+                    src="/images/logoNuovo.png"
+                    alt="MoviEboli Film Festival Logo"
+                    fill
+                    sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
+                    className="object-contain"
+                    priority
                   />
-                </motion.span>
-                <motion.span 
-                  className="block text-4xl sm:text-5xl lg:text-6xl font-medium text-white"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 1, delay: 0.9 }}
-                >
-                  <EditableText 
-                    contentKey="festival.hero.year"
-                    defaultValue="2025"
-                    tag="span"
-                  />
-                </motion.span>
-              </motion.h1>
+                </div>
+              </motion.div>
               
               <motion.p 
                 className="font-poppins text-2xl sm:text-3xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed"

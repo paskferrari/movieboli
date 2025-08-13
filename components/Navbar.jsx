@@ -3,37 +3,44 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import EditableText from './ui/EditableText';
 
-const Navbar = ({ variant = 'light' }) => {
+const Navbar = ({ variant }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
 
+  // Determina automaticamente il tipo di sezione se variant non è specificato
+  const isFestivalPage = router.pathname.startsWith('/festival') || 
+                        router.pathname === '/programma' ||
+                        router.pathname === '/prenota' ||
+                        router.pathname === '/turni-impp';
+  
+  const currentVariant = variant || (isFestivalPage ? 'festival' : 'association');
+
   const navigation = [
     { 
       id: 'home',
-      name: <EditableText contentKey="nav.home" defaultValue="Home" tag="span" />, 
+      name: 'Home', 
       href: '/' 
     },
     { 
       id: 'about',
-      name: <EditableText contentKey="nav.about" defaultValue="Chi siamo" tag="span" />, 
+      name: 'Chi siamo', 
       href: '/chi-siamo' 
     },
     { 
       id: 'podcast',
-      name: <EditableText contentKey="nav.podcast" defaultValue="Podcast" tag="span" />, 
+      name: 'Podcast', 
       href: '/podcast' 
     },
     { 
       id: 'festival',
-      name: <EditableText contentKey="nav.festival" defaultValue="Festival" tag="span" />, 
+      name: 'Festival', 
       href: '/festival' 
     },
     { 
       id: 'donations',
-      name: <EditableText contentKey="nav.donations" defaultValue="Donazioni" tag="span" />, 
+      name: 'Donazioni', 
       href: '/donazioni' 
     }
   ];
@@ -50,20 +57,66 @@ const Navbar = ({ variant = 'light' }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Aggiungi questa logica per il contrasto all'interno del componente
-  const navbarClasses = variant === 'dark' 
-    ? 'bg-slate-900 text-white' 
-    : 'bg-white text-slate-900';
+  // Logica per gli stili della navbar - CORRETTA
+  const getNavbarClasses = () => {
+    if (currentVariant === 'festival') {
+      // Per il festival: colori della palette MovieBoli
+      return isScrolled 
+        ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-xl text-movieboli-crema'
+        : 'bg-movieboli-violaPrincipale/90 backdrop-blur-sm text-movieboli-crema';
+    } else {
+      // Per l'associazione: nera o trasparente che diventa bianca
+      if (router.pathname === '/') {
+        return isScrolled 
+          ? 'bg-white/95 backdrop-blur-md shadow-lg text-movieboli-primary'
+          : 'bg-transparent text-white';
+      } else {
+        return 'bg-movieboli-primary/95 backdrop-blur-md shadow-lg text-white';
+      }
+    }
+  };
+
+  const getLinkClasses = (isActive) => {
+    if (currentVariant === 'festival') {
+      return `font-inter text-xs lg:text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group px-2 py-1 ${
+        isActive 
+          ? 'text-movieboli-accent' 
+          : 'text-movieboli-crema hover:text-movieboli-accent'
+      }`;
+    } else {
+      if (router.pathname === '/' && !isScrolled) {
+        return `font-inter text-xs lg:text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group px-2 py-1 ${
+          isActive 
+            ? 'text-white' 
+            : 'text-white/90 hover:text-white'
+        }`;
+      } else {
+        return `font-inter text-xs lg:text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group px-2 py-1 ${
+          isActive 
+            ? 'text-movieboli-accent' 
+            : 'text-white hover:text-slate-300'
+        }`;
+      }
+    }
+  };
+
+  const getLogoSrc = () => {
+    if (currentVariant === 'festival') {
+      return "/images/logonero.png";
+    } else {
+      return (router.pathname === '/' && !isScrolled) ? "/images/logo.png" : "/images/logonero.png";
+    }
+  };
 
   return (
-    <motion.nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navbarClasses}`}>
+    <motion.nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarClasses()}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
-          {/* Logo - Solo immagine senza sfondo */}
+          {/* Logo */}
           <Link href="/" className="group">
             <div className="relative w-14 h-14 sm:w-16 sm:h-16 transform group-hover:scale-105 transition-transform duration-300">
               <Image
-                src="/images/logo.png"
+                src={getLogoSrc()}
                 alt="MOVIEBOLI Logo"
                 width={56}
                 height={56}
@@ -78,14 +131,12 @@ const Navbar = ({ variant = 'light' }) => {
               <Link
                 key={item.id}
                 href={item.href}
-                className={`font-inter text-xs lg:text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group px-2 py-1 ${
-                  router.pathname === item.href 
-                    ? (isScrolled ? 'text-movieboli-accent' : 'text-movieboli-accent')
-                    : (isScrolled ? 'text-white hover:text-movieboli-accent' : 'text-white hover:text-movieboli-accent')
-                }`}
+                className={getLinkClasses(router.pathname === item.href)}
               >
                 {item.name}
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-movieboli-accent transition-all duration-300 ${
+                <span className={`absolute -bottom-1 left-0 h-0.5 transition-all duration-300 ${
+                  currentVariant === 'festival' ? 'bg-movieboli-accent' : 'bg-movieboli-primary'
+                } ${
                   router.pathname === item.href ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}></span>
               </Link>
@@ -97,9 +148,11 @@ const Navbar = ({ variant = 'light' }) => {
             <button
               onClick={toggleMenu}
               className={`p-2 focus:outline-none transition-colors duration-300 ${
-                isScrolled 
-                  ? 'text-white hover:text-movieboli-accent' 
-                  : 'text-white hover:text-movieboli-accent'
+                currentVariant === 'festival' 
+                  ? 'text-movieboli-crema hover:text-movieboli-accent'
+                  : (router.pathname === '/' && !isScrolled)
+                    ? 'text-white hover:text-white/80'
+                    : 'text-white hover:text-slate-300'
               }`}
               aria-label="Toggle menu"
             >
@@ -129,12 +182,16 @@ const Navbar = ({ variant = 'light' }) => {
             height: isMenuOpen ? 'auto' : 0
           }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className={`md:hidden absolute top-full left-0 right-0 bg-movieboli-black/95 backdrop-blur-md shadow-lg border-t border-movieboli-accent/30 overflow-hidden z-50`}
+          className={`md:hidden absolute top-full left-0 right-0 overflow-hidden z-50 ${
+            currentVariant === 'festival'
+              ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-lg border-t border-movieboli-accent/30'
+              : 'bg-movieboli-primary/95 backdrop-blur-md shadow-lg border-t border-slate-700/30'
+          }`}
         >
           <div className="px-4 pt-3 pb-4 space-y-2">
             {navigation.map((item, index) => (
               <motion.div
-                key={item.id}  // Usa item.id invece di item.name
+                key={item.id}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : -10 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
@@ -143,8 +200,14 @@ const Navbar = ({ variant = 'light' }) => {
                   href={item.href}
                   className={`flex items-center px-3 py-3 rounded-lg font-inter text-base font-semibold transition-all duration-300 ${
                     router.pathname === item.href 
-                      ? 'bg-movieboli-accent/20 text-movieboli-accent border-l-4 border-movieboli-accent' 
-                      : 'text-white hover:bg-movieboli-accent/10 hover:text-movieboli-accent'
+                      ? (currentVariant === 'festival'
+                          ? 'bg-movieboli-accent/20 text-movieboli-accent border-l-4 border-movieboli-accent'
+                          : 'bg-slate-700/50 text-white border-l-4 border-slate-400'
+                        )
+                      : (currentVariant === 'festival'
+                          ? 'text-movieboli-crema hover:bg-movieboli-accent/10 hover:text-movieboli-accent'
+                          : 'text-white hover:bg-slate-700/30 hover:text-slate-300'
+                        )
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >

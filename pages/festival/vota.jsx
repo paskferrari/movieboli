@@ -288,7 +288,7 @@ const Vota = ({ cortometraggi = [], error = null }) => {
           getContent('vote.meta.description', 'Esprimi il tuo voto per i cortometraggi in concorso al MOVIEBOLI Festival')
         } />
         <meta property="og:title" content="Vota i Cortometraggi | MOVIEBOLI Festival" />
-        <meta property="og:description" content="Partecipa alla votazione popolare del festival" />
+        <meta property="og:description" content="Partecipa alla giuria popolare del festival." />
         <meta property="og:image" content="/images/og-image.jpg" />
       </Head>
       
@@ -299,7 +299,7 @@ const Vota = ({ cortometraggi = [], error = null }) => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative w-20 h-20 transform group-hover:scale-110 transition-transform duration-300">
+              <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-300">
                 <Image
                   src="/logo-movieboli.png"
                   alt="MOVIEBOLI Logo"
@@ -308,307 +308,343 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                   priority
                 />
               </div>
+              <span className="font-poppins font-semibold text-xl text-movieboli-violaPrincipale">
+                <EditableText 
+                  contentKey="festival.nav.title"
+                  defaultValue="FESTIVAL 2025"
+                  tag="span"
+                />
+              </span>
             </Link>
             <div className="hidden md:flex space-x-8">
               <Link href="/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Programma
+                <EditableText 
+                  contentKey="nav.program"
+                  defaultValue="Programma"
+                  tag="span"
+                />
               </Link>
               <Link href="/festival/cortometraggi" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Cortometraggi
+                <EditableText 
+                  contentKey="festival.nav.shorts"
+                  defaultValue="Cortometraggi"
+                  tag="span"
+                />
               </Link>
               <Link href="/festival/film" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Film
+                <EditableText 
+                  contentKey="festival.nav.films"
+                  defaultValue="Film"
+                  tag="span"
+                />
               </Link>
               <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Ospiti
+                <EditableText 
+                  contentKey="festival.nav.guests"
+                  defaultValue="Ospiti"
+                  tag="span"
+                />
+              </Link>
+              <Link href="/festival/vota" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                <EditableText 
+                  contentKey="festival.nav.vote"
+                  defaultValue="Vota"
+                  tag="span"
+                />
               </Link>
               <Link href="/chi-siamo" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                Info
+                <EditableText 
+                  contentKey="nav.about"
+                  defaultValue="Info"
+                  tag="span"
+                />
               </Link>
             </div>
           </div>
         </div>
       </nav>
 
-      {pageLoading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-movieboli-neroProfondo">
-          <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-6">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-movieboli-violaPrincipale/50 border-t-movieboli-violaPrincipale rounded-full animate-spin"></div>
-            <h2 className="text-xl sm:text-2xl font-bold text-movieboli-crema">MOVIEBOLI Festival 2025</h2>
-            <p className="text-sm sm:text-base text-movieboli-crema/80">
-              <EditableText 
-                contentKey="vote.loading"
-                defaultValue="Caricamento sistema di votazione..."
-                tag="span"
-              />
-            </p>
-          </div>
-        </div>
-      )}
-
-      <main className="min-h-screen bg-movieboli-neroProfondo text-movieboli-crema">
-        {/* Messaggio di errore */}
-        {error && (
-          <div className="bg-red-500/20 border border-red-500 text-white px-4 py-3 rounded-md mx-auto my-4 max-w-4xl">
-            <div className="flex items-center">
-              <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <p>{error}</p>
-            </div>
-          </div>
-        )}
-        
-        {/* Hero Section */}
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-movieboli-neroProfondo opacity-90"></div>
-            <div className="absolute inset-0 bg-[url('/logo-movieboli.png')] opacity-5"></div>
-          </div>
-          
-          <div className="container mx-auto px-4 py-20 relative z-10">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="text-center max-w-4xl mx-auto"
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-br from-movieboli-rosaPastello via-movieboli-violaPrincipale to-movieboli-violaSecondario drop-shadow-lg tracking-tight leading-tight">
+      {/* Contenuto principale con padding-top per compensare navbar fissa */}
+      <main className="pt-20">
+        {pageLoading && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-movieboli-neroProfondo">
+            <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-6">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-movieboli-violaPrincipale/50 border-t-movieboli-violaPrincipale rounded-full animate-spin"></div>
+              <h2 className="text-xl sm:text-2xl font-bold text-movieboli-crema">MOVIEBOLI Festival 2025</h2>
+              <p className="text-sm sm:text-base text-movieboli-crema/80">
                 <EditableText 
-                  contentKey="vote.title"
-                  defaultValue="Vota i Cortometraggi del Festival 2025"
-                  tag="span"
-                />
-              </h1>
-              <p className="text-lg md:text-xl text-movieboli-crema/80 mb-10 max-w-3xl mx-auto">
-                <EditableText 
-                  contentKey="vote.subtitle"
-                  defaultValue="Esprimi il tuo giudizio sui cortometraggi in competizione utilizzando il nostro sistema di rating a stelle. Puoi votare e modificare i tuoi voti in qualsiasi momento."
+                  contentKey="vote.loading"
+                  defaultValue="Caricamento sistema di votazione..."
                   tag="span"
                 />
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-movieboli-crema/70 mb-8">
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span>
-                    <EditableText 
-                      contentKey="vote.rating_system"
-                      defaultValue="Sistema di rating a 5 stelle con mezze stelle"
-                      tag="span"
-                    />
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span>
-                    <EditableText 
-                      contentKey="vote.rating_system"
-                      defaultValue="Sistema di rating a 5 stelle con mezze stelle"
-                      tag="span"
-                    />
-                  </span>
-                </div>
+            </div>
+          </div>
+        )}
+
+        <main className="min-h-screen bg-movieboli-neroProfondo text-movieboli-crema">
+          {/* Messaggio di errore */}
+          {error && (
+            <div className="bg-red-500/20 border border-red-500 text-white px-4 py-3 rounded-md mx-auto my-4 max-w-4xl">
+              <div className="flex items-center">
+                <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <p>{error}</p>
               </div>
-              <Link href="/festival" legacyBehavior passHref>
-                <motion.a
-                  className="inline-flex items-center px-6 py-3 rounded-xl bg-movieboli-violaPrincipale text-movieboli-nero font-bold transition-all duration-300"
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
+            </div>
+          )}
+          
+          {/* Hero Section */}
+          <section className="relative overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute inset-0 bg-movieboli-neroProfondo opacity-90"></div>
+              <div className="absolute inset-0 bg-[url('/logo-movieboli.png')] opacity-5"></div>
+            </div>
+            
+            <div className="container mx-auto px-4 py-20 relative z-10">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="text-center max-w-4xl mx-auto"
+              >
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-br from-movieboli-rosaPastello via-movieboli-violaPrincipale to-movieboli-violaSecondario drop-shadow-lg tracking-tight leading-tight">
                   <EditableText 
-                    contentKey="vote.back_to_festival"
-                    defaultValue="Torna al Festival"
+                    contentKey="vote.title"
+                    defaultValue="Vota i Cortometraggi del Festival 2025"
                     tag="span"
                   />
-                </motion.a>
-              </Link>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Sezione Cortometraggi */}
-        <motion.section 
-          className="py-20 px-4 bg-gradient-to-b from-movieboli-neroProfondo via-movieboli-bordeaux/5 to-movieboli-neroProfondo"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <div className="max-w-7xl mx-auto">
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-              variants={containerVariants}
-            >
-              {cortometraggi.map((corto, index) => {
-                const cortoId = corto.id || corto.titolo || `corto-${index}`
-                const currentRating = getRating(cortoId)
-                const showingThankYou = showThankYou === cortoId
-                
-                return (
-                  <motion.div
-                    key={cortoId}
-                    className="group bg-movieboli-bordeaux/20 rounded-2xl overflow-hidden border border-movieboli-violaPrincipale/20 hover:border-movieboli-violaPrincipale/50 transition-all duration-300 relative"
-                    variants={cardVariants}
-                    whileHover="hover"
+                </h1>
+                <p className="text-lg md:text-xl text-movieboli-crema/80 mb-10 max-w-3xl mx-auto">
+                  <EditableText 
+                    contentKey="vote.subtitle"
+                    defaultValue="Esprimi il tuo giudizio sui cortometraggi in competizione utilizzando il nostro sistema di rating a stelle. Puoi votare e modificare i tuoi voti in qualsiasi momento."
+                    tag="span"
+                  />
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-movieboli-crema/70 mb-8">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>
+                      <EditableText 
+                        contentKey="vote.rating_system"
+                        defaultValue="Sistema di rating a 5 stelle con mezze stelle"
+                        tag="span"
+                      />
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <svg className="w-5 h-5 text-movieboli-violaPrincipale" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>
+                      <EditableText 
+                        contentKey="vote.rating_system"
+                        defaultValue="Sistema di rating a 5 stelle con mezze stelle"
+                        tag="span"
+                      />
+                    </span>
+                  </div>
+                </div>
+                <Link href="/festival" legacyBehavior passHref>
+                  <motion.a
+                    className="inline-flex items-center px-6 py-3 rounded-xl bg-movieboli-violaPrincipale text-movieboli-nero font-bold transition-all duration-300"
+                    whileTap={{ scale: 0.95 }}
                   >
-                    {/* Badge In Gara */}
-                    <div className="absolute top-4 left-4 z-10">
-                      <span className="bg-movieboli-violaPrincipale text-movieboli-nero text-xs font-bold px-3 py-1 rounded-full">
-                        FESTIVAL 2025
-                      </span>
-                    </div>
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <EditableText 
+                      contentKey="vote.back_to_festival"
+                      defaultValue="Torna al Festival"
+                      tag="span"
+                    />
+                  </motion.a>
+                </Link>
+              </motion.div>
+            </div>
+          </section>
 
-                    {/* Messaggio Thank You */}
-                    <AnimatePresence>
-                      {showingThankYou && (
-                        <motion.div 
-                          className="absolute inset-0 bg-movieboli-violaPrincipale/95 flex items-center justify-center z-20 rounded-2xl"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <div className="text-center text-movieboli-nero">
-                            <motion.div
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-                            >
-                              <div className="w-16 h-16 bg-movieboli-crema rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg className="w-6 h-6 text-movieboli-violaPrincipale" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                </svg>
-                              </div>
-                            </motion.div>
-                            <h3 className="text-xl font-bold mb-2">
-                              <EditableText 
-                                contentKey="vote.success_title"
-                                defaultValue="Voto registrato!"
-                                tag="span"
-                              />
-                            </h3>
-                            <p className="text-sm opacity-80">
-                              <EditableText 
-                                contentKey="vote.success_message"
-                                defaultValue="Grazie per la tua valutazione"
-                                tag="span"
-                              />
-                            </p>
+          {/* Sezione Cortometraggi */}
+          <motion.section 
+            className="py-20 px-4 bg-gradient-to-b from-movieboli-neroProfondo via-movieboli-bordeaux/5 to-movieboli-neroProfondo"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <div className="max-w-7xl mx-auto">
+              <motion.div 
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                variants={containerVariants}
+              >
+                {cortometraggi.map((corto, index) => {
+                  const cortoId = corto.id || corto.titolo || `corto-${index}`
+                  const currentRating = getRating(cortoId)
+                  const showingThankYou = showThankYou === cortoId
+                  
+                  return (
+                    <motion.div
+                      key={cortoId}
+                      className="group bg-movieboli-bordeaux/20 rounded-2xl overflow-hidden border border-movieboli-violaPrincipale/20 hover:border-movieboli-violaPrincipale/50 transition-all duration-300 relative"
+                      variants={cardVariants}
+                      whileHover="hover"
+                    >
+                      {/* Badge In Gara */}
+                      <div className="absolute top-4 left-4 z-10">
+                        <span className="bg-movieboli-violaPrincipale text-movieboli-nero text-xs font-bold px-3 py-1 rounded-full">
+                          FESTIVAL 2025
+                        </span>
+                      </div>
+
+                      {/* Messaggio Thank You */}
+                      <AnimatePresence>
+                        {showingThankYou && (
+                          <motion.div 
+                            className="absolute inset-0 bg-movieboli-violaPrincipale/95 flex items-center justify-center z-20 rounded-2xl"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <div className="text-center text-movieboli-nero">
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
+                              >
+                                <div className="w-16 h-16 bg-movieboli-crema rounded-full flex items-center justify-center mx-auto mb-4">
+                                  <svg className="w-6 h-6 text-movieboli-violaPrincipale" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                  </svg>
+                                </div>
+                              </motion.div>
+                              <h3 className="text-xl font-bold mb-2">
+                                <EditableText 
+                                  contentKey="vote.success_title"
+                                  defaultValue="Voto registrato!"
+                                  tag="span"
+                                />
+                              </h3>
+                              <p className="text-sm opacity-80">
+                                <EditableText 
+                                  contentKey="vote.success_message"
+                                  defaultValue="Grazie per la tua valutazione"
+                                  tag="span"
+                                />
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      {/* Immagine del Cortometraggio */}
+                      <div className="relative aspect-[3/4] overflow-hidden">
+                        {corto.immagine ? (
+                          <img 
+                            src={corto.immagine} 
+                            alt={`Poster di ${corto.titolo}`}
+                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            onError={(e) => {
+                              e.target.style.display = 'none'
+                              e.target.nextSibling.style.display = 'flex'
+                            }}
+                          />
+                        ) : null}
+                        <div className="w-full h-full bg-gradient-to-br from-movieboli-violaPrincipale/20 to-movieboli-bordeaux/30 flex items-center justify-center" style={{ display: corto.immagine ? 'none' : 'flex' }}>
+                          <div className="text-center text-movieboli-crema/60">
+                            <div className="w-16 h-16 mx-auto mb-3 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center">
+                              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 6a2 2 0 012-2h6l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                              </svg>
+                            </div>
+                            <p className="text-sm">Poster del Film</p>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-movieboli-neroProfondo/80 via-transparent to-transparent" />
+                      </div>
 
-                    {/* Immagine del Cortometraggio */}
-                    <div className="relative aspect-[3/4] overflow-hidden">
-                      {corto.immagine ? (
-                        <img 
-                          src={corto.immagine} 
-                          alt={`Poster di ${corto.titolo}`}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          onError={(e) => {
-                            e.target.style.display = 'none'
-                            e.target.nextSibling.style.display = 'flex'
-                          }}
-                        />
-                      ) : null}
-                      <div className="w-full h-full bg-gradient-to-br from-movieboli-violaPrincipale/20 to-movieboli-bordeaux/30 flex items-center justify-center" style={{ display: corto.immagine ? 'none' : 'flex' }}>
-                        <div className="text-center text-movieboli-crema/60">
-                          <div className="w-16 h-16 mx-auto mb-3 bg-movieboli-violaPrincipale/20 rounded-full flex items-center justify-center">
-                            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M2 6a2 2 0 012-2h6l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                      {/* Contenuto Card */}
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold mb-2 text-movieboli-crema group-hover:text-movieboli-violaPrincipale transition-colors duration-200">
+                          {corto.titolo}
+                        </h3>
+                        <p className="text-movieboli-crema/70 mb-3">
+                          Regia di {corto.regista}
+                        </p>
+                        <div className="flex justify-between items-center text-sm text-movieboli-crema/60 mb-4">
+                          <span>{corto.durata}</span>
+                          {corto.anno && <span>{corto.anno}</span>}
+                        </div>
+                        <p className="text-movieboli-crema/80 text-sm mb-6 line-clamp-3">
+                          {corto.sinossi}
+                        </p>
+                        
+                        {/* Sistema di Rating con Stelle */}
+                        <div className="mb-4">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-medium text-movieboli-crema/80">
+                              {currentRating > 0 ? `La tua valutazione: ${currentRating}/10` : 
+                                getContent('vote.rating.label', 'Valuta questo cortometraggio')
+                              }
+                            </span>
+                            {currentRating > 0 && (
+                               <button
+                                 onClick={() => handleRatingChange(cortoId, 0)}
+                                 className="text-xs text-movieboli-crema/60 hover:text-movieboli-violaPrincipale transition-colors"
+                               >
+                                 <EditableText 
+                                   contentKey="vote.remove_vote"
+                                   defaultValue="Rimuovi voto"
+                                   tag="span"
+                                 />
+                               </button>
+                             )}
+                          </div>
+                          <StarRating 
+                             rating={currentRating}
+                             onRatingChange={(rating) => handleRatingChange(cortoId, rating)}
+                             isSaving={savingVotes.has(cortoId)}
+                           />
+                        </div>
+                        
+                        {/* Link al Trailer se disponibile */}
+                        {(corto.trailer || corto.link) && (
+                          <motion.a
+                            href={corto.trailer || corto.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-2 px-4 rounded-xl border border-movieboli-violaPrincipale/50 text-movieboli-violaPrincipale hover:bg-movieboli-violaPrincipale hover:text-movieboli-nero transition-all duration-200 flex items-center justify-center space-x-2 text-sm font-medium"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                          </div>
-                          <p className="text-sm">Poster del Film</p>
-                        </div>
+                            <span>
+                              <EditableText 
+                                contentKey="vote.watch_trailer"
+                                defaultValue="Guarda Trailer"
+                                tag="span"
+                              />
+                            </span>
+                          </motion.a>
+                        )}
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-movieboli-neroProfondo/80 via-transparent to-transparent" />
-                    </div>
+                    </motion.div>
+                  )
+                })}
+              </motion.div>
+            </div>
+          </motion.section>
 
-                    {/* Contenuto Card */}
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold mb-2 text-movieboli-crema group-hover:text-movieboli-violaPrincipale transition-colors duration-200">
-                        {corto.titolo}
-                      </h3>
-                      <p className="text-movieboli-crema/70 mb-3">
-                        Regia di {corto.regista}
-                      </p>
-                      <div className="flex justify-between items-center text-sm text-movieboli-crema/60 mb-4">
-                        <span>{corto.durata}</span>
-                        {corto.anno && <span>{corto.anno}</span>}
-                      </div>
-                      <p className="text-movieboli-crema/80 text-sm mb-6 line-clamp-3">
-                        {corto.sinossi}
-                      </p>
-                      
-                      {/* Sistema di Rating con Stelle */}
-                      <div className="mb-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium text-movieboli-crema/80">
-                            {currentRating > 0 ? `La tua valutazione: ${currentRating}/10` : 
-                              getContent('vote.rating.label', 'Valuta questo cortometraggio')
-                            }
-                          </span>
-                          {currentRating > 0 && (
-                             <button
-                               onClick={() => handleRatingChange(cortoId, 0)}
-                               className="text-xs text-movieboli-crema/60 hover:text-movieboli-violaPrincipale transition-colors"
-                             >
-                               <EditableText 
-                                 contentKey="vote.remove_vote"
-                                 defaultValue="Rimuovi voto"
-                                 tag="span"
-                               />
-                             </button>
-                           )}
-                        </div>
-                        <StarRating 
-                           rating={currentRating}
-                           onRatingChange={(rating) => handleRatingChange(cortoId, rating)}
-                           isSaving={savingVotes.has(cortoId)}
-                         />
-                      </div>
-                      
-                      {/* Link al Trailer se disponibile */}
-                      {(corto.trailer || corto.link) && (
-                        <motion.a
-                          href={corto.trailer || corto.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full py-2 px-4 rounded-xl border border-movieboli-violaPrincipale/50 text-movieboli-violaPrincipale hover:bg-movieboli-violaPrincipale hover:text-movieboli-nero transition-all duration-200 flex items-center justify-center space-x-2 text-sm font-medium"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span>
-                            <EditableText 
-                              contentKey="vote.watch_trailer"
-                              defaultValue="Guarda Trailer"
-                              tag="span"
-                            />
-                          </span>
-                        </motion.a>
-                      )}
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </motion.div>
-          </div>
-        </motion.section>
-
-        <Footer />
-      </main>
-    </ProtectedRoute>
-  )
+          <Footer />
+        </main>
+      </ProtectedRoute>
+    )
 }
 
 // Funzione per caricare i dati dei cortometraggi dal lato server

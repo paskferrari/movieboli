@@ -49,17 +49,17 @@ const FilmPage = () => {
     { 
       id: '22 agosto',
       label: 'Giovedì 22 Agosto',
-      title: 'Serata di Apertura'
+      title: ''
     },
     { 
       id: '23 agosto',
       label: 'Venerdì 23 Agosto',
-      title: 'Serata Centrale'
+      title: ''
     },
     { 
       id: '24 agosto',
       label: 'Sabato 24 Agosto',
-      title: 'Serata di Chiusura'
+      title: ''
     }
   ];
 
@@ -81,7 +81,7 @@ const FilmPage = () => {
         <meta property="og:image" content="/images/og-image.jpg" />
       </Head>
       
-      {/* Navbar Festival Standardizzata */}
+      {/* Navbar Festival Standardizzata - già presente, mantieni così com'è */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-xl' : 'bg-transparent'
       }`}>
@@ -120,7 +120,7 @@ const FilmPage = () => {
                   tag="span"
                 />
               </Link>
-              <Link href="/festival/film" className="font-poppins font-medium text-movieboli-violaPrincipale transition-colors duration-300">
+              <Link href="/festival/film" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
                 <EditableText 
                   contentKey="festival.nav.films"
                   defaultValue="Film"
@@ -131,6 +131,13 @@ const FilmPage = () => {
                 <EditableText 
                   contentKey="festival.nav.guests"
                   defaultValue="Ospiti"
+                  tag="span"
+                />
+              </Link>
+              <Link href="/festival/vota" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                <EditableText 
+                  contentKey="festival.nav.vote"
+                  defaultValue="Vota"
                   tag="span"
                 />
               </Link>

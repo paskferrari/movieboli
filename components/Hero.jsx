@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,14 +24,18 @@ const Hero = () => {
         <div className={`transform transition-all duration-1000 ${
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
         }`}>
-          {/* Main Title */}
-          <h1 className="font-poppins text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-movieboli-nero2 mb-6 leading-tight">
-            <span className="block mb-2">MOVIEBOLI</span>
-            <span className="block text-movieboli-primario1">FILM FESTIVAL</span>
-            <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-movieboli-oro1 mt-4">
-              2025
-            </span>
-          </h1>
+          {/* Logo */}
+          <div className="mb-8">
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto">
+              <Image
+                src="/images/logoNuovo.png"
+                alt="MOVIEBOLI Film Festival Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </div>
           
           {/* Subtitle */}
           <div className={`transform transition-all duration-1000 delay-300 ${
