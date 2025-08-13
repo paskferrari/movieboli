@@ -423,7 +423,7 @@ export default function ChiSiamo() {
   }, []);
 
   return (
-    <BrandingProvider variant="association">
+    <BrandingProvider forceVariant="association">
       <Head>
         <title>Chi Siamo | MOVIEBOLI APS</title>
         <meta name="description" content="Scopri la storia, la missione e le persone dietro MOVIEBOLI APS - Associazione di Promozione Sociale dedicata al cinema e alla cultura." />
