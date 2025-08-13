@@ -360,13 +360,11 @@ export default function Programma() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
                 Programma Festival 2025
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
-                Tre giorni di cinema d'autore con cortometraggi internazionali e grandi maestri del cinema italiano contemporaneo
-              </p>
+   
               <div className="flex flex-wrap justify-center gap-6 text-white/80">
                 <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2 border border-white/20">
                   <span className="text-xl">📅</span>
-                  <span className="font-medium">22-24 Agosto 2025</span>
+                  <span className="font-medium">22-23-24 Agosto 2025</span>
                 </div>
                 <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2 border border-white/20">
                   <span className="text-xl">📍</span>
@@ -645,9 +643,16 @@ export default function Programma() {
               <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
                 Scarica il programma dettagliato del festival in formato PDF
               </p>
-              <button className="bg-white text-movieboli-bordeaux font-bold py-4 px-8 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
-                📄 Scarica PDF
-              </button>
+              <a 
+                href="/images/programmamovie.pdf" 
+                download="programmamovie.pdf"
+                className="inline-flex items-center px-6 py-3 rounded-xl bg-movieboli-violaPrincipale text-movieboli-nero font-bold transition-all duration-300 hover:bg-movieboli-violaPrincipale/90"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Scarica PDF
+              </a>
             </motion.div>
           </div>
         </section>

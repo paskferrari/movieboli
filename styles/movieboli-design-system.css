@@ -63,19 +63,19 @@
 
 /* Navbar */
 .navbar-movieboli {
-  @apply bg-white/95 backdrop-blur-movieboli border-b border-movieboli-neutral-200 py-4 sticky top-0 z-50;
+  @apply bg-movieboli-primary/95 backdrop-blur-movieboli border-b border-movieboli-neutral-200 py-4 sticky top-0 z-50;
 }
 
 .navbar-link {
-  @apply text-movieboli-neutral-700 font-medium px-4 py-2 rounded-md transition-all duration-200 relative;
+  @apply text-white font-medium px-4 py-2 rounded-md transition-all duration-200 relative;
 }
 
 .navbar-link:hover {
-  @apply text-movieboli-primary bg-movieboli-neutral-50;
+  @apply text-movieboli-accent bg-white/10;
 }
 
 .navbar-link.active {
-  @apply text-movieboli-primary bg-movieboli-neutral-100;
+  @apply text-movieboli-accent bg-white/20;
 }
 
 .navbar-link.active::after {

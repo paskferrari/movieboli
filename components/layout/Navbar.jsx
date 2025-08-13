@@ -24,14 +24,6 @@ const Navbar = () => {
                         router.pathname === '/turni-impp'
 
   // Menu di navigazione festival
-  const festivalNavigation = [
-    { name: 'Programma', href: '/programma' },
-    { name: 'Cortometraggi', href: '/festival/cortometraggi' },
-    { name: 'Ospiti', href: '/festival/ospiti' },
-    { name: 'Vota', href: '/festival/vota' },
-    { name: 'Info', href: '/chi-siamo' },
-  ]
-
   // Menu di navigazione principale
   // Nel menu di navigazione principale, aggiungi:
   const navigation = [
@@ -176,11 +168,9 @@ const Navbar = () => {
               <Link href="/" className="flex items-center space-x-2 md:space-x-3 group">
                 <div className="relative w-10 h-10 md:w-12 md:h-12 transform group-hover:scale-110 transition-transform duration-300">
                   <img
-                    src={router.pathname === '/' && !isScrolled ? "/logo-movieboli.png" : "/images/logonero.png"}
+                    src={router.pathname === '/' && !isScrolled ? "/images/logo.png" : "/images/logo.png"}
                     alt="MOVIEBOLI Logo"
-                    className={`w-full h-full object-contain transition-all duration-300 ${
-                      router.pathname === '/' && !isScrolled ? 'filter brightness-0 invert' : ''
-                    }`}
+                    className={`w-full h-full object-contain transition-all duration-300 ${router.pathname === '/' && !isScrolled ? '' : ''}`}
                   />
                 </div>
                 <div className="flex flex-col">

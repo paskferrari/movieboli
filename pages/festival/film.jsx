@@ -207,7 +207,7 @@ const FilmPage = () => {
               <p className="text-base md:text-lg text-movieboli-violaPrincipale font-semibold mb-10">
                 <EditableText 
                   contentKey="films.dates"
-                  defaultValue="22-24 Agosto 2025 • Cinema Vittoria di Eboli"
+                  defaultValue="22-24 Agosto 2025 • Arena di Sant'Antonio (Eboli)"
                   tag="span"
                 />
               </p>
@@ -369,12 +369,14 @@ const FilmPage = () => {
                 </div>
                 <div className="bg-movieboli-violaPrincipale/10 rounded-lg p-4">
                   <div className="font-semibold text-movieboli-violaPrincipale mb-1">Luogo</div>
-                  <div className="text-movieboli-crema/80">Cinema Vittoria</div>
+                  <div className="text-movieboli-crema/80">Arena di Sant'Antonio (Eboli)</div>
                 </div>
-                <div className="bg-movieboli-violaPrincipale/10 rounded-lg p-4">
-                  <div className="font-semibold text-movieboli-violaPrincipale mb-1">Ingresso</div>
-                  <div className="text-movieboli-crema/80">Gratuito</div>
-                </div>
+                {activeDay !== '24 agosto' && (
+                  <div className="bg-movieboli-violaPrincipale/10 rounded-lg p-4">
+                    <div className="font-semibold text-movieboli-violaPrincipale mb-1">Ingresso</div>
+                    <div className="text-movieboli-crema/80">Gratuito</div>
+                  </div>
+                )}
               </div>
             </motion.div>
           </div>

@@ -29,7 +29,7 @@ const PodcastHero = () => {
 
         {/* Sottotitolo */}
         <p className={`text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl transform transition-all duration-1400 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          Il podcast che racconta il cinema attraverso le voci dei suoi protagonisti
+          Il podcast degli affamati di cinema
         </p>
 
         {/* Call to action */}

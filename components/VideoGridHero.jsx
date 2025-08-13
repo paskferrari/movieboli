@@ -85,7 +85,8 @@ const VideoGridHero = () => {
       </div>
 
       {/* Overlay nero con gradiente per migliorare il contrasto */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80"></div>
+      {/* Overlay nero con gradiente per migliorare il contrasto */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/20"></div>
 
       {/* Overlay centrale con logo, sottotitolo e navigazione */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
@@ -97,7 +98,7 @@ const VideoGridHero = () => {
             variants={logoAnimation}
           >
             <Image 
-              src="/images/logoNuovo.png" 
+              src="/images/logo.png" 
               alt="MOVIEBOLI Logo" 
               width={300} 
               height={300} 

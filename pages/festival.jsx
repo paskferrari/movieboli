@@ -123,7 +123,7 @@ const FestivalPage = () => {
           </motion.div>
           
           {/* Gradient overlay cinematografico migliorato */}
-          <div className="absolute inset-0 bg-gradient-to-br from-movieboli-nero/85 via-movieboli-nero/70 to-movieboli-bordeaux/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-movieboli-nero/40 via-movieboli-nero/30 to-movieboli-bordeaux/0"></div>
           
           {/* Pistola decorativa laterale */}
           {/* Rimuovo completamente il div con pistola.png */}

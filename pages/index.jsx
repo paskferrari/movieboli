@@ -361,7 +361,7 @@ export default function Home() {
         <ChiSiamoSection />
         <CosaFacciamoSection />
         <ActivitiesSection />
-        <PodcastSection />
+        {/* PodcastSection rimossa */}
         <PastEditionsSection />
         <FestivalSection />
         <FooterCTA />
