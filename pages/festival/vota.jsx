@@ -365,7 +365,7 @@ const Vota = ({ cortometraggi = [], error = null }) => {
       </nav>
 
       {/* Contenuto principale con padding-top per compensare navbar fissa */}
-      <main className="pt-20">
+      <main className="min-h-screen bg-movieboli-neroProfondo text-movieboli-crema pt-20">
         {pageLoading && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-movieboli-neroProfondo">
             <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-6">
@@ -382,9 +382,8 @@ const Vota = ({ cortometraggi = [], error = null }) => {
           </div>
         )}
 
-        <main className="min-h-screen bg-movieboli-neroProfondo text-movieboli-crema">
-          {/* Messaggio di errore */}
-          {error && (
+        {/* Messaggio di errore */}
+        {error && (
             <div className="bg-red-500/20 border border-red-500 text-white px-4 py-3 rounded-md mx-auto my-4 max-w-4xl">
               <div className="flex items-center">
                 <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

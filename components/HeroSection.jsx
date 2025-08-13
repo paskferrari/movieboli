@@ -39,7 +39,7 @@ const HeroSection = () => {
           <div className="flex flex-col items-center">
             <div className="relative w-48 h-48 md:w-72 md:h-72 lg:w-80 lg:h-80 mb-6">
               <Image
-                src="/logo-movieboli.png"
+                src="/images/logoNuovo.png"
                 alt="MoviEboli Film Festival Logo"
                 fill
                 className="object-contain filter brightness-0 invert"

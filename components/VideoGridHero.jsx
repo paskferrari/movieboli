@@ -97,7 +97,7 @@ const VideoGridHero = () => {
             variants={logoAnimation}
           >
             <Image 
-              src="/images/logo.png" 
+              src="/images/logoNuovo.png" 
               alt="MOVIEBOLI Logo" 
               width={300} 
               height={300} 
