@@ -110,7 +110,7 @@ const FestivalPage = () => {
           {/* Background principale con leoni.png */}
           <motion.div 
             style={{ y }}
-            className="absolute inset-0 opacity-25"
+            className="absolute inset-0 opacity-50"
           >
             <Image
               src="/leoni.png"
@@ -123,7 +123,7 @@ const FestivalPage = () => {
           </motion.div>
           
           {/* Gradient overlay cinematografico migliorato */}
-          <div className="absolute inset-0 bg-gradient-to-br from-movieboli-nero/40 via-movieboli-nero/30 to-movieboli-bordeaux/0"></div>
+          {/* <div className="absolute inset-0 bg-gradient-to-br from-movieboli-nero/20 via-movieboli-nero/15 to-movieboli-bordeaux/10"></div> */}
           
           {/* Pistola decorativa laterale */}
           {/* Rimuovo completamente il div con pistola.png */}
@@ -155,17 +155,17 @@ const FestivalPage = () => {
             >
               {/* Logo al posto del titolo */}
               <motion.div
-                className="flex justify-center mb-8"
+                className="flex justify-center mb-12"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.3 }}
               >
-                <div className="relative w-64 h-32 sm:w-80 sm:h-40 lg:w-96 lg:h-48">
+                <div className="relative w-96 h-48 sm:w-[496px] sm:h-[248px] lg:w-[595px] lg:h-[297px]">
                   <Image
                     src="/images/logoNuovo.png"
                     alt="MoviEboli Film Festival Logo"
                     fill
-                    sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
+                    sizes="(max-width: 640px) 384px, (max-width: 1024px) 496px, 595px"
                     className="object-contain"
                     priority
                   />

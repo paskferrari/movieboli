@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 const Navbar = ({ variant }) => {
@@ -9,40 +9,22 @@ const Navbar = ({ variant }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
 
-  // Determina automaticamente il tipo di sezione se variant non è specificato
+  // Determina automaticamente il tipo di sezione
   const isFestivalPage = router.pathname.startsWith('/festival') || 
-                        router.pathname === '/programma' ||
+                        router.pathname === '/festival/programma' ||
                         router.pathname === '/prenota' ||
                         router.pathname === '/turni-impp';
   
   const currentVariant = variant || (isFestivalPage ? 'festival' : 'association');
 
   const navigation = [
-    { 
-      id: 'home',
-      name: 'Home', 
-      href: '/' 
-    },
-    { 
-      id: 'about',
-      name: 'Chi siamo', 
-      href: '/chi-siamo' 
-    },
-    { 
-      id: 'podcast',
-      name: 'Podcast', 
-      href: '/podcast' 
-    },
-    { 
-      id: 'festival',
-      name: 'Festival', 
-      href: '/festival' 
-    },
-    { 
-      id: 'donations',
-      name: 'Donazioni', 
-      href: '/donazioni' 
-    }
+    { id: 'home', name: 'Home', href: '/' },
+    { id: 'about', name: 'Chi siamo', href: '/chi-siamo' },
+    { id: 'activities', name: 'Attività', href: '/attivita' },
+    { id: 'podcast', name: 'Podcast', href: '/podcast' },
+    { id: 'festival', name: 'Festival', href: '/festival' },
+    { id: 'program', name: 'Programma', href: '/festival/programma' },
+    { id: 'donations', name: 'Donazioni', href: '/donazioni' }
   ];
 
   useEffect(() => {
@@ -57,44 +39,74 @@ const Navbar = ({ variant }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Logica per gli stili della navbar - CORRETTA
+  // Chiudi menu quando si clicca fuori
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest('nav')) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMenuOpen]);
+
+  // Gestione ESC per chiudere menu
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMenuOpen]);
+
+  // Stili navbar migliorati con migliore contrasto
   const getNavbarClasses = () => {
     if (currentVariant === 'festival') {
-      // Per il festival: colori della palette MovieBoli
       return isScrolled 
-        ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-xl text-movieboli-crema'
-        : 'bg-movieboli-violaPrincipale/90 backdrop-blur-sm text-movieboli-crema';
+        ? 'bg-movieboli-nero/98 backdrop-blur-lg shadow-2xl border-b border-movieboli-accent/20'
+        : 'bg-movieboli-violaPrincipale/95 backdrop-blur-md';
     } else {
-      // Per l'associazione: nera o trasparente che diventa bianca
       if (router.pathname === '/') {
         return isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg text-movieboli-primary'
-          : 'bg-transparent text-white';
+          ? 'bg-white/98 backdrop-blur-lg shadow-2xl border-b border-gray-200'
+          : 'bg-transparent';
       } else {
-        return 'bg-movieboli-primary/95 backdrop-blur-md shadow-lg text-white';
+        return 'bg-movieboli-primary/98 backdrop-blur-lg shadow-2xl border-b border-movieboli-primary/30';
       }
     }
   };
 
-  const getLinkClasses = (isActive) => {
+  const getTextColor = () => {
     if (currentVariant === 'festival') {
-      return `font-inter text-xs lg:text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group px-2 py-1 ${
+      return 'text-movieboli-crema';
+    } else {
+      return (router.pathname === '/' && !isScrolled) ? 'text-white' : 'text-movieboli-primary';
+    }
+  };
+
+  const getLinkClasses = (isActive) => {
+    const baseClasses = 'font-inter text-sm lg:text-base font-semibold tracking-wide transition-all duration-300 relative group px-3 py-2 rounded-lg';
+    
+    if (currentVariant === 'festival') {
+      return `${baseClasses} ${
         isActive 
-          ? 'text-movieboli-accent' 
-          : 'text-movieboli-crema hover:text-movieboli-accent'
+          ? 'text-movieboli-accent bg-movieboli-accent/10' 
+          : 'text-movieboli-crema hover:text-movieboli-accent hover:bg-movieboli-accent/5'
       }`;
     } else {
       if (router.pathname === '/' && !isScrolled) {
-        return `font-inter text-xs lg:text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group px-2 py-1 ${
+        return `${baseClasses} ${
           isActive 
-            ? 'text-white' 
-            : 'text-white/90 hover:text-white'
+            ? 'text-white bg-white/10' 
+            : 'text-white/90 hover:text-white hover:bg-white/5'
         }`;
       } else {
-        return `font-inter text-xs lg:text-sm font-semibold tracking-wide uppercase transition-all duration-300 relative group px-2 py-1 ${
+        return `${baseClasses} ${
           isActive 
-            ? 'text-movieboli-accent' 
-            : 'text-white hover:text-slate-300'
+            ? 'text-movieboli-accent bg-movieboli-accent/10' 
+            : 'text-movieboli-primary hover:text-movieboli-accent hover:bg-movieboli-accent/5'
         }`;
       }
     }
@@ -102,123 +114,216 @@ const Navbar = ({ variant }) => {
 
   const getLogoSrc = () => {
     if (currentVariant === 'festival') {
-      return "/images/logonero.png";
+      return "/images/logoNuovo.png";
     } else {
-      return (router.pathname === '/' && !isScrolled) ? "/images/logo.png" : "/images/logonero.png";
+      return (router.pathname === '/' && !isScrolled) ? "/images/logoNuovo.png" : "/images/logoNuovo.png";
     }
   };
 
   return (
-    <motion.nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarClasses()}`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 sm:h-20">
-          {/* Logo */}
-          <Link href="/" className="group">
-            <div className="relative w-14 h-14 sm:w-16 sm:h-16 transform group-hover:scale-105 transition-transform duration-300">
-              <Image
-                src={getLogoSrc()}
-                alt="MOVIEBOLI Logo"
-                width={56}
-                height={56}
-                className="w-full h-full object-contain"
-              />
-            </div>
-          </Link>
+    <>
+      <motion.nav 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${getNavbarClasses()} ${getTextColor()}`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-18 sm:h-22">
+            {/* Logo Ingrandito */}
+            {/* Logo Ottimizzato - Solo logo per sezione associazione */}
+            <Link href="/" className="group flex items-center space-x-3">
+              <div className="relative navbar-logo transform group-hover:scale-105 transition-all duration-300">
+                <Image
+                  src={getLogoSrc()}
+                  alt="MOVIEBOLI Logo"
+                  fill
+                  className="object-contain drop-shadow-lg"
+                  priority
+                  sizes="(max-width: 375px) 44px, (max-width: 640px) 48px, (max-width: 1023px) 64px, 112px"
+                />
+              </div>
+              {/* Testi visibili solo nella sezione festival */}
+              {currentVariant === 'festival' && (
+                <div className="hidden sm:block">
+                  <div className={`font-bold text-lg lg:text-xl ${getTextColor()}`}>
+                    MOVIEBOLI
+                  </div>
+                  <div className={`text-xs lg:text-sm opacity-80 ${getTextColor()}`}>
+                    Film Festival
+                  </div>
+                </div>
+              )}
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2 lg:space-x-6 xl:space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.id}
-                href={item.href}
-                className={getLinkClasses(router.pathname === item.href)}
-              >
-                {item.name}
-                <span className={`absolute -bottom-1 left-0 h-0.5 transition-all duration-300 ${
-                  currentVariant === 'festival' ? 'bg-movieboli-accent' : 'bg-movieboli-primary'
-                } ${
-                  router.pathname === item.href ? 'w-full' : 'w-0 group-hover:w-full'
-                }`}></span>
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={toggleMenu}
-              className={`p-2 focus:outline-none transition-colors duration-300 ${
-                currentVariant === 'festival' 
-                  ? 'text-movieboli-crema hover:text-movieboli-accent'
-                  : (router.pathname === '/' && !isScrolled)
-                    ? 'text-white hover:text-white/80'
-                    : 'text-white hover:text-slate-300'
-              }`}
-              aria-label="Toggle menu"
-            >
-              <svg
-                className={`w-6 h-6 transform transition-transform duration-300 ${
-                  isMenuOpen ? 'rotate-45' : ''
-                }`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{
-            opacity: isMenuOpen ? 1 : 0,
-            height: isMenuOpen ? 'auto' : 0
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className={`md:hidden absolute top-full left-0 right-0 overflow-hidden z-50 ${
-            currentVariant === 'festival'
-              ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-lg border-t border-movieboli-accent/30'
-              : 'bg-movieboli-primary/95 backdrop-blur-md shadow-lg border-t border-slate-700/30'
-          }`}
-        >
-          <div className="px-4 pt-3 pb-4 space-y-2">
-            {navigation.map((item, index) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : -10 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-2">
+              {navigation.map((item) => (
                 <Link
+                  key={item.id}
                   href={item.href}
-                  className={`flex items-center px-3 py-3 rounded-lg font-inter text-base font-semibold transition-all duration-300 ${
-                    router.pathname === item.href 
-                      ? (currentVariant === 'festival'
-                          ? 'bg-movieboli-accent/20 text-movieboli-accent border-l-4 border-movieboli-accent'
-                          : 'bg-slate-700/50 text-white border-l-4 border-slate-400'
-                        )
-                      : (currentVariant === 'festival'
-                          ? 'text-movieboli-crema hover:bg-movieboli-accent/10 hover:text-movieboli-accent'
-                          : 'text-white hover:bg-slate-700/30 hover:text-slate-300'
-                        )
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
+                  className={getLinkClasses(router.pathname === item.href)}
                 >
                   {item.name}
+                  <span className={`absolute -bottom-1 left-3 right-3 h-0.5 transition-all duration-300 ${
+                    currentVariant === 'festival' ? 'bg-movieboli-accent' : 'bg-movieboli-primary'
+                  } ${
+                    router.pathname === item.href ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                  }`}></span>
                 </Link>
-              </motion.div>
-            ))}
+              ))}
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="lg:hidden">
+              <button
+                onClick={toggleMenu}
+                className={`p-3 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 rounded-lg ${
+                  currentVariant === 'festival' 
+                    ? 'text-movieboli-crema hover:text-movieboli-accent focus:ring-movieboli-accent hover:bg-movieboli-accent/10'
+                    : (router.pathname === '/' && !isScrolled)
+                      ? 'text-white hover:text-white/80 focus:ring-white hover:bg-white/10'
+                      : 'text-movieboli-primary hover:text-movieboli-accent focus:ring-movieboli-primary hover:bg-movieboli-primary/10'
+                }`}
+                aria-label={isMenuOpen ? 'Chiudi menu' : 'Apri menu'}
+                aria-expanded={isMenuOpen}
+              >
+                <svg
+                  className={`w-7 h-7 transform transition-transform duration-300 ${
+                    isMenuOpen ? 'rotate-90' : ''
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                >
+                  {isMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+            </div>
           </div>
-        </motion.div>
-      </div>
-    </motion.nav>
+        </div>
+      </motion.nav>
+
+      {/* Mobile Navigation Menu Migliorato */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setIsMenuOpen(false)}
+            />
+            
+            {/* Menu Sidebar */}
+            <motion.div
+              initial={{ x: '-100%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '-100%', opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className={`fixed top-0 left-0 bottom-0 w-80 max-w-[85vw] z-50 lg:hidden overflow-y-auto ${
+                currentVariant === 'festival'
+                  ? 'bg-movieboli-nero/98 border-r border-movieboli-accent/30'
+                  : 'bg-white border-r border-gray-200'
+              }`}
+            >
+              <div className="p-6">
+                {/* Header del menu mobile */}
+                <div className="flex items-center justify-between mb-8 pb-4 border-b border-current/20">
+                  <div className="flex items-center space-x-3">
+                    <div className="relative w-12 h-12">
+                      <Image
+                        src={getLogoSrc()}
+                        alt="MOVIEBOLI Logo"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <div>
+                      <div className={`font-bold text-lg ${
+                        currentVariant === 'festival' ? 'text-movieboli-crema' : 'text-movieboli-primary'
+                      }`}>
+                        MOVIEBOLI
+                      </div>
+                      <div className={`text-xs opacity-80 ${
+                        currentVariant === 'festival' ? 'text-movieboli-crema' : 'text-movieboli-primary'
+                      }`}>
+                        {currentVariant === 'festival' ? 'Film Festival' : 'Associazione'}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`p-2 rounded-lg transition-colors duration-300 ${
+                      currentVariant === 'festival'
+                        ? 'text-movieboli-crema hover:text-movieboli-accent hover:bg-movieboli-accent/10'
+                        : 'text-movieboli-primary hover:text-movieboli-accent hover:bg-movieboli-primary/10'
+                    }`}
+                    aria-label="Chiudi menu"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Navigation Links */}
+                <nav className="space-y-2">
+                  {navigation.map((item, index) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        className={`flex items-center px-4 py-4 rounded-xl font-inter text-base font-semibold transition-all duration-300 ${
+                          router.pathname === item.href 
+                            ? (currentVariant === 'festival'
+                                ? 'bg-movieboli-accent/20 text-movieboli-accent border-l-4 border-movieboli-accent shadow-lg'
+                                : 'bg-movieboli-primary/10 text-movieboli-primary border-l-4 border-movieboli-primary shadow-lg'
+                              )
+                            : (currentVariant === 'festival'
+                                ? 'text-movieboli-crema hover:bg-movieboli-accent/10 hover:text-movieboli-accent hover:translate-x-1'
+                                : 'text-movieboli-primary hover:bg-movieboli-primary/5 hover:text-movieboli-accent hover:translate-x-1'
+                              )
+                        }`}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <span className="flex-1">{item.name}</span>
+                        {router.pathname === item.href && (
+                          <svg className="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </Link>
+                    </motion.div>
+                  ))}
+                </nav>
+
+                {/* Footer del menu mobile */}
+                <div className={`mt-8 pt-6 border-t border-current/20 text-center ${
+                  currentVariant === 'festival' ? 'text-movieboli-crema' : 'text-movieboli-primary'
+                }`}>
+                  <p className="text-sm opacity-80">
+                    © 2024 MOVIEBOLI APS
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

@@ -411,17 +411,6 @@ const JoinSection = () => {
 };
 
 export default function ChiSiamo() {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  // Gestione scroll per navbar
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <BrandingProvider>
       <Head>
@@ -432,80 +421,11 @@ export default function ChiSiamo() {
         <meta property="og:image" content="/images/og-image.jpg" />
       </Head>
       
-      {/* Navbar Festival Standardizzata */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-xl' : 'bg-transparent'
-      }`}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-300">
-                <Image
-                  src="/images/logoNuovo.png"
-                  alt="MOVIEBOLI Logo"
-                  fill
-                  className="object-contain filter brightness-0 invert"
-                  priority
-                />
-              </div>
-              <span className="font-poppins font-semibold text-xl text-movieboli-violaPrincipale">
-                <EditableText 
-                  contentKey="festival.nav.title"
-                  defaultValue="FESTIVAL 2025"
-                  tag="span"
-                />
-              </span>
-            </Link>
-            <div className="hidden md:flex space-x-8">
-              <Link href="/festival/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="nav.program"
-                  defaultValue="Programma"
-                  tag="span"
-                />
-              </Link>
-              <Link href="/festival/cortometraggi" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="festival.nav.shorts"
-                  defaultValue="Cortometraggi"
-                  tag="span"
-                />
-              </Link>
-              <Link href="/festival/film" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="festival.nav.films"
-                  defaultValue="Film"
-                  tag="span"
-                />
-              </Link>
-              <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="festival.nav.guests"
-                  defaultValue="Ospiti"
-                  tag="span"
-                />
-              </Link>
-              <Link href="/festival/vota" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="festival.nav.vote"
-                  defaultValue="Vota"
-                  tag="span"
-                />
-              </Link>
-              <Link href="/chi-siamo" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="nav.about"
-                  defaultValue="Info"
-                  tag="span"
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Navbar Standard dell'Associazione */}
+      <Navbar variant="association" />
 
-      {/* Contenuto principale con padding-top per compensare navbar fissa */}
-      <main className="pt-20">
+      {/* Contenuto principale */}
+      <main>
         <ChiSiamoHero />
         <StorySection />
         <MissionSection />
@@ -513,7 +433,7 @@ export default function ChiSiamo() {
         <JoinSection />
       </main>
       
-      <Footer />
+      <Footer variant="association" />
     </BrandingProvider>
   );
 }

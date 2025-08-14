@@ -77,7 +77,7 @@ const OspitiPage = () => {
           getContent('guests.meta.description', 'Scopri gli ospiti speciali del MOVIEBOLI Film Festival 2025: registi, sceneggiatori e professionisti del cinema italiano.')
         } />
         <meta property="og:title" content="Ospiti del Festival 2025 | MOVIEBOLI Festival" />
-        <meta property="og:description" content="Tre serate con i grandi maestri del cinema italiano contemporaneo." />
+        <meta property="og:description" content="Tre serate con  grandi ospiti del cinema italiano contemporaneo." />
         <meta property="og:image" content="/images/og-image.jpg" />
       </Head>
       
@@ -200,7 +200,7 @@ const OspitiPage = () => {
               <p className="text-lg md:text-xl text-movieboli-crema/80 mb-6 max-w-3xl mx-auto">
                 <EditableText 
                   contentKey="guests.subtitle"
-                  defaultValue="Tre serate indimenticabili con i grandi maestri del cinema italiano contemporaneo"
+                  defaultValue="Tre serate indimenticabili con grandi personaggi del cinema italiano contemporaneo"
                   tag="span"
                 />
               </p>

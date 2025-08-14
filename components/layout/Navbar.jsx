@@ -24,15 +24,23 @@ const Navbar = () => {
                         router.pathname === '/turni-impp'
 
   // Menu di navigazione festival
+  const festivalNavigation = [
+    { name: 'Festival', href: '/festival' },
+    { name: 'Programma', href: '/festival/programma', section: 'festival' },
+    { name: 'Cortometraggi', href: '/festival/cortometraggi' },
+    { name: 'Film', href: '/festival/film' },
+    { name: 'Ospiti', href: '/festival/ospiti' },
+    { name: 'Vota', href: '/festival/vota' },
+  ]
+
   // Menu di navigazione principale
-  // Nel menu di navigazione principale, aggiungi:
   const navigation = [
     { name: 'Home', href: '/', section: 'association' },
     { name: 'Chi siamo', href: '/chi-siamo', section: 'association' },
     { name: 'Attività', href: '/attivita', section: 'association' },
     { name: 'Podcast', href: '/podcast', section: 'association' },
     { name: 'Festival', href: '/festival', section: 'festival' },
-    { name: 'Programma', href: '/programma', section: 'festival' },
+    { name: 'Programma', href: '/festival/programma', section: 'festival' },
     { name: 'Archivio', href: '/archivio-festival/2023', section: 'festival' }, // Nuovo link
     { name: 'Prenota', href: '/prenota', section: 'festival' },
     { name: 'Turni IMPP', href: '/turni-impp', section: 'festival' },

@@ -1,10 +1,20 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-// Configura qui la modalità manutenzione
-const MAINTENANCE_MODE = process.env.MAINTENANCE_MODE === 'true';
+// Configura qui la modalità manutenzione selettiva
+const SELECTIVE_MAINTENANCE_MODE = process.env.SELECTIVE_MAINTENANCE_MODE === 'true';
 
-// Percorsi che saranno sempre accessibili anche in modalità manutenzione
+// Percorsi specifici in manutenzione (come richiesto dall'utente)
+const MAINTENANCE_PATHS = [
+  '/attivita',              // Pagina attività
+  '/archivio-festival',     // Archivi passati (tutte le sottopagine)
+  '/festival/2023',         // Edizione 2023
+  '/festival/2024',         // Edizione 2024
+  '/festival/vota',         // Pagina vota
+  '/vota'                   // Pagina vota alternativa
+];
+
+// Percorsi che saranno sempre accessibili
 const ALLOWED_PATHS = [
   '/maintenance',  // La pagina di manutenzione stessa
   '/_next',        // Risorse Next.js
@@ -13,12 +23,13 @@ const ALLOWED_PATHS = [
   '/images',       // Immagini
   '/manifest.json', // Manifest PWA
   '/json-folders', // Dati JSON per i cortometraggi
-  '/festival/cortometraggi', // Pagina dei cortometraggi
+  '/festival/cortometraggi', // Pagina dei cortometraggi (rimane accessibile)
   '/donazioni',    // Pagina delle donazioni
   '/sw.js',        // Service Worker
   '/workbox-',     // Workbox (per PWA)
-  '/api/',          // API routes
-  '/admin'
+  '/api/',         // API routes
+  '/admin',        // Pannello admin
+  '/'              // Homepage rimane accessibile
 ];
 
 // Funzione per verificare se un utente è admin nel middleware
@@ -76,42 +87,39 @@ export async function middleware(request) {
   console.log('=== MIDDLEWARE DEBUG ===');
   console.log('URL completo:', request.url);
   console.log('Pathname:', request.nextUrl.pathname);
-  console.log('MAINTENANCE_MODE:', MAINTENANCE_MODE);
+  console.log('SELECTIVE_MAINTENANCE_MODE:', SELECTIVE_MAINTENANCE_MODE);
   
-  // Se non siamo in modalità manutenzione, continua normalmente
-  if (!MAINTENANCE_MODE) {
-    console.log('Maintenance mode OFF - continuing normally');
-    return NextResponse.next();
-  }
-
   const { pathname } = request.nextUrl;
   
-  // Controlla se il percorso è tra quelli consentiti
-  const isAllowedPath = ALLOWED_PATHS.some(path => pathname.startsWith(path));
-  console.log('Is allowed path:', isAllowedPath);
-  
-  // Se il percorso è consentito, continua
-  if (isAllowedPath) {
-    console.log('Allowing access to:', pathname);
-    return NextResponse.next();
+  // Se la manutenzione selettiva è attiva
+  if (SELECTIVE_MAINTENANCE_MODE) {
+    // Controlla se il percorso corrente è in manutenzione
+    const isMaintenancePath = MAINTENANCE_PATHS.some(path => 
+      pathname === path || pathname.startsWith(path + '/')
+    );
+    
+    console.log('Is maintenance path:', isMaintenancePath);
+    
+    if (isMaintenancePath) {
+      // Verifica se l'utente è un amministratore
+      const isAdmin = await isUserAdminMiddleware(request);
+      console.log('Is admin user:', isAdmin);
+      
+      // Se non è admin, reindirizza alla pagina di manutenzione
+      if (!isAdmin) {
+        console.log('Redirecting to maintenance:', pathname);
+        const url = request.nextUrl.clone();
+        url.pathname = '/maintenance';
+        return NextResponse.redirect(url);
+      }
+      
+      console.log('✅ Admin access granted to maintenance path:', pathname);
+    }
   }
-
-  // Verifica se l'utente è un amministratore
-  const isAdmin = await isUserAdminMiddleware(request);
-  console.log('Is admin user:', isAdmin);
   
-  // Se è un admin, permetti l'accesso a tutte le pagine
-  if (isAdmin) {
-    console.log('✅ Admin access granted to:', pathname);
-    return NextResponse.next();
-  }
-  
-  // Reindirizza tutti gli altri utenti alla pagina di manutenzione
-  console.log('Redirecting to maintenance:', pathname);
-  const url = request.nextUrl.clone();
-  url.pathname = '/maintenance';
-  
-  return NextResponse.redirect(url);
+  // Per tutti gli altri percorsi, continua normalmente
+  console.log('Allowing normal access to:', pathname);
+  return NextResponse.next();
 }
 
 // Matcher più specifico che include esplicitamente la homepage

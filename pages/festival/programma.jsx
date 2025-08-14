@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Footer from '../../components/Footer'
 import Image from 'next/image'
 import EditableText from '../../components/ui/EditableText'
+import Navbar from '../../components/Navbar'
 
 // Importa i dati reali
 import ospiti from '../../public/images/ospiti/ospiti.json'
@@ -37,7 +38,7 @@ const programmaData = {
           durata: '20:00 minuti',
           immagine: 'https://i.ibb.co/F4vnXKtX/Poster-Place-under-the-sun-EN.png',
           sinossi: 'Un talentuoso pianista e il suo figlio di 8 anni lottano per trovare un posto dove vendere verdura nel più grande mercato della Moldavia nei primi anni 2000.',
-          intervista: true
+          intervista: false
         },
         {
           titolo: 'YA HANOUNI',
@@ -45,7 +46,7 @@ const programmaData = {
           durata: '3:00 minuti',
           immagine: 'https://i.ibb.co/vC6YGQv1/Ya-Hanouni.jpg',
           sinossi: 'Mentre la mamma e il papà cercano di addormentare il loro bambino, una competizione tra loro si verifica: chi dei due riuscirà a fargli dire la prima parola?',
-          intervista: true
+          intervista: false
         },
         {
           titolo: 'APPUNTAMENTO A MEZZOGIORNO',
@@ -61,7 +62,7 @@ const programmaData = {
           durata: '4:03 minuti',
           immagine: 'https://i.ibb.co/99wFKywB/locandina-2.png',
           sinossi: 'John, Jay e Joe formano una band e iniziano le prove nel garage di John. All\'inizio tutti suonano con calma, ma presto il volume aumenta.',
-          intervista: true
+          intervista: false
         }
       ]
     },
@@ -70,7 +71,7 @@ const programmaData = {
       tipo: 'ospite',
       categoria: 'ospiti',
       titolo: 'Intervista agli Ospiti',
-      descrizione: 'Incontro con i maestri del cinema italiano',
+      descrizione: 'Incontro con personaggi del cinema italiano',
       luogo: 'Arena di Sant\'Antonio',
       ospiti: [
         {
@@ -141,7 +142,7 @@ const programmaData = {
       tipo: 'ospite',
       categoria: 'ospiti',
       titolo: 'Incontro con Mario Martone',
-      descrizione: 'Masterclass con il maestro Mario Martone, regista e sceneggiatore',
+      descrizione: "Intervista con il regista Mario Martone, regista e sceneggiatore",
       luogo: 'Arena di Sant\'Antonio',
       ospite: 'Mario Martone',
       immagine: 'https://i.ibb.co/VptMKV2X/licensed-image.jpg',
@@ -173,7 +174,7 @@ const programmaData = {
       tipo: 'ospite',
       categoria: 'ospiti',
       titolo: 'Incontro con Alessandro Rak',
-      descrizione: 'Masterclass con il regista di animazione Alessandro Rak',
+      descrizione: "Intervista con il regista di animazione Alessandro Rak",
       luogo: 'Arena di Sant\'Antonio',
       ospite: 'Alessandro Rak',
       immagine: 'https://i.ibb.co/7J4jNP4h/ALESSANDRO-RAK.jpg',
@@ -272,79 +273,10 @@ export default function Programma() {
       </Head>
       
       {/* Navbar Festival Standardizzata */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-xl' : 'bg-transparent'
-      }`}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-300">
-                <Image
-                  src="/logo-movieboli.png"
-                  alt="MOVIEBOLI Logo"
-                  fill
-                  className="object-contain filter brightness-0 invert"
-                  priority
-                />
-              </div>
-              <span className="font-poppins font-semibold text-xl text-movieboli-violaPrincipale">
-                <EditableText 
-                  contentKey="festival.nav.title"
-                  defaultValue="FESTIVAL 2025"
-                  tag="span"
-                />
-              </span>
-            </Link>
-            <div className="hidden md:flex space-x-8">
-              <Link href="/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="nav.program"
-                  defaultValue="Programma"
-                  tag="span"
-                />
-              </Link>
-              <Link href="/festival/cortometraggi" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="festival.nav.shorts"
-                  defaultValue="Cortometraggi"
-                  tag="span"
-                />
-              </Link>
-              <Link href="/festival/film" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="festival.nav.films"
-                  defaultValue="Film"
-                  tag="span"
-                />
-              </Link>
-              <Link href="/festival/ospiti" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="festival.nav.guests"
-                  defaultValue="Ospiti"
-                  tag="span"
-                />
-              </Link>
-              <Link href="/festival/vota" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="festival.nav.vote"
-                  defaultValue="Vota"
-                  tag="span"
-                />
-              </Link>
-              <Link href="/chi-siamo" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
-                <EditableText 
-                  contentKey="nav.about"
-                  defaultValue="Info"
-                  tag="span"
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Contenuto principale con padding-top per compensare navbar fissa */}
-      <main className="pt-20">
+      <Navbar variant="festival" />
+      
+      {/* Contenuto principale */}
+      <main className="min-h-screen bg-gradient-to-br from-movieboli-nero via-slate-900 to-movieboli-nero">
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-movieboli-nero/90 via-movieboli-bordeaux/80 to-movieboli-violaPrincipale/90"></div>
