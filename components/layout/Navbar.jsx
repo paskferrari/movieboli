@@ -134,7 +134,8 @@ const Navbar = () => {
                   </svg>
                 </button>
                 
-                {/* Auth buttons */}
+             
+                {/* 
                 <div className="flex items-center space-x-4">
                   {isAuthenticated ? (
                     <div className="flex items-center space-x-3">
@@ -157,6 +158,7 @@ const Navbar = () => {
                     </button>
                   )}
                 </div>
+                */}
               </div>
             </div>
           </div>
@@ -234,7 +236,8 @@ const Navbar = () => {
                   )
                 })}
                 
-                {/* Auth buttons */}
+                /* Auth buttons - RIMOSSO COMPLETAMENTE */
+                {/*
                 <div className="flex items-center space-x-4 ml-6 pl-6 border-l border-movieboli-neutral-200">
                   {isAuthenticated ? (
                     <div className="flex items-center space-x-3">
@@ -267,11 +270,13 @@ const Navbar = () => {
                     </button>
                   )}
                 </div>
+                */}
               </div>
 
               {/* Mobile menu button */}
               <div className="lg:hidden flex items-center space-x-3">
-                {/* Mobile Auth button */}
+                {/* Mobile Auth button - RIMOSSO COMPLETAMENTE */}
+                {/*
                 {isAuthenticated ? (
                   <button
                     onClick={handleLogout}
@@ -295,6 +300,7 @@ const Navbar = () => {
                     Accedi
                   </button>
                 )}
+                */}
                 
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}

@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Footer from '../../components/Footer'
 import Image from 'next/image'
 import EditableText from '../../components/ui/EditableText'
-import Navbar from '../../components/Navbar'
+import Navbar from '../../components/layout/Navbar'
 
 // Importa i dati reali
 import ospiti from '../../public/images/ospiti/ospiti.json'
@@ -195,7 +195,7 @@ const programmaData = {
 
 // Categorie per i filtri
 const categorie = [
-  { id: 'tutti', label: 'Tutti gli Eventi', color: 'from-slate-600 to-slate-700' },
+  { id: 'tutti', label: 'Tutti gli Eventi', color: 'from-slate-600 to-slate-70'},
   { id: 'cortometraggi', label: 'Cortometraggi', color: 'from-pink-500 to-pink-600' },
   { id: 'ospiti', label: 'Ospiti', color: 'from-yellow-500 to-yellow-600' },
   { id: 'film', label: 'Film', color: 'from-blue-500 to-blue-600' },
@@ -273,22 +273,23 @@ export default function Programma() {
       </Head>
       
       {/* Navbar Festival Standardizzata */}
-      <Navbar variant="festival" />
+      <Navbar />
       
       {/* Contenuto principale */}
       <main className="min-h-screen bg-gradient-to-br from-movieboli-nero via-slate-900 to-movieboli-nero">
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-movieboli-nero/90 via-movieboli-bordeaux/80 to-movieboli-violaPrincipale/90"></div>
-          <div className="absolute inset-0 bg-[url('/images/festival-bg.jpg')] bg-cover bg-center opacity-20"></div>
-          
+       
           <div className="relative z-10 container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
               transition={{ duration: 0.8 }}
-              className="text-center max-w-4xl mx-auto"
-            >
+              className="text-center max-w-4xl mx-auto">
+                   <div className="absolute inset-0 bg-[url('/images/festival-bg.jpg')] bg-cover bg-center opacity-20"></div>
+          <br></br>
+          <br></br>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
                 Programma Festival 2025
               </h1>
@@ -308,7 +309,7 @@ export default function Programma() {
         </section>
 
         {/* Selezione Giorno */}
-        <section className="py-8 bg-white/50 backdrop-blur-sm">
+        <section className="py-8 bg-white">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center gap-4">
               {Object.keys(programmaData).map((giorno) => (
@@ -329,7 +330,7 @@ export default function Programma() {
         </section>
 
         {/* Filtri Categoria */}
-        <section className="py-6">
+        <section className="py-6 bg-white">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center gap-3">
               {categorie.map((categoria) => (
@@ -350,7 +351,7 @@ export default function Programma() {
         </section>
 
         {/* Timeline Eventi - Struttura Aggiornata */}
-        <section className="py-12">
+        <section className="py-12 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <AnimatePresence mode="wait">
