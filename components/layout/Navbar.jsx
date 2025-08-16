@@ -12,6 +12,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [showAuthModal, setShowAuthModal] = useState(false)
+  const [isArchiveDropdownOpen, setIsArchiveDropdownOpen] = useState(false)
   const router = useRouter()
   const branding = useBranding()
   const classes = useBrandingClasses()
@@ -41,7 +42,15 @@ const Navbar = () => {
     { name: 'Podcast', href: '/podcast', section: 'association' },
     { name: 'Festival', href: '/festival', section: 'festival' },
     { name: 'Programma', href: '/festival/programma', section: 'festival' },
-    { name: 'Archivio', href: '/archivio-festival/2023', section: 'festival' }, // Nuovo link
+    { 
+      name: 'Archivio', 
+      section: 'festival',
+      isDropdown: true,
+      dropdownItems: [
+        { name: '2024', href: '/archivio-festival/2024' },
+        { name: '2023', href: '/archivio-festival/2023' }
+      ]
+    },
     { name: 'Prenota', href: '/prenota', section: 'festival' },
     { name: 'Turni IMPP', href: '/turni-impp', section: 'festival' },
     { name: 'Ospiti', href: '/festival/ospiti', section: 'festival' },
@@ -200,8 +209,68 @@ const Navbar = () => {
               {/* Desktop Navigation */}
               <div className="hidden lg:flex items-center space-x-6">
                 {navigation.map((item) => {
-                  const isActive = router.pathname === item.href
+                  const isActive = router.pathname === item.href || 
+                    (item.isDropdown && item.dropdownItems?.some(subItem => router.pathname === subItem.href))
                   const isFestivalItem = item.section === 'festival'
+                  
+                  if (item.isDropdown) {
+                    return (
+                      <div 
+                        key={item.name}
+                        className="relative"
+                        onMouseEnter={() => setIsArchiveDropdownOpen(true)}
+                        onMouseLeave={() => setIsArchiveDropdownOpen(false)}
+                      >
+                        <button
+                          className={`
+                            navbar-link relative group flex items-center
+                            ${classes.fontPrimary} font-medium text-sm tracking-wide
+                            transition-all duration-300
+                            ${
+                              router.pathname === '/' && !isScrolled
+                                ? isActive
+                                  ? 'text-white'
+                                  : 'text-white/80 hover:text-white'
+                                : isActive
+                                  ? classes.textPrimary
+                                  : 'text-movieboli-neutral-600 hover:text-movieboli-primary'
+                            }
+                            ${isFestivalItem && branding.isAssociation() ? 'festival-text-gradient' : ''}
+                          `}
+                        >
+                          {item.name}
+                          <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                          {isFestivalItem && branding.isAssociation() && (
+                            <span className="festival-badge ml-2 text-xs">Nuovo</span>
+                          )}
+                          <span className={`
+                            absolute -bottom-1 left-0 h-0.5 transition-all duration-300
+                            ${isFestivalItem ? 'bg-festival-gold' : 'bg-movieboli-secondary'}
+                            ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}
+                          `}></span>
+                        </button>
+                        
+                        {/* Dropdown Menu */}
+                        <div className={`
+                          absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200
+                          transition-all duration-200 z-50
+                          ${isArchiveDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}
+                        `}>
+                          {item.dropdownItems?.map((subItem) => (
+                            <Link
+                              key={subItem.name}
+                              href={subItem.href}
+                              className="block px-4 py-3 text-sm text-movieboli-neutral-700 hover:bg-movieboli-neutral-50 hover:text-movieboli-primary transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg"
+                            >
+                              Edizione {subItem.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  }
                   
                   return (
                     <Link
@@ -235,42 +304,7 @@ const Navbar = () => {
                     </Link>
                   )
                 })}
-                
-                /* Auth buttons - RIMOSSO COMPLETAMENTE */
-                {/*
-                <div className="flex items-center space-x-4 ml-6 pl-6 border-l border-movieboli-neutral-200">
-                  {isAuthenticated ? (
-                    <div className="flex items-center space-x-3">
-                      <span className={`hidden sm:block text-sm ${
-                        router.pathname === '/' && !isScrolled ? 'text-white/80' : 'text-movieboli-neutral-600'
-                      }`}>
-                        Ciao, {user?.user_metadata?.firstName || user?.email?.split('@')[0]}
-                      </span>
-                      <button
-                        onClick={handleLogout}
-                        className={`px-4 py-2 rounded-lg transition-all duration-300 text-sm font-medium ${
-                          router.pathname === '/' && !isScrolled
-                            ? 'bg-white/20 hover:bg-white/30 text-white'
-                            : 'bg-movieboli-neutral-100 hover:bg-movieboli-neutral-200 text-movieboli-neutral-700'
-                        }`}
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => setShowAuthModal(true)}
-                      className={`px-4 py-2 rounded-lg transition-all duration-300 text-sm font-bold ${
-                        router.pathname === '/' && !isScrolled
-                          ? 'bg-white text-movieboli-primary hover:bg-white/90'
-                          : 'bg-movieboli-primary hover:bg-movieboli-secondary text-white'
-                      }`}
-                    >
-                      Accedi
-                    </button>
-                  )}
                 </div>
-                */}
               </div>
 
               {/* Mobile menu button */}

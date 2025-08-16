@@ -106,7 +106,7 @@ const FilmPage = () => {
               </span>
             </Link>
             <div className="hidden md:flex space-x-8">
-              <Link href="/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+              <Link href="/festival/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
                 <EditableText 
                   contentKey="nav.program"
                   defaultValue="Programma"
