@@ -45,6 +45,25 @@ const PastEditionsSection = () => {
         />
       ),
       link: '/archivio-festival/2023'
+    },
+    {
+      year: 'Drive-In',
+      title: (
+        <EditableText 
+          contentKey="past_editions.drivein.title"
+          defaultValue="Cinema Drive-In"
+          tag="span"
+        />
+      ),
+      image: '/archivio-festival/cover.png',
+      description: (
+        <EditableText 
+          contentKey="past_editions.drivein.description"
+          defaultValue="L'esperienza unica del cinema sotto le stelle"
+          tag="span"
+        />
+      ),
+      link: '/archivio-festival/drive-in'
     }
   ];
 

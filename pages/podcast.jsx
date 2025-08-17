@@ -101,6 +101,7 @@ const ProssimiEpisodiSection = () => {
   const [errori, setErrori] = useState({});
   const [prenotazioneInviata, setPrenotazioneInviata] = useState(false);
   const [caricamento, setCaricamento] = useState(false);
+  const [messaggioErrore, setMessaggioErrore] = useState(''); // Nuovo stato
 
   // Dati degli eventi aggiornati
   const prossimiEpisodi = [
@@ -133,6 +134,16 @@ const ProssimiEpisodiSection = () => {
       ospiti: ['Alessandro Rak'],
       descrizione: 'Scopri i segreti dell\'animazione italiana con il regista di Gatta Cenerentola.',
       immagine: 'https://i.ibb.co/7J4jNP4h/ALESSANDRO-RAK.jpg'
+    },
+        {
+      id: '24-agosto',
+      data: '24 Agosto 2025',
+      orario: '10.30',
+      luogo: 'Giardino Vacca de Dominicis,Eboli',
+      titolo: 'Episodio Live: ',
+      ospiti: ['Mario Martone'],
+      descrizione: 'descrizione',
+      immagine: 'https://i.ibb.co/VptMKV2X/licensed-image.jpg'
     }
   ];
 
@@ -163,18 +174,44 @@ const ProssimiEpisodiSection = () => {
     if (!validaForm()) return;
     
     setCaricamento(true);
+    setMessaggioErrore(''); // Reset errore
     
-    // Simulazione invio prenotazione
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/podcast/booking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          eventoId: eventoSelezionato.id,
+          datiPrenotazione,
+          eventoDettagli: eventoSelezionato
+        })
+      });
+  
+      if (response.ok) {
+        setCaricamento(false);
+        setPrenotazioneInviata(true);
+        setEventoSelezionato(null);
+        setDatiPrenotazione({ nome: '', email: '', telefono: '', note: '' });
+        
+        setTimeout(() => {
+          setPrenotazioneInviata(false);
+        }, 5000);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Errore nell\'invio della prenotazione');
+      }
+    } catch (error) {
+      console.error('Errore:', error);
       setCaricamento(false);
-      setPrenotazioneInviata(true);
-      setEventoSelezionato(null);
-      setDatiPrenotazione({ nome: '', email: '', telefono: '', note: '' });
+      setMessaggioErrore('Si è verificato un errore durante l\'invio della prenotazione. Riprova più tardi.');
       
+      // Nascondi il messaggio di errore dopo 5 secondi
       setTimeout(() => {
-        setPrenotazioneInviata(false);
+        setMessaggioErrore('');
       }, 5000);
-    }, 2000);
+    }
   };
 
   return (
@@ -233,6 +270,13 @@ const ProssimiEpisodiSection = () => {
             </div>
           ))}
         </div>
+
+        {/* Messaggio di errore */}
+        {messaggioErrore && (
+          <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50">
+            ❌ {messaggioErrore}
+          </div>
+        )}
 
         {/* Messaggio di conferma */}
         {prenotazioneInviata && (
