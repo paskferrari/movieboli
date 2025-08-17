@@ -17,7 +17,7 @@ import filmData from './film/film.json'
 const programmaData = {
   'Giovedì 22 Agosto': [
     {
-      orario: '20:00 - 21:00',
+      orario: '19:30 - 20:30',
       tipo: 'cortometraggi',
       categoria: 'cortometraggi',
       titolo: 'Proiezione Cortometraggi - Prima Serata',
@@ -434,6 +434,15 @@ export default function Programma() {
                                 <p className="text-gray-700 text-sm leading-relaxed">{evento.bio}</p>
                               </div>
                             )}
+                            {evento.tipo === 'film' && (
+  <div className="mb-2">
+    <span className="inline-block bg-blue-500 text-white text-sm font-medium px-3 py-1 rounded-full">
+      Proiezione lungometraggio
+    </span>
+  </div>
+)}
+
+
                             
                             {/* Ospiti multipli */}
                             {evento.ospiti && (
@@ -466,6 +475,7 @@ export default function Programma() {
                                 </div>
                               </div>
                             )}
+                            
                             
                             {/* Cortometraggi Details */}
                             {evento.cortometraggi && (
