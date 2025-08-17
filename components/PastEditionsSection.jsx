@@ -9,6 +9,25 @@ const PastEditionsSection = () => {
   
   const editions = [
     {
+      year: '2024',
+      title: (
+        <EditableText 
+          contentKey="past_editions.2024.title"
+          defaultValue="Edizione 2024"
+          tag="span"
+        />
+      ),
+      image: '/festival-2024.jpg',
+      description: (
+        <EditableText 
+          contentKey="past_editions.2024.description"
+          defaultValue="Visioni del futuro: il cinema che immagina domani"
+          tag="span"
+        />
+      ),
+      link: '/archivio-festival/2024'
+    },
+    {
       year: '2023',
       title: (
         <EditableText 
@@ -26,44 +45,6 @@ const PastEditionsSection = () => {
         />
       ),
       link: '/archivio-festival/2023'
-    },
-    {
-      year: '2022',
-      title: (
-        <EditableText 
-          contentKey="past_editions.2022.title"
-          defaultValue="Edizione 2022"
-          tag="span"
-        />
-      ),
-      image: '/festival-2022.jpg',
-      description: (
-        <EditableText 
-          contentKey="past_editions.2022.description"
-          defaultValue="Nuove prospettive e visioni dal mondo del cortometraggio"
-          tag="span"
-        />
-      ),
-      link: '/archivio-festival/2024'
-    },
-    {
-      year: '2021',
-      title: (
-        <EditableText 
-          contentKey="past_editions.2021.title"
-          defaultValue="Edizione 2021"
-          tag="span"
-        />
-      ),
-      image: '/festival-2021.jpg',
-      description: (
-        <EditableText 
-          contentKey="past_editions.2021.description"
-          defaultValue="Il cinema che unisce comunità e cultura"
-          tag="span"
-        />
-      ),
-      link: '/festival/2021'
     }
   ];
 

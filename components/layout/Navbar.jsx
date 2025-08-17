@@ -107,7 +107,7 @@ const Navbar = () => {
               <Link href="/" className="flex items-center space-x-3 group">
                 <div className="relative w-28 h-28 transform group-hover:scale-110 transition-transform duration-300">
                   <img
-                    src={isScrolled ? "/logo-movieboli.png" : "/images/logonero.png"}
+                    src="/images/logoNuovo.png"
                     alt="MOVIEBOLI Logo"
                     className="w-full h-full object-contain"
                   />
@@ -187,22 +187,10 @@ const Navbar = () => {
               <Link href="/" className="flex items-center space-x-2 md:space-x-3 group">
                 <div className="relative w-10 h-10 md:w-12 md:h-12 transform group-hover:scale-110 transition-transform duration-300">
                   <img
-                    src={router.pathname === '/' && !isScrolled ? "/images/logo.png" : "/images/logo.png"}
+                    src="/images/logoNuovo.png"
                     alt="MOVIEBOLI Logo"
-                    className={`w-full h-full object-contain transition-all duration-300 ${router.pathname === '/' && !isScrolled ? '' : ''}`}
+                    className="w-full h-full object-contain transition-all duration-300"
                   />
-                </div>
-                <div className="flex flex-col">
-                  <span className={`${classes.fontPrimary} font-bold text-lg md:text-2xl tracking-wide transition-colors duration-300 ${
-                    router.pathname === '/' && !isScrolled ? 'text-white' : classes.textPrimary
-                  }`}>
-                    MOVIEBOLI
-                  </span>
-                  <span className={`${classes.fontPrimary} text-xs md:text-sm tracking-wider font-medium transition-colors duration-300 ${
-                    router.pathname === '/' && !isScrolled ? 'text-white/80' : 'text-movieboli-neutral-600'
-                  }`}>
-                    {branding.isFestival() ? 'FESTIVAL' : 'ASSOCIAZIONE'}
-                  </span>
                 </div>
               </Link>
 
@@ -304,7 +292,6 @@ const Navbar = () => {
                     </Link>
                   )
                 })}
-                </div>
               </div>
 
               {/* Mobile menu button */}

@@ -3,6 +3,104 @@ import { BrandingProvider } from '../../contexts/BrandingContext';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import EditableText from '../../components/ui/EditableText';
+import { useState } from 'react';
+
+// Importiamo i dati delle foto
+import foto2024Data from './data&media/foto2024.json';
+
+// Nuovo componente per il modal delle foto
+const PhotoModal = ({ isOpen, onClose, photo, title }) => {
+  if (!isOpen) return null;
+  
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4" onClick={onClose}>
+      <div className="relative max-w-4xl max-h-full" onClick={(e) => e.stopPropagation()}>
+        <button 
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white text-2xl bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-75 transition-all"
+        >
+          ×
+        </button>
+        <img 
+          src={photo.link} 
+          alt={photo.nome_foto}
+          className="max-w-full max-h-full object-contain rounded-lg"
+        />
+        <div className="absolute bottom-4 left-4 right-4 text-white text-center bg-black bg-opacity-50 rounded-lg p-2">
+          <h3 className="font-semibold">{title}</h3>
+          <p className="text-sm opacity-90">{photo.nome_foto}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Sezione dedicata per ogni serata
+const SerataSection = ({ serata, title, photos }) => {
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const openModal = (photo) => {
+    setSelectedPhoto(photo);
+    setIsModalOpen(true);
+  };
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPhoto(null);
+  };
+  
+  return (
+    <>
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              {title}
+            </h3>
+            <div className="w-16 h-1 bg-primary-600 mx-auto mb-6" />
+            <p className="text-lg text-gray-600">
+              I momenti più belli della {serata.toLowerCase()} del festival
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            {photos.map((photo, index) => (
+              <div 
+                key={index} 
+                className="group cursor-pointer transform transition-all duration-300 hover:scale-105"
+                onClick={() => openModal(photo)}
+              >
+                <div className="relative overflow-hidden rounded-lg shadow-lg bg-gray-200 aspect-square">
+                  <img 
+                    src={photo.link} 
+                    alt={photo.nome_foto}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                    <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm5 3a2 2 0 11-4 0 2 2 0 014 0zm4.5 8.5l-3-3-1.5 1.5-3-3V16h7.5z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      <PhotoModal 
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        photo={selectedPhoto}
+        title={title}
+      />
+    </>
+  );
+};
 
 const Festival2024Hero = () => {
   return (
@@ -168,27 +266,31 @@ const HighlightsSection = () => {
   const highlights = [
     {
       titolo: "Cerimonia di Apertura",
-      data: "15 Giugno 2024",
-      descrizione: "Una serata magica con la partecipazione di ospiti internazionali e la proiezione del film di apertura.",
-      immagine: "🎬"
+      data: "19 Luglio 2024",
+      descrizione: "Una serata indimenticabile con la partecipazione di ospiti d'eccezione e la proiezione del film di apertura che ha dato il via alla seconda edizione del festival.",
+      immagine: "🎬",
+      dettagli: "Teatro Comunale di Eboli - Ore 21:00"
     },
     {
-      titolo: "Masterclass con Paolo Sorrentino",
-      data: "17 Giugno 2024",
-      descrizione: "Il regista premio Oscar ha condiviso i segreti del suo cinema con giovani filmmaker.",
-      immagine: "🎓"
+      titolo: "Masterclass e Incontri",
+      data: "20 Luglio 2024",
+      descrizione: "Registi, attori e professionisti del cinema hanno condiviso le loro esperienze con il pubblico in masterclass esclusive e tavole rotonde.",
+      immagine: "🎓",
+      dettagli: "Sala Conferenze - Ore 17:00"
     },
     {
-      titolo: "Notte Bianca del Cinema",
-      data: "19 Giugno 2024",
-      descrizione: "Proiezioni no-stop fino all'alba con film cult e anteprime esclusive.",
-      immagine: "🌙"
+      titolo: "Notte delle Premiazioni",
+      data: "21 Luglio 2024",
+      descrizione: "La serata conclusiva con la premiazione dei migliori cortometraggi e lungometraggi in concorso, celebrando il talento emergente del cinema.",
+      immagine: "🏆",
+      dettagli: "Teatro Comunale - Ore 20:30"
     },
     {
-      titolo: "Premio alla Carriera",
-      data: "21 Giugno 2024",
-      descrizione: "Riconoscimento speciale a Lina Wertmüller per il suo contributo al cinema italiano.",
-      immagine: "⭐"
+      titolo: "Eventi Collaterali",
+      data: "19-21 Luglio 2024",
+      descrizione: "Mostre fotografiche, esposizioni di locandine storiche e incontri con la stampa hanno arricchito il programma del festival.",
+      immagine: "🎨",
+      dettagli: "Varie location del centro storico"
     }
   ];
   
@@ -197,23 +299,31 @@ const HighlightsSection = () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Highlights del Festival
+            Highlights del Festival 2024
           </h2>
           <div className="w-24 h-1 bg-primary-600 mx-auto mb-8" />
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            I momenti più significativi della seconda edizione del MOVIEBOLI Film Festival
+          </p>
         </div>
         
         <div className="grid md:grid-cols-2 gap-8">
           {highlights.map((highlight, index) => (
-            <div key={index} className="bg-gray-50 rounded-xl p-6">
-              <div className="text-4xl mb-4 text-center">{highlight.immagine}</div>
+            <div key={index} className="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow duration-300">
+              <div className="text-5xl mb-6 text-center">{highlight.immagine}</div>
               
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
                 {highlight.titolo}
               </h3>
               
-              <p className="text-primary-600 font-semibold mb-3">
-                {highlight.data}
-              </p>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+                <p className="text-primary-600 font-semibold text-lg">
+                  {highlight.data}
+                </p>
+                <p className="text-gray-500 text-sm">
+                  {highlight.dettagli}
+                </p>
+              </div>
               
               <p className="text-gray-700 leading-relaxed">
                 {highlight.descrizione}
@@ -227,38 +337,76 @@ const HighlightsSection = () => {
 };
 
 const GalleriaSection = () => {
+  const fotoFestival = foto2024Data["foto festival 2024"];
+  
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Galleria Fotografica
+            Galleria Fotografica Festival 2024
           </h2>
           <div className="w-24 h-1 bg-secondary-600 mx-auto mb-8" />
-          <p className="text-xl text-gray-700">
-            I momenti più belli del Festival 2024 immortalati nelle nostre foto.
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            Rivivi le emozioni delle tre serate del MOVIEBOLI Film Festival 2024 attraverso 
+            le nostre foto esclusive. Ogni scatto racconta una storia, ogni momento è un ricordo prezioso.
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-6">
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <div key={item} className="bg-white rounded-xl p-4 shadow-lg">
-              <div className="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-lg h-48 flex items-center justify-center mb-4">
-                <div className="text-4xl">📸</div>
+        {/* Anteprima con foto highlight */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="text-center">
+            <div className="relative overflow-hidden rounded-xl shadow-lg mb-4 aspect-video">
+              <img 
+                src={fotoFestival["prima serata"][0]?.link} 
+                alt="Prima Serata"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-xl font-bold">Prima Serata</h3>
+                <p className="text-sm opacity-90">{fotoFestival["prima serata"].length} foto</p>
               </div>
-              <p className="text-center text-gray-700 font-semibold">
-                Momento {item} del Festival
-              </p>
             </div>
-          ))}
+          </div>
+          
+          <div className="text-center">
+            <div className="relative overflow-hidden rounded-xl shadow-lg mb-4 aspect-video">
+              <img 
+                src={fotoFestival["seconda serata"][0]?.link} 
+                alt="Seconda Serata"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-xl font-bold">Seconda Serata</h3>
+                <p className="text-sm opacity-90">{fotoFestival["seconda serata"].length} foto</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <div className="relative overflow-hidden rounded-xl shadow-lg mb-4 aspect-video">
+              <img 
+                src={fotoFestival["terza serata"][0]?.link} 
+                alt="Terza Serata"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-xl font-bold">Terza Serata</h3>
+                <p className="text-sm opacity-90">{fotoFestival["terza serata"].length} foto</p>
+              </div>
+            </div>
+          </div>
         </div>
         
-        <div className="text-center mt-12">
+        <div className="text-center">
           <a 
-            href="#" 
+            href="#serate" 
             className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
-            Vedi Tutte le Foto
+            Esplora Tutte le Serate
           </a>
         </div>
       </div>
@@ -272,8 +420,8 @@ export default function Festival2024() {
       <div className="min-h-screen bg-white">
         <Head>
           <title><EditableText contentKey="festival_2024_page_title" defaultText="Festival 2024 - MOVIEBOLI APS" /></title>
-          <meta name="description" content={<EditableText contentKey="festival_2024_page_description" defaultText="Rivivi i momenti più emozionanti della seconda edizione del MOVIEBOLI Film Festival 2024. Scopri i vincitori, gli highlights e la galleria fotografica." />} />
-          <meta name="keywords" content={<EditableText contentKey="festival_2024_page_keywords" defaultText="festival 2024, MOVIEBOLI, cinema, vincitori, highlights, Eboli" />} />
+          <meta name="description" content="Rivivi i momenti più emozionanti della seconda edizione del MOVIEBOLI Film Festival 2024. Scopri i vincitori, gli highlights e la galleria fotografica completa." />
+          <meta name="keywords" content="festival 2024, MOVIEBOLI, cinema, vincitori, highlights, Eboli, galleria foto" />
           <meta property="og:title" content="Festival 2024 - MOVIEBOLI APS" />
           <meta property="og:description" content="Rivivi i momenti più emozionanti della seconda edizione del MOVIEBOLI Film Festival 2024." />
           <meta property="og:image" content="/logo-movieboli.png" />
@@ -288,6 +436,25 @@ export default function Festival2024() {
           <VincitoriSection />
           <HighlightsSection />
           <GalleriaSection />
+          
+          {/* Sezioni dedicate per ogni serata */}
+          <div id="serate">
+            <SerataSection 
+              serata="Prima Serata" 
+              title="Prima Serata - 19 Luglio 2024"
+              photos={foto2024Data["foto festival 2024"]["prima serata"]} 
+            />
+            <SerataSection 
+              serata="Seconda Serata" 
+              title="Seconda Serata - 20 Luglio 2024"
+              photos={foto2024Data["foto festival 2024"]["seconda serata"]} 
+            />
+            <SerataSection 
+              serata="Terza Serata" 
+              title="Terza Serata - 21 Luglio 2024"
+              photos={foto2024Data["foto festival 2024"]["terza serata"]} 
+            />
+          </div>
         </main>
         
         <Footer />

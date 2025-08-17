@@ -48,7 +48,7 @@ const FestivalPage = () => {
             <Link href="/" className="flex items-center space-x-3 group">
               <div className="relative w-20 h-20 transform group-hover:scale-110 transition-transform duration-300">
                 <Image
-                  src="/logo-movieboli.png"
+                  src="/images/logoNuovo.png"
                   alt="MOVIEBOLI Logo"
                   fill
                   className="object-contain filter brightness-0 invert"
