@@ -169,7 +169,7 @@ const FestivalPage = () => {
                 transition={{ duration: 1, delay: 1.5 }}
               >
                 <Link
-                  href="/programma"
+                  href="/festival/programma"
                   className="inline-flex items-center bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-medium text-xl py-4 px-10 rounded-xl hover:bg-movieboli-crema hover:scale-105 transition-all duration-300 shadow-lg"
                 >
                   <EditableText 
@@ -443,7 +443,7 @@ const FestivalPage = () => {
                   />
                 </Link>
                 <Link
-                  href="/programma"
+                  href="/festival/programma"
                   className="inline-flex items-center border-2 border-white text-white font-poppins font-medium text-xl py-4 px-10 rounded-xl hover:bg-white hover:text-movieboli-nero hover:scale-105 transition-all duration-300 backdrop-blur-sm"
                 >
                   <EditableText 
@@ -601,7 +601,7 @@ const FestivalPage = () => {
                       tag="span"
                     />
                   </Link>
-                  <Link href="/programma" className="block font-poppins text-movieboli-crema/85 hover:text-movieboli-violaPrincipale transition-colors">
+                  <Link href="/festival/programma" className="block font-poppins text-movieboli-crema/85 hover:text-movieboli-violaPrincipale transition-colors">
                     <EditableText 
                       contentKey="festival.footer.link_program"
                       defaultValue="Programma Dettagliato"

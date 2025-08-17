@@ -163,13 +163,7 @@ function FestivalPage(props: FestivalPageProps) {
   return (
     <>
       <Head>
-        <title>
-          <EditableText 
-            contentKey="festival.meta.title"
-            defaultValue="Cortometraggi in Concorso | MOVIEBOLI Festival"
-            tag="span"
-          />
-        </title>
+        <title>Cortometraggi in Concorso | MOVIEBOLI Festival</title>
         <meta name="description" content={
           getContent('festival.meta.description', 'Scopri i cortometraggi in concorso al MOVIEBOLI Festival del Cinema di Eboli')
         } />
@@ -185,12 +179,12 @@ function FestivalPage(props: FestivalPageProps) {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-300">
+              <div className="relative w-24 h-24 transform group-hover:scale-110 transition-transform duration-300">
                 <Image
-                  src="/logo-movieboli.png"
+                  src="/images/logoNuovo.png"
                   alt="MOVIEBOLI Logo"
                   fill
-                  className="object-contain filter brightness-0 invert"
+                  className="object-contain"
                   priority
                 />
               </div>

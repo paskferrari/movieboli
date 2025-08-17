@@ -57,7 +57,7 @@ const FestivalPage = () => {
               </div>
             </Link>
             <div className="hidden md:flex space-x-8">
-              <Link href="/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+              <Link href="/festival/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
                 <EditableText 
                   contentKey="festival.nav.programma"
                   defaultValue="Programma"
@@ -193,7 +193,7 @@ const FestivalPage = () => {
                 transition={{ duration: 1, delay: 1.5 }}
               >
                 <Link
-                  href="/programma"
+                  href="/festival/programma"
                   className="inline-flex items-center bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-medium text-xl py-4 px-10 rounded-xl hover:bg-movieboli-crema hover:scale-105 transition-all duration-300 shadow-lg"
                 >
                   <EditableText 
@@ -672,7 +672,7 @@ const FestivalPage = () => {
                       multiline={true}
                     />
                   </p>
-                  <Link href="/programma">
+                  <Link href="/festival/programma">
                     <span className="inline-block bg-movieboli-nero text-white font-poppins font-medium px-6 py-3 rounded-xl hover:bg-movieboli-violaPrincipale transition-all duration-300 group-hover:scale-105">
                       <EditableText 
                         contentKey="festival.films.cta"
@@ -792,7 +792,7 @@ const FestivalPage = () => {
                       multiline={true}
                     />
                   </p>
-                  <Link href="/programma">
+                  <Link href="/festival/programma">
                     <span className="inline-block bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-medium px-6 py-3 rounded-xl hover:bg-movieboli-nero hover:text-white transition-all duration-300 group-hover:scale-105">
                       <EditableText 
                         contentKey="festival.program.cta"
@@ -869,7 +869,7 @@ const FestivalPage = () => {
                   />
                 </Link>
                 <Link
-                  href="/programma"
+                  href="/festival/programma"
                   className="inline-flex items-center border-2 border-white text-white font-poppins font-medium text-xl py-4 px-10 rounded-xl hover:bg-white hover:text-movieboli-nero hover:scale-105 transition-all duration-300 backdrop-blur-sm"
                 >
                   <EditableText 
@@ -1027,7 +1027,7 @@ const FestivalPage = () => {
                       tag="span"
                     />
                   </Link>
-                  <Link href="/programma" className="block font-poppins text-movieboli-crema/85 hover:text-movieboli-violaPrincipale transition-colors">
+                  <Link href="/festival/programma" className="block font-poppins text-movieboli-crema/85 hover:text-movieboli-violaPrincipale transition-colors">
                     <EditableText 
                       contentKey="festival.footer.link_program"
                       defaultValue="Programma Dettagliato"

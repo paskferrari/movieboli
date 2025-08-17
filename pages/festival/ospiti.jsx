@@ -81,29 +81,22 @@ const OspitiPage = () => {
         <meta property="og:image" content="/images/og-image.jpg" />
       </Head>
       
-      {/* Navbar Festival Standardizzata - già presente, mantieni così com'è */}
+      {/* Navbar Festival Standardizzata */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled ? 'bg-movieboli-nero/95 backdrop-blur-md shadow-xl' : 'bg-transparent'
       }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative w-12 h-12 transform group-hover:scale-110 transition-transform duration-300">
+              <div className="relative w-24 h-24 transform group-hover:scale-110 transition-transform duration-300">
                 <Image
-                  src="/logo-movieboli.png"
+                  src="/images/logoNuovo.png"
                   alt="MOVIEBOLI Logo"
                   fill
-                  className="object-contain filter brightness-0 invert"
+                  className="object-contain"
                   priority
                 />
               </div>
-              <span className="font-poppins font-semibold text-xl text-movieboli-violaPrincipale">
-                <EditableText 
-                  contentKey="festival.nav.title"
-                  defaultValue="FESTIVAL 2025"
-                  tag="span"
-                />
-              </span>
             </Link>
             <div className="hidden md:flex space-x-8">
               <Link href="/festival/programma" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">

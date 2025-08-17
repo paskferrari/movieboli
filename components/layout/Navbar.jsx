@@ -20,7 +20,6 @@ const Navbar = () => {
 
   // Controlla se siamo in una pagina del festival
   const isFestivalPage = router.pathname.startsWith('/festival') || 
-                        router.pathname === '/programma' ||
                         router.pathname === '/prenota' ||
                         router.pathname === '/turni-impp'
 

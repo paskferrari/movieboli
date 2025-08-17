@@ -142,7 +142,7 @@ const programmaData = {
       tipo: 'ospite',
       categoria: 'ospiti',
       titolo: 'Incontro con Mario Martone',
-      descrizione: "Intervista con il regista Mario Martone, regista e sceneggiatore",
+      descrizione: "Intervista con il regista Mario Martone.",
       luogo: 'Arena di Sant\'Antonio',
       ospite: 'Mario Martone',
       immagine: 'https://i.ibb.co/VptMKV2X/licensed-image.jpg',
@@ -161,13 +161,20 @@ const programmaData = {
   ],
   'Sabato 24 Agosto': [
     {
-      orario: '20:15 - 21:00',
+      orario: '20:00',
       tipo: 'premiazione',
       categoria: 'eventi',
       titolo: 'Premiazione Cortometraggi Vincitori',
-      descrizione: 'Cerimonia di premiazione dei cortometraggi vincitori del festival',
+      descrizione: 'Cerimonia di premiazione dei cortometraggi vincitori del festival. Si annunciano i vincitori delle seguenti categorie:',
       luogo: 'Arena di Sant\'Antonio',
-      immagine: '/images/logo-movieboli.png'
+      immagine: '/leoni.png',
+      premiazioni: [
+        'Miglior cortometraggio',
+        'Premio del pubblico',
+        'Miglior regia',
+        'Miglior performance',
+        'Premio contest artistico'
+      ]
     },
     {
       orario: '21:00 - 21:30',
@@ -434,13 +441,7 @@ export default function Programma() {
                                 <p className="text-gray-700 text-sm leading-relaxed">{evento.bio}</p>
                               </div>
                             )}
-                            {evento.tipo === 'film' && (
-  <div className="mb-2">
-    <span className="inline-block bg-blue-500 text-white text-sm font-medium px-3 py-1 rounded-full">
-      Proiezione lungometraggio
-    </span>
-  </div>
-)}
+                            
 
 
                             
@@ -509,6 +510,25 @@ export default function Programma() {
                                           )}
                                           <p className="text-xs text-gray-700 leading-relaxed">{corto.sinossi}</p>
                                         </div>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            
+                          
+                         
+                            {/* Premiazioni Details */}
+                            {evento.premiazioni && (
+                              <div className="mt-4">
+                                <h4 className="font-semibold text-gray-900 mb-3">Categorie di premiazione:</h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                  {evento.premiazioni.map((premio, idx) => (
+                                    <div key={idx} className="bg-purple-50 rounded-lg p-3 border-l-4 border-purple-500">
+                                      <div className="flex items-center space-x-2">
+                                        <span className="text-lg">🏆</span>
+                                        <span className="font-medium text-gray-900">{premio}</span>
                                       </div>
                                     </div>
                                   ))}
