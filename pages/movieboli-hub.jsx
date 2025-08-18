@@ -39,7 +39,7 @@ const MovieboliHub = () => {
       id: 'prenota',
       title: 'Prenota Biglietti',
       description: 'Prenota i tuoi posti per gli eventi',
-      href: '/prenota',
+      href: '/podcast',
       icon: TicketIcon,
       color: 'from-blue-600/80 to-cyan-700/80',
       external: false

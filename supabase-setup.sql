@@ -1,130 +1,125 @@
--- Script SQL per configurare Supabase per MOVIEBOLI Festival 2025
--- Esegui questo script nel SQL Editor di Supabase
+-- WARNING: This schema is for context only and is not meant to be run.
+-- Table order and constraints may not be valid for execution.
 
--- 1. Abilita Row Level Security (RLS) per sicurezza
--- Questo è già abilitato di default per auth.users
-
--- 2. Crea la tabella per i profili utente estesi
-CREATE TABLE IF NOT EXISTS public.user_profiles (
-  id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
-  email TEXT,
-  full_name TEXT,
-  age INTEGER CHECK (age >= 13 AND age <= 120),
-  gender TEXT CHECK (gender IN ('M', 'F', 'Altro', 'Preferisco non rispondere')),
-  role TEXT DEFAULT 'user' CHECK (role IN ('user', 'admin')),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+CREATE TABLE public.podcast_eventi (
+  id integer NOT NULL DEFAULT nextval('podcast_eventi_id_seq'::regclass),
+  evento_id character varying NOT NULL UNIQUE,
+  titolo character varying NOT NULL,
+  data_evento date NOT NULL,
+  orario time without time zone NOT NULL,
+  luogo character varying NOT NULL,
+  posti_totali integer DEFAULT 45,
+  posti_disponibili integer DEFAULT 45,
+  created_at timestamp without time zone DEFAULT now(),
+  updated_at timestamp without time zone DEFAULT now(),
+  descrizione text,
+  CONSTRAINT podcast_eventi_pkey PRIMARY KEY (id)
 );
-
--- 3. Crea la tabella per i voti
-CREATE TABLE IF NOT EXISTS public.votes (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  film_id TEXT NOT NULL,
-  rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  
-  -- Constraint per evitare voti duplicati dello stesso utente per lo stesso film
-  UNIQUE(user_id, film_id)
+CREATE TABLE public.podcast_prenotazioni (
+  id integer NOT NULL DEFAULT nextval('podcast_prenotazioni_id_seq'::regclass),
+  evento_id character varying,
+  nome character varying NOT NULL,
+  email character varying NOT NULL,
+  telefono character varying NOT NULL,
+  note text,
+  data_prenotazione timestamp without time zone DEFAULT now(),
+  stato character varying DEFAULT 'confermata'::character varying,
+  created_at timestamp without time zone DEFAULT now(),
+  CONSTRAINT podcast_prenotazioni_pkey PRIMARY KEY (id),
+  CONSTRAINT podcast_prenotazioni_evento_id_fkey FOREIGN KEY (evento_id) REFERENCES public.podcast_eventi(evento_id)
 );
+CREATE TABLE public.site_content (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  key character varying NOT NULL UNIQUE,
+  value text NOT NULL,
+  description text,
+  category character varying,
+  page character varying,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT site_content_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.site_images (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  key character varying NOT NULL UNIQUE,
+  url text NOT NULL,
+  alt_text text,
+  description text,
+  category character varying,
+  page character varying,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT site_images_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.user_profiles (
+  id uuid NOT NULL,
+  email text UNIQUE,
+  full_name text,
+  age integer CHECK (age >= 13 AND age <= 120),
+  gender text CHECK (gender = ANY (ARRAY['M'::text, 'F'::text, 'Altro'::text, 'Preferisco non rispondere'::text])),
+  role text DEFAULT 'user'::text CHECK (role = ANY (ARRAY['user'::text, 'admin'::text])),
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT user_profiles_pkey PRIMARY KEY (id),
+  CONSTRAINT user_profiles_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id)
+);
+CREATE TABLE public.votes (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL,
+  film_id text NOT NULL,
+  rating integer NOT NULL CHECK (rating >= 1 AND rating <= 5),
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT votes_pkey PRIMARY KEY (id),
+  CONSTRAINT votes_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
+);
+-- ... existing code ...
 
--- 4. Abilita RLS per le tabelle
-ALTER TABLE public.user_profiles ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.votes ENABLE ROW LEVEL SECURITY;
 
--- 5. Crea le policy per user_profiles (con gestione esistenti)
-DROP POLICY IF EXISTS "Users can view own profile" ON public.user_profiles;
-CREATE POLICY "Users can view own profile" ON public.user_profiles
-  FOR SELECT USING (auth.uid() = id);
+-- 13. Abilita RLS per le tabelle podcast
+ALTER TABLE public.podcast_eventi ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.podcast_prenotazioni ENABLE ROW LEVEL SECURITY;
 
-DROP POLICY IF EXISTS "Users can update own profile" ON public.user_profiles;
-CREATE POLICY "Users can update own profile" ON public.user_profiles
-  FOR UPDATE USING (auth.uid() = id);
+-- 14. Policy per podcast_eventi
+-- Permetti a tutti di leggere gli eventi (per visualizzare i posti disponibili)
+CREATE POLICY "Everyone can view podcast events" ON public.podcast_eventi
+  FOR SELECT USING (true);
 
--- Policy per admin - possono vedere tutti i profili
-CREATE POLICY "Admins can view all profiles" ON public.user_profiles
+-- Solo admin possono modificare gli eventi
+CREATE POLICY "Only admins can modify podcast events" ON public.podcast_eventi
+  FOR ALL USING (
+    (auth.jwt() ->> 'role') = 'admin'
+  );
+
+-- 15. Policy per podcast_prenotazioni
+-- Permetti a tutti di inserire prenotazioni (utenti anonimi possono prenotare)
+CREATE POLICY "Everyone can insert podcast bookings" ON public.podcast_prenotazioni
+  FOR INSERT WITH CHECK (true);
+
+-- Gli utenti autenticati possono vedere le proprie prenotazioni tramite email
+CREATE POLICY "Users can view own bookings" ON public.podcast_prenotazioni
+  FOR SELECT USING (
+    auth.uid() IS NOT NULL AND 
+    email = (auth.jwt() ->> 'email')
+  );
+
+-- Admin possono vedere tutte le prenotazioni
+CREATE POLICY "Admins can view all bookings" ON public.podcast_prenotazioni
   FOR SELECT USING (
     (auth.jwt() ->> 'role') = 'admin'
   );
 
-CREATE POLICY "Users can insert own profile" ON public.user_profiles
-  FOR INSERT WITH CHECK (auth.uid() = id);
-
--- 6. Crea le policy per votes (con gestione esistenti)
-DROP POLICY IF EXISTS "Users can view own votes" ON public.votes;
-CREATE POLICY "Users can view own votes" ON public.votes
-  FOR SELECT USING (auth.uid() = user_id);
-
-DROP POLICY IF EXISTS "Users can insert own votes" ON public.votes;
-CREATE POLICY "Users can insert own votes" ON public.votes
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
-
-CREATE POLICY "Users can update own votes" ON public.votes
-  FOR UPDATE USING (auth.uid() = user_id);
-
--- Policy per admin - possono vedere tutti i voti
-CREATE POLICY "Admins can view all votes" ON public.votes
-  FOR SELECT USING (
+-- Admin possono modificare/cancellare prenotazioni
+CREATE POLICY "Admins can modify bookings" ON public.podcast_prenotazioni
+  FOR ALL USING (
     (auth.jwt() ->> 'role') = 'admin'
   );
 
-CREATE POLICY "Users can delete own votes" ON public.votes
-  FOR DELETE USING (auth.uid() = user_id);
+-- 16. Inserisci i dati iniziali degli eventi podcast
+INSERT INTO public.podcast_eventi (evento_id, titolo, data_evento, orario, luogo, descrizione, posti_totali, posti_disponibili)
+VALUES 
+  ('23-agosto-mattina', 'Podcast con Mario Martone - Sessione Mattina', '2025-08-23', '10:00', 'Piazza del Popolo, Eboli', 'Incontro con il regista Mario Martone per parlare del suo ultimo film e della sua carriera cinematografica.', 45, 45),
+  ('23-agosto-sera', 'Podcast con Mario Martone - Sessione Sera', '2025-08-23', '21:00', 'Piazza del Popolo, Eboli', 'Seconda sessione dell\'incontro con Mario Martone, con focus sui progetti futuri e Q&A con il pubblico.', 45, 45)
+ON CONFLICT (evento_id) DO NOTHING;
 
--- 7. Crea una funzione per aggiornare automaticamente updated_at
-CREATE OR REPLACE FUNCTION public.handle_updated_at()
-RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_at = NOW();
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- 8. Crea i trigger per aggiornare updated_at
-CREATE TRIGGER handle_updated_at_user_profiles
-  BEFORE UPDATE ON public.user_profiles
-  FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
-
-CREATE TRIGGER handle_updated_at_votes
-  BEFORE UPDATE ON public.votes
-  FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
-
--- 9. Crea una funzione per creare automaticamente il profilo utente
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO public.user_profiles (id, email, full_name)
-  VALUES (
-    NEW.id,
-    NEW.email,
-    COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.email)
-  );
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
--- 10. Crea il trigger per creare automaticamente il profilo
-CREATE TRIGGER on_auth_user_created
-  AFTER INSERT ON auth.users
-  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
-
--- 11. Crea una vista per le statistiche dei voti (opzionale)
-CREATE OR REPLACE VIEW public.vote_statistics AS
-SELECT 
-  film_id,
-  COUNT(*) as total_votes,
-  AVG(rating::DECIMAL) as average_rating,
-  COUNT(CASE WHEN rating = 5 THEN 1 END) as five_stars,
-  COUNT(CASE WHEN rating = 4 THEN 1 END) as four_stars,
-  COUNT(CASE WHEN rating = 3 THEN 1 END) as three_stars,
-  COUNT(CASE WHEN rating = 2 THEN 1 END) as two_stars,
-  COUNT(CASE WHEN rating = 1 THEN 1 END) as one_star
-FROM public.votes
-GROUP BY film_id;
-
--- 12. Permetti a tutti di leggere le statistiche (opzionale)
-GRANT SELECT ON public.vote_statistics TO anon, authenticated;
-
--- Fine dello script
--- Dopo aver eseguito questo script, il database sarà pronto per l'autenticazione e i voti
+-- Fine delle modifiche per podcast
