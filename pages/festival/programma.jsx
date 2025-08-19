@@ -15,7 +15,7 @@ import filmData from './film/film.json'
 
 // Dati del programma completo aggiornato secondo la nuova timeline
 const programmaData = {
-  'Giovedì 22 Agosto': [
+  'Venerdì 22 Agosto': [
     {
       orario: '19:30 - 20:30',
       tipo: 'cortometraggi',
@@ -102,7 +102,7 @@ const programmaData = {
       immagine: 'https://i.ibb.co/FGby12B/image.png'
     }
   ],
-  'Venerdì 23 Agosto': [
+  'Sabato 23 Agosto': [
     {
       orario: '20:00 - 21:00',
       tipo: 'cortometraggi',
@@ -159,7 +159,7 @@ const programmaData = {
       immagine: 'https://i.ibb.co/9HZ9nmx2/image.png'
     }
   ],
-  'Sabato 24 Agosto': [
+  'Domenica 24 Agosto': [
     {
       orario: '20:00',
       tipo: 'premiazione',
@@ -211,7 +211,7 @@ const categorie = [
 
 export default function Programma() {
   const [isVisible, setIsVisible] = useState(false)
-  const [activeDay, setActiveDay] = useState('Giovedì 22 Agosto')
+  const [activeDay, setActiveDay] = useState('Venerdì 22 Agosto')
   const [activeCategory, setActiveCategory] = useState('tutti')
   const [isScrolled, setIsScrolled] = useState(false)
 

@@ -1,24 +1,38 @@
-import { supabase } from '../../../lib/supabase';
+import { createClient } from '@supabase/supabase-js';
+import nodemailer from 'nodemailer';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    // Endpoint per ottenere i posti disponibili
     try {
       const { data: eventi, error } = await supabase
         .from('podcast_eventi')
-        .select('evento_id, posti_disponibili, posti_totali');
+        .select('evento_id, titolo, posti_disponibili, stato_evento, ultimo_aggiornamento_posti')
+        .limit(100);
 
       if (error) throw error;
 
+      // Trasforma i dati nel formato atteso dal frontend
       const postiDisponibili = {};
-      eventi.forEach(evento => {
+      eventi?.forEach(evento => {
         postiDisponibili[evento.evento_id] = evento.posti_disponibili;
       });
 
-      return res.status(200).json({ postiDisponibili });
+      return res.status(200).json({ 
+        success: true,
+        postiDisponibili,
+        eventi: eventi || []
+      });
     } catch (error) {
       console.error('Errore nel recupero posti:', error);
-      return res.status(500).json({ message: 'Errore nel recupero dei posti disponibili' });
+      return res.status(500).json({ 
+        success: false,
+        message: 'Errore nel recupero dei posti disponibili' 
+      });
     }
   }
 
@@ -86,6 +100,25 @@ export default async function handler(req, res) {
       return res.status(500).json({ message: 'Errore nell\'aggiornamento dei posti disponibili' });
     }
 
+    // Logging analytics (opzionale, solo se la tabella esiste)
+    try {
+      await supabase
+        .from('podcast_analytics')
+        .insert({
+          evento_id: eventoId,
+          tipo_evento: 'prenotazione',
+          dati_aggiuntivi: {
+            nome: datiPrenotazione.nome,
+            email: datiPrenotazione.email,
+            telefono: datiPrenotazione.telefono
+          },
+          ip_address: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+          user_agent: req.headers['user-agent']
+        });
+    } catch (analyticsError) {
+      console.log('Analytics non disponibili:', analyticsError.message);
+    }
+
     // Invio email di conferma
     const emailContent = `
 Nuova prenotazione podcast:
@@ -106,9 +139,7 @@ Posti rimanenti: ${evento.posti_disponibili - 1}
 Codice prenotazione: ${prenotazione.id}
     `;
 
-    // Configurazione email
-    const nodemailer = require('nodemailer');
-    
+    // Configurazione email (intorno alla riga 139)
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -116,7 +147,7 @@ Codice prenotazione: ${prenotazione.id}
         pass: process.env.EMAIL_PASS
       }
     });
-
+    
     // Email all'organizzatore
     await transporter.sendMail({
       from: process.env.EMAIL_USER,

@@ -113,33 +113,36 @@ const ProssimiEpisodiSection = () => {
       const response = await fetch('/api/podcast/booking');
       if (response.ok) {
         const data = await response.json();
-        setPostiDisponibili(prev => ({ ...prev, ...data.postiDisponibili }));
+        console.log('Dati ricevuti dall\'API:', data);
+        if (data.success && data.postiDisponibili) {
+          setPostiDisponibili(data.postiDisponibili);
+        }
       }
     } catch (error) {
       console.error('Errore nel caricamento posti:', error);
     }
   };
 
-  // Dati degli eventi aggiornati
+  // Solo i 4 episodi con prenotazioni esistenti
   const prossimiEpisodi = [
     {
       id: '22-agosto',
-      data: '22 Agosto 2025',
-      orario: '17.30',
-      luogo: 'Giardino Vacca de Dominicis, Eboli',
       titolo: 'Episodio Live: Mixed by Erry',
-      ospiti: ['Cast di Mixed by Erry'],
-      descrizione: 'Una serata speciale con tutto il cast del film Mixed by Erry.',
+      data: '22 Agosto 2025',
+      orario: '17:30',
+      luogo: 'Giardino Vescovile, Eboli',
+      ospiti: ['Protagonisti del film Mixed by Erry'],
+      descrizione: 'Una serata speciale con i protagonisti del film Mixed by Erry, per scoprire i segreti dietro questa straordinaria storia napoletana.',
       immagine: 'https://i.ibb.co/FGby12B/image.png'
     },
-        {
+    {
       id: '23-agosto-sera',
+      titolo: 'Episodio Live: Mario Martone',
       data: '23 Agosto 2025',
       orario: '17.30',
-      luogo: 'Giardino Vacca de Dominicis, Eboli',
-      titolo: 'Episodio Live: Mario Martone',
+      luogo: 'Giardino Vescovile, Eboli',
       ospiti: ['Mario Martone'],
-      descrizione: 'Un incontro esclusivo con Mario Martone.',
+      descrizione: 'Incontro esclusivo con il maestro Mario Martone, uno dei più importanti registi del cinema italiano contemporaneo.',
       immagine: 'https://i.ibb.co/VptMKV2X/licensed-image.jpg'
     },
     {
@@ -152,15 +155,14 @@ const ProssimiEpisodiSection = () => {
       descrizione: 'Un incontro esclusivo con Pierluigi Gigante per parlare di cinema contemporaneo.',
       immagine: '/images/ospiti/pierluigi_gigante.png'
     },
-
     {
       id: '24-agosto',
+      titolo: 'Episodio Live: Alessandro Rak',
       data: '24 Agosto 2025',
-      orario: '17.30',
-      luogo: 'Giardino Vacca de Dominicis, Eboli',
-      titolo: 'Episodio Live: L\'Animazione Italiana',
+      orario: '17:30',
+      luogo: 'Giardino Vescovile, Eboli',
       ospiti: ['Alessandro Rak'],
-      descrizione: 'Scopri i segreti dell\'animazione italiana con il regista di Gatta Cenerentola.',
+      descrizione: 'Scopriamo il mondo dell\'animazione italiana con i suoi protagonisti e le tecniche innovative.',
       immagine: 'https://i.ibb.co/7J4jNP4h/ALESSANDRO-RAK.jpg'
     }
   ];
@@ -264,10 +266,10 @@ const ProssimiEpisodiSection = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {prossimiEpisodi.map((episodio) => {
             const postiRimanenti = postiDisponibili[episodio.id] || 0;
-            const isEsaurito = postiRimanenti <= 0;
+            const isSoldOut = postiRimanenti <= 0;
             
             return (
-              <div key={episodio.id} className={`bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${isEsaurito ? 'opacity-75' : ''}`}>
+              <div key={episodio.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
                 <div className="relative">
                   <img 
                     src={episodio.immagine} 
@@ -277,20 +279,20 @@ const ProssimiEpisodiSection = () => {
                       objectPosition: episodio.id === '22-agosto' 
                         ? 'center top' 
                         : (episodio.ospiti && episodio.ospiti.includes('Mario Martone')) 
-                          ? 'center top' 
+                          ? 'center 20%' 
                           : 'center center'
                     }}
                   />
                   <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold ${
-                    isEsaurito 
+                    isSoldOut
                       ? 'bg-red-500 text-white' 
                       : postiRimanenti <= 5 
                         ? 'bg-orange-400 text-white' 
                         : 'bg-yellow-400 text-black'
                   }`}>
-                    {isEsaurito ? 'ESAURITO' : `${postiRimanenti} posti`}
+                    {isSoldOut ? 'ESAURITO' : `${postiRimanenti} posti`}
                   </div>
-                  {isEsaurito && (
+                  {isSoldOut && (
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                       <span className="text-white text-xl font-bold">SOLD OUT</span>
                     </div>
@@ -313,15 +315,15 @@ const ProssimiEpisodiSection = () => {
                   </div>
                   
                   <button
-                    onClick={() => !isEsaurito && setEventoSelezionato(episodio)}
-                    disabled={isEsaurito}
-                    className={`w-full py-3 rounded-lg font-semibold transition-colors duration-300 ${
-                      isEsaurito
-                        ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                        : 'bg-black text-white hover:bg-gray-800'
+                    onClick={() => !isSoldOut && setEventoSelezionato(episodio)}
+                    disabled={isSoldOut}
+                    className={`w-full py-3 px-6 rounded-full font-semibold transition-all duration-300 ${
+                      isSoldOut
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-yellow-400 text-black hover:bg-yellow-300 hover:scale-105 shadow-lg'
                     }`}
                   >
-                    {isEsaurito ? 'Evento esaurito' : 'Prenota ora'}
+                    {isSoldOut ? 'Esaurito' : 'Prenota ora'}
                   </button>
                 </div>
               </div>
@@ -329,23 +331,7 @@ const ProssimiEpisodiSection = () => {
           })}
         </div>
 
-        {/* Messaggi di stato */}
-        {messaggioErrore && (
-          <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
-            ❌ {messaggioErrore}
-          </div>
-        )}
-
-        {prenotazioneInviata && (
-          <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
-            ✅ Prenotazione confermata!
-            {codicePrenotazione && (
-              <div className="mt-2 text-sm">
-                Codice: <strong>{codicePrenotazione}</strong>
-              </div>
-            )}
-          </div>
-        )}
+        {/* ... existing code ... */}
       </div>
 
       {/* Modal di prenotazione */}
@@ -377,7 +363,6 @@ const ProssimiEpisodiSection = () => {
               </div>
 
               <form onSubmit={gestisciPrenotazione} className="space-y-4">
-                {/* ... existing form fields ... */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Nome completo *
@@ -401,7 +386,7 @@ const ProssimiEpisodiSection = () => {
                     value={datiPrenotazione.email}
                     onChange={(e) => setDatiPrenotazione({...datiPrenotazione, email: e.target.value})}
                     className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.email ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="la-tua-email@esempio.com"
+                    placeholder="La tua email"
                   />
                   {errori.email && <p className="text-red-500 text-sm mt-1">{errori.email}</p>}
                 </div>
@@ -415,7 +400,7 @@ const ProssimiEpisodiSection = () => {
                     value={datiPrenotazione.telefono}
                     onChange={(e) => setDatiPrenotazione({...datiPrenotazione, telefono: e.target.value})}
                     className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.telefono ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="+39 123 456 7890"
+                    placeholder="Il tuo numero di telefono"
                   />
                   {errori.telefono && <p className="text-red-500 text-sm mt-1">{errori.telefono}</p>}
                 </div>
@@ -429,40 +414,42 @@ const ProssimiEpisodiSection = () => {
                     onChange={(e) => setDatiPrenotazione({...datiPrenotazione, note: e.target.value})}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                     rows="3"
-                    placeholder="Eventuali richieste speciali o note..."
+                    placeholder="Eventuali richieste speciali o note"
                   />
                 </div>
 
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-gray-800 mb-2">ℹ️ Informazioni importanti:</h4>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    <li>• L'evento si svolge all'aperto</li>
-                    <li>• In caso di maltempo, l'evento sarà rimandato</li>
-                    <li>• Riceverai conferma via email entro 24 ore</li>
-                    <li>• L'ingresso è gratuito ma la prenotazione è obbligatoria</li>
-                    <li>• Massimo 45 posti disponibili per evento</li>
-                  </ul>
-                </div>
-
-                <div className="flex gap-3 pt-4">
-                  <button
-                    type="button"
-                    onClick={() => setEventoSelezionato(null)}
-                    className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors duration-300"
-                  >
-                    Annulla
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={caricamento || postiDisponibili[eventoSelezionato.id] <= 0}
-                    className="flex-1 py-3 bg-yellow-400 text-black rounded-lg font-semibold hover:bg-yellow-300 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {caricamento ? 'Invio...' : postiDisponibili[eventoSelezionato.id] <= 0 ? 'Esaurito' : 'Conferma prenotazione'}
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  disabled={caricamento}
+                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
+                    caricamento
+                      ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                      : 'bg-yellow-400 text-black hover:bg-yellow-300 hover:scale-105 shadow-lg'
+                  }`}
+                >
+                  {caricamento ? 'Invio in corso...' : 'Conferma prenotazione'}
+                </button>
               </form>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Messaggi di stato */}
+      {messaggioErrore && (
+        <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
+          ❌ {messaggioErrore}
+        </div>
+      )}
+
+      {prenotazioneInviata && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
+          ✅ Prenotazione confermata!
+          {codicePrenotazione && (
+            <div className="mt-2 text-sm">
+              Codice: <strong>{codicePrenotazione}</strong>
+            </div>
+          )}
         </div>
       )}
     </section>
