@@ -130,7 +130,7 @@ const ProssimiEpisodiSection = () => {
       titolo: 'Episodio Live: Mixed by Erry',
       data: '22 Agosto 2025',
       orario: '17:30',
-      luogo: 'Giardino Vescovile, Eboli',
+      luogo: 'Giardino Vacca de Dominicis, Eboli',
       ospiti: ['Protagonisti del film Mixed by Erry'],
       descrizione: 'Una serata speciale con i protagonisti del film Mixed by Erry, per scoprire i segreti dietro questa straordinaria storia napoletana.',
       immagine: 'https://i.ibb.co/FGby12B/image.png'
@@ -140,7 +140,7 @@ const ProssimiEpisodiSection = () => {
       titolo: 'Episodio Live: Mario Martone',
       data: '23 Agosto 2025',
       orario: '17.30',
-      luogo: 'Giardino Vescovile, Eboli',
+      luogo: 'Giardino Vacca de Dominicis, Eboli',
       ospiti: ['Mario Martone'],
       descrizione: 'Incontro esclusivo con il maestro Mario Martone, uno dei più importanti registi del cinema italiano contemporaneo.',
       immagine: 'https://i.ibb.co/VptMKV2X/licensed-image.jpg'
@@ -160,7 +160,7 @@ const ProssimiEpisodiSection = () => {
       titolo: 'Episodio Live: Alessandro Rak',
       data: '24 Agosto 2025',
       orario: '17:30',
-      luogo: 'Giardino Vescovile, Eboli',
+      luogo: 'Giardino Vacca de Dominicis, Eboli',
       ospiti: ['Alessandro Rak'],
       descrizione: 'Scopriamo il mondo dell\'animazione italiana con i suoi protagonisti e le tecniche innovative.',
       immagine: 'https://i.ibb.co/7J4jNP4h/ALESSANDRO-RAK.jpg'
