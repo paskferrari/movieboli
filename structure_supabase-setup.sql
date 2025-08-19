@@ -1,6 +1,17 @@
 -- WARNING: This schema is for context only and is not meant to be run.
 -- Table order and constraints may not be valid for execution.
 
+CREATE TABLE public.podcast_analytics (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  evento_id character varying,
+  tipo_evento character varying NOT NULL,
+  timestamp_evento timestamp without time zone DEFAULT now(),
+  dati_aggiuntivi jsonb,
+  ip_address inet,
+  user_agent text,
+  CONSTRAINT podcast_analytics_pkey PRIMARY KEY (id),
+  CONSTRAINT podcast_analytics_evento_id_fkey FOREIGN KEY (evento_id) REFERENCES public.podcast_eventi(evento_id)
+);
 CREATE TABLE public.podcast_eventi (
   id integer NOT NULL DEFAULT nextval('podcast_eventi_id_seq'::regclass),
   evento_id character varying NOT NULL UNIQUE,
@@ -13,7 +24,21 @@ CREATE TABLE public.podcast_eventi (
   created_at timestamp without time zone DEFAULT now(),
   updated_at timestamp without time zone DEFAULT now(),
   descrizione text,
+  posti_prenotati integer DEFAULT 0,
+  ultimo_aggiornamento_posti timestamp without time zone DEFAULT now(),
+  stato_evento character varying DEFAULT 'attivo'::character varying CHECK (stato_evento::text = ANY (ARRAY['attivo'::character varying, 'sold_out'::character varying, 'cancellato'::character varying, 'completato'::character varying]::text[])),
   CONSTRAINT podcast_eventi_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.podcast_posti_log (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  evento_id character varying,
+  posti_prima integer,
+  posti_dopo integer,
+  tipo_modifica character varying,
+  timestamp_modifica timestamp without time zone DEFAULT now(),
+  note text,
+  CONSTRAINT podcast_posti_log_pkey PRIMARY KEY (id),
+  CONSTRAINT podcast_posti_log_evento_id_fkey FOREIGN KEY (evento_id) REFERENCES public.podcast_eventi(evento_id)
 );
 CREATE TABLE public.podcast_prenotazioni (
   id integer NOT NULL DEFAULT nextval('podcast_prenotazioni_id_seq'::regclass),
@@ -25,6 +50,9 @@ CREATE TABLE public.podcast_prenotazioni (
   data_prenotazione timestamp without time zone DEFAULT now(),
   stato character varying DEFAULT 'confermata'::character varying,
   created_at timestamp without time zone DEFAULT now(),
+  ip_address inet,
+  user_agent text,
+  fonte_prenotazione character varying DEFAULT 'web'::character varying,
   CONSTRAINT podcast_prenotazioni_pkey PRIMARY KEY (id),
   CONSTRAINT podcast_prenotazioni_evento_id_fkey FOREIGN KEY (evento_id) REFERENCES public.podcast_eventi(evento_id)
 );
