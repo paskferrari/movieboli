@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { isUserAdmin } from '../../lib/supabase';
+import { isUserAdmin } from '../../../lib/supabase';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
