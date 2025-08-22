@@ -31,16 +31,14 @@ async function getPrenotazioni(req, res) {
     const legacyEventMapping = {
       '22-agosto': 'podcast-mixed-by-erry-2025',        // Episodio Live: Mixed by Erry
       '23-agosto-sera': 'podcast-mario-martone-2025',   // Episodio Live: Mario Martone  
-      '24-agosto': 'podcast-alessandro-rak-2025',       // Episodio Live: Alessandro Rak
-      '25-agosto-mattina': 'podcast-pierluigi-gigante-2025' // Episodio Live: Il Cinema Contemporaneo
+      '24-agosto': 'podcast-alessandro-rak-2025'        // Episodio Live: Alessandro Rak
     };
 
     // ID eventi podcast ufficiali
     const podcastEventIds = [
       'podcast-mixed-by-erry-2025',
       'podcast-mario-martone-2025', 
-      'podcast-alessandro-rak-2025',
-      'podcast-pierluigi-gigante-2025'
+      'podcast-alessandro-rak-2025'
     ];
 
     // Recupera TUTTE le prenotazioni (inclusi eventi legacy)

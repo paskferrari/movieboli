@@ -145,16 +145,7 @@ const ProssimiEpisodiSection = () => {
       descrizione: 'Incontro esclusivo con il maestro Mario Martone, uno dei più importanti registi del cinema italiano contemporaneo.',
       immagine: 'https://i.ibb.co/VptMKV2X/licensed-image.jpg'
     },
-    {
-      id: '25-agosto-mattina',
-      data: '25 Agosto 2025',
-      orario: '17.30',
-      luogo: 'Giardino Vacca de Dominicis, Eboli',
-      titolo: 'Episodio Live: Il Cinema Contemporaneo',
-      ospiti: ['Pierluigi Gigante'],
-      descrizione: 'Un incontro esclusivo con Pierluigi Gigante per parlare di cinema contemporaneo.',
-      immagine: '/images/ospiti/pierluigi_gigante.png'
-    },
+
     {
       id: '24-agosto',
       titolo: 'Episodio Live: Alessandro Rak',
@@ -294,7 +285,9 @@ const ProssimiEpisodiSection = () => {
                   </div>
                   {isSoldOut && (
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                      <span className="text-white text-xl font-bold">SOLD OUT</span>
+                      <span className="text-white text-xl font-bold">
+                        {postiRimanenti < 10 && postiRimanenti > 0 ? `SOLD OUT (${postiRimanenti} rimasti)` : 'SOLD OUT'}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -534,7 +527,7 @@ const Podcast = () => {
       <Head>
         <title>Macine Podcast - Il Cinema Raccontato dai Protagonisti | MoviEboli</title>
         <meta name="description" content="Scopri Macine Podcast: interviste esclusive con registi, attori e professionisti del cinema. Prenota il tuo posto per gli eventi live a Eboli." />
-        <meta name="keywords" content="podcast, cinema, interviste, registi, attori, Eboli, eventi live, Alessandro Rak, Pierluigi Gigante" />
+        <meta name="keywords" content="podcast, cinema, interviste, registi, attori, Eboli, eventi live, Alessandro Rak" />
         <meta property="og:title" content="Macine Podcast - Il Cinema Raccontato dai Protagonisti" />
         <meta property="og:description" content="Interviste esclusive con i protagonisti del cinema italiano e internazionale. Eventi live a Eboli." />
         <meta property="og:image" content="/images/logomacine.png" />

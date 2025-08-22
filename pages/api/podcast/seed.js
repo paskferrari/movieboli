@@ -22,8 +22,8 @@ export default async function handler(req, res) {
         data_evento: '2025-08-22',
         orario: '17:30:00',
         luogo: 'Giardino Vacca de Dominicis, Eboli',
-        posti_totali: 45,
-        posti_disponibili: 35,
+        posti_totali: 25,
+        posti_disponibili: 15,
         posti_prenotati: 10,
         descrizione: 'Una serata speciale con i protagonisti del film Mixed by Erry, per scoprire i segreti dietro questa straordinaria storia napoletana.',
         stato_evento: 'attivo'
@@ -34,11 +34,11 @@ export default async function handler(req, res) {
         data_evento: '2025-08-23',
         orario: '17:30:00',
         luogo: 'Giardino Vacca de Dominicis, Eboli',
-        posti_totali: 45,
-        posti_disponibili: 20,
+        posti_totali: 25,
+        posti_disponibili: 0,
         posti_prenotati: 25,
         descrizione: 'Incontro esclusivo con il maestro Mario Martone, uno dei più importanti registi del cinema italiano contemporaneo.',
-        stato_evento: 'attivo'
+        stato_evento: 'sold_out'
       },
       {
         evento_id: 'podcast-alessandro-rak-2025',
@@ -46,23 +46,11 @@ export default async function handler(req, res) {
         data_evento: '2025-08-24',
         orario: '17:30:00',
         luogo: 'Giardino Vacca de Dominicis, Eboli',
-        posti_totali: 45,
+        posti_totali: 25,
         posti_disponibili: 0,
-        posti_prenotati: 45,
+        posti_prenotati: 25,
         descrizione: 'Serata dedicata al cinema d\'animazione con Alessandro Rak, regista di capolavori come L\'Arte della Felicità e Gatta Cenerentola.',
         stato_evento: 'sold_out'
-      },
-      {
-        evento_id: 'podcast-pierluigi-gigante-2025',
-        titolo: 'Episodio Live: Il Cinema Contemporaneo',
-        data_evento: '2025-08-25',
-        orario: '17:30:00',
-        luogo: 'Giardino Vacca de Dominicis, Eboli',
-        posti_totali: 45,
-        posti_disponibili: 40,
-        posti_prenotati: 5,
-        descrizione: 'Un incontro esclusivo con Pierluigi Gigante per parlare di cinema contemporaneo e delle nuove tendenze cinematografiche.',
-        stato_evento: 'attivo'
       }
     ];
 
@@ -144,16 +132,7 @@ export default async function handler(req, res) {
         data_prenotazione: '2025-07-20T08:15:00'
       },
       
-      // Prenotazioni per Pierluigi Gigante
-      {
-        evento_id: 'podcast-pierluigi-gigante-2025',
-        nome: 'Sara Rossi',
-        email: 'sara.rossi@email.com',
-        telefono: '+39 333 8901234',
-        note: 'Critica cinematografica',
-        stato: 'confermata',
-        data_prenotazione: '2025-07-21T12:00:00'
-      }
+
     ];
 
     const { data: prenotazioniInserite, error: prenotazioniError } = await supabase
@@ -183,12 +162,7 @@ export default async function handler(req, res) {
         timestamp_evento: '2025-07-20T09:00:00',
         dati_aggiuntivi: { posti_esauriti_in: '2_ore', picco_prenotazioni: '08:00-09:00' }
       },
-      {
-        evento_id: 'podcast-pierluigi-gigante-2025',
-        tipo_evento: 'prenotazione',
-        timestamp_evento: '2025-07-21T12:00:00',
-        dati_aggiuntivi: { fonte: 'web', dispositivo: 'tablet', referrer: 'instagram' }
-      }
+
     ];
 
     const { data: analyticsInserite, error: analyticsError } = await supabase

@@ -10,7 +10,7 @@ export default function Document() {
         <meta name="robots" content="index, follow" />
         <meta name="googlebot" content="index, follow" />
         <meta name="description" content="MOVIEBOLI - Associazione culturale per il cinema, festival e podcast Ciliegie" />
-        <meta name="keywords" content="movieboli, festival, cinema, podcast, ciliegie, cultura, associazione, eventi" />
+        <meta name="keywords" content="movieboli, moviebolifilmfestival, festival, cinema, podcast, ciliegie, cultura, associazione, eventi, eboli, campania" />
         <meta name="author" content="MOVIEBOLI" />
         
         {/* PWA Meta Tags */}
