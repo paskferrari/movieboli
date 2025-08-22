@@ -352,6 +352,13 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                   tag="span"
                 />
               </Link>
+              <Link href="/festival/contest_artistico/vota" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
+                <EditableText 
+                  contentKey="festival.nav.contest"
+                  defaultValue="Contest"
+                  tag="span"
+                />
+              </Link>
               <Link href="/chi-siamo" className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300">
                 <EditableText 
                   contentKey="nav.about"

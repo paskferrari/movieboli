@@ -91,7 +91,9 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
         if (error) {
           setErrors({ general: error.message })
         } else {
-          setErrors({ general: 'Registrazione completata! Controlla la tua email per confermare l\'account.' })
+          setErrors({ 
+            general: '✅ Registrazione completata! Ti abbiamo inviato un\'email di conferma. Clicca sul link nell\'email per attivare il tuo account e iniziare a votare.' 
+          })
         }
       }
     } catch (error) {
@@ -245,6 +247,11 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
             <div>
               <label className="block text-sm font-medium text-movieboli-crema/80 mb-2">
                 Email
+                {mode === 'register' && (
+                  <span className="text-movieboli-violaPrincipale text-xs ml-2">
+                    (riceverai un'email di conferma)
+                  </span>
+                )}
               </label>
               <input
                 type="email"
@@ -256,6 +263,11 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
               />
               {errors.email && (
                 <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+              )}
+              {mode === 'register' && (
+                <p className="text-movieboli-crema/60 text-xs mt-1">
+                  💡 Dovrai confermare questa email prima di poter votare
+                </p>
               )}
             </div>
 
@@ -297,14 +309,19 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
               </div>
             )}
 
-            {/* Errore generale */}
+            {/* Messaggio generale */}
             {errors.general && (
-              <div className={`p-3 rounded-xl text-sm ${
-                errors.general.includes('Registrazione completata') 
+              <div className={`p-4 rounded-xl text-sm ${
+                errors.general.includes('✅') 
                   ? 'bg-green-500/20 text-green-400 border border-green-500/30'
                   : 'bg-red-500/20 text-red-400 border border-red-500/30'
               }`}>
                 {errors.general}
+                {errors.general.includes('✅') && (
+                  <div className="mt-2 text-xs text-green-300">
+                    📧 Controlla anche la cartella spam se non vedi l'email
+                  </div>
+                )}
               </div>
             )}
 
@@ -325,6 +342,24 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
               )}
             </motion.button>
           </form>
+
+          {/* Informazioni aggiuntive per la registrazione */}
+          {mode === 'register' && !errors.general?.includes('✅') && (
+            <div className="mt-4 p-3 bg-movieboli-violaPrincipale/10 border border-movieboli-violaPrincipale/30 rounded-xl">
+              <div className="flex items-start space-x-2">
+                <span className="text-movieboli-violaPrincipale text-lg">ℹ️</span>
+                <div className="text-xs text-movieboli-crema/80">
+                  <p className="font-medium mb-1">Come funziona la registrazione:</p>
+                  <ul className="space-y-1 text-movieboli-crema/60">
+                    <li>• Compila il modulo con i tuoi dati</li>
+                    <li>• Riceverai un'email di conferma</li>
+                    <li>• Clicca sul link nell'email per attivare l'account</li>
+                    <li>• Torna qui per accedere e votare</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Switch Mode */}
           <div className="mt-6 text-center">

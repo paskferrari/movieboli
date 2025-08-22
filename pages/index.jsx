@@ -7,6 +7,7 @@ import VideoGridHero from '../components/VideoGridHero';
 import PastEditionsSection from '../components/PastEditionsSection';
 import PodcastSection from '../components/PodcastSection';
 import ActivitiesSection from '../components/ActivitiesSection';
+import VotingCountdown from '../components/VotingCountdown';
 import EditableText from '../components/ui/EditableText';
 import { useMetaTags } from '../hooks/useMetaTags';
 import { useContent } from '../contexts/ContentContext';
@@ -357,6 +358,7 @@ export default function Home() {
       
       <main>
         <VideoGridHero />
+        <VotingCountdown />
         {/* AssociationHero rimosso */}
         <ChiSiamoSection />
         <CosaFacciamoSection />

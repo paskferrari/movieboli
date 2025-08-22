@@ -18,30 +18,30 @@ const MovieboliHub = () => {
 
   const links = [
     {
-      id: 'contest',
-      title: 'Contest Artistico',
-      description: 'Partecipa al nostro contest artistico',
-      href: '/contest-artistico',
+      id: 'vota-cortometraggi',
+      title: 'Vota Cortometraggi',
+      description: 'Vota i tuoi cortometraggi preferiti del festival',
+      href: '/festival/vota',
+      icon: TicketIcon,
+      color: 'from-blue-600/80 to-cyan-700/80',
+      external: false
+    },
+    {
+      id: 'contest-artistico',
+      title: 'Vota Contest Artistico',
+      description: 'Partecipa al voto per il contest artistico',
+      href: '/festival/contest_artistico/vota',
       icon: PaintBrushIcon,
       color: 'from-purple-600/80 to-indigo-700/80',
       external: false
     },
     {
-      id: 'donazioni',
-      title: 'Contest cortomotraggi',
-      description: 'Partecipa al contest dei corotmetraggi',
-      href: '/vota',
+      id: 'sondaggio',
+      title: 'Sondaggio Gradimento Festival',
+      description: 'Valuta la tua esperienza con MOVIEBOLI',
+      href: '/festival/sondaggio',
       icon: HeartIcon,
       color: 'from-red-600/80 to-rose-700/80',
-      external: false
-    },
-    {
-      id: 'prenota',
-      title: 'Sondagio gradimento del festival',
-      description: 'Valuta la tua esperienza con MOVIEBOLI.',
-      href: '/sondaggio',
-      icon: TicketIcon,
-      color: 'from-blue-600/80 to-cyan-700/80',
       external: false
     }
   ]

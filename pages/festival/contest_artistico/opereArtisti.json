@@ -1,0 +1,42 @@
+[
+  {
+    "nome_film_ispirato": "Deadpool & Wolverine",
+    "autore": "Enrico Mancino",
+    "link_photo": "https://i.ibb.co/XxChwXqt/Enrico-Mancino-opera-ispirata-al-film-Deadpool-Wolverine.jpg"
+  },
+  {
+    "nome_film_ispirato": "Marilyn (ispirato a film iconici su Marilyn Monroe)",
+    "autore": "Francesco Carbone (Effe Legno)",
+    "link_photo": "https://i.ibb.co/0V8GPxBn/Francesco-Carbone-Effe-Legno-Marilyn.jpg"
+  },
+  {
+    "nome_film_ispirato": "Adventures of Buratino",
+    "autore": "Gaia Sebastiani",
+    "link_photo": "https://i.ibb.co/vx3qspCL/Gaia-Sebastiani-adventures-of-buratino.jpg"
+  },
+  {
+    "nome_film_ispirato": "American Hustle",
+    "autore": "Samuele Laezza",
+    "link_photo": "https://i.ibb.co/QjYKr5Pr/Samuele-Laezza-American-Hustle.jpg"
+  },
+  {
+    "nome_film_ispirato": "Joker",
+    "autore": "Davide Stabile",
+    "link_photo": "https://i.ibb.co/7J1FwyYV/Davide-stabile-Joker.png"
+  },
+  {
+    "nome_film_ispirato": "Climax",
+    "autore": "Giulia Buratti",
+    "link_photo": "https://i.ibb.co/p6yQBC11/Giulia-Buratti-opera-ispirata-al-Film-Climax.jpg"
+  },
+  {
+    "nome_film_ispirato": "Léon",
+    "autore": "Ilaria Di Benedetto",
+    "link_photo": "https://i.ibb.co/DP84bZdw/Ilaria-Di-Benedetto-film-Leon.jpg"
+  },
+  {
+    "nome_film_ispirato": "Blade Runner 2049",
+    "autore":"Martina Iacovino",
+    "link_photo": "https://i.ibb.co/rKMSGMqs/brunner.jpg"
+  }
+]
