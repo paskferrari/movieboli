@@ -484,7 +484,7 @@ const Vota = ({ cortometraggi = [], error = null }) => {
           >
             <div className="max-w-7xl mx-auto">
               <motion.div 
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
                 variants={containerVariants}
               >
                 {cortometraggi.map((corto, index) => {
@@ -497,7 +497,10 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                       key={cortoId}
                       className="group bg-movieboli-bordeaux/20 rounded-2xl overflow-hidden border border-movieboli-violaPrincipale/20 hover:border-movieboli-violaPrincipale/50 transition-all duration-300 relative"
                       variants={cardVariants}
+                      initial="hidden"
+                      whileInView="visible"
                       whileHover="hover"
+                      viewport={{ once: true }}
                     >
                       {/* Badge In Gara */}
                       <div className="absolute top-4 left-4 z-10">
@@ -660,7 +663,26 @@ export async function getStaticProps() {
     const path = require('path')
     const filePath = path.join(process.cwd(), 'public', 'json-folders', 'film_unificati.json')
     const fileContents = fs.readFileSync(filePath, 'utf8')
-    const cortometraggi = JSON.parse(fileContents)
+    const allCortometraggi = JSON.parse(fileContents)
+
+    // Lista dei primi 5 cortometraggi del programma del 22 agosto (venerdì)
+    const cortometraggiVotabili = [
+      'DIECI SECONDI',
+      'Place under the sun',  // Corretto: era 'PLACE UNDER THE SUN'
+      'The Rock Tensions',
+      'APPUNTAMENTO A MEZZOGIORNO',
+      'Ya Hanouni'
+    ]
+
+    // Filtra solo i cortometraggi votabili del 22 agosto
+    const cortometraggi = allCortometraggi
+      .filter(corto => cortometraggiVotabili.includes(corto.titolo))
+      .sort((a, b) => {
+        // Ordina secondo l'ordine del programma del 22 agosto
+        const indexA = cortometraggiVotabili.indexOf(a.titolo)
+        const indexB = cortometraggiVotabili.indexOf(b.titolo)
+        return indexA - indexB
+      })
 
     return {
       props: {
@@ -680,3 +702,4 @@ export async function getStaticProps() {
 }
 
 export default Vota
+
