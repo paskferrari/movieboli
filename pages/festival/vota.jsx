@@ -199,11 +199,13 @@ const Vota = ({ cortometraggi = [], error = null }) => {
   // Carica i voti dell'utente dall'API
   useEffect(() => {
     const loadUserVotes = async () => {
-      if (isAuthenticated && session?.access_token) { // Usa session invece di user
+      if (isAuthenticated && session?.access_token) {
         setLoadingVotes(true)
         try {
-          const userVotes = await getUserVotesFromAPI(session.access_token) // Usa session.access_token
+          const response = await getUserVotesFromAPI(session.access_token)
           const votesMap = {}
+          // Correzione: accedere a response.votes invece di response direttamente
+          const userVotes = response.votes || []
           userVotes.forEach(vote => {
             votesMap[vote.film_id] = vote.rating
           })
@@ -228,11 +230,11 @@ const Vota = ({ cortometraggi = [], error = null }) => {
     }
 
     loadUserVotes()
-  }, [isAuthenticated, session]) // Dipendenza da session invece di user
+  }, [isAuthenticated, session])
 
   // Gestisce il cambio di rating per un cortometraggio
   const handleRatingChange = async (cortoId, newRating) => {
-    if (!isAuthenticated || !session?.access_token) { // Usa session invece di user
+    if (!isAuthenticated || !session?.access_token) {
       console.error('Utente non autenticato')
       setVoteError('Devi essere autenticato per votare')
       return
@@ -249,7 +251,12 @@ const Vota = ({ cortometraggi = [], error = null }) => {
     
     try {
       // Salva tramite API
-      await saveVoteToAPI(session.access_token, cortoId, newRating) // Usa session.access_token
+      const response = await saveVoteToAPI(session.access_token, cortoId, newRating)
+      
+      // Verifica che il salvataggio sia andato a buon fine
+      if (!response.success) {
+        throw new Error(response.error || 'Errore nel salvare il voto')
+      }
       
       // Salva anche nel localStorage come backup
       localStorage.setItem('movieboli-ratings', JSON.stringify(newRatings))
@@ -261,7 +268,7 @@ const Vota = ({ cortometraggi = [], error = null }) => {
       }, 3000)
     } catch (error) {
       console.error('Errore nel salvare il voto:', error)
-      setVoteError('Errore nel salvare il voto. Riprova.')
+      setVoteError(`Errore nel salvare il voto: ${error.message}`)
       // In caso di errore, ripristina il voto precedente
       setRatings(previousRatings)
     } finally {
@@ -482,8 +489,8 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                     </svg>
                     <span>
                       <EditableText 
-                        contentKey="vote.rating_system"
-                        defaultValue="Sistema di rating a 5 stelle con mezze stelle"
+                        contentKey="vote.how_to_vote"
+                        defaultValue="Clicca sulle stelle per votare da 0.5 a 5"
                         tag="span"
                       />
                     </span>
@@ -494,28 +501,14 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                     </svg>
                     <span>
                       <EditableText 
-                        contentKey="vote.rating_system"
-                        defaultValue="Sistema di rating a 5 stelle con mezze stelle"
+                        contentKey="vote.modify_votes"
+                        defaultValue="Puoi modificare i tuoi voti in qualsiasi momento"
                         tag="span"
                       />
                     </span>
                   </div>
                 </div>
-                <Link href="/festival" legacyBehavior passHref>
-                  <motion.a
-                    className="inline-flex items-center px-6 py-3 rounded-xl bg-movieboli-violaPrincipale text-movieboli-nero font-bold transition-all duration-300"
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                    </svg>
-                    <EditableText 
-                      contentKey="vote.back_to_festival"
-                      defaultValue="Torna al Festival"
-                      tag="span"
-                    />
-                  </motion.a>
-                </Link>
+                
               </motion.div>
             </div>
           </section>
@@ -529,6 +522,7 @@ const Vota = ({ cortometraggi = [], error = null }) => {
             viewport={{ once: true, margin: "-100px" }}
           >
             <div className="max-w-7xl mx-auto">
+              {/* Rimuovo il secondo pulsante "Torna al Festival" prima della griglia */}
               <motion.div 
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
                 variants={containerVariants}
@@ -642,23 +636,42 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                         <div className="mb-4">
                           <div className="flex items-center justify-between mb-2">
                             <span className="text-sm font-medium text-movieboli-crema/80">
-                              {currentRating > 0 ? `La tua valutazione: ${currentRating}/10` : 
+                              {currentRating > 0 ? (
+                                <span className="flex items-center gap-2">
+                                  <span>La tua valutazione:</span>
+                                  <span className="text-movieboli-violaPrincipale font-bold">
+                                    {currentRating}/5 ★
+                                  </span>
+                                </span>
+                              ) : (
                                 getContent('vote.rating.label', 'Valuta questo cortometraggio')
-                              }
+                              )}
                             </span>
                             {currentRating > 0 && (
                                <button
                                  onClick={() => handleRatingChange(cortoId, 0)}
-                                 className="text-xs text-movieboli-crema/60 hover:text-movieboli-violaPrincipale transition-colors"
+                                 className="text-xs text-movieboli-crema/60 hover:text-movieboli-violaPrincipale transition-colors duration-200 flex items-center gap-1"
                                >
+                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                 </svg>
                                  <EditableText 
                                    contentKey="vote.remove_vote"
-                                   defaultValue="Rimuovi voto"
+                                   defaultValue="Rimuovi"
                                    tag="span"
                                  />
                                </button>
                              )}
                           </div>
+                          {currentRating > 0 && (
+                            <div className="mb-2 text-xs text-movieboli-crema/60">
+                              <EditableText 
+                                contentKey="vote.can_modify"
+                                defaultValue="Clicca sulle stelle per modificare il tuo voto"
+                                tag="span"
+                              />
+                            </div>
+                          )}
                           <StarRating 
                              rating={currentRating}
                              onRatingChange={(rating) => handleRatingChange(cortoId, rating)}
@@ -693,6 +706,24 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                   )
                 })}
               </motion.div>
+                            <div className="text-center mt-16 mb-8">
+                <Link href="/festival" legacyBehavior passHref>
+                  <motion.a
+                    className="inline-flex items-center px-8 py-4 rounded-xl bg-movieboli-violaPrincipale text-movieboli-nero font-bold transition-all duration-300 hover:bg-movieboli-violaPrincipale/90 shadow-lg hover:shadow-xl"
+                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <EditableText 
+                      contentKey="vote.back_to_festival"
+                      defaultValue="Torna al Festival"
+                      tag="span"
+                    />
+                  </motion.a>
+                </Link>
+              </div>
             </div>
           </motion.section>
 
