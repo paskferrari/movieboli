@@ -130,14 +130,50 @@ const StarRating = ({ rating, onRatingChange, readonly = false, isSaving = false
   )
 }
 
+// Funzioni API per gestire i voti
+const getUserVotesFromAPI = async (token) => {
+  const response = await fetch('/api/votes', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  
+  if (!response.ok) {
+    throw new Error('Errore nel caricamento dei voti')
+  }
+  
+  return await response.json()
+}
+
+const saveVoteToAPI = async (token, filmId, rating) => {
+  const response = await fetch('/api/votes', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ film_id: filmId, rating })
+  })
+  
+  if (!response.ok) {
+    throw new Error('Errore nel salvare il voto')
+  }
+  
+  return await response.json()
+}
+
 const Vota = ({ cortometraggi = [], error = null }) => {
   const { getContent } = useContent()
-  const { user, isAuthenticated } = useAuth()
+  const { user, session, isAuthenticated } = useAuth() // Aggiungi session
   const [ratings, setRatings] = useState({})
   const [showThankYou, setShowThankYou] = useState(null)
   const [pageLoading, setPageLoading] = useState(true)
   const [savingVotes, setSavingVotes] = useState(new Set())
   const [isScrolled, setIsScrolled] = useState(false)
+  const [loadingVotes, setLoadingVotes] = useState(false)
+  const [voteError, setVoteError] = useState(null)
 
   // Gestione scroll per navbar
   useEffect(() => {
@@ -160,19 +196,22 @@ const Vota = ({ cortometraggi = [], error = null }) => {
     }
   }, [cortometraggi])
 
-  // Carica i voti dell'utente da Supabase
+  // Carica i voti dell'utente dall'API
   useEffect(() => {
     const loadUserVotes = async () => {
-      if (isAuthenticated && user) {
+      if (isAuthenticated && session?.access_token) { // Usa session invece di user
+        setLoadingVotes(true)
         try {
-          const userVotes = await getUserVotes(user.id)
+          const userVotes = await getUserVotesFromAPI(session.access_token) // Usa session.access_token
           const votesMap = {}
           userVotes.forEach(vote => {
             votesMap[vote.film_id] = vote.rating
           })
           setRatings(votesMap)
+          setVoteError(null)
         } catch (error) {
           console.error('Errore nel caricamento dei voti:', error)
+          setVoteError('Errore nel caricamento dei voti')
           // Fallback al localStorage per compatibilità
           const savedRatings = localStorage.getItem('movieboli-ratings')
           if (savedRatings) {
@@ -182,30 +221,35 @@ const Vota = ({ cortometraggi = [], error = null }) => {
               console.error('Errore nel caricamento dei voti dal localStorage:', e)
             }
           }
+        } finally {
+          setLoadingVotes(false)
         }
       }
     }
 
     loadUserVotes()
-  }, [isAuthenticated, user])
+  }, [isAuthenticated, session]) // Dipendenza da session invece di user
 
   // Gestisce il cambio di rating per un cortometraggio
   const handleRatingChange = async (cortoId, newRating) => {
-    if (!isAuthenticated || !user) {
+    if (!isAuthenticated || !session?.access_token) { // Usa session invece di user
       console.error('Utente non autenticato')
+      setVoteError('Devi essere autenticato per votare')
       return
     }
 
     // Aggiorna immediatamente l'UI
+    const previousRatings = { ...ratings }
     const newRatings = { ...ratings, [cortoId]: newRating }
     setRatings(newRatings)
     
     // Indica che stiamo salvando questo voto
     setSavingVotes(prev => new Set([...prev, cortoId]))
+    setVoteError(null)
     
     try {
-      // Salva nel database Supabase
-      await saveVote(user.id, cortoId, newRating)
+      // Salva tramite API
+      await saveVoteToAPI(session.access_token, cortoId, newRating) // Usa session.access_token
       
       // Salva anche nel localStorage come backup
       localStorage.setItem('movieboli-ratings', JSON.stringify(newRatings))
@@ -214,11 +258,12 @@ const Vota = ({ cortometraggi = [], error = null }) => {
       setShowThankYou(cortoId)
       setTimeout(() => {
         setShowThankYou(null)
-      }, 2000)
+      }, 3000)
     } catch (error) {
       console.error('Errore nel salvare il voto:', error)
+      setVoteError('Errore nel salvare il voto. Riprova.')
       // In caso di errore, ripristina il voto precedente
-      setRatings(ratings)
+      setRatings(previousRatings)
     } finally {
       // Rimuovi l'indicatore di salvataggio
       setSavingVotes(prev => {
@@ -692,6 +737,7 @@ export async function getStaticProps() {
       revalidate: 3600, // Ricarica ogni ora
     }
   } catch (error) {
+    // ... existing code ...
     console.error('Errore nel caricamento dei cortometraggi:', error)
     return {
       props: {
@@ -702,4 +748,4 @@ export async function getStaticProps() {
   }
 }
 
-export default Vota;
+export default Vota
