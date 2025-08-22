@@ -28,29 +28,20 @@ const MovieboliHub = () => {
     },
     {
       id: 'donazioni',
-      title: 'Sostieni il Festival',
-      description: 'Fai una donazione per supportare MovieBoli',
-      href: '/donazioni',
+      title: 'Contest cortomotraggi',
+      description: 'Partecipa al contest dei corotmetraggi',
+      href: '/vota',
       icon: HeartIcon,
       color: 'from-red-600/80 to-rose-700/80',
       external: false
     },
     {
       id: 'prenota',
-      title: 'Prenota Biglietti',
-      description: 'Prenota i tuoi posti per gli eventi',
-      href: '/podcast',
+      title: 'Sondagio gradimento del festival',
+      description: 'Valuta la tua esperienza con MOVIEBOLI.',
+      href: '/sondaggio',
       icon: TicketIcon,
       color: 'from-blue-600/80 to-cyan-700/80',
-      external: false
-    },
-    {
-      id: 'festival',
-      title: 'Programma Festival',
-      description: 'Scopri il programma completo',
-      href: '/festival/programma',
-      icon: ArrowTopRightOnSquareIcon,
-      color: 'from-amber-600/80 to-orange-700/80',
       external: false
     }
   ]

@@ -126,7 +126,7 @@ const ProssimiEpisodiSection = () => {
   // Solo i 4 episodi con prenotazioni esistenti
   const prossimiEpisodi = [
     {
-      id: '22-agosto',
+      id: 'podcast-mixed-by-erry-2025',
       titolo: 'Episodio Live: Mixed by Erry',
       data: '22 Agosto 2025',
       orario: '17:30',
@@ -136,7 +136,7 @@ const ProssimiEpisodiSection = () => {
       immagine: 'https://i.ibb.co/FGby12B/image.png'
     },
     {
-      id: '23-agosto-sera',
+      id: 'podcast-mario-martone-2025',
       titolo: 'Episodio Live: Mario Martone',
       data: '23 Agosto 2025',
       orario: '17.30',
@@ -147,7 +147,7 @@ const ProssimiEpisodiSection = () => {
     },
 
     {
-      id: '24-agosto',
+      id: 'podcast-alessandro-rak-2025',
       titolo: 'Episodio Live: Alessandro Rak',
       data: '24 Agosto 2025',
       orario: '17:30',
@@ -267,7 +267,7 @@ const ProssimiEpisodiSection = () => {
                     alt={episodio.titolo}
                     className="w-full h-64 object-cover"
                     style={{
-                      objectPosition: episodio.id === '22-agosto' 
+                      objectPosition: episodio.id === 'podcast-mixed-by-erry-2025' 
                         ? 'center top' 
                         : (episodio.ospiti && episodio.ospiti.includes('Mario Martone')) 
                           ? 'center 20%' 
@@ -286,7 +286,7 @@ const ProssimiEpisodiSection = () => {
                   {isSoldOut && (
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                       <span className="text-white text-xl font-bold">
-                        {postiRimanenti < 10 && postiRimanenti > 0 ? `SOLD OUT (${postiRimanenti} rimasti)` : 'SOLD OUT'}
+                        ESAURITO
                       </span>
                     </div>
                   )}

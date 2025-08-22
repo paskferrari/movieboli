@@ -23,8 +23,8 @@ export default async function handler(req, res) {
         orario: '17:30:00',
         luogo: 'Giardino Vacca de Dominicis, Eboli',
         posti_totali: 25,
-        posti_disponibili: 15,
-        posti_prenotati: 10,
+        posti_disponibili: 20,
+        posti_prenotati: 5,
         descrizione: 'Una serata speciale con i protagonisti del film Mixed by Erry, per scoprire i segreti dietro questa straordinaria storia napoletana.',
         stato_evento: 'attivo'
       },
@@ -35,10 +35,10 @@ export default async function handler(req, res) {
         orario: '17:30:00',
         luogo: 'Giardino Vacca de Dominicis, Eboli',
         posti_totali: 25,
-        posti_disponibili: 0,
-        posti_prenotati: 25,
+        posti_disponibili: 3,
+        posti_prenotati: 22,
         descrizione: 'Incontro esclusivo con il maestro Mario Martone, uno dei più importanti registi del cinema italiano contemporaneo.',
-        stato_evento: 'sold_out'
+        stato_evento: 'attivo'
       },
       {
         evento_id: 'podcast-alessandro-rak-2025',
