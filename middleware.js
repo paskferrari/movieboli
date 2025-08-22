@@ -9,9 +9,7 @@ const MAINTENANCE_PATHS = [
   '/attivita',              // Pagina attività
   '/archivio-festival',     // Archivi passati (tutte le sottopagine)
   '/festival/2023',         // Edizione 2023
-  '/festival/2024',         // Edizione 2024
-  '/festival/vota',         // Pagina vota
-  '/vota'                   // Pagina vota alternativa
+  '/festival/2024',         // Edizione Pagina vota alternativa
 ];
 
 // Percorsi che saranno sempre accessibili
