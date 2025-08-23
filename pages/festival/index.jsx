@@ -433,7 +433,7 @@ const FestivalPage = () => {
                 viewport={{ once: true }}
               >
                 <Link
-                  href="/festival/cortometraggi"
+                  href="/festival/vota"
                   className="inline-flex items-center bg-movieboli-violaPrincipale text-movieboli-nero font-poppins font-medium text-xl py-4 px-10 rounded-xl hover:bg-movieboli-crema hover:scale-105 transition-all duration-300 shadow-lg"
                 >
                   <EditableText 
