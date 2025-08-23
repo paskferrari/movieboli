@@ -6,10 +6,8 @@ import FilmStatsCard from './FilmStatsCard';
 import UserStatsCard from './UserStatsCard';
 import DemographicsChart from './DemographicsChart';
 import RealTimeStatsCard, { RealTimeStatsCardOld } from './RealTimeStatsCard';
-// Rimosso: import VotingTrendsChart from './VotingTrendsChart';
+import VotingTrendsChart from './VotingTrendsChart';
 import RecentActivityFeed from './RecentActivityFeed';
-
-// Aggiungi questo import
 import AdvancedAnalyticsSection from './AdvancedAnalyticsSection';
 import FilmAnalyticsDetail from './FilmAnalyticsDetail';
 import ExportDataButton from './ExportDataButton';
@@ -30,22 +28,6 @@ const AdminDashboard = () => {
   const intervalRef = useRef(null);
   const mountedRef = useRef(true);
   const debounceRef = useRef(null);
-
-  // Gestisci il caso di utente non autenticato
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-movieboli-nero via-movieboli-neroProfondo to-movieboli-nero flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center text-white"
-        >
-          <h2 className="text-2xl font-bold mb-4">Dashboard Pubblica</h2>
-          <p>Accesso in modalità demo</p>
-        </motion.div>
-      </div>
-    );
-  }
 
   // Carica i dati delle statistiche (ottimizzato con error handling)
   const loadData = useCallback(async () => {
@@ -92,7 +74,7 @@ const AdminDashboard = () => {
       
       setLastUpdate(new Date());
     } catch (error) {
-      console.error('Errore nel caricamento dei dati:', error);
+      console.error('Errore generale nel caricamento dati:', error);
       if (mountedRef.current) {
         setError('Errore nel caricamento dei dati');
         setVotesStats({});

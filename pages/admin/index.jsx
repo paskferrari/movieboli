@@ -1,12 +1,12 @@
 import React from 'react';
 import AdminDashboard from '../../components/admin/AdminDashboard';
-import AdminRoute from '../../components/auth/AdminRoute';
+// Rimuovi l'import di AdminRoute
+// import AdminRoute from '../../components/auth/AdminRoute';
 
 const AdminPage = () => {
   return (
-    <AdminRoute>
-      <AdminDashboard />
-    </AdminRoute>
+    // Rimuovi il wrapper AdminRoute per accesso pubblico
+    <AdminDashboard />
   );
 };
 

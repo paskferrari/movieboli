@@ -110,9 +110,11 @@ const cspDirectives = {
     "'self'",
     'https://api.stripe.com',
     'https://igxnfduvvarrnywanxsr.supabase.co',
+    'wss://igxnfduvvarrnywanxsr.supabase.co', // Aggiungi questa linea per WebSocket
     'https://*.supabase.co',
-    'https://fonts.googleapis.com',  // Aggiungi questo
-    'https://fonts.gstatic.com'      // Aggiungi questo
+    'wss://*.supabase.co', // Aggiungi anche questa per tutti i domini Supabase
+    'https://fonts.googleapis.com',
+    'https://fonts.gstatic.com'
   ],
   'frame-src': [
     'https://js.stripe.com',
