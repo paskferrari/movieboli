@@ -181,38 +181,55 @@ export const StatCard = ({
   title, 
   value, 
   change, 
-  icon, 
+  icon: IconComponent, 
   trend = 'neutral',
+  subtitle,
+  color = 'blue',
   className = '' 
 }) => {
   const classes = useBrandingClasses();
   
   const getTrendColor = () => {
     switch (trend) {
-      case 'up': return 'text-movieboli-success';
-      case 'down': return 'text-movieboli-error';
-      default: return 'text-movieboli-neutral-500';
+      case 'up': return 'text-green-600';
+      case 'down': return 'text-red-600';
+      default: return 'text-gray-500';
+    }
+  };
+  
+  const getColorClasses = () => {
+    switch (color) {
+      case 'blue': return 'bg-blue-100 text-blue-600';
+      case 'green': return 'bg-green-100 text-green-600';
+      case 'purple': return 'bg-purple-100 text-purple-600';
+      case 'orange': return 'bg-orange-100 text-orange-600';
+      case 'red': return 'bg-red-100 text-red-600';
+      default: return 'bg-gray-100 text-gray-600';
     }
   };
   
   return (
-    <AdaptiveCard className={`text-center ${className}`} hover={false}>
-      {icon && (
-        <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${classes.bgPrimary}/10 mb-4`}>
-          <span className={`text-xl ${classes.textPrimary}`}>
-            {icon}
-          </span>
+    <div className={`bg-white rounded-xl border border-slate-200 p-6 text-center ${className}`}>
+      {IconComponent && (
+        <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${getColorClasses()} mb-4`}>
+          <IconComponent className="w-6 h-6" />
         </div>
       )}
       
       <div className="space-y-2">
-        <h3 className="text-2xl font-bold text-movieboli-neutral-900">
+        <h3 className="text-2xl font-bold text-gray-900">
           {value}
         </h3>
         
-        <p className="text-sm text-movieboli-neutral-600">
+        <p className="text-sm text-gray-600">
           {title}
         </p>
+        
+        {subtitle && (
+          <p className="text-xs text-gray-500">
+            {subtitle}
+          </p>
+        )}
         
         {change && (
           <p className={`text-xs ${getTrendColor()}`}>
@@ -220,7 +237,7 @@ export const StatCard = ({
           </p>
         )}
       </div>
-    </AdaptiveCard>
+    </div>
   );
 };
 
