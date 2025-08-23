@@ -9,10 +9,7 @@ import RealTimeStatsCard, { RealTimeStatsCardOld } from './RealTimeStatsCard';
 import VotingTrendsChart from './VotingTrendsChart';
 import RecentActivityFeed from './RecentActivityFeed';
 import VotesDetailedSection from './VotesDetailedSection';
-// Rimuovi questi import non utilizzati:
-// import AdvancedAnalyticsSection from './AdvancedAnalyticsSection';
-// import FilmAnalyticsDetail from './FilmAnalyticsDetail';
-// import ExportDataButton from './ExportDataButton';
+
 
 const AdminDashboard = () => {
   const { user } = useAuth();
@@ -253,7 +250,7 @@ const AdminDashboard = () => {
             </motion.div>
           )}
 
-          {activeTab === 'votes' && (
+          {activeTab === 'votes' && VotesDetailedSection && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -392,3 +389,10 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+// Dopo gli import, aggiungi verifiche
+if (!VotesDetailedSection) {
+  console.error('VotesDetailedSection non importato correttamente');
+}
+if (!VotingTrendsChart) {
+  console.error('VotingTrendsChart non importato correttamente');
+}
