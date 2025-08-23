@@ -834,9 +834,9 @@ export async function getStaticProps() {
       'The Rock Tensions',
       'APPUNTAMENTO A MEZZOGIORNO',
       'Ya Hanouni',
-      ’Jus d'orange’,
+      "Jus d'orange",
       ‘SHARING IS CARING’,
-      ‘Father's Letters’
+      "Father's Letters"
     ]
 
     // Filtra solo i cortometraggi votabili del 22 agosto
