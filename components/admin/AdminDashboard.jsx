@@ -389,9 +389,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-console.log('Components check:', {
-  VotesDetailedSection: !!VotesDetailedSection,
-  VotingTrendsChart: !!VotingTrendsChart,
-  RealTimeStatsCard: !!RealTimeStatsCard,
-  RecentActivityFeed: !!RecentActivityFeed
-});
