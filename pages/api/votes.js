@@ -76,11 +76,9 @@ async function saveUserVote(req, res) {
 
   const { film_id, rating } = req.body;
 
-  // Validazione per scala 1-5 con mezzi voti
+  // Correggere la validazione per accettare 0.5-5.0 con incrementi di 0.5
   if (!film_id || !rating || rating < 0.5 || rating > 5 || (rating * 2) !== Math.floor(rating * 2)) {
-    return res.status(400).json({ 
-      error: 'Rating deve essere un valore tra 0.5 e 5.0 con incrementi di 0.5' 
-    });
+    return res.status(400).json({ error: 'Rating deve essere un valore tra 0.5 e 5.0 con incrementi di 0.5' });
   }
 
   try {

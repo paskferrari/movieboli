@@ -165,11 +165,31 @@ const saveVoteToAPI = async (token, filmId, rating) => {
   return await response.json()
 }
 
+// Aggiungere questa funzione mancante
+const deleteVoteFromAPI = async (token, filmId) => {
+  const response = await fetch('/api/votes', {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ film_id: filmId })
+  })
+  
+  if (!response.ok) {
+    throw new Error('Errore nell\'eliminazione del voto')
+  }
+  
+  return await response.json()
+}
+
 const Vota = ({ cortometraggi = [], error = null }) => {
   const { getContent } = useContent()
-  const { user, session, isAuthenticated } = useAuth() // Aggiungi session
+  const { user, session, isAuthenticated } = useAuth()
   const [ratings, setRatings] = useState({})
   const [showThankYou, setShowThankYou] = useState(null)
+  // Aggiungere nuovo stato per le modifiche
+  const [showVoteUpdated, setShowVoteUpdated] = useState(null)
   const [pageLoading, setPageLoading] = useState(true)
   const [savingVotes, setSavingVotes] = useState(new Set())
   const [isScrolled, setIsScrolled] = useState(false)
@@ -241,25 +261,41 @@ const Vota = ({ cortometraggi = [], error = null }) => {
       return
     }
 
+    // Controlla se è una modifica o un nuovo voto
+    const previousRating = ratings[cortoId]
+    const isModification = previousRating && previousRating > 0 && newRating > 0
+    const isNewVote = !previousRating && newRating > 0
+    const isRemoval = newRating === 0
+
     // Aggiorna immediatamente l'UI
     const previousRatings = { ...ratings }
-    const newRatings = { ...ratings, [cortoId]: newRating }
-    setRatings(newRatings)
     
-    // Indica che stiamo salvando questo voto
+    // Se newRating è 0, rimuovi il voto dall'oggetto ratings
+    const newRatings = { ...ratings }
+    if (newRating === 0) {
+      delete newRatings[cortoId]
+    } else {
+      newRatings[cortoId] = newRating
+    }
+    
+    setRatings(newRatings)
     setSavingVotes(prev => new Set([...prev, cortoId]))
     setVoteError(null)
     
     try {
-      // Salva tramite API
-      const response = await saveVoteToAPI(session.access_token, cortoId, newRating)
-      
-      // Verifica che il salvataggio sia andato a buon fine
-      if (!response.success) {
-        throw new Error(response.error || 'Errore nel salvare il voto')
+      if (newRating === 0) {
+        // Rimuovi il voto usando l'API DELETE
+        await deleteVoteFromAPI(session.access_token, cortoId)
+      } else {
+        // Salva il voto usando l'API POST
+        const response = await saveVoteToAPI(session.access_token, cortoId, newRating)
+        
+        if (!response.success) {
+          throw new Error(response.error || 'Errore nel salvare il voto')
+        }
       }
       
-      // Salva anche nel localStorage come backup
+      // Aggiorna localStorage
       localStorage.setItem('movieboli-ratings', JSON.stringify(newRatings))
       
       // Mostra messaggio di conferma
@@ -268,12 +304,11 @@ const Vota = ({ cortometraggi = [], error = null }) => {
         setShowThankYou(null)
       }, 3000)
     } catch (error) {
-      console.error('Errore nel salvare il voto:', error)
-      setVoteError(`Errore nel salvare il voto: ${error.message}`)
-      // In caso di errore, ripristina il voto precedente
+      console.error('Errore nel gestire il voto:', error)
+      setVoteError(`Errore: ${error.message}`)
+      // Ripristina lo stato precedente
       setRatings(previousRatings)
     } finally {
-      // Rimuovi l'indicatore di salvataggio
       setSavingVotes(prev => {
         const newSet = new Set(prev)
         newSet.delete(cortoId)
@@ -550,9 +585,9 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                         </span>
                       </div>
 
-                      {/* Messaggio Thank You */}
+                      {/* Messaggio Thank You per nuovi voti */}
                       <AnimatePresence>
-                        {showingThankYou && (
+                        {showThankYou === cortoId && (
                           <motion.div 
                             className="absolute inset-0 bg-movieboli-violaPrincipale/95 flex items-center justify-center z-20 rounded-2xl"
                             initial={{ opacity: 0, scale: 0.8 }}
@@ -583,6 +618,47 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                                 <EditableText 
                                   contentKey="vote.success_message"
                                   defaultValue="Grazie per la tua valutazione"
+                                  tag="span"
+                                />
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      {/* Nuovo messaggio per modifiche voti */}
+                      <AnimatePresence>
+                        {showVoteUpdated === cortoId && (
+                          <motion.div 
+                            className="absolute inset-0 bg-movieboli-bordeaux/95 flex items-center justify-center z-20 rounded-2xl"
+                            initial={{ opacity: 0, scale: 0.8, rotateY: -90 }}
+                            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                            exit={{ opacity: 0, scale: 0.8, rotateY: 90 }}
+                            transition={{ duration: 0.4, ease: "easeInOut" }}
+                          >
+                            <div className="text-center text-movieboli-crema">
+                              <motion.div
+                                initial={{ scale: 0, rotate: -180 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                transition={{ delay: 0.1, type: "spring", stiffness: 150 }}
+                              >
+                                <div className="w-16 h-16 bg-movieboli-crema rounded-full flex items-center justify-center mx-auto mb-4">
+                                  <svg className="w-6 h-6 text-movieboli-bordeaux" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                  </svg>
+                                </div>
+                              </motion.div>
+                              <h3 className="text-xl font-bold mb-2">
+                                <EditableText 
+                                  contentKey="vote.updated_title"
+                                  defaultValue="Voto aggiornato!"
+                                  tag="span"
+                                />
+                              </h3>
+                              <p className="text-sm opacity-80">
+                                <EditableText 
+                                  contentKey="vote.updated_message"
+                                  defaultValue="La tua valutazione è stata modificata"
                                   tag="span"
                                 />
                               </p>
