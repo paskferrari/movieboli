@@ -833,9 +833,9 @@ export async function getStaticProps() {
       'Place under the sun',  // Corretto: era 'PLACE UNDER THE SUN'
       'The Rock Tensions',
       'APPUNTAMENTO A MEZZOGIORNO',
-      'Ya Hanouni'
-      ’Jus d'orange’
-      ‘SHARING IS CARING’
+      'Ya Hanouni',
+      ’Jus d'orange’,
+      ‘SHARING IS CARING’,
       ‘Father's Letters’
     ]
 
