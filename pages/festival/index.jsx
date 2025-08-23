@@ -179,7 +179,7 @@ const FestivalPage = () => {
                   />
                 </Link>
                 <Link
-                  href="/festival/cortometraggi"
+                  href="/festival/vota"
                   className="inline-flex items-center border-2 border-movieboli-violaPrincipale text-movieboli-violaPrincipale font-poppins font-medium text-xl py-4 px-10 rounded-xl hover:bg-movieboli-violaPrincipale hover:text-movieboli-nero hover:scale-105 transition-all duration-300 backdrop-blur-sm bg-white/10"
                 >
                   <EditableText 
