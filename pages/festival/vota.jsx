@@ -829,15 +829,15 @@ export async function getStaticProps() {
 
     // Lista dei primi 5 cortometraggi del programma del 22 agosto (venerdì)
     const cortometraggiVotabili = [
-      'DIECI SECONDI',
-      'Place under the sun',  // Corretto: era 'PLACE UNDER THE SUN'
-      'The Rock Tensions',
-      'APPUNTAMENTO A MEZZOGIORNO',
-      'Ya Hanouni',
-      "Jus d'orange",
-      ‘SHARING IS CARING’,
-      "Father's Letters"
-    ]
+  "DIECI SECONDI",
+  "Place under the sun",
+  "The Rock Tensions",
+  "APPUNTAMENTO A MEZZOGIORNO",
+  "Ya Hanouni",
+  "Jus d'orange",
+  "SHARING IS CARING",
+  "Father's Letters"
+];
 
     // Filtra solo i cortometraggi votabili del 22 agosto
     const cortometraggi = allCortometraggi
