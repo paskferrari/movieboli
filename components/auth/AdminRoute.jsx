@@ -1,13 +1,13 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useAdmin } from '../../hooks/useAdmin';
-import { useAuth } from '../../contexts/AuthContext';
-import AuthModal from './AuthModal';
+import React from 'react'
+import { motion } from 'framer-motion'
+import { useAdmin } from '../../hooks/useAdmin'
+import { useAuth } from '../../contexts/AuthContext'
+import AuthModal from './AuthModal'
 
-const AdminRoute = ({ children, fallback = null }) => {
-  const { isAuthenticated } = useAuth();
-  const { isAdmin, loading } = useAdmin();
-  const [showAuthModal, setShowAuthModal] = React.useState(false);
+const AdminRoute = ({ children }) => {
+  const { isAuthenticated, user } = useAuth()
+  const { isAdmin, loading } = useAdmin()
+  const [showAuthModal, setShowAuthModal] = React.useState(false)
 
   // Mostra loading durante il controllo
   if (loading) {
@@ -22,7 +22,7 @@ const AdminRoute = ({ children, fallback = null }) => {
           <p className="text-movieboli-crema text-lg">Verifica autorizzazioni...</p>
         </motion.div>
       </div>
-    );
+    )
   }
 
   // Se non è autenticato, mostra il modal di login
@@ -50,7 +50,7 @@ const AdminRoute = ({ children, fallback = null }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowAuthModal(true)}
-              className="bg-movieboli-violaPrincipale hover:bg-movieboli-violaPrincipale/80 text-movieboli-crema px-6 py-3 rounded-xl font-medium transition-colors"
+              className="bg-movieboli-violaPrincipale hover:bg-movieboli-violaPrincipale/80 text-white px-6 py-3 rounded-lg font-medium transition-colors"
             >
               Accedi
             </motion.button>
@@ -59,15 +59,14 @@ const AdminRoute = ({ children, fallback = null }) => {
         
         <AuthModal 
           isOpen={showAuthModal} 
-          onClose={() => setShowAuthModal(false)}
-          initialMode="login"
+          onClose={() => setShowAuthModal(false)} 
         />
       </>
-    );
+    )
   }
 
   // Se è autenticato ma non è admin
-  if (!isAdmin) {
+  if (isAuthenticated && !isAdmin) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-movieboli-nero via-movieboli-neroProfondo to-movieboli-nero flex items-center justify-center">
         <motion.div
@@ -83,21 +82,19 @@ const AdminRoute = ({ children, fallback = null }) => {
           <h2 className="text-2xl font-bold text-movieboli-crema mb-4">
             Accesso Negato
           </h2>
-          <p className="text-movieboli-crema/80 mb-6">
+          <p className="text-movieboli-crema/80 mb-4">
             Non hai i permessi necessari per accedere alla dashboard amministrativa.
           </p>
-          {fallback && (
-            <div className="mt-6">
-              {fallback}
-            </div>
-          )}
+          <p className="text-movieboli-crema/60 text-sm">
+            Utente: {user?.email}
+          </p>
         </motion.div>
       </div>
-    );
+    )
   }
 
-  // Se è admin, mostra il contenuto
-  return children;
-};
+  // Se è autenticato e admin, mostra il contenuto
+  return children
+}
 
-export default AdminRoute;
+export default AdminRoute

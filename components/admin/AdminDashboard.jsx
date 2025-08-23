@@ -9,6 +9,11 @@ import RealTimeStatsCard, { RealTimeStatsCardOld } from './RealTimeStatsCard';
 // Rimosso: import VotingTrendsChart from './VotingTrendsChart';
 import RecentActivityFeed from './RecentActivityFeed';
 
+// Aggiungi questo import
+import AdvancedAnalyticsSection from './AdvancedAnalyticsSection';
+import FilmAnalyticsDetail from './FilmAnalyticsDetail';
+import ExportDataButton from './ExportDataButton';
+
 const AdminDashboard = () => {
   const { user } = useAuth();
   const [votesStats, setVotesStats] = useState({});
@@ -498,5 +503,4 @@ const AdminDashboard = () => {
     </div>
   );
 };
-
 export default AdminDashboard;
