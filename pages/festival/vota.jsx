@@ -60,7 +60,7 @@ const StarRating = ({ rating, onRatingChange, readonly = false, isSaving = false
   return (
     <div className="flex items-center gap-2">
       <div className="flex items-center space-x-1" onMouseLeave={handleMouseLeave}>
-        {[1, 2, 3, 4, 5].map((star) => {
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((star) => {
           const currentRating = hoverRating || rating
           const starDisplay = getStarDisplay(star, currentRating)
           
@@ -71,6 +71,7 @@ const StarRating = ({ rating, onRatingChange, readonly = false, isSaving = false
               whileHover={!readonly && !isSaving ? { scale: 1.1 } : {}}
               whileTap={!readonly && !isSaving ? { scale: 0.95 } : {}}
             >
+              {/* Stella con gestione mezzi voti */}
               {/* Stella di base (vuota) */}
               <div className={`text-2xl transition-all duration-200 ${
                 readonly || isSaving ? 'cursor-default' : 'cursor-pointer'
@@ -640,7 +641,7 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                                 <span className="flex items-center gap-2">
                                   <span>La tua valutazione:</span>
                                   <span className="text-movieboli-violaPrincipale font-bold">
-                                    {currentRating}/5 ★
+                                    {currentRating}/10 ★
                                   </span>
                                 </span>
                               ) : (

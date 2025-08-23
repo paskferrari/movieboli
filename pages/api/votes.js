@@ -76,8 +76,11 @@ async function saveUserVote(req, res) {
 
   const { film_id, rating } = req.body;
 
-  if (!film_id || !rating || rating < 1 || rating > 5) {
-    return res.status(400).json({ error: 'Dati non validi' });
+  // Nuova validazione per scala 1-10 con mezzi voti
+  if (!film_id || !rating || rating < 0.5 || rating > 10 || (rating * 2) !== Math.floor(rating * 2)) {
+    return res.status(400).json({ 
+      error: 'Rating deve essere un valore tra 0.5 e 10.0 con incrementi di 0.5' 
+    });
   }
 
   try {

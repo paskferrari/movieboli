@@ -120,11 +120,42 @@ const Navbar = () => {
                     <Link 
                       key={item.name}
                       href={item.href}
-                      className="font-poppins font-medium text-movieboli-crema hover:text-movieboli-violaPrincipale transition-colors duration-300"
+                      className={`
+                        relative text-festival-gold hover:text-white transition-all duration-300 font-medium group
+                        ${router.pathname === item.href ? 'text-white' : ''}
+                      `}
                     >
                       {item.name}
+                      <span className={`
+                        absolute -bottom-1 left-0 h-0.5 bg-festival-gold transition-all duration-300
+                        ${router.pathname === item.href ? 'w-full' : 'w-0 group-hover:w-full'}
+                      `}></span>
                     </Link>
                   ))}
+                </div>
+
+                {/* Desktop Auth Controls - RIATTIVATO */}
+                <div className="hidden md:flex items-center space-x-4">
+                  {isAuthenticated ? (
+                    <div className="flex items-center space-x-3">
+                      <span className="hidden sm:block text-movieboli-crema/80 text-sm">
+                        Ciao, {user?.user_metadata?.firstName || user?.email?.split('@')[0]}
+                      </span>
+                      <button
+                        onClick={handleLogout}
+                        className="bg-movieboli-violaPrincipale/20 hover:bg-movieboli-violaPrincipale/30 text-movieboli-crema px-4 py-2 rounded-lg transition-all duration-300 text-sm font-medium"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => setShowAuthModal(true)}
+                      className="bg-movieboli-violaPrincipale hover:bg-movieboli-violaSecondario text-movieboli-nero px-4 py-2 rounded-lg transition-all duration-300 text-sm font-bold"
+                    >
+                      Accedi
+                    </button>
+                  )}
                 </div>
                 
                 {/* Mobile Hamburger Button for Festival */}
@@ -295,8 +326,7 @@ const Navbar = () => {
 
               {/* Mobile menu button */}
               <div className="lg:hidden flex items-center space-x-3">
-                {/* Mobile Auth button - RIMOSSO COMPLETAMENTE */}
-                {/*
+                {/* Mobile Auth button - RIATTIVATO */}
                 {isAuthenticated ? (
                   <button
                     onClick={handleLogout}
@@ -320,7 +350,6 @@ const Navbar = () => {
                     Accedi
                   </button>
                 )}
-                */}
                 
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
