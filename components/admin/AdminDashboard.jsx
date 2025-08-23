@@ -389,10 +389,9 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-// Dopo gli import, aggiungi verifiche
-if (!VotesDetailedSection) {
-  console.error('VotesDetailedSection non importato correttamente');
-}
-if (!VotingTrendsChart) {
-  console.error('VotingTrendsChart non importato correttamente');
-}
+console.log('Components check:', {
+  VotesDetailedSection: !!VotesDetailedSection,
+  VotingTrendsChart: !!VotingTrendsChart,
+  RealTimeStatsCard: !!RealTimeStatsCard,
+  RecentActivityFeed: !!RecentActivityFeed
+});
