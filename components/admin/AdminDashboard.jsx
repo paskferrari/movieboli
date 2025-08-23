@@ -184,7 +184,8 @@ const AdminDashboard = () => {
     { id: 'votes', label: 'Voti Dettagliati', icon: '🗳️' },
     { id: 'films', label: 'Cortometraggi', icon: '🎬' },
     { id: 'users', label: 'Utenti', icon: '👥' },
-    { id: 'demographics', label: 'Demografia', icon: '📈' }
+    { id: 'demographics', label: 'Demografia', icon: '📈' },
+    { id: 'trends', label: 'Tendenze', icon: '📈' }
   ];
 
   if (loading) {
