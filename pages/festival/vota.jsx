@@ -60,7 +60,7 @@ const StarRating = ({ rating, onRatingChange, readonly = false, isSaving = false
   return (
     <div className="flex items-center gap-2">
       <div className="flex items-center space-x-1" onMouseLeave={handleMouseLeave}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((star) => {
+        {[1, 2, 3, 4, 5].map((star) => {
           const currentRating = hoverRating || rating
           const starDisplay = getStarDisplay(star, currentRating)
           

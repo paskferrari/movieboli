@@ -24,13 +24,18 @@ const FilmStatsCard = ({ filmId, stats }) => {
     return Math.round((count / totalVotes) * 100);
   };
 
-  // Colori per le stelle
+  // Colori per le stelle (scala 1-10)
   const getStarColor = (rating) => {
     const colors = {
-      5: 'bg-green-500',
-      4: 'bg-blue-500', 
-      3: 'bg-yellow-500',
-      2: 'bg-orange-500',
+      10: 'bg-green-500',
+      9: 'bg-green-400', 
+      8: 'bg-blue-500',
+      7: 'bg-blue-400',
+      6: 'bg-cyan-500',
+      5: 'bg-yellow-500',
+      4: 'bg-yellow-400',
+      3: 'bg-orange-500',
+      2: 'bg-orange-400',
       1: 'bg-red-500'
     };
     return colors[rating] || 'bg-gray-500';
