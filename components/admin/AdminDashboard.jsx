@@ -8,10 +8,11 @@ import DemographicsChart from './DemographicsChart';
 import RealTimeStatsCard, { RealTimeStatsCardOld } from './RealTimeStatsCard';
 import VotingTrendsChart from './VotingTrendsChart';
 import RecentActivityFeed from './RecentActivityFeed';
-import AdvancedAnalyticsSection from './AdvancedAnalyticsSection';
-import FilmAnalyticsDetail from './FilmAnalyticsDetail';
-import ExportDataButton from './ExportDataButton';
 import VotesDetailedSection from './VotesDetailedSection';
+// Rimuovi questi import non utilizzati:
+// import AdvancedAnalyticsSection from './AdvancedAnalyticsSection';
+// import FilmAnalyticsDetail from './FilmAnalyticsDetail';
+// import ExportDataButton from './ExportDataButton';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
