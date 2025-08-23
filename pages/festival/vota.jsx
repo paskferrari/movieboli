@@ -287,7 +287,8 @@ const Vota = ({ cortometraggi = [], error = null }) => {
         // Rimuovi il voto usando l'API DELETE
         await deleteVoteFromAPI(session.access_token, cortoId)
       } else {
-        // Salva il voto usando l'API POST
+        // CORREZIONE: Il rating è già nella scala corretta 0.5-5.0
+        // Non serve conversione perché StarRating usa già valori 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0
         const response = await saveVoteToAPI(session.access_token, cortoId, newRating)
         
         if (!response.success) {
@@ -299,10 +300,17 @@ const Vota = ({ cortometraggi = [], error = null }) => {
       localStorage.setItem('movieboli-ratings', JSON.stringify(newRatings))
       
       // Mostra messaggio di conferma
-      setShowThankYou(cortoId)
-      setTimeout(() => {
-        setShowThankYou(null)
-      }, 3000)
+      if (isModification) {
+        setShowVoteUpdated(cortoId)
+        setTimeout(() => {
+          setShowVoteUpdated(null)
+        }, 3000)
+      } else {
+        setShowThankYou(cortoId)
+        setTimeout(() => {
+          setShowThankYou(null)
+        }, 3000)
+      }
     } catch (error) {
       console.error('Errore nel gestire il voto:', error)
       setVoteError(`Errore: ${error.message}`)
@@ -717,7 +725,7 @@ const Vota = ({ cortometraggi = [], error = null }) => {
                                 <span className="flex items-center gap-2">
                                   <span>La tua valutazione:</span>
                                   <span className="text-movieboli-violaPrincipale font-bold">
-                                    {currentRating}/10 ★
+                                    {currentRating}/5 ★
                                   </span>
                                 </span>
                               ) : (

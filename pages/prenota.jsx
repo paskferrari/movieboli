@@ -128,7 +128,7 @@ const Prenota = () => {
       await new Promise(resolve => setTimeout(resolve, 2000))
       
       // Simula successo
-      console.log('Prenotazione inviata:', formData)
+      
       setShowConfirmation(true)
       
       // Reset form

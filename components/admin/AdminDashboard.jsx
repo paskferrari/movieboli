@@ -9,7 +9,8 @@ import {
   HomeIcon,
   BellIcon,
   MagnifyingGlassIcon,
-  XMarkIcon
+  XMarkIcon,
+  TrophyIcon
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -20,6 +21,8 @@ import UsersManagement from './UsersManagement';
 import AnalyticsDashboard from './AnalyticsDashboard';
 import DataExport from './DataExport';
 import AdminSettings from './AdminSettings';
+// Importa il nuovo componente
+import ContestArtisticoManagement from './ContestArtisticoManagement';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
@@ -68,6 +71,13 @@ const AdminDashboard = () => {
       icon: FilmIcon,
       component: VotesManagement,
       description: 'Gestisci voti e cortometraggi'
+    },
+    {
+      id: 'contest',
+      name: 'Contest Artistico',
+      icon: TrophyIcon,
+      component: ContestArtisticoManagement,
+      description: 'Statistiche opere d\'arte'
     },
     {
       id: 'users',

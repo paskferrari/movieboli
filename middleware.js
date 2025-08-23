@@ -127,3 +127,5 @@ export const config = {
     '/((?!api|_next/static|_next/image|favicon.ico|manifest.json|sw.js|workbox-.*).*)'
   ],
 };
+// Rimuovere tutte le righe 57, 61, 67, 73, 85-87, 99, 104, 108, 114, 119
+// Mantenere solo la logica funzionale senza log

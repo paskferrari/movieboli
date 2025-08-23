@@ -324,127 +324,125 @@ const ProssimiEpisodiSection = () => {
           })}
         </div>
 
-        {/* ... existing code ... */}
-      </div>
+        {/* Modal di prenotazione */}
+        {eventoSelezionato && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-6">
+                  <h3 className="text-2xl font-bold text-black">
+                    Prenota per {eventoSelezionato.titolo}
+                  </h3>
+                  <button
+                    onClick={() => setEventoSelezionato(null)}
+                    className="text-gray-500 hover:text-black text-2xl"
+                  >
+                    ×
+                  </button>
+                </div>
 
-      {/* Modal di prenotazione */}
-      {eventoSelezionato && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-6">
-                <h3 className="text-2xl font-bold text-black">
-                  Prenota per {eventoSelezionato.titolo}
-                </h3>
-                <button
-                  onClick={() => setEventoSelezionato(null)}
-                  className="text-gray-500 hover:text-black text-2xl"
-                >
-                  ×
-                </button>
+                <div className="mb-6 p-4 bg-yellow-50 rounded-lg">
+                  <p className="text-sm text-gray-700">
+                    <strong>📅 Data:</strong> {eventoSelezionato.data} alle {eventoSelezionato.orario}<br/>
+                    <strong>📍 Luogo:</strong> {eventoSelezionato.luogo}<br/>
+                    <strong>🎤 Ospiti:</strong> {eventoSelezionato.ospiti.join(', ')}<br/>
+                    <strong>🎫 Posti disponibili:</strong> <span className={postiDisponibili[eventoSelezionato.id] <= 5 ? 'text-red-600 font-bold' : 'text-green-600'}>
+                      {postiDisponibili[eventoSelezionato.id]}
+                    </span>
+                  </p>
+                </div>
+
+                <form onSubmit={gestisciPrenotazione} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Nome completo *
+                    </label>
+                    <input
+                      type="text"
+                      value={datiPrenotazione.nome}
+                      onChange={(e) => setDatiPrenotazione({...datiPrenotazione, nome: e.target.value})}
+                      className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.nome ? 'border-red-500' : 'border-gray-300'}`}
+                      placeholder="Il tuo nome completo"
+                    />
+                    {errori.nome && <p className="text-red-500 text-sm mt-1">{errori.nome}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      value={datiPrenotazione.email}
+                      onChange={(e) => setDatiPrenotazione({...datiPrenotazione, email: e.target.value})}
+                      className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.email ? 'border-red-500' : 'border-gray-300'}`}
+                      placeholder="La tua email"
+                    />
+                    {errori.email && <p className="text-red-500 text-sm mt-1">{errori.email}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Telefono *
+                    </label>
+                    <input
+                      type="tel"
+                      value={datiPrenotazione.telefono}
+                      onChange={(e) => setDatiPrenotazione({...datiPrenotazione, telefono: e.target.value})}
+                      className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.telefono ? 'border-red-500' : 'border-gray-300'}`}
+                      placeholder="Il tuo numero di telefono"
+                    />
+                    {errori.telefono && <p className="text-red-500 text-sm mt-1">{errori.telefono}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Note aggiuntive
+                    </label>
+                    <textarea
+                      value={datiPrenotazione.note}
+                      onChange={(e) => setDatiPrenotazione({...datiPrenotazione, note: e.target.value})}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                      rows="3"
+                      placeholder="Eventuali richieste speciali o note"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={caricamento}
+                    className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
+                      caricamento
+                        ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                        : 'bg-yellow-400 text-black hover:bg-yellow-300 hover:scale-105 shadow-lg'
+                    }`}
+                  >
+                    {caricamento ? 'Invio in corso...' : 'Conferma prenotazione'}
+                  </button>
+                </form>
               </div>
-
-              <div className="mb-6 p-4 bg-yellow-50 rounded-lg">
-                <p className="text-sm text-gray-700">
-                  <strong>📅 Data:</strong> {eventoSelezionato.data} alle {eventoSelezionato.orario}<br/>
-                  <strong>📍 Luogo:</strong> {eventoSelezionato.luogo}<br/>
-                  <strong>🎤 Ospiti:</strong> {eventoSelezionato.ospiti.join(', ')}<br/>
-                  <strong>🎫 Posti disponibili:</strong> <span className={postiDisponibili[eventoSelezionato.id] <= 5 ? 'text-red-600 font-bold' : 'text-green-600'}>
-                    {postiDisponibili[eventoSelezionato.id]}
-                  </span>
-                </p>
-              </div>
-
-              <form onSubmit={gestisciPrenotazione} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Nome completo *
-                  </label>
-                  <input
-                    type="text"
-                    value={datiPrenotazione.nome}
-                    onChange={(e) => setDatiPrenotazione({...datiPrenotazione, nome: e.target.value})}
-                    className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.nome ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="Il tuo nome completo"
-                  />
-                  {errori.nome && <p className="text-red-500 text-sm mt-1">{errori.nome}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    value={datiPrenotazione.email}
-                    onChange={(e) => setDatiPrenotazione({...datiPrenotazione, email: e.target.value})}
-                    className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.email ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="La tua email"
-                  />
-                  {errori.email && <p className="text-red-500 text-sm mt-1">{errori.email}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Telefono *
-                  </label>
-                  <input
-                    type="tel"
-                    value={datiPrenotazione.telefono}
-                    onChange={(e) => setDatiPrenotazione({...datiPrenotazione, telefono: e.target.value})}
-                    className={`w-full p-3 border rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent ${errori.telefono ? 'border-red-500' : 'border-gray-300'}`}
-                    placeholder="Il tuo numero di telefono"
-                  />
-                  {errori.telefono && <p className="text-red-500 text-sm mt-1">{errori.telefono}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Note aggiuntive
-                  </label>
-                  <textarea
-                    value={datiPrenotazione.note}
-                    onChange={(e) => setDatiPrenotazione({...datiPrenotazione, note: e.target.value})}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
-                    rows="3"
-                    placeholder="Eventuali richieste speciali o note"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={caricamento}
-                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
-                    caricamento
-                      ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                      : 'bg-yellow-400 text-black hover:bg-yellow-300 hover:scale-105 shadow-lg'
-                  }`}
-                >
-                  {caricamento ? 'Invio in corso...' : 'Conferma prenotazione'}
-                </button>
-              </form>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Messaggi di stato */}
-      {messaggioErrore && (
-        <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
-          ❌ {messaggioErrore}
-        </div>
-      )}
+        {/* Messaggi di stato */}
+        {messaggioErrore && (
+          <div className="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
+            ❌ {messaggioErrore}
+          </div>
+        )}
 
-      {prenotazioneInviata && (
-        <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
-          ✅ Prenotazione confermata!
-          {codicePrenotazione && (
-            <div className="mt-2 text-sm">
-              Codice: <strong>{codicePrenotazione}</strong>
-            </div>
-          )}
-        </div>
-      )}
+        {prenotazioneInviata && (
+          <div className="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
+            ✅ Prenotazione confermata!
+            {codicePrenotazione && (
+              <div className="mt-2 text-sm">
+                Codice: <strong>{codicePrenotazione}</strong>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </section>
   );
 };

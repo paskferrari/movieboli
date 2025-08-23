@@ -76,22 +76,54 @@ async function saveUserVote(req, res) {
 
   const { film_id, rating } = req.body;
 
-  // Correggere la validazione per accettare 0.5-5.0 con incrementi di 0.5
   if (!film_id || !rating || rating < 0.5 || rating > 5 || (rating * 2) !== Math.floor(rating * 2)) {
     return res.status(400).json({ error: 'Rating deve essere un valore tra 0.5 e 5.0 con incrementi di 0.5' });
   }
 
   try {
-    const { data, error } = await supabase
+    const { data: existingVote, error: checkError } = await supabase
       .from('votes')
-      .upsert({
-        user_id: user.id,
-        film_id: film_id,
-        rating: rating,
-        updated_at: new Date().toISOString()
-      })
-      .select()
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('film_id', film_id)
       .single();
+
+    if (checkError && checkError.code !== 'PGRST116') {
+      throw checkError;
+    }
+
+    let data, error;
+
+    if (existingVote) {
+      const result = await supabase
+        .from('votes')
+        .update({
+          rating: rating,
+          updated_at: new Date().toISOString()
+        })
+        .eq('user_id', user.id)
+        .eq('film_id', film_id)
+        .select()
+        .single();
+      
+      data = result.data;
+      error = result.error;
+    } else {
+      const result = await supabase
+        .from('votes')
+        .insert({
+          user_id: user.id,
+          film_id: film_id,
+          rating: rating,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        })
+        .select()
+        .single();
+      
+      data = result.data;
+      error = result.error;
+    }
 
     if (error) {
       throw error;
@@ -100,11 +132,12 @@ async function saveUserVote(req, res) {
     return res.status(200).json({ 
       success: true, 
       vote: data,
-      message: 'Voto salvato con successo'
+      message: existingVote ? 'Voto aggiornato con successo' : 'Voto salvato con successo'
     });
   } catch (error) {
-    console.error('Errore nel salvataggio del voto:', error);
-    return res.status(500).json({ error: 'Errore nel salvataggio del voto' });
+    // Manteniamo solo il console.error per errori critici
+    console.error('Errore nel salvataggio del voto:', error.message);
+    return res.status(500).json({ error: 'Errore nel salvataggio del voto', details: error.message });
   }
 }
 

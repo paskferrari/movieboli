@@ -1,0 +1,125 @@
+_app-aadf8a1e0e35117a.js:1 🔍 Auth state changed: SIGNED_IN Object
+_app-aadf8a1e0e35117a.js:1 🔍 Initial user: Object
+_app-aadf8a1e0e35117a.js:1 🔍 Auth state changed: INITIAL_SESSION Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+/api/votes:1  Failed to load resource: the server responded with a status of 500 ()
+vota-96d0231527565feb.js:1 Errore nel gestire il voto: Error: Errore nel salvare il voto
+    at g (vota-96d0231527565feb.js:1:5305)
+    at async T (vota-96d0231527565feb.js:1:6970)
+T @ vota-96d0231527565feb.js:1
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] Controllo admin per: cedolino@powerscrews.com
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] User metadata: Object
+_app-aadf8a1e0e35117a.js:21 🔍 [isUserAdmin] App metadata: Object
+_app-aadf8a1e0e35117a.js:21 ❌ [isUserAdmin] Utente non è admin
+vota:1 The resource https://www.moviebolifilmfestival.it/icons/icon-192x192.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+vota:1 The resource https://www.moviebolifilmfestival.it/icons/icon-192x192.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+ 🔍 Auth state changed: SIGNED_IN {access_token: 'eyJhbGciOiJIUzI1NiIsImtpZCI6Iml4WmkvRjhDZitKa1l6TT…xzZX0.Dw04HUmtpI5O_L1J9iQoLECd_ebcoC0Su4W340IYP5c', token_type: 'bearer', expires_in: 3600, expires_at: 1755965228, refresh_token: 'dr7gt3hz4twd', …}
+vota:1 The resource https://www.moviebolifilmfestival.it/icons/icon-192x192.png was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+ 🔍 Auth state changed: SIGNED_IN {access_token: 'eyJhbGciOiJIUzI1NiIsImtpZCI6Iml4WmkvRjhDZitKa1l6TT…xzZX0.Dw04HUmtpI5O_L1J9iQoLECd_ebcoC0Su4W340IYP5c', token_type: 'bearer', expires_in: 3600, expires_at: 1755965228, refresh_token: 'dr7gt3hz4twd', …}

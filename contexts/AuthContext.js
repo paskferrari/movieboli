@@ -22,7 +22,10 @@ export const AuthProvider = ({ children }) => {
     const getInitialSession = async () => {
       try {
         const user = await getCurrentUser()
-        console.log('🔍 Initial user:', user)
+        // Rimuovere le righe 25, 48, 91:
+        // console.log('🔍 Initial user:', user)
+        // console.log('🔍 Auth state changed:', event, session)
+        // console.log('🔍 Login successful, updating state:', data.user)
         setUser(user)
         setSession(user ? { user } : null)
         setIsAuthenticated(!!user) // Aggiorna esplicitamente
